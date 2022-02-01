@@ -1,11 +1,24 @@
-# LiquidBounce
-A free mixin-based injection hacked-client for Minecraft using Minecraft Forge.
+<h1 align="center">
+    LiquidCat
+</h1>
 
-Website: https://liquidbounce.net \
-Forum: https://forum.ccbluex.net/index.php \
-Discord: https://discord.gg/gdQ82He \
-YouTube: https://youtube.com/CCBlueX \
-Twitter: https://twitter.com/CCBlueX 
+<p align="center">
+    LiquidCat is a free and open source mixin-based injection hacked client using Forge for Minecraft 1.8.9.
+</p>
+
+<div align="center">
+    <a href="https://discord.gg/asCkVB9Gj3"><img src="https://img.shields.io/discord/937649672284164126?color=%23141515&label=Discord&logo=Discord&logoColor=white&labelColor=%235865F2" alt="Discord"/></a>
+    <br>
+    <img src="https://img.shields.io/github/last-commit/Cat-Lovers-Organization/LiquidCat?label=Last%20commit&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Last commit"/>
+    <img src="https://img.shields.io/github/contributors/Cat-Lovers-Organization/LiquidCat?label=Contributors&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Contributors"/>
+    <br>
+    <img src="https://img.shields.io/github/languages/code-size/Cat-Lovers-Organization/LiquidCat?label=Code%20size&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Code size">
+    <img src="https://img.shields.io/tokei/lines/github/Cat-Lovers-Organization/LiquidCat?label=Lines%20of%20code&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Lines of code"/>
+</div>
+
+## Thanks to
+- [CCBlueX](https://github.com/CCBlueX) for original [LiquidBounce](https://github.com/CCBlueX/LiquidBounce/tree/legacy)
+- [MinecraftForge](https://github.com/MinecraftForge) for [Forge](https://github.com/MinecraftForge/MinecraftForge)
 
 ## Issues
 If you notice any bugs or missing features, you can let us know by opening an issue [here](https://github.com/CCBlueX/LiquidBounce1.8-Issues/issues).
@@ -16,11 +29,11 @@ This project is subject to the [GNU General Public License v3.0](LICENSE). This 
 For those who are unfamiliar with the license, here is a summary of its main points. This is by no means legal advise nor legally binding.
 
 You are allowed to
-- use
-- share
-- modify
+- Use
+- Share
+- Modify
 
-this project entirely or partially for free and even commercially. However, please consider the following:
+This project entirely or partially for free and even commercially. However, please consider the following:
 
 - **You must disclose the source code of your modified work and the source code you took from this project. This means you are not allowed to use code from this project (even partially) in a closed-source (or even obfuscated) application.**
 - **Your modified application must also be licensed under the GPL** 
@@ -28,8 +41,9 @@ this project entirely or partially for free and even commercially. However, plea
 Do the above and share your source code with everyone; just like we do.
 
 ## Setting up a Workspace
+
 LiquidBounce is using Gradle, so make sure that it is installed properly. Instructions can be found on [Gradle's website](https://gradle.org/install/).
-1. Clone the repository using `git clone https://github.com/CCBlueX/LiquidBounce`. 
+1. Clone the repository using `git clone https://github.com/Cat-Lovers-Organization/LiquidCat`. 
 2. CD into the local repository folder.
 3. Depending on which IDE you are using execute either of the following commands:
     - For IntelliJ: `gradlew --debug setupDevWorkspace idea genIntellijRuns build`
@@ -38,13 +52,12 @@ LiquidBounce is using Gradle, so make sure that it is installed properly. Instru
 5. Select either the Forge or Vanilla run configuration.
 
 ## Additional libraries
+
 ### Mixins
 Mixins can be used to modify classes at runtime before they are loaded. LiquidBounce is using it to inject its code into the Minecraft client. This way, we do not have to ship Mojangs copyrighted code. If you want to learn more about it, check out its [Documentation](https://docs.spongepowered.org/5.1.0/en/plugin/internals/mixins.html).
 
 ## Contributing
 
-We appreciate contributions. So if you want to support us, feel free to make changes to LiquidBounce's source code and submit a pull request. Currently our main goals are the following:
-1. Improve LiquidBounce's performance.
-2. Re-work most of the render code.
+We appreciate contributions. So if you want to support us, feel free to make changes to LiquidBounce's source code and submit a pull request.
 
 If you have experience in one or more of these fields, we would highly appreciate your support.
