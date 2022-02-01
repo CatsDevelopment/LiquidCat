@@ -40,6 +40,16 @@ This project entirely or partially for free and even commercially. However, plea
 
 Do the above and share your source code with everyone; just like we do.
 
+## Contributing
+
+We appreciate contributions. So if you want to support us, feel free to make changes to LiquidCat's source code and submit a pull request.
+
+If you have experience in one or more of these fields, we would highly appreciate your support.
+
+Our main goals right now are to
+- Completely rewrite the original code in [Kotlin](https://kotlinlang.org)
+- Optimize the original code
+
 ## Setting up a Workspace
 
 LiquidBounce is using Gradle, so make sure that it is installed properly. Instructions can be found on [Gradle's website](https://gradle.org/install/).
@@ -55,9 +65,3 @@ LiquidBounce is using Gradle, so make sure that it is installed properly. Instru
 
 ### Mixins
 Mixins can be used to modify classes at runtime before they are loaded. LiquidBounce is using it to inject its code into the Minecraft client. This way, we do not have to ship Mojangs copyrighted code. If you want to learn more about it, check out its [Documentation](https://docs.spongepowered.org/5.1.0/en/plugin/internals/mixins.html).
-
-## Contributing
-
-We appreciate contributions. So if you want to support us, feel free to make changes to LiquidBounce's source code and submit a pull request.
-
-If you have experience in one or more of these fields, we would highly appreciate your support.
