@@ -1,8 +1,22 @@
-.idea/*
-!.idea/runConfigurations/
-*.iml
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
 *.ipr
 *.iws
-/bin/
-/.settings/
-/.gradle/
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
