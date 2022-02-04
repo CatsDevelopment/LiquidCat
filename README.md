@@ -9,11 +9,11 @@
 <div align="center">
     <a href="https://discord.gg/asCkVB9Gj3"><img src="https://img.shields.io/discord/937649672284164126?color=%23141515&label=Discord&logo=Discord&logoColor=white&labelColor=%235865F2" alt="Discord"/></a>
     <br>
-    <img src="https://img.shields.io/github/last-commit/Cat-Lovers-Organization/LiquidCat?label=Last%20commit&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Last commit"/>
-    <img src="https://img.shields.io/github/contributors/Cat-Lovers-Organization/LiquidCat?label=Contributors&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Contributors"/>
+    <img src="https://img.shields.io/github/last-commit/CatsDevelopment/LiquidCat?label=Last%20commit&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Last commit"/>
+    <img src="https://img.shields.io/github/contributors/CatsDevelopment/LiquidCat?label=Contributors&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Contributors"/>
     <br>
-    <img src="https://img.shields.io/github/languages/code-size/Cat-Lovers-Organization/LiquidCat?label=Code%20size&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Code size">
-    <img src="https://img.shields.io/tokei/lines/github/Cat-Lovers-Organization/LiquidCat?label=Lines%20of%20code&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Lines of code"/>
+    <img src="https://img.shields.io/github/languages/code-size/CatsDevelopment/LiquidCat?label=Code%20size&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Code size">
+    <img src="https://img.shields.io/tokei/lines/github/CatsDevelopment/LiquidCat?label=Lines%20of%20code&logo=GitHub&logoColor=white&labelColor=%231b1f23" alt="Lines of code"/>
 </div>
 
 ## Thanks to
@@ -21,7 +21,7 @@
 - [MinecraftForge](https://github.com/MinecraftForge) for [Forge](https://github.com/MinecraftForge/MinecraftForge)
 
 ## Issues
-If you notice any bugs or missing features, you can let us know by opening an issue [here](https://github.com/CCBlueX/LiquidBounce1.8-Issues/issues).
+If you notice any bugs or missing features, you can let us know by opening an issue [here](https://github.com/CatsDevelopment/LiquidCat/issues).
 
 ## License
 This project is subject to the [GNU General Public License v3.0](LICENSE). This does only apply for source code located directly in this clean repository. During the development and compilation process, additional source code may be used to which we have obtained no rights. Such code is not covered by the GPL license.
