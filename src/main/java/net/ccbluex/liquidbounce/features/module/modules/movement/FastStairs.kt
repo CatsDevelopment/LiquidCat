@@ -5,16 +5,16 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement
 
-import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.event.EventTarget
-import net.ccbluex.liquidbounce.event.UpdateEvent
-import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.module.ModuleCategory
-import net.ccbluex.liquidbounce.features.module.ModuleInfo
+import lol.liquidcat.LiquidCat
+import lol.liquidcat.event.EventTarget
+import lol.liquidcat.event.UpdateEvent
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.ccbluex.liquidbounce.utils.block.BlockUtils.getBlock
-import net.ccbluex.liquidbounce.value.BoolValue
-import net.ccbluex.liquidbounce.value.ListValue
+import lol.liquidcat.value.BoolValue
+import lol.liquidcat.value.ListValue
 import net.minecraft.block.BlockStairs
 import net.minecraft.util.BlockPos
 
@@ -30,7 +30,7 @@ class FastStairs : Module() {
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if (!MovementUtils.isMoving() || LiquidBounce.moduleManager[Speed::class.java]!!.state)
+        if (!MovementUtils.isMoving() || LiquidCat.moduleManager[Speed::class.java]!!.state)
             return
 
         if (mc.thePlayer.fallDistance > 0 && !walkingDown)

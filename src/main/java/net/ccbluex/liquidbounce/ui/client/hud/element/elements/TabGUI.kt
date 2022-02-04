@@ -5,9 +5,9 @@
  */
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
-import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.module.ModuleCategory
+import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
@@ -16,10 +16,10 @@ import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
-import net.ccbluex.liquidbounce.value.BoolValue
-import net.ccbluex.liquidbounce.value.FloatValue
-import net.ccbluex.liquidbounce.value.FontValue
-import net.ccbluex.liquidbounce.value.IntegerValue
+import lol.liquidcat.value.BoolValue
+import lol.liquidcat.value.FloatValue
+import lol.liquidcat.value.FontValue
+import lol.liquidcat.value.IntegerValue
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.input.Keyboard
@@ -66,7 +66,7 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
         for (category in ModuleCategory.values()) {
             val tab = Tab(category.displayName)
 
-            LiquidBounce.moduleManager.modules
+            LiquidCat.moduleManager.modules
                     .filter { module: Module -> category == module.category }
                     .forEach { e: Module -> tab.modules.add(e) }
 

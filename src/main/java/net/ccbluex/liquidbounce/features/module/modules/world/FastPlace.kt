@@ -5,10 +5,10 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.world
 
-import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.module.ModuleCategory
-import net.ccbluex.liquidbounce.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.value.IntegerValue
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.value.IntegerValue
 
 @ModuleInfo(name = "FastPlace", description = "Allows you to place blocks faster.", category = ModuleCategory.WORLD)
 class FastPlace : Module() {

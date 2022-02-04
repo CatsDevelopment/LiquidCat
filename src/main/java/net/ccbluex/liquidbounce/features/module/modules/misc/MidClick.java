@@ -5,12 +5,12 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.misc;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.Render2DEvent;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.Render2DEvent;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
 import net.ccbluex.liquidbounce.file.configs.FriendsConfig;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;
@@ -33,15 +33,15 @@ public class MidClick extends Module {
 
             if(entity instanceof EntityPlayer) {
                 final String playerName = ColorUtils.stripColor(entity.getName());
-                final FriendsConfig friendsConfig = LiquidBounce.fileManager.friendsConfig;
+                final FriendsConfig friendsConfig = LiquidCat.fileManager.friendsConfig;
 
                 if(!friendsConfig.isFriend(playerName)) {
                     friendsConfig.addFriend(playerName);
-                    LiquidBounce.fileManager.saveConfig(friendsConfig);
+                    LiquidCat.fileManager.saveConfig(friendsConfig);
                     ClientUtils.displayChatMessage("§a§l" + playerName + "§c was added to your friends.");
                 }else{
                     friendsConfig.removeFriend(playerName);
-                    LiquidBounce.fileManager.saveConfig(friendsConfig);
+                    LiquidCat.fileManager.saveConfig(friendsConfig);
                     ClientUtils.displayChatMessage("§a§l" + playerName + "§c was removed from your friends.");
                 }
             }else

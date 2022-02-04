@@ -7,7 +7,7 @@ package net.ccbluex.liquidbounce.file;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.ccbluex.liquidbounce.LiquidBounce;
+import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.file.configs.*;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
@@ -25,7 +25,7 @@ import java.lang.reflect.Field;
 @SideOnly(Side.CLIENT)
 public class FileManager extends MinecraftInstance {
 
-    public final File dir = new File(mc.mcDataDir, LiquidBounce.CLIENT_NAME + "-1.8");
+    public final File dir = new File(mc.mcDataDir, LiquidCat.CLIENT_NAME + "-1.8");
     public final File fontsDir = new File(dir, "fonts");
     public final File settingsDir = new File(dir, "settings");
 
@@ -165,7 +165,7 @@ public class FileManager extends MinecraftInstance {
      * @param ignoreStarting check starting
      */
     private void saveConfig(final FileConfig config, final boolean ignoreStarting) {
-        if (!ignoreStarting && LiquidBounce.INSTANCE.isStarting())
+        if (!ignoreStarting && LiquidCat.INSTANCE.isStarting())
             return;
 
         try {
@@ -191,8 +191,8 @@ public class FileManager extends MinecraftInstance {
                 if(bufferedImage == null)
                     return;
 
-                LiquidBounce.INSTANCE.setBackground(new ResourceLocation(LiquidBounce.CLIENT_NAME.toLowerCase() + "/background.png"));
-                mc.getTextureManager().loadTexture(LiquidBounce.INSTANCE.getBackground(), new DynamicTexture(bufferedImage));
+                LiquidCat.INSTANCE.setBackground(new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/background.png"));
+                mc.getTextureManager().loadTexture(LiquidCat.INSTANCE.getBackground(), new DynamicTexture(bufferedImage));
                 ClientUtils.getLogger().info("[FileManager] Loaded background.");
             }catch(final Exception e) {
                 ClientUtils.getLogger().error("[FileManager] Failed to load background.", e);

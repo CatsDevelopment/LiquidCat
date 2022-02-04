@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.ui.client;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
+import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.features.special.AntiForge;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.minecraft.client.gui.GuiButton;
@@ -43,22 +43,22 @@ public class GuiAntiForge extends GuiScreen {
             case 1:
                 AntiForge.enabled = !AntiForge.enabled;
                 enabledButton.displayString = "Enabled (" + (AntiForge.enabled ? "On" : "Off") + ")";
-                LiquidBounce.fileManager.saveConfig(LiquidBounce.fileManager.valuesConfig);
+                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.valuesConfig);
                 break;
             case 2:
                 AntiForge.blockFML = !AntiForge.blockFML;
                 fmlButton.displayString = "Block FML (" + (AntiForge.blockFML ? "On" : "Off") + ")";
-                LiquidBounce.fileManager.saveConfig(LiquidBounce.fileManager.valuesConfig);
+                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.valuesConfig);
                 break;
             case 3:
                 AntiForge.blockProxyPacket = !AntiForge.blockProxyPacket;
                 proxyButton.displayString = "Block FML Proxy Packet (" + (AntiForge.blockProxyPacket ? "On" : "Off") + ")";
-                LiquidBounce.fileManager.saveConfig(LiquidBounce.fileManager.valuesConfig);
+                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.valuesConfig);
                 break;
             case 4:
                 AntiForge.blockPayloadPackets = !AntiForge.blockPayloadPackets;
                 payloadButton.displayString = "Block Payload Packets (" + (AntiForge.blockPayloadPackets ? "On" : "Off") + ")";
-                LiquidBounce.fileManager.saveConfig(LiquidBounce.fileManager.valuesConfig);
+                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.valuesConfig);
                 break;
             case 0:
                 mc.displayGuiScreen(prevGui);

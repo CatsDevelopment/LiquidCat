@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.script
 
-import net.ccbluex.liquidbounce.LiquidBounce
+import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import java.io.File
 import java.io.FileFilter
@@ -14,7 +14,7 @@ class ScriptManager {
 
     val scripts = mutableListOf<Script>()
 
-    val scriptsFolder = File(LiquidBounce.fileManager.dir, "scripts")
+    val scriptsFolder = File(LiquidCat.fileManager.dir, "scripts")
     private val scriptFileExtension = ".js"
 
     /**

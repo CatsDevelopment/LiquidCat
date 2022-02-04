@@ -6,11 +6,9 @@
 package net.ccbluex.liquidbounce.features.special;
 
 import io.netty.buffer.Unpooled;
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.Listenable;
-import net.ccbluex.liquidbounce.event.PacketEvent;
-import net.ccbluex.liquidbounce.features.module.ModuleManager;
-import net.ccbluex.liquidbounce.features.module.modules.world.Scaffold;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.Listenable;
+import lol.liquidcat.event.PacketEvent;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;

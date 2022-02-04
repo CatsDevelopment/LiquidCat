@@ -5,11 +5,11 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement
 
-import net.ccbluex.liquidbounce.event.EventTarget
-import net.ccbluex.liquidbounce.event.UpdateEvent
-import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.module.ModuleCategory
-import net.ccbluex.liquidbounce.features.module.ModuleInfo
+import lol.liquidcat.event.EventTarget
+import lol.liquidcat.event.UpdateEvent
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.utils.block.BlockUtils
 import net.minecraft.block.BlockLadder
 import net.minecraft.block.BlockVine

@@ -5,11 +5,11 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.render
 
-import net.ccbluex.liquidbounce.event.EventTarget
-import net.ccbluex.liquidbounce.event.Render3DEvent
-import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.module.ModuleCategory
-import net.ccbluex.liquidbounce.features.module.ModuleInfo
+import lol.liquidcat.event.EventTarget
+import lol.liquidcat.event.Render3DEvent
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.entity.item.EntityTNTPrimed
 import java.awt.Color

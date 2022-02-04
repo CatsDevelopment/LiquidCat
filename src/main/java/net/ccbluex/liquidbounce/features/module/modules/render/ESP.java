@@ -5,12 +5,12 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.render;
 
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.Render2DEvent;
-import net.ccbluex.liquidbounce.event.Render3DEvent;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.Render2DEvent;
+import lol.liquidcat.event.Render3DEvent;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
 import net.ccbluex.liquidbounce.ui.font.GameFontRenderer;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.EntityUtils;
@@ -20,10 +20,10 @@ import net.ccbluex.liquidbounce.utils.render.WorldToScreen;
 import net.ccbluex.liquidbounce.utils.render.shader.FramebufferShader;
 import net.ccbluex.liquidbounce.utils.render.shader.shaders.GlowShader;
 import net.ccbluex.liquidbounce.utils.render.shader.shaders.OutlineShader;
-import net.ccbluex.liquidbounce.value.BoolValue;
-import net.ccbluex.liquidbounce.value.FloatValue;
-import net.ccbluex.liquidbounce.value.IntegerValue;
-import net.ccbluex.liquidbounce.value.ListValue;
+import lol.liquidcat.value.BoolValue;
+import lol.liquidcat.value.FloatValue;
+import lol.liquidcat.value.IntegerValue;
+import lol.liquidcat.value.ListValue;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;

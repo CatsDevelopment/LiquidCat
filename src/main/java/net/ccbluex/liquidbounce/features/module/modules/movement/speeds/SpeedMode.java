@@ -5,8 +5,8 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement.speeds;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.MoveEvent;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.MoveEvent;
 import net.ccbluex.liquidbounce.features.module.modules.movement.Speed;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 import net.minecraftforge.fml.relauncher.Side;
@@ -22,7 +22,7 @@ public abstract class SpeedMode extends MinecraftInstance {
     }
 
     public boolean isActive() {
-        final Speed speed = ((Speed) LiquidBounce.moduleManager.getModule(Speed.class));
+        final Speed speed = ((Speed) LiquidCat.moduleManager.getModule(Speed.class));
 
         return speed != null && !mc.thePlayer.isSneaking() && speed.getState() && speed.modeValue.get().equals(modeName);
     }

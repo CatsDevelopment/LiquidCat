@@ -1,11 +1,11 @@
 [
   {
-    "modid": "liquidbounce",
-    "name": "LiquidBounce",
+    "modid": "liquidcat",
+    "name": "LiquidCat",
     "description": "",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "https://liquidbounce.net",
+    "url": "https://github.com/Cat-Lovers-Organization/LiquidCat",
     "updateUrl": "",
     "authorList": ["CCBlueX"],
     "credits": "",

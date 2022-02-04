@@ -5,10 +5,10 @@
  */
 package net.ccbluex.liquidbounce.utils;
 
-import net.ccbluex.liquidbounce.event.ClickWindowEvent;
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.Listenable;
-import net.ccbluex.liquidbounce.event.PacketEvent;
+import lol.liquidcat.event.ClickWindowEvent;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.Listenable;
+import lol.liquidcat.event.PacketEvent;
 import net.ccbluex.liquidbounce.utils.timer.MSTimer;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

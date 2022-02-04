@@ -5,11 +5,13 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.world;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.*;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
+import lol.liquidcat.event.*;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
+import lol.liquidcat.utils.PlaceRotation;
+import lol.liquidcat.utils.Rotation;
 import net.ccbluex.liquidbounce.features.module.modules.render.BlockOverlay;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.utils.*;
@@ -18,10 +20,10 @@ import net.ccbluex.liquidbounce.utils.block.PlaceInfo;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.ccbluex.liquidbounce.utils.timer.MSTimer;
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils;
-import net.ccbluex.liquidbounce.value.BoolValue;
-import net.ccbluex.liquidbounce.value.FloatValue;
-import net.ccbluex.liquidbounce.value.IntegerValue;
-import net.ccbluex.liquidbounce.value.ListValue;
+import lol.liquidcat.value.BoolValue;
+import lol.liquidcat.value.FloatValue;
+import lol.liquidcat.value.IntegerValue;
+import lol.liquidcat.value.ListValue;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.settings.GameSettings;
@@ -415,7 +417,7 @@ public class Scaffold extends Module {
         if (counterDisplayValue.get()) {
             GlStateManager.pushMatrix();
 
-            final BlockOverlay blockOverlay = (BlockOverlay) LiquidBounce.moduleManager.getModule(BlockOverlay.class);
+            final BlockOverlay blockOverlay = (BlockOverlay) LiquidCat.moduleManager.getModule(BlockOverlay.class);
             if (blockOverlay.getState() && blockOverlay.getInfoValue().get() && blockOverlay.getCurrentBlock() != null)
                 GlStateManager.translate(0, 15F, 0);
 

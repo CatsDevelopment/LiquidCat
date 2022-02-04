@@ -5,17 +5,17 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.misc;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.TextEvent;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.TextEvent;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
 import net.ccbluex.liquidbounce.file.configs.FriendsConfig;
 import net.ccbluex.liquidbounce.utils.misc.StringUtils;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;
-import net.ccbluex.liquidbounce.value.BoolValue;
-import net.ccbluex.liquidbounce.value.TextValue;
+import lol.liquidcat.value.BoolValue;
+import lol.liquidcat.value.TextValue;
 import net.minecraft.client.network.NetworkPlayerInfo;
 
 @ModuleInfo(name = "NameProtect", description = "Changes playernames clientside.", category = ModuleCategory.MISC)
@@ -27,10 +27,10 @@ public class NameProtect extends Module {
 
     @EventTarget(ignoreCondition = true)
     public void onText(final TextEvent event) {
-        if(mc.thePlayer == null || event.getText().contains("§8[§9§l" + LiquidBounce.CLIENT_NAME + "§8] §3"))
+        if(mc.thePlayer == null || event.getText().contains("§8[§9§l" + LiquidCat.CLIENT_NAME + "§8] §3"))
             return;
 
-        for (final FriendsConfig.Friend friend : LiquidBounce.fileManager.friendsConfig.getFriends())
+        for (final FriendsConfig.Friend friend : LiquidCat.fileManager.friendsConfig.getFriends())
             event.setText(StringUtils.replace(event.getText(), friend.getPlayerName(), ColorUtils.translateAlternateColorCodes(friend.getAlias()) + "§f"));
 
         if(!getState())

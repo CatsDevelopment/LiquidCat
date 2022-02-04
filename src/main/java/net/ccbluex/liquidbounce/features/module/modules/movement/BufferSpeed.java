@@ -5,18 +5,18 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.PacketEvent;
-import net.ccbluex.liquidbounce.event.UpdateEvent;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.PacketEvent;
+import lol.liquidcat.event.UpdateEvent;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
 import net.ccbluex.liquidbounce.utils.MovementUtils;
 import net.ccbluex.liquidbounce.utils.block.BlockUtils;
-import net.ccbluex.liquidbounce.value.BoolValue;
-import net.ccbluex.liquidbounce.value.FloatValue;
-import net.ccbluex.liquidbounce.value.ListValue;
+import lol.liquidcat.value.BoolValue;
+import lol.liquidcat.value.FloatValue;
+import lol.liquidcat.value.ListValue;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockSlime;
@@ -66,7 +66,7 @@ public class BufferSpeed extends Module {
 
     @EventTarget
     public void onUpdate(final UpdateEvent event) {
-        if (LiquidBounce.moduleManager.getModule(Speed.class).getState() || (noHurtValue.get() && mc.thePlayer.hurtTime > 0)) {
+        if (LiquidCat.moduleManager.getModule(Speed.class).getState() || (noHurtValue.get() && mc.thePlayer.hurtTime > 0)) {
             reset();
             return;
         }

@@ -5,9 +5,9 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement.speeds.aac;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.JumpEvent;
-import net.ccbluex.liquidbounce.event.MoveEvent;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.JumpEvent;
+import lol.liquidcat.event.MoveEvent;
 import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.SpeedMode;
 import net.ccbluex.liquidbounce.utils.MovementUtils;
 import net.ccbluex.liquidbounce.utils.block.BlockUtils;
@@ -37,7 +37,7 @@ public class AACHop3313 extends SpeedMode {
             mc.thePlayer.motionX -= MathHelper.sin(yawRad) * 0.202F;
             mc.thePlayer.motionZ += MathHelper.cos(yawRad) * 0.202F;
             mc.thePlayer.motionY = 0.405F;
-            LiquidBounce.eventManager.callEvent(new JumpEvent(0.405F));
+            LiquidCat.eventManager.callEvent(new JumpEvent(0.405F));
             MovementUtils.strafe();
         } else if (mc.thePlayer.fallDistance < 0.31F) {
             if (BlockUtils.getBlock(mc.thePlayer.getPosition()) instanceof BlockCarpet) // why?

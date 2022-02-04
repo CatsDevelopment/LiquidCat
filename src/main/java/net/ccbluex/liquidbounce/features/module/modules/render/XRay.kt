@@ -5,11 +5,11 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.render
 
-import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.features.command.Command
-import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.module.ModuleCategory
-import net.ccbluex.liquidbounce.features.module.ModuleInfo
+import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleInfo
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 
@@ -53,7 +53,7 @@ class XRay : Module() {
     )
 
     init {
-        LiquidBounce.commandManager.registerCommand(object : Command("xray", emptyArray()) {
+        LiquidCat.commandManager.registerCommand(object : lol.liquidcat.features.command.Command("xray", emptyArray()) {
 
             override fun execute(args: Array<String>) {
                 if (args.size > 1) {
@@ -79,7 +79,7 @@ class XRay : Module() {
                                 }
 
                                 xrayBlocks.add(block)
-                                LiquidBounce.fileManager.saveConfig(LiquidBounce.fileManager.xrayConfig)
+                                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.xrayConfig)
                                 chat("§7Added block §8${block.localizedName}§7.")
                                 playEdit()
                             } catch (exception: NumberFormatException) {
@@ -115,7 +115,7 @@ class XRay : Module() {
                                 }
 
                                 xrayBlocks.remove(block)
-                                LiquidBounce.fileManager.saveConfig(LiquidBounce.fileManager.xrayConfig)
+                                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.xrayConfig)
                                 chat("§7Removed block §8${block.localizedName}§7.")
                                 playEdit()
                             } catch (exception: NumberFormatException) {

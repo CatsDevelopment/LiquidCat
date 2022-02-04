@@ -5,14 +5,15 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.world
 
-import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.event.EventTarget
-import net.ccbluex.liquidbounce.event.Render3DEvent
-import net.ccbluex.liquidbounce.event.UpdateEvent
-import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.module.ModuleCategory
-import net.ccbluex.liquidbounce.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.features.module.modules.combat.KillAura
+import lol.liquidcat.LiquidCat
+import lol.liquidcat.event.EventTarget
+import lol.liquidcat.event.Render3DEvent
+import lol.liquidcat.event.UpdateEvent
+import lol.liquidcat.value.*
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.features.module.modules.combat.KillAura
 import net.ccbluex.liquidbounce.features.module.modules.player.AutoTool
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.block.BlockUtils.getBlock
@@ -23,7 +24,6 @@ import net.ccbluex.liquidbounce.utils.block.BlockUtils.searchBlocks
 import net.ccbluex.liquidbounce.utils.extensions.getBlock
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
-import net.ccbluex.liquidbounce.value.*
 import net.minecraft.block.Block
 import net.minecraft.block.BlockAir
 import net.minecraft.network.play.client.C07PacketPlayerDigging
@@ -64,7 +64,7 @@ object Fucker : Module() {
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (noHitValue.get()) {
-            val killAura = LiquidBounce.moduleManager.getModule(KillAura::class.java) as KillAura
+            val killAura = LiquidCat.moduleManager.getModule(KillAura::class.java) as KillAura
 
             if (killAura.state && killAura.target != null)
                 return
@@ -128,7 +128,7 @@ object Fucker : Module() {
             // Destory block
             actionValue.get().equals("destroy", true) || surroundings -> {
                 // Auto Tool
-                val autoTool = LiquidBounce.moduleManager[AutoTool::class.java] as AutoTool
+                val autoTool = LiquidCat.moduleManager[AutoTool::class.java] as AutoTool
                 if (autoTool.state)
                     autoTool.switchSlot(currentPos)
 

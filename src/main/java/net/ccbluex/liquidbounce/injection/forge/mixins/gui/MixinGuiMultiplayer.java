@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
+import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.features.special.BungeeCordSpoof;
 import net.ccbluex.liquidbounce.ui.client.GuiAntiForge;
 import net.ccbluex.liquidbounce.ui.client.tools.GuiTools;
@@ -38,7 +38,7 @@ public abstract class MixinGuiMultiplayer extends MixinGuiScreen {
             case 998:
                 BungeeCordSpoof.enabled = !BungeeCordSpoof.enabled;
                 bungeeCordSpoofButton.displayString = "BungeeCord Spoof: " + (BungeeCordSpoof.enabled ? "On" : "Off");
-                LiquidBounce.fileManager.saveConfig(LiquidBounce.fileManager.valuesConfig);
+                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.valuesConfig);
                 break;
             case 999:
                 mc.displayGuiScreen(new GuiTools((GuiScreen) (Object) this));

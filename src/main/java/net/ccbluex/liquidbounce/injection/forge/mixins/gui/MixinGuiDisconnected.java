@@ -11,8 +11,8 @@ import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 import com.thealtening.AltService;
 import com.thealtening.api.TheAltening;
 import com.thealtening.api.data.AccountData;
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.SessionEvent;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.SessionEvent;
 import net.ccbluex.liquidbounce.features.special.AntiForge;
 import net.ccbluex.liquidbounce.features.special.AutoReconnect;
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager;
@@ -80,11 +80,11 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
 
                         final YggdrasilUserAuthentication yggdrasilUserAuthentication = new YggdrasilUserAuthentication(new YggdrasilAuthenticationService(Proxy.NO_PROXY, ""), Agent.MINECRAFT);
                         yggdrasilUserAuthentication.setUsername(account.getToken());
-                        yggdrasilUserAuthentication.setPassword(LiquidBounce.CLIENT_NAME);
+                        yggdrasilUserAuthentication.setPassword(LiquidCat.CLIENT_NAME);
                         yggdrasilUserAuthentication.logIn();
 
                         mc.session = new Session(yggdrasilUserAuthentication.getSelectedProfile().getName(), yggdrasilUserAuthentication.getSelectedProfile().getId().toString(), yggdrasilUserAuthentication.getAuthenticatedToken(), "mojang");
-                        LiquidBounce.eventManager.callEvent(new SessionEvent());
+                        LiquidCat.eventManager.callEvent(new SessionEvent());
                         ServerUtils.connectToLastServer();
                         break;
                     } catch (final Throwable throwable) {
@@ -92,7 +92,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
                     }
                 }
 
-                final List<MinecraftAccount> accounts = LiquidBounce.fileManager.accountsConfig.altManagerMinecraftAccounts;
+                final List<MinecraftAccount> accounts = LiquidCat.fileManager.accountsConfig.altManagerMinecraftAccounts;
                 if (accounts.isEmpty()) break;
 
                 final MinecraftAccount minecraftAccount = accounts.get(new Random().nextInt(accounts.size()));
@@ -106,7 +106,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
             case 5:
                 AntiForge.enabled = !AntiForge.enabled;
                 forgeBypassButton.displayString = "Bypass AntiForge: " + (AntiForge.enabled ? "On" : "Off");
-                LiquidBounce.fileManager.saveConfig(LiquidBounce.fileManager.valuesConfig);
+                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.valuesConfig);
                 break;
         }
     }

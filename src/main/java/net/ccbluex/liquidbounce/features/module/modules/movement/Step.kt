@@ -5,17 +5,17 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement
 
-import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.event.*
-import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.module.ModuleCategory
-import net.ccbluex.liquidbounce.features.module.ModuleInfo
+import lol.liquidcat.event.*
+import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.module.modules.exploit.Phase
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
-import net.ccbluex.liquidbounce.value.FloatValue
-import net.ccbluex.liquidbounce.value.IntegerValue
-import net.ccbluex.liquidbounce.value.ListValue
+import lol.liquidcat.value.FloatValue
+import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.ListValue
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.stats.StatList
 import net.minecraft.util.MathHelper
@@ -148,13 +148,13 @@ class Step : Module() {
         mc.thePlayer ?: return
 
         // Phase should disable step
-        if (LiquidBounce.moduleManager[Phase::class.java]!!.state) {
+        if (LiquidCat.moduleManager[Phase::class.java]!!.state) {
             event.stepHeight = 0F
             return
         }
 
         // Some fly modes should disable step
-        val fly = LiquidBounce.moduleManager[Fly::class.java] as Fly
+        val fly = LiquidCat.moduleManager[Fly::class.java] as Fly
         if (fly.state) {
             val flyMode = fly.modeValue.get()
 

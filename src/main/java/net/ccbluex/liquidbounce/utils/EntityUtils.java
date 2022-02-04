@@ -5,8 +5,8 @@
  */
 package net.ccbluex.liquidbounce.utils;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.features.module.modules.combat.NoFriends;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.features.module.modules.combat.NoFriends;
 import net.ccbluex.liquidbounce.features.module.modules.misc.AntiBot;
 import net.ccbluex.liquidbounce.features.module.modules.misc.Teams;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;
@@ -46,13 +46,13 @@ public final class EntityUtils extends MinecraftInstance {
                         if(AntiBot.isBot(entityPlayer))
                             return false;
 
-                        if (isFriend(entityPlayer) && !LiquidBounce.moduleManager.getModule(NoFriends.class).getState())
+                        if (isFriend(entityPlayer) && !LiquidCat.moduleManager.getModule(NoFriends.class).getState())
                             return false;
 
                         if(entityPlayer.isSpectator())
                             return false;
 
-                        final Teams teams = (Teams) LiquidBounce.moduleManager.getModule(Teams.class);
+                        final Teams teams = (Teams) LiquidCat.moduleManager.getModule(Teams.class);
                         return !teams.getState() || !teams.isInYourTeam(entityPlayer);
                     }
 
@@ -68,7 +68,7 @@ public final class EntityUtils extends MinecraftInstance {
 
     public static boolean isFriend(final Entity entity) {
         return entity instanceof EntityPlayer && entity.getName() != null &&
-                LiquidBounce.fileManager.friendsConfig.isFriend(ColorUtils.stripColor(entity.getName()));
+                LiquidCat.fileManager.friendsConfig.isFriend(ColorUtils.stripColor(entity.getName()));
     }
 
     public static boolean isAnimal(final Entity entity) {

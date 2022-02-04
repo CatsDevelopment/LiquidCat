@@ -5,13 +5,13 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.render;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.*;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
+import lol.liquidcat.event.*;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner;
-import net.ccbluex.liquidbounce.value.BoolValue;
+import lol.liquidcat.value.BoolValue;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -34,17 +34,17 @@ public class HUD extends Module {
         if (mc.currentScreen instanceof GuiHudDesigner)
             return;
 
-        LiquidBounce.hud.render(false);
+        LiquidCat.hud.render(false);
     }
 
     @EventTarget
     public void onUpdate(final UpdateEvent event) {
-        LiquidBounce.hud.update();
+        LiquidCat.hud.update();
     }
 
     @EventTarget
     public void onKey(final KeyEvent event) {
-        LiquidBounce.hud.handleKey('a', event.getKey());
+        LiquidCat.hud.handleKey('a', event.getKey());
     }
 
     @EventTarget(ignoreCondition = true)
@@ -54,7 +54,7 @@ public class HUD extends Module {
 
         if (getState() && blurValue.get() && !mc.entityRenderer.isShaderActive() && event.getGuiScreen() != null &&
                 !(event.getGuiScreen() instanceof GuiChat || event.getGuiScreen() instanceof GuiHudDesigner))
-            mc.entityRenderer.loadShader(new ResourceLocation(LiquidBounce.CLIENT_NAME.toLowerCase() + "/blur.json"));
+            mc.entityRenderer.loadShader(new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/blur.json"));
         else if (mc.entityRenderer.getShaderGroup() != null &&
                 mc.entityRenderer.getShaderGroup().getShaderGroupName().contains("liquidbounce/blur.json"))
             mc.entityRenderer.stopUseShader();

@@ -5,9 +5,9 @@
  */
 package net.ccbluex.liquidbounce.features.special;
 
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.Listenable;
-import net.ccbluex.liquidbounce.event.PacketEvent;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.Listenable;
+import lol.liquidcat.event.PacketEvent;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 import net.minecraft.network.EnumConnectionState;
 import net.minecraft.network.Packet;

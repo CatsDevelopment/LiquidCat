@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.file.configs;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
+import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.file.FileConfig;
 import net.ccbluex.liquidbounce.ui.client.hud.Config;
 import org.apache.commons.io.FileUtils;
@@ -33,8 +33,8 @@ public class HudConfig extends FileConfig {
      */
     @Override
     protected void loadConfig() throws IOException {
-        LiquidBounce.hud.clearElements();
-        LiquidBounce.hud = new Config(FileUtils.readFileToString(getFile())).toHUD();
+        LiquidCat.hud.clearElements();
+        LiquidCat.hud = new Config(FileUtils.readFileToString(getFile())).toHUD();
     }
 
     /**
@@ -45,7 +45,7 @@ public class HudConfig extends FileConfig {
     @Override
     protected void saveConfig() throws IOException {
         final PrintWriter printWriter = new PrintWriter(new FileWriter(getFile()));
-        printWriter.println(new Config(LiquidBounce.hud).toJson());
+        printWriter.println(new Config(LiquidCat.hud).toJson());
         printWriter.close();
     }
 }

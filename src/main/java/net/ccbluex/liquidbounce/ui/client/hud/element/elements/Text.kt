@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
-import net.ccbluex.liquidbounce.LiquidBounce
+import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
@@ -16,10 +16,10 @@ import net.ccbluex.liquidbounce.utils.CPSCounter
 import net.ccbluex.liquidbounce.utils.EntityUtils
 import net.ccbluex.liquidbounce.utils.ServerUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils
-import net.ccbluex.liquidbounce.value.BoolValue
-import net.ccbluex.liquidbounce.value.FontValue
-import net.ccbluex.liquidbounce.value.IntegerValue
-import net.ccbluex.liquidbounce.value.TextValue
+import lol.liquidcat.value.BoolValue
+import lol.liquidcat.value.FontValue
+import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.TextValue
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ChatAllowedCharacters
 import org.lwjgl.input.Keyboard
@@ -101,9 +101,9 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F,
 
         return when (str) {
             "username" -> mc.getSession().username
-            "clientName" -> LiquidBounce.CLIENT_NAME
-            "clientVersion" -> "b${LiquidBounce.CLIENT_VERSION}"
-            "clientCreator" -> LiquidBounce.CLIENT_CREATOR
+            "clientName" -> LiquidCat.CLIENT_NAME
+            "clientVersion" -> "b${LiquidCat.CLIENT_VERSION}"
+            "clientCreator" -> LiquidCat.CLIENT_CREATOR
             "fps" -> Minecraft.getDebugFPS().toString()
             "date" -> DATE_FORMAT.format(System.currentTimeMillis())
             "time" -> HOUR_FORMAT.format(System.currentTimeMillis())

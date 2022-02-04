@@ -5,21 +5,21 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.misc
 
-import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.chat.Client
-import net.ccbluex.liquidbounce.chat.packet.packets.*
-import net.ccbluex.liquidbounce.event.EventTarget
-import net.ccbluex.liquidbounce.event.SessionEvent
-import net.ccbluex.liquidbounce.event.UpdateEvent
-import net.ccbluex.liquidbounce.features.command.Command
-import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.module.ModuleCategory
-import net.ccbluex.liquidbounce.features.module.ModuleInfo
+import lol.liquidcat.LiquidCat
+import lol.liquidcat.chat.Client
+import lol.liquidcat.chat.packet.packets.*
+import lol.liquidcat.event.EventTarget
+import lol.liquidcat.event.SessionEvent
+import lol.liquidcat.event.UpdateEvent
+import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.login.UserUtils
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
-import net.ccbluex.liquidbounce.value.BoolValue
+import lol.liquidcat.value.BoolValue
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting
@@ -169,7 +169,7 @@ class LiquidChat : Module() {
     private val connectTimer = MSTimer()
 
     init {
-        LiquidBounce.commandManager.registerCommand(object : Command("chat", arrayOf("lc", "irc")) {
+        LiquidCat.commandManager.registerCommand(object : lol.liquidcat.features.command.Command("chat", arrayOf("lc", "irc")) {
 
             override fun execute(args: Array<String>) {
                 if(args.size > 1) {
@@ -192,7 +192,7 @@ class LiquidChat : Module() {
 
         })
 
-        LiquidBounce.commandManager.registerCommand(object : Command("pchat", arrayOf("privatechat", "lcpm")) {
+        LiquidCat.commandManager.registerCommand(object : lol.liquidcat.features.command.Command("pchat", arrayOf("privatechat", "lcpm")) {
 
             override fun execute(args: Array<String>) {
                 if(args.size > 2) {
@@ -217,7 +217,7 @@ class LiquidChat : Module() {
 
         })
 
-        LiquidBounce.commandManager.registerCommand(object : Command("chattoken", emptyArray()) {
+        LiquidCat.commandManager.registerCommand(object : lol.liquidcat.features.command.Command("chattoken", emptyArray()) {
 
             override fun execute(args: Array<String>) {
 
@@ -248,7 +248,7 @@ class LiquidChat : Module() {
 
                         args[1].equals("copy", true) -> {
                             if (jwtToken.isEmpty()) {
-                                chat("§cError: §7No token set! Generate one first using '${LiquidBounce.commandManager.prefix}chattoken generate'.")
+                                chat("§cError: §7No token set! Generate one first using '${LiquidCat.commandManager.prefix}chattoken generate'.")
                                 return
                             }
                             val stringSelection = StringSelection(jwtToken)
@@ -262,7 +262,7 @@ class LiquidChat : Module() {
 
         })
 
-        LiquidBounce.commandManager.registerCommand(object : Command("chatadmin", emptyArray()) {
+        LiquidCat.commandManager.registerCommand(object : lol.liquidcat.features.command.Command("chatadmin", emptyArray()) {
 
             override fun execute(args: Array<String>) {
                 if (!state) {

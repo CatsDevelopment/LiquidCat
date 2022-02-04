@@ -5,10 +5,10 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.block;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.BlockBBEvent;
-import net.ccbluex.liquidbounce.features.module.modules.combat.Criticals;
-import net.ccbluex.liquidbounce.features.module.modules.exploit.GhostHand;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.BlockBBEvent;
+import lol.liquidcat.features.module.modules.combat.Criticals;
+import lol.liquidcat.features.module.modules.exploit.GhostHand;
 import net.ccbluex.liquidbounce.features.module.modules.player.NoFall;
 import net.ccbluex.liquidbounce.features.module.modules.render.XRay;
 import net.ccbluex.liquidbounce.features.module.modules.world.NoSlowBreak;
@@ -63,7 +63,7 @@ public abstract class MixinBlock {
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         AxisAlignedBB axisalignedbb = this.getCollisionBoundingBox(worldIn, pos, state);
         BlockBBEvent blockBBEvent = new BlockBBEvent(pos, blockState.getBlock(), axisalignedbb);
-        LiquidBounce.eventManager.callEvent(blockBBEvent);
+        LiquidCat.eventManager.callEvent(blockBBEvent);
         axisalignedbb = blockBBEvent.getBoundingBox();
         if(axisalignedbb != null && mask.intersectsWith(axisalignedbb))
             list.add(axisalignedbb);
@@ -71,7 +71,7 @@ public abstract class MixinBlock {
 
     @Inject(method = "shouldSideBeRendered", at = @At("HEAD"), cancellable = true)
     private void shouldSideBeRendered(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
-        final XRay xray = (XRay) LiquidBounce.moduleManager.getModule(XRay.class);
+        final XRay xray = (XRay) LiquidCat.moduleManager.getModule(XRay.class);
 
         if(xray.getState())
             callbackInfoReturnable.setReturnValue(xray.getXrayBlocks().contains(this));
@@ -79,7 +79,7 @@ public abstract class MixinBlock {
 
     @Inject(method = "isCollidable", at = @At("HEAD"), cancellable = true)
     private void isCollidable(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
-        final GhostHand ghostHand = (GhostHand) LiquidBounce.moduleManager.getModule(GhostHand.class);
+        final GhostHand ghostHand = (GhostHand) LiquidCat.moduleManager.getModule(GhostHand.class);
 
         if (ghostHand.getState() && !(ghostHand.getBlockValue().get() == Block.getIdFromBlock((Block) (Object) this)))
             callbackInfoReturnable.setReturnValue(false);
@@ -87,7 +87,7 @@ public abstract class MixinBlock {
 
     @Inject(method = "getAmbientOcclusionLightValue", at = @At("HEAD"), cancellable = true)
     private void getAmbientOcclusionLightValue(final CallbackInfoReturnable<Float> floatCallbackInfoReturnable) {
-        if (LiquidBounce.moduleManager.getModule(XRay.class).getState())
+        if (LiquidCat.moduleManager.getModule(XRay.class).getState())
             floatCallbackInfoReturnable.setReturnValue(1F);
     }
 
@@ -96,7 +96,7 @@ public abstract class MixinBlock {
         float f = callbackInfo.getReturnValue();
 
         // NoSlowBreak
-        final NoSlowBreak noSlowBreak = (NoSlowBreak) LiquidBounce.moduleManager.getModule(NoSlowBreak.class);
+        final NoSlowBreak noSlowBreak = (NoSlowBreak) LiquidCat.moduleManager.getModule(NoSlowBreak.class);
         if (noSlowBreak.getState()) {
             if (noSlowBreak.getWaterValue().get() && playerIn.isInsideOfMaterial(Material.water) &&
                     !EnchantmentHelper.getAquaAffinityModifier(playerIn)) {
@@ -107,8 +107,8 @@ public abstract class MixinBlock {
                 f *= 5.0F;
             }
         } else if (playerIn.onGround) { // NoGround
-            final NoFall noFall = (NoFall) LiquidBounce.moduleManager.getModule(NoFall.class);
-            final Criticals criticals = (Criticals) LiquidBounce.moduleManager.getModule(Criticals.class);
+            final NoFall noFall = (NoFall) LiquidCat.moduleManager.getModule(NoFall.class);
+            final Criticals criticals = (Criticals) LiquidCat.moduleManager.getModule(Criticals.class);
 
             if (noFall.getState() && noFall.modeValue.get().equalsIgnoreCase("NoGround") ||
                     criticals.getState() && criticals.getModeValue().get().equalsIgnoreCase("NoGround")) {

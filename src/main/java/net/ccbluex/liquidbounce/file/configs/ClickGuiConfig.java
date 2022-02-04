@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.ccbluex.liquidbounce.LiquidBounce;
+import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.file.FileConfig;
 import net.ccbluex.liquidbounce.file.FileManager;
 import net.ccbluex.liquidbounce.ui.client.clickgui.Panel;
@@ -44,7 +44,7 @@ public class ClickGuiConfig extends FileConfig {
 
         final JsonObject jsonObject = (JsonObject) jsonElement;
 
-        for (final Panel panel : LiquidBounce.clickGui.panels) {
+        for (final Panel panel : LiquidCat.clickGui.panels) {
             if(!jsonObject.has(panel.getName()))
                 continue;
 
@@ -88,7 +88,7 @@ public class ClickGuiConfig extends FileConfig {
     protected void saveConfig() throws IOException {
         final JsonObject jsonObject = new JsonObject();
 
-        for (final Panel panel : LiquidBounce.clickGui.panels) {
+        for (final Panel panel : LiquidCat.clickGui.panels) {
             final JsonObject panelObject = new JsonObject();
 
             panelObject.addProperty("open", panel.getOpen());

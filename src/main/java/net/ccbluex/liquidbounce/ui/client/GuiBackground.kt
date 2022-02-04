@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.ui.client
 
-import net.ccbluex.liquidbounce.LiquidBounce
+import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
 import net.minecraft.client.gui.GuiButton
@@ -54,20 +54,20 @@ class GuiBackground(val prevGui: GuiScreen) : GuiScreen() {
                 if (file.isDirectory) return
 
                 try {
-                    Files.copy(file.toPath(), FileOutputStream(LiquidBounce.fileManager.backgroundFile))
+                    Files.copy(file.toPath(), FileOutputStream(LiquidCat.fileManager.backgroundFile))
 
-                    val image = ImageIO.read(FileInputStream(LiquidBounce.fileManager.backgroundFile))
-                    LiquidBounce.background = ResourceLocation(LiquidBounce.CLIENT_NAME.toLowerCase() + "/background.png")
-                    mc.textureManager.loadTexture(LiquidBounce.background, DynamicTexture(image))
+                    val image = ImageIO.read(FileInputStream(LiquidCat.fileManager.backgroundFile))
+                    LiquidCat.background = ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/background.png")
+                    mc.textureManager.loadTexture(LiquidCat.background, DynamicTexture(image))
                 } catch (e: Exception) {
                     e.printStackTrace()
                     MiscUtils.showErrorPopup("Error", "Exception class: " + e.javaClass.name + "\nMessage: " + e.message)
-                    LiquidBounce.fileManager.backgroundFile.delete()
+                    LiquidCat.fileManager.backgroundFile.delete()
                 }
             }
             4 -> {
-                LiquidBounce.background = null
-                LiquidBounce.fileManager.backgroundFile.delete()
+                LiquidCat.background = null
+                LiquidCat.fileManager.backgroundFile.delete()
             }
             0 -> mc.displayGuiScreen(prevGui)
         }

@@ -5,16 +5,17 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement.speeds.aac;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.*;
+import lol.liquidcat.event.*;
+import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.SpeedMode;
 import net.ccbluex.liquidbounce.utils.MovementUtils;
 
-public class AACHop350 extends SpeedMode implements Listenable {
+public class AACHop350 extends SpeedMode implements Listenable
+{
     public AACHop350() {
         super("AACHop3.5.0");
 
-        LiquidBounce.eventManager.registerListener(this);
+        LiquidCat.eventManager.registerListener(this);
     }
 
     @Override

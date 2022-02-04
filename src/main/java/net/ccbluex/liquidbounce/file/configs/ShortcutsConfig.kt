@@ -8,9 +8,9 @@ package net.ccbluex.liquidbounce.file.configs
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.features.command.Command
-import net.ccbluex.liquidbounce.features.command.shortcuts.Shortcut
+import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.command.shortcuts.Shortcut
 import net.ccbluex.liquidbounce.file.FileConfig
 import net.ccbluex.liquidbounce.file.FileManager
 import java.io.File
@@ -36,7 +36,7 @@ class ShortcutsConfig(file: File) : FileConfig(file) {
             val name = shortcutJson.get("name")?.asString ?: continue
             val scriptJson = shortcutJson.get("script")?.asJsonArray ?: continue
 
-            val script = mutableListOf<Pair<Command, Array<String>>>()
+            val script = mutableListOf<Pair<lol.liquidcat.features.command.Command, Array<String>>>()
 
             for (scriptCommand in scriptJson) {
                 if (scriptCommand !is JsonObject)
@@ -45,12 +45,12 @@ class ShortcutsConfig(file: File) : FileConfig(file) {
                 val commandName = scriptCommand.get("name")?.asString ?: continue
                 val arguments = scriptCommand.get("arguments")?.asJsonArray ?: continue
 
-                val command = LiquidBounce.commandManager.getCommand(commandName) ?: continue
+                val command = LiquidCat.commandManager.getCommand(commandName) ?: continue
 
                 script.add(Pair(command, arguments.map { it.asString }.toTypedArray()))
             }
 
-            LiquidBounce.commandManager.registerCommand(Shortcut(name, script))
+            LiquidCat.commandManager.registerCommand(Shortcut(name, script))
         }
     }
 
@@ -62,7 +62,7 @@ class ShortcutsConfig(file: File) : FileConfig(file) {
     override fun saveConfig() {
         val jsonArray = JsonArray()
 
-        for (command in LiquidBounce.commandManager.commands) {
+        for (command in LiquidCat.commandManager.commands) {
             if (command !is Shortcut)
                 continue
 

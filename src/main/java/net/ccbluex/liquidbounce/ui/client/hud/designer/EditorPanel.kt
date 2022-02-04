@@ -5,7 +5,8 @@
  */
 package net.ccbluex.liquidbounce.ui.client.hud.designer
 
-import net.ccbluex.liquidbounce.LiquidBounce
+import lol.liquidcat.LiquidCat
+import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.features.module.modules.render.ClickGUI
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.createDefault
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.elements
@@ -16,7 +17,6 @@ import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.ui.font.GameFontRenderer
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
-import net.ccbluex.liquidbounce.value.*
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.util.MathHelper
@@ -118,7 +118,7 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
         for (element in elements) {
             val info = element.getAnnotation(ElementInfo::class.java) ?: continue
 
-            if (info.single && LiquidBounce.hud.elements.any { it.javaClass == element })
+            if (info.single && LiquidCat.hud.elements.any { it.javaClass == element })
                 continue
 
             val name = info.name
@@ -134,7 +134,7 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
                     val newElement = element.newInstance()
 
                     if (newElement.createElement())
-                        LiquidBounce.hud.addElement(newElement)
+                        LiquidCat.hud.addElement(newElement)
                 } catch (e: InstantiationException) {
                     e.printStackTrace()
                 } catch (e: IllegalAccessException) {
@@ -170,7 +170,7 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
         Fonts.font35.drawString("§lReset", x + 2, y + height, Color.WHITE.rgb)
         if (Mouse.isButtonDown(0) && !mouseDown && mouseX >= x && mouseX <= x + width && mouseY >= y + height
                 && mouseY <= y + height + 10)
-            LiquidBounce.hud = createDefault()
+            LiquidCat.hud = createDefault()
 
         height += 15
         realHeight += 15
@@ -179,7 +179,7 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
         height += 10
         realHeight += 10
 
-        for (element in LiquidBounce.hud.elements) {
+        for (element in LiquidCat.hud.elements) {
             Fonts.font35.drawString(element.name, x + 2, y + height, Color.WHITE.rgb)
 
             val stringWidth = Fonts.font35.getStringWidth(element.name)
@@ -434,7 +434,7 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
             Fonts.font35.drawString("§lDelete", deleteWidth, y + 3.5F, Color.WHITE.rgb)
             if (Mouse.isButtonDown(0) && !mouseDown && mouseX >= deleteWidth && mouseX <= x + width && mouseY >= y
                     && mouseY <= y + 10)
-                LiquidBounce.hud.removeElement(element)
+                LiquidCat.hud.removeElement(element)
         }
     }
 

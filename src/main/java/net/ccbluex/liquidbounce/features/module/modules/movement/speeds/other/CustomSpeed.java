@@ -5,8 +5,8 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement.speeds.other;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.MoveEvent;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.MoveEvent;
 import net.ccbluex.liquidbounce.features.module.modules.movement.Speed;
 import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.SpeedMode;
 import net.ccbluex.liquidbounce.utils.MovementUtils;
@@ -20,7 +20,7 @@ public class CustomSpeed extends SpeedMode {
     @Override
     public void onMotion() {
         if(MovementUtils.isMoving()) {
-            final Speed speed = (Speed) LiquidBounce.moduleManager.getModule(Speed.class);
+            final Speed speed = (Speed) LiquidCat.moduleManager.getModule(Speed.class);
 
             if(speed == null)
                 return;
@@ -40,7 +40,7 @@ public class CustomSpeed extends SpeedMode {
 
     @Override
     public void onEnable() {
-        final Speed speed = (Speed) LiquidBounce.moduleManager.getModule(Speed.class);
+        final Speed speed = (Speed) LiquidCat.moduleManager.getModule(Speed.class);
 
         if(speed == null)
             return;

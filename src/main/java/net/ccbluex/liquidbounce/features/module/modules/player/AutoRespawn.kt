@@ -5,14 +5,14 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.player
 
-import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.event.EventTarget
-import net.ccbluex.liquidbounce.event.UpdateEvent
-import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.features.module.ModuleCategory
-import net.ccbluex.liquidbounce.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.features.module.modules.exploit.Ghost
-import net.ccbluex.liquidbounce.value.BoolValue
+import lol.liquidcat.LiquidCat
+import lol.liquidcat.event.EventTarget
+import lol.liquidcat.event.UpdateEvent
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.features.module.modules.exploit.Ghost
+import lol.liquidcat.value.BoolValue
 import net.minecraft.client.gui.GuiGameOver
 
 @ModuleInfo(name = "AutoRespawn", description = "Automatically respawns you after dying.", category = ModuleCategory.PLAYER)
@@ -22,7 +22,7 @@ class AutoRespawn : Module() {
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if (LiquidBounce.moduleManager[Ghost::class.java]!!.state)
+        if (LiquidCat.moduleManager[Ghost::class.java]!!.state)
             return
 
         if (if (instantValue.get()) mc.thePlayer.health == 0F || mc.thePlayer.isDead else mc.currentScreen is GuiGameOver

@@ -5,9 +5,9 @@
  */
 package net.ccbluex.liquidbounce.ui.client.clickgui;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
 import net.ccbluex.liquidbounce.features.module.modules.render.ClickGUI;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.Element;
@@ -33,7 +33,7 @@ import java.util.Objects;
 public class ClickGui extends GuiScreen {
 
     public final List<Panel> panels = new ArrayList<>();
-    private final ResourceLocation hudIcon = new ResourceLocation(LiquidBounce.CLIENT_NAME.toLowerCase() + "/custom_hud_icon.png");
+    private final ResourceLocation hudIcon = new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/custom_hud_icon.png");
     public Style style = new SlowlyStyle();
     private Panel clickedPanel;
     private int mouseX;
@@ -49,7 +49,7 @@ public class ClickGui extends GuiScreen {
 
                 @Override
                 public void setupItems() {
-                    for (Module module : LiquidBounce.moduleManager.getModules())
+                    for (Module module : LiquidCat.moduleManager.getModules())
                         if (module.getCategory() == category)
                             getElements().add(new ModuleElement(module));
                 }
@@ -205,7 +205,7 @@ public class ClickGui extends GuiScreen {
         // Enable DisplayList optimization
         AWTFontRenderer.Companion.setAssumeNonVolatile(true);
 
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidBounce.moduleManager.getModule(ClickGUI.class))).scaleValue.get();
+        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).scaleValue.get();
 
         mouseX /= scale;
         mouseY /= scale;
@@ -254,7 +254,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidBounce.moduleManager.getModule(ClickGUI.class))).scaleValue.get();
+        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).scaleValue.get();
 
         mouseX /= scale;
         mouseY /= scale;
@@ -283,7 +283,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidBounce.moduleManager.getModule(ClickGUI.class))).scaleValue.get();
+        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).scaleValue.get();
 
         mouseX /= scale;
         mouseY /= scale;
@@ -328,7 +328,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        LiquidBounce.fileManager.saveConfig(LiquidBounce.fileManager.clickGuiConfig);
+        LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.clickGuiConfig);
     }
 
     @Override

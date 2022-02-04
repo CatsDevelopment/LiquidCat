@@ -5,15 +5,15 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement;
 
-import net.ccbluex.liquidbounce.event.EventState;
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.MotionEvent;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
+import lol.liquidcat.event.EventState;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.MotionEvent;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
 import net.ccbluex.liquidbounce.utils.MovementUtils;
-import net.ccbluex.liquidbounce.value.BoolValue;
-import net.ccbluex.liquidbounce.value.ListValue;
+import lol.liquidcat.value.BoolValue;
+import lol.liquidcat.value.ListValue;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 

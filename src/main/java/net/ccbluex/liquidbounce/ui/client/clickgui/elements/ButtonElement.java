@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.ui.client.clickgui.elements;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
+import lol.liquidcat.LiquidCat;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -27,7 +27,7 @@ public class ButtonElement extends Element {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float button) {
-        LiquidBounce.clickGui.style.drawButtonElement(mouseX, mouseY, this);
+        LiquidCat.clickGui.style.drawButtonElement(mouseX, mouseY, this);
         super.drawScreen(mouseX, mouseY, button);
     }
 

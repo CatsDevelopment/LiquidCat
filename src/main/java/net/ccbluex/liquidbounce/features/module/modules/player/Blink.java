@@ -5,20 +5,20 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.player;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.PacketEvent;
-import net.ccbluex.liquidbounce.event.Render3DEvent;
-import net.ccbluex.liquidbounce.event.UpdateEvent;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.PacketEvent;
+import lol.liquidcat.event.Render3DEvent;
+import lol.liquidcat.event.UpdateEvent;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
 import net.ccbluex.liquidbounce.features.module.modules.render.Breadcrumbs;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.ccbluex.liquidbounce.utils.timer.MSTimer;
-import net.ccbluex.liquidbounce.value.BoolValue;
-import net.ccbluex.liquidbounce.value.IntegerValue;
+import lol.liquidcat.value.BoolValue;
+import lol.liquidcat.value.IntegerValue;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
@@ -109,7 +109,7 @@ public class Blink extends Module {
 
     @EventTarget
     public void onRender3D(Render3DEvent event) {
-        final Breadcrumbs breadcrumbs = (Breadcrumbs) LiquidBounce.moduleManager.getModule(Breadcrumbs.class);
+        final Breadcrumbs breadcrumbs = (Breadcrumbs) LiquidCat.moduleManager.getModule(Breadcrumbs.class);
         final Color color = breadcrumbs.colorRainbow.get() ? ColorUtils.rainbow() : new Color(breadcrumbs.colorRedValue.get(), breadcrumbs.colorGreenValue.get(), breadcrumbs.colorBlueValue.get());
 
         synchronized(positions) {

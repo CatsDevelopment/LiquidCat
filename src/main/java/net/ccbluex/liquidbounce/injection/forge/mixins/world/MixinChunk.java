@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.world;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
+import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.features.module.modules.render.ProphuntESP;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
@@ -20,7 +20,7 @@ public class MixinChunk {
 
     @Inject(method = "setBlockState", at = @At("HEAD"))
     private void setProphuntBlock(BlockPos pos, IBlockState state, final CallbackInfoReturnable callbackInfo) {
-        final ProphuntESP prophuntESP = (ProphuntESP) LiquidBounce.moduleManager.getModule(ProphuntESP.class);
+        final ProphuntESP prophuntESP = (ProphuntESP) LiquidCat.moduleManager.getModule(ProphuntESP.class);
 
         if(prophuntESP.getState()) {
             synchronized(prophuntESP.blocks) {

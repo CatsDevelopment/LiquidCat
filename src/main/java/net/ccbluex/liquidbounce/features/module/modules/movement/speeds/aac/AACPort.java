@@ -5,8 +5,8 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement.speeds.aac;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.MoveEvent;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.MoveEvent;
 import net.ccbluex.liquidbounce.features.module.modules.movement.Speed;
 import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.SpeedMode;
 import net.ccbluex.liquidbounce.utils.MovementUtils;
@@ -32,7 +32,7 @@ public class AACPort extends SpeedMode {
             return;
 
         final float f = mc.thePlayer.rotationYaw * 0.017453292F;
-        for (double d = 0.2; d <= ((Speed) LiquidBounce.moduleManager.getModule(Speed.class)).portMax.get(); d += 0.2) {
+        for (double d = 0.2; d <= ((Speed) LiquidCat.moduleManager.getModule(Speed.class)).portMax.get(); d += 0.2) {
             final double x = mc.thePlayer.posX - MathHelper.sin(f) * d;
             final double z = mc.thePlayer.posZ + MathHelper.cos(f) * d;
 

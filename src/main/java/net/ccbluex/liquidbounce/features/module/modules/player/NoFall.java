@@ -5,15 +5,15 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.player;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.*;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
+import lol.liquidcat.event.*;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
 import net.ccbluex.liquidbounce.features.module.modules.render.FreeCam;
 import net.ccbluex.liquidbounce.utils.block.BlockUtils;
 import net.ccbluex.liquidbounce.utils.timer.TickTimer;
-import net.ccbluex.liquidbounce.value.ListValue;
+import lol.liquidcat.value.ListValue;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;
@@ -38,7 +38,7 @@ public class NoFall extends Module {
         if(mc.thePlayer.motionY > 0)
             jumped = true;
 
-        if (!getState() || LiquidBounce.moduleManager.getModule(FreeCam.class).getState())
+        if (!getState() || LiquidCat.moduleManager.getModule(FreeCam.class).getState())
             return;
 
         if(BlockUtils.collideBlock(mc.thePlayer.getEntityBoundingBox(), block -> block instanceof BlockLiquid) ||

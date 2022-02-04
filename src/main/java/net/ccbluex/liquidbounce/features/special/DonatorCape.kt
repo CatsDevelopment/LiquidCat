@@ -5,9 +5,9 @@
  */
 package net.ccbluex.liquidbounce.features.special
 
-import net.ccbluex.liquidbounce.event.EventTarget
-import net.ccbluex.liquidbounce.event.Listenable
-import net.ccbluex.liquidbounce.event.SessionEvent
+import lol.liquidcat.event.EventTarget
+import lol.liquidcat.event.Listenable
+import lol.liquidcat.event.SessionEvent
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDonatorCape
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.MinecraftInstance

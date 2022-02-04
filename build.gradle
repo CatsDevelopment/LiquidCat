@@ -118,17 +118,17 @@ processResources {
 }
 
 mixin {
-    add sourceSets.main, 'liquidbounce.mixins.refmap.json'
+    add sourceSets.main, 'liquidcat.mixins.refmap.json'
 }
 
 jar {
     manifest.attributes(
-            'MixinConfigs': 'liquidbounce.forge.mixins.json',
+            'MixinConfigs': 'liquidcat.forge.mixins.json',
             'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
             'TweakOrder': 0,
             'FMLCorePluginContainsFMLMod': 'net.ccbluex.liquidbounce.injection.forge.MixinLoader',
             'FMLCorePlugin': 'net.ccbluex.liquidbounce.injection.forge.TransformerLoader',
-            'FMLAT': 'liquidbounce_at.cfg',
+            'FMLAT': 'liquidcat_at.cfg',
             'Manifest-Version': 1.0,
             'Main-Class': 'net.ccbluex.liquidinstruction.LiquidInstructionKt'
     )

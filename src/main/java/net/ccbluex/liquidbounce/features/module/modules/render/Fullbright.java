@@ -5,14 +5,14 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.render;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.ClientShutdownEvent;
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.UpdateEvent;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
-import net.ccbluex.liquidbounce.value.ListValue;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.ClientShutdownEvent;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.UpdateEvent;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
+import lol.liquidcat.value.ListValue;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
@@ -39,7 +39,7 @@ public class Fullbright extends Module {
 
     @EventTarget(ignoreCondition = true)
     public void onUpdate(final UpdateEvent event) {
-        if (getState() || LiquidBounce.moduleManager.getModule(XRay.class).getState()) {
+        if (getState() || LiquidCat.moduleManager.getModule(XRay.class).getState()) {
             switch(modeValue.get().toLowerCase()) {
                 case "gamma":
                     if(mc.gameSettings.gammaSetting <= 100F)

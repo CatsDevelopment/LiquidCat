@@ -5,19 +5,19 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.misc;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.AttackEvent;
-import net.ccbluex.liquidbounce.event.EventTarget;
-import net.ccbluex.liquidbounce.event.PacketEvent;
-import net.ccbluex.liquidbounce.event.WorldEvent;
-import net.ccbluex.liquidbounce.features.module.Module;
-import net.ccbluex.liquidbounce.features.module.ModuleCategory;
-import net.ccbluex.liquidbounce.features.module.ModuleInfo;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.AttackEvent;
+import lol.liquidcat.event.EventTarget;
+import lol.liquidcat.event.PacketEvent;
+import lol.liquidcat.event.WorldEvent;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleInfo;
 import net.ccbluex.liquidbounce.utils.EntityUtils;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;
-import net.ccbluex.liquidbounce.value.BoolValue;
-import net.ccbluex.liquidbounce.value.IntegerValue;
-import net.ccbluex.liquidbounce.value.ListValue;
+import lol.liquidcat.value.BoolValue;
+import lol.liquidcat.value.IntegerValue;
+import lol.liquidcat.value.ListValue;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -135,7 +135,7 @@ public class AntiBot extends Module {
         if (!(entity instanceof EntityPlayer))
             return false;
 
-        final AntiBot antiBot = (AntiBot) LiquidBounce.moduleManager.getModule(AntiBot.class);
+        final AntiBot antiBot = (AntiBot) LiquidCat.moduleManager.getModule(AntiBot.class);
 
         if (antiBot == null || !antiBot.getState())
             return false;

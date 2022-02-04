@@ -11,8 +11,8 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication
 import com.thealtening.AltService
 import com.thealtening.api.TheAltening
-import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.event.SessionEvent
+import lol.liquidcat.LiquidCat
+import lol.liquidcat.event.SessionEvent
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.ccbluex.liquidbounce.ui.elements.GuiPasswordField
 import net.ccbluex.liquidbounce.ui.font.Fonts
@@ -130,7 +130,7 @@ class GuiTheAltening(private val prevGui: GuiAltManager) : GuiScreen() {
                         // Set token as username
                         val yggdrasilUserAuthentication = YggdrasilUserAuthentication(YggdrasilAuthenticationService(NO_PROXY, ""), MINECRAFT)
                         yggdrasilUserAuthentication.setUsername(account.token)
-                        yggdrasilUserAuthentication.setPassword(LiquidBounce.CLIENT_NAME)
+                        yggdrasilUserAuthentication.setPassword(LiquidCat.CLIENT_NAME)
 
                         status = try {
                             yggdrasilUserAuthentication.logIn()
@@ -138,7 +138,7 @@ class GuiTheAltening(private val prevGui: GuiAltManager) : GuiScreen() {
                             mc.session = Session(yggdrasilUserAuthentication.selectedProfile.name, yggdrasilUserAuthentication
                                     .selectedProfile.id.toString(),
                                     yggdrasilUserAuthentication.authenticatedToken, "mojang")
-                            LiquidBounce.eventManager.callEvent(SessionEvent())
+                            LiquidCat.eventManager.callEvent(SessionEvent())
                             MCLeaks.remove()
 
                             prevGui.status = "§aYour name is now §b§l${yggdrasilUserAuthentication.selectedProfile.name}§c."
@@ -180,7 +180,7 @@ class GuiTheAltening(private val prevGui: GuiAltManager) : GuiScreen() {
                         // Set token as username
                         val yggdrasilUserAuthentication = YggdrasilUserAuthentication(YggdrasilAuthenticationService(NO_PROXY, ""), MINECRAFT)
                         yggdrasilUserAuthentication.setUsername(tokenField.text)
-                        yggdrasilUserAuthentication.setPassword(LiquidBounce.CLIENT_NAME)
+                        yggdrasilUserAuthentication.setPassword(LiquidCat.CLIENT_NAME)
 
                         status = try {
                             yggdrasilUserAuthentication.logIn()
@@ -188,7 +188,7 @@ class GuiTheAltening(private val prevGui: GuiAltManager) : GuiScreen() {
                             mc.session = Session(yggdrasilUserAuthentication.selectedProfile.name, yggdrasilUserAuthentication
                                     .selectedProfile.id.toString(),
                                     yggdrasilUserAuthentication.authenticatedToken, "mojang")
-                            LiquidBounce.eventManager.callEvent(SessionEvent())
+                            LiquidCat.eventManager.callEvent(SessionEvent())
                             MCLeaks.remove()
 
                             prevGui.status = "§aYour name is now §b§l${yggdrasilUserAuthentication.selectedProfile.name}§c."

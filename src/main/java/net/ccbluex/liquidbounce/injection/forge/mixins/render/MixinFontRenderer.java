@@ -5,8 +5,8 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
-import net.ccbluex.liquidbounce.LiquidBounce;
-import net.ccbluex.liquidbounce.event.TextEvent;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.TextEvent;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -20,21 +20,21 @@ public class MixinFontRenderer {
 
     @ModifyVariable(method = "renderString", at = @At("HEAD"), ordinal = 0)
     private String renderString(final String string) {
-        if (string == null || LiquidBounce.eventManager == null)
+        if (string == null || LiquidCat.eventManager == null)
             return string;
 
         final TextEvent textEvent = new TextEvent(string);
-        LiquidBounce.eventManager.callEvent(textEvent);
+        LiquidCat.eventManager.callEvent(textEvent);
         return textEvent.getText();
     }
 
     @ModifyVariable(method = "getStringWidth", at = @At("HEAD"), ordinal = 0)
     private String getStringWidth(final String string) {
-        if (string == null || LiquidBounce.eventManager == null)
+        if (string == null || LiquidCat.eventManager == null)
             return string;
 
         final TextEvent textEvent = new TextEvent(string);
-        LiquidBounce.eventManager.callEvent(textEvent);
+        LiquidCat.eventManager.callEvent(textEvent);
         return textEvent.getText();
     }
 }
