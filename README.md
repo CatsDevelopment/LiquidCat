@@ -53,7 +53,7 @@ Our main goals right now are to
 ## Setting up a Workspace
 
 LiquidBounce is using Gradle, so make sure that it is installed properly. Instructions can be found on [Gradle's website](https://gradle.org/install/).
-1. Clone the repository using `git clone https://github.com/Cat-Lovers-Organization/LiquidCat`. 
+1. Clone the repository using `git clone https://github.com/CatsDevelopment/LiquidCat`. 
 2. CD into the local repository folder.
 3. Depending on which IDE you are using execute either of the following commands:
     - For IntelliJ: `gradlew --debug setupDevWorkspace idea genIntellijRuns build`
