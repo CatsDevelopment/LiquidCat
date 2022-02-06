@@ -1,7 +1,7 @@
 /*
- * LiquidBounce Hacked Client
+ * LiquidCat Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
- * https://github.com/CCBlueX/LiquidBounce/
+ * https://github.com/CatsDevelopment/LiquidCat
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.client;
 
@@ -12,8 +12,6 @@ import lol.liquidcat.features.module.modules.exploit.AbortBreaking;
 import lol.liquidcat.features.module.modules.exploit.MultiActions;
 import net.ccbluex.liquidbounce.features.module.modules.world.FastPlace;
 import net.ccbluex.liquidbounce.ui.client.GuiMainMenu;
-import net.ccbluex.liquidbounce.ui.client.GuiUpdate;
-import net.ccbluex.liquidbounce.ui.client.GuiWelcome;
 import net.ccbluex.liquidbounce.utils.CPSCounter;
 import net.ccbluex.liquidbounce.utils.render.IconUtils;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
@@ -97,17 +95,9 @@ public abstract class MixinMinecraft {
         LiquidCat.INSTANCE.startClient();
     }
 
-    @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;displayGuiScreen(Lnet/minecraft/client/gui/GuiScreen;)V", shift = At.Shift.AFTER))
-    private void afterMainScreen(CallbackInfo callbackInfo) {
-        if (LiquidCat.fileManager.firstStart)
-            Minecraft.getMinecraft().displayGuiScreen(new GuiWelcome());
-        else if (LiquidCat.INSTANCE.getLatestVersion() > LiquidCat.CLIENT_VERSION - (LiquidCat.IN_DEV ? 1 : 0))
-            Minecraft.getMinecraft().displayGuiScreen(new GuiUpdate());
-    }
-
     @Inject(method = "createDisplay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V", shift = At.Shift.AFTER))
     private void createDisplay(CallbackInfo callbackInfo) {
-        Display.setTitle(LiquidCat.CLIENT_NAME + " b" + LiquidCat.CLIENT_VERSION + " | " + LiquidCat.MINECRAFT_VERSION + (LiquidCat.IN_DEV ? " | DEVELOPMENT BUILD" : ""));
+        Display.setTitle(LiquidCat.CLIENT_NAME + " " + LiquidCat.CLIENT_VERSION + " | " + LiquidCat.MINECRAFT_VERSION);
     }
 
     @Inject(method = "displayGuiScreen", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;currentScreen:Lnet/minecraft/client/gui/GuiScreen;", shift = At.Shift.AFTER))

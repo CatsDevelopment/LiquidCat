@@ -28,7 +28,7 @@ To document the ownership of a file, we include the following text in all code f
 /*
  * LiquidCat Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
- * https://github.com/Cat-Lovers-Organization/LiquidCat
+ * https://github.com/CatsDevelopment/LiquidCat
  */
 ```
  

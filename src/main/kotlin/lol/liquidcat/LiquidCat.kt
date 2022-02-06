@@ -1,12 +1,10 @@
 /*
- * LiquidBounce Hacked Client
+ * LiquidCat Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
- * https://github.com/CCBlueX/LiquidBounce/
+ * https://github.com/CatsDevelopment/LiquidCat
  */
 package lol.liquidcat
 
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import lol.liquidcat.cape.CapeAPI.registerCapeService
 import lol.liquidcat.discord.ClientRichPresence
 import lol.liquidcat.event.ClientShutdownEvent
@@ -27,16 +25,13 @@ import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.InventoryUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.misc.HttpUtils
 import net.minecraft.util.ResourceLocation
 
 object LiquidCat {
 
-    // Client information
     const val CLIENT_NAME = "LiquidCat"
-    const val CLIENT_VERSION = 72
-    const val IN_DEV = false
-    const val CLIENT_CREATOR = "CCBlueX"
+    const val CLIENT_VERSION = "1.0.0"
+    const val CLIENT_CREATOR = "CCBlueX & CatsDevelopment"
     const val MINECRAFT_VERSION = "1.8.9"
     const val CLIENT_CLOUD = "https://cloud.liquidbounce.net/LiquidBounce"
 
@@ -54,9 +49,6 @@ object LiquidCat {
 
     lateinit var clickGui: ClickGui
 
-    // Update information
-    var latestVersion = 0
-
     // Menu Background
     var background: ResourceLocation? = null
 
@@ -69,7 +61,7 @@ object LiquidCat {
     fun startClient() {
         isStarting = true
 
-        ClientUtils.getLogger().info("Starting $CLIENT_NAME b$CLIENT_VERSION, by $CLIENT_CREATOR")
+        ClientUtils.getLogger().info("Launching $CLIENT_NAME $CLIENT_VERSION, by $CLIENT_CREATOR")
 
         // Create file manager
         fileManager = FileManager()
@@ -140,20 +132,6 @@ object LiquidCat {
         // Disable optifine fastrender
         ClientUtils.disableFastRender()
 
-        try {
-            // Read versions json from cloud
-            val jsonObj = JsonParser()
-                    .parse(HttpUtils.get("$CLIENT_CLOUD/versions.json"))
-
-            // Check json is valid object and has current minecraft version
-            if (jsonObj is JsonObject && jsonObj.has(MINECRAFT_VERSION)) {
-                // Get offical latest client version
-                latestVersion = jsonObj[MINECRAFT_VERSION].asInt
-            }
-        } catch (exception: Throwable) { // Print throwable to console
-            ClientUtils.getLogger().error("Failed to check for updates.", exception)
-        }
-
         // Load generators
         GuiAltManager.loadGenerators()
 
@@ -165,6 +143,8 @@ object LiquidCat {
      * Execute if client will be stopped
      */
     fun stopClient() {
+        ClientUtils.getLogger().info("Shutting down $CLIENT_NAME...")
+
         // Call client shutdown
         eventManager.callEvent(ClientShutdownEvent())
 

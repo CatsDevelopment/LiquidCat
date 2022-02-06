@@ -13,9 +13,9 @@ import net.ccbluex.liquidbounce.utils.render.ColorUtils.translateAlternateColorC
 import org.lwjgl.input.Keyboard
 
 /*
- * LiquidBounce Hacked Client
+ * LiquidCat Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
- * https://github.com/CCBlueX/LiquidBounce/
+ * https://github.com/CatsDevelopment/LiquidCat
  */
 object SettingsUtils {
 
