@@ -11,6 +11,9 @@ import lol.liquidcat.event.KeyEvent
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.features.module.modules.combat.*
 import lol.liquidcat.features.module.modules.exploit.*
+import lol.liquidcat.features.module.modules.misc.NoRotate
+import lol.liquidcat.features.module.modules.movement.HighJump
+import lol.liquidcat.features.module.modules.movement.Step
 import lol.liquidcat.features.module.modules.player.AntiCactus
 import lol.liquidcat.features.module.modules.render.NoBob
 import lol.liquidcat.features.module.modules.render.NoHurtCam
@@ -26,7 +29,6 @@ import net.ccbluex.liquidbounce.features.module.modules.world.*
 import net.ccbluex.liquidbounce.features.module.modules.world.Timer
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import java.util.*
-
 
 class ModuleManager : Listenable {
 
@@ -66,7 +68,7 @@ class ModuleManager : Listenable {
                 Strafe::class.java,
                 Sprint::class.java,
                 Teams::class.java,
-                NoRotateSet::class.java,
+                NoRotate::class.java,
                 AntiBot::class.java,
                 ChestStealer::class.java,
                 Scaffold::class.java,
@@ -133,7 +135,7 @@ class ModuleManager : Listenable {
                 Clip::class.java,
                 Phase::class.java,
                 ServerCrasher::class.java,
-                NoFOV::class.java,
+                FOV::class.java,
                 FastStairs::class.java,
                 SwingAnimation::class.java,
                 Derp::class.java,

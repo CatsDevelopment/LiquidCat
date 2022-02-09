@@ -9,7 +9,7 @@ import lol.liquidcat.LiquidCat;
 import lol.liquidcat.cape.CapeAPI;
 import lol.liquidcat.cape.CapeInfo;
 import net.ccbluex.liquidbounce.features.module.modules.misc.NameProtect;
-import net.ccbluex.liquidbounce.features.module.modules.render.NoFOV;
+import net.ccbluex.liquidbounce.features.module.modules.render.FOV;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
@@ -44,7 +44,7 @@ public abstract class MixinAbstractClientPlayer extends MixinEntityPlayer {
 
     @Inject(method = "getFovModifier", at = @At("HEAD"), cancellable = true)
     private void getFovModifier(CallbackInfoReturnable<Float> callbackInfoReturnable) {
-        final NoFOV fovModule = (NoFOV) LiquidCat.moduleManager.getModule(NoFOV.class);
+        final FOV fovModule = (FOV) LiquidCat.moduleManager.getModule(FOV.class);
 
         if(fovModule.getState()) {
             float newFOV = fovModule.getFovValue().get();

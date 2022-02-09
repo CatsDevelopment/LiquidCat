@@ -24,11 +24,13 @@ class Criticals : Module() {
 
     val msTimer = MSTimer()
 
+    override val tag: String
+        get() = modeValue.get()
+
     @EventTarget
     fun onAttack(event: AttackEvent) {
         if (event.targetEntity is EntityLivingBase) {
             if (mc.thePlayer.onGround && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWeb && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava && mc.thePlayer.ridingEntity == null && !mc.gameSettings.keyBindJump.isKeyDown && msTimer.hasTimePassed(delayValue.get().toLong())) {
-
                 val x = mc.thePlayer.posX
                 val y = mc.thePlayer.posY
                 val z = mc.thePlayer.posZ
@@ -50,7 +52,4 @@ class Criticals : Module() {
             }
         }
     }
-
-    override val tag: String
-        get() = modeValue.get()
 }

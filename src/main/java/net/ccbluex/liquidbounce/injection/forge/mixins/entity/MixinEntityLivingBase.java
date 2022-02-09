@@ -12,7 +12,9 @@ import net.ccbluex.liquidbounce.features.module.modules.movement.LiquidWalk;
 import net.ccbluex.liquidbounce.features.module.modules.movement.NoJumpDelay;
 import net.ccbluex.liquidbounce.features.module.modules.render.AntiBlind;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -66,20 +68,25 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
      */
     @Overwrite
     protected void jump() {
-        final JumpEvent jumpEvent = new JumpEvent(this.getJumpUpwardsMotion());
-        LiquidCat.eventManager.callEvent(jumpEvent);
-        if(jumpEvent.isCancelled())
-            return;
+        this.motionY = (double)this.getJumpUpwardsMotion();
 
-        this.motionY = jumpEvent.getMotion();
+        if ((Object) this == Minecraft.getMinecraft().thePlayer) {
+            final JumpEvent jumpEvent = new JumpEvent(this.getJumpUpwardsMotion());
+            LiquidCat.eventManager.callEvent(jumpEvent);
 
-        if(this.isPotionActive(Potion.jump))
-            this.motionY += (double) ((float) (this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
+            if (jumpEvent.isCancelled()) return;
 
-        if(this.isSprinting()) {
+            this.motionY = jumpEvent.getMotion();
+        }
+
+        if (this.isPotionActive(Potion.jump)) {
+            this.motionY += (double)((float)(this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
+        }
+
+        if (this.isSprinting()) {
             float f = this.rotationYaw * 0.017453292F;
-            this.motionX -= (double) (MathHelper.sin(f) * 0.2F);
-            this.motionZ += (double) (MathHelper.cos(f) * 0.2F);
+            this.motionX -= (double)(MathHelper.sin(f) * 0.2F);
+            this.motionZ += (double)(MathHelper.cos(f) * 0.2F);
         }
 
         this.isAirBorne = true;
