@@ -5,8 +5,6 @@
  */
 package lol.liquidcat.discord
 
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import com.jagrosh.discordipc.IPCClient
 import com.jagrosh.discordipc.IPCListener
 import com.jagrosh.discordipc.entities.RichPresence
@@ -14,9 +12,7 @@ import com.jagrosh.discordipc.entities.pipe.PipeStatus
 import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.misc.HttpUtils
 import org.json.JSONObject
-import java.io.IOException
 import java.time.OffsetDateTime
 import kotlin.concurrent.thread
 
@@ -25,8 +21,7 @@ class ClientRichPresence : MinecraftInstance() {
     // IPC Client
     private var ipcClient: IPCClient? = null
 
-    private var appID = 0L
-    private val assets = mutableMapOf<String, String>()
+    private var appID = 939974399233253447
     private val timestamp = OffsetDateTime.now()
 
     // Status of running
@@ -38,8 +33,6 @@ class ClientRichPresence : MinecraftInstance() {
     fun setup() {
         try {
             running = true
-
-            loadConfiguration()
 
             ipcClient = IPCClient(appID)
             ipcClient?.setListener(object : IPCListener {
@@ -89,9 +82,7 @@ class ClientRichPresence : MinecraftInstance() {
         // Set playing time
         builder.setStartTimestamp(timestamp)
 
-        // Check assets contains logo and set logo
-        if (assets.containsKey("logo"))
-            builder.setLargeImage(assets["logo"], "MC ${LiquidCat.MINECRAFT_VERSION} - ${LiquidCat.CLIENT_NAME} b${LiquidCat.CLIENT_VERSION}")
+        builder.setLargeImage("funnycat", "${LiquidCat.CLIENT_NAME} ${LiquidCat.CLIENT_VERSION}")
 
         // Check user is ingame
         if (mc.thePlayer != null) {
@@ -116,26 +107,5 @@ class ClientRichPresence : MinecraftInstance() {
         } catch (e: Throwable) {
             ClientUtils.getLogger().error("Failed to close Discord RPC.", e)
         }
-    }
-
-    /**
-     * Load configuration from web
-     *
-     * @throws IOException If reading failed
-     */
-    private fun loadConfiguration() {
-        // Read from web and convert to json object
-        val json = JsonParser().parse(HttpUtils.get("${LiquidCat.CLIENT_CLOUD}/discord.json"))
-
-        if (json !is JsonObject)
-            return
-
-        // Check has app id
-        if (json.has("appID"))
-            appID = json.get("appID").asLong
-
-        // Import all asset names
-        for ((key, value) in json.get("assets").asJsonObject.entrySet())
-            assets[key] = value.asString
     }
 }
