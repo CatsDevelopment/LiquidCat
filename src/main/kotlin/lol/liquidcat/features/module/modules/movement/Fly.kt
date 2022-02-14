@@ -19,7 +19,7 @@ class Fly : Module() {
 
     val modeValue = ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
     private val vanillaSpeedValue = FloatValue("VanillaSpeed", 2f, 0f, 5f)
-    
+
     override val tag: String
         get() = modeValue.get()
 
