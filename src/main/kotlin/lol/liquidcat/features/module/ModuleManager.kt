@@ -12,9 +12,11 @@ import lol.liquidcat.event.Listenable
 import lol.liquidcat.features.module.modules.combat.*
 import lol.liquidcat.features.module.modules.exploit.*
 import lol.liquidcat.features.module.modules.misc.NoRotate
+import lol.liquidcat.features.module.modules.movement.Fly
 import lol.liquidcat.features.module.modules.movement.HighJump
 import lol.liquidcat.features.module.modules.movement.Step
 import lol.liquidcat.features.module.modules.player.AntiCactus
+import lol.liquidcat.features.module.modules.player.NoFall
 import lol.liquidcat.features.module.modules.render.NoBob
 import lol.liquidcat.features.module.modules.render.NoHurtCam
 import net.ccbluex.liquidbounce.features.module.modules.`fun`.Derp
@@ -122,7 +124,6 @@ class ModuleManager : Listenable {
                 ConsoleSpammer::class.java,
                 LongJump::class.java,
                 Parkour::class.java,
-                LadderJump::class.java,
                 FastBow::class.java,
                 MultiActions::class.java,
                 AirJump::class.java,

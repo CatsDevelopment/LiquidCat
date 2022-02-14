@@ -34,9 +34,6 @@ public class LongJump extends Module {
 
     @EventTarget
     public void onUpdate(final UpdateEvent event) {
-        if(LadderJump.jumped)
-            MovementUtils.strafe(MovementUtils.getSpeed() * 1.08F);
-
         if(jumped) {
             final String mode = modeValue.get();
 

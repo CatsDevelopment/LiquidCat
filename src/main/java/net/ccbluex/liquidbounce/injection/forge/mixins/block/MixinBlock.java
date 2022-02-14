@@ -9,7 +9,7 @@ import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.BlockBBEvent;
 import lol.liquidcat.features.module.modules.combat.Criticals;
 import lol.liquidcat.features.module.modules.exploit.GhostHand;
-import net.ccbluex.liquidbounce.features.module.modules.player.NoFall;
+import lol.liquidcat.features.module.modules.player.NoFall;
 import net.ccbluex.liquidbounce.features.module.modules.render.XRay;
 import net.ccbluex.liquidbounce.features.module.modules.world.NoSlowBreak;
 import net.minecraft.block.Block;
@@ -110,7 +110,7 @@ public abstract class MixinBlock {
             final NoFall noFall = (NoFall) LiquidCat.moduleManager.getModule(NoFall.class);
             final Criticals criticals = (Criticals) LiquidCat.moduleManager.getModule(Criticals.class);
 
-            if (noFall.getState() && noFall.modeValue.get().equalsIgnoreCase("NoGround") ||
+            if (noFall.getState() && noFall.getModeValue().get().equalsIgnoreCase("NoGround") ||
                     criticals.getState() && criticals.getModeValue().get().equalsIgnoreCase("NoGround")) {
                 f /= 5F;
             }

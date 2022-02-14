@@ -14,6 +14,8 @@ import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.MovementUtils
+import net.minecraft.network.play.client.C07PacketPlayerDigging
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
 import net.minecraft.network.play.server.S12PacketEntityVelocity
 import net.minecraft.network.play.server.S27PacketExplosion
 
