@@ -143,7 +143,7 @@ public class GuiAltManager extends GuiScreen {
         this.buttonList.add(randomButton = new GuiButton(4, 5, j + 24 * 2, 90, 20, "Random"));
         this.buttonList.add(new GuiButton(6, 5, j + 24 * 3, 90, 20, "Direct Login"));
         this.buttonList.add(new GuiButton(88, 5, j + 24 * 4, 90, 20, "Change Name"));
-        
+
         if (GENERATORS.getOrDefault("thealtening", true))
             this.buttonList.add(new GuiButton(9, 5, j + 24 * 6 + 5, 90, 20, "TheAltening"));
 

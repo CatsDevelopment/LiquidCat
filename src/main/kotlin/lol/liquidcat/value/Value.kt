@@ -45,7 +45,6 @@ abstract class Value<T>(val name: String, protected var value: T) {
 
     protected open fun onChange(oldValue: T, newValue: T) {}
     protected open fun onChanged(oldValue: T, newValue: T) {}
-
 }
 
 /**
@@ -56,10 +55,20 @@ open class BoolValue(name: String, value: Boolean) : Value<Boolean>(name, value)
     override fun toJson() = JsonPrimitive(value)
 
     override fun fromJson(element: JsonElement) {
-        if (element.isJsonPrimitive)
-            value = element.asBoolean || element.asString.equals("true", ignoreCase = true)
+        if (element.isJsonPrimitive) value = element.asBoolean || element.asString.equals("true", ignoreCase = true)
     }
+}
 
+/**
+ * Text value represents a value with a string
+ */
+open class TextValue(name: String, value: String) : Value<String>(name, value) {
+
+    override fun toJson() = JsonPrimitive(value)
+
+    override fun fromJson(element: JsonElement) {
+        if (element.isJsonPrimitive) value = element.asString
+    }
 }
 
 /**
@@ -78,7 +87,6 @@ open class IntegerValue(name: String, value: Int, val minimum: Int = 0, val maxi
         if (element.isJsonPrimitive)
             value = element.asInt
     }
-
 }
 
 /**
@@ -96,20 +104,6 @@ open class FloatValue(name: String, value: Float, val minimum: Float = 0F, val m
     override fun fromJson(element: JsonElement) {
         if (element.isJsonPrimitive)
             value = element.asFloat
-    }
-
-}
-
-/**
- * Text value represents a value with a string
- */
-open class TextValue(name: String, value: String) : Value<String>(name, value) {
-
-    override fun toJson() = JsonPrimitive(value)
-
-    override fun fromJson(element: JsonElement) {
-        if (element.isJsonPrimitive)
-            value = element.asString
     }
 }
 
@@ -168,6 +162,4 @@ open class ListValue(name: String, val values: Array<String>, value: String) : V
     override fun fromJson(element: JsonElement) {
         if (element.isJsonPrimitive) changeValue(element.asString)
     }
-
-
 }

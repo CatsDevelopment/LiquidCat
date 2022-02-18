@@ -17,6 +17,8 @@ class NoRotate : Module() {
 
     @EventTarget
     fun onPacket(event: PacketEvent) {
+        mc.thePlayer ?: return
+
         val packet = event.packet
 
         if (packet is S08PacketPlayerPosLook) {

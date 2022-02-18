@@ -34,6 +34,18 @@ public class Fonts {
     @FontDetails(fontName = "Roboto Bold", fontSize = 180)
     public static GameFontRenderer fontBold180;
 
+    @FontDetails(fontName = "SF UI Display Regular", fontSize = 50)
+    public static GameFontRenderer displayRegular50;
+
+    @FontDetails(fontName = "SF UI Display Light", fontSize = 50)
+    public static GameFontRenderer displayLight50;
+
+    @FontDetails(fontName = "SF UI Display Light", fontSize = 25)
+    public static GameFontRenderer displayLight25;
+
+    @FontDetails(fontName = "SF UI Display Thin", fontSize = 50)
+    public static GameFontRenderer displayThin50;
+
     @FontDetails(fontName = "Minecraft Font")
     public static final FontRenderer minecraftFont = Minecraft.getMinecraft().fontRendererObj;
 
@@ -49,6 +61,11 @@ public class Fonts {
         font35 = new GameFontRenderer(getFont("Roboto-Medium.ttf", 35));
         font40 = new GameFontRenderer(getFont("Roboto-Medium.ttf", 40));
         fontBold180 = new GameFontRenderer(getFont("Roboto-Bold.ttf", 180));
+
+        displayRegular50 = new GameFontRenderer(getDefFont("SF-UI-Display-Regular.ttf", 50));
+        displayLight50 = new GameFontRenderer(getDefFont("SF-UI-Display-Light.ttf", 50));
+        displayLight25 = new GameFontRenderer(getDefFont("SF-UI-Display-Light.ttf", 25));
+        displayThin50 = new GameFontRenderer(getDefFont("SF-UI-Display-Thin.ttf", 50));
 
         try {
             CUSTOM_FONT_RENDERERS.clear();
@@ -172,6 +189,20 @@ public class Fonts {
         fonts.addAll(Fonts.CUSTOM_FONT_RENDERERS);
 
         return fonts;
+    }
+
+    private static Font getDefFont(final String fontName, final int size) {
+        try {
+            final InputStream inputStream = Fonts.class.getResourceAsStream("/assets/minecraft/liquidcat/fonts/" + fontName);
+            Font awtClientFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            awtClientFont = awtClientFont.deriveFont(Font.PLAIN, size);
+            inputStream.close();
+            return awtClientFont;
+        }catch(final Exception e) {
+            e.printStackTrace();
+
+            return new Font("default", Font.PLAIN, size);
+        }
     }
 
     private static Font getFont(final String fontName, final int size) {

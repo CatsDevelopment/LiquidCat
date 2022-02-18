@@ -15,6 +15,7 @@ import lol.liquidcat.features.module.modules.misc.NoRotate
 import lol.liquidcat.features.module.modules.movement.Fly
 import lol.liquidcat.features.module.modules.movement.HighJump
 import lol.liquidcat.features.module.modules.movement.Step
+import lol.liquidcat.features.module.modules.movement.Strafe
 import lol.liquidcat.features.module.modules.player.AntiCactus
 import lol.liquidcat.features.module.modules.player.NoFall
 import lol.liquidcat.features.module.modules.render.NoBob
@@ -104,7 +105,6 @@ class ModuleManager : Listenable {
                 Blink::class.java,
                 NameProtect::class.java,
                 NoHurtCam::class.java,
-                Ghost::class.java,
                 MidClick::class.java,
                 XRay::class.java,
                 Timer::class.java,
