@@ -9,5 +9,5 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 
-@ModuleInfo(name = "NoFriends", description = "Allows you to attack friends.", category = ModuleCategory.COMBAT)
+@ModuleInfo("NoFriends", "Allows you to attack friends.", ModuleCategory.COMBAT)
 class NoFriends : Module()

@@ -11,7 +11,7 @@ import lol.liquidcat.event.UpdateEvent;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleInfo;
-import net.ccbluex.liquidbounce.utils.block.BlockUtils;
+import lol.liquidcat.utils.block.BlockUtils;
 import lol.liquidcat.value.FloatValue;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.util.AxisAlignedBB;

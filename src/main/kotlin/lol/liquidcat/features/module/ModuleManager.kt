@@ -9,27 +9,25 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.KeyEvent
 import lol.liquidcat.event.Listenable
+import lol.liquidcat.features.module.modules.`fun`.Derp
+import lol.liquidcat.features.module.modules.`fun`.SkinDerp
 import lol.liquidcat.features.module.modules.combat.*
 import lol.liquidcat.features.module.modules.exploit.*
 import lol.liquidcat.features.module.modules.misc.NoRotate
-import lol.liquidcat.features.module.modules.movement.Fly
-import lol.liquidcat.features.module.modules.movement.HighJump
-import lol.liquidcat.features.module.modules.movement.Step
-import lol.liquidcat.features.module.modules.movement.Strafe
-import lol.liquidcat.features.module.modules.player.AntiCactus
-import lol.liquidcat.features.module.modules.player.NoFall
+import lol.liquidcat.features.module.modules.misc.ResourcePackSpoof
+import lol.liquidcat.features.module.modules.misc.Spammer
+import lol.liquidcat.features.module.modules.movement.*
+import lol.liquidcat.features.module.modules.player.*
+import lol.liquidcat.features.module.modules.render.FreeCam
 import lol.liquidcat.features.module.modules.render.NoBob
 import lol.liquidcat.features.module.modules.render.NoHurtCam
-import net.ccbluex.liquidbounce.features.module.modules.`fun`.Derp
-import net.ccbluex.liquidbounce.features.module.modules.`fun`.SkinDerp
-import net.ccbluex.liquidbounce.features.module.modules.combat.*
-import net.ccbluex.liquidbounce.features.module.modules.exploit.*
+import lol.liquidcat.features.module.modules.world.*
+import lol.liquidcat.features.module.modules.world.Timer
 import net.ccbluex.liquidbounce.features.module.modules.misc.*
 import net.ccbluex.liquidbounce.features.module.modules.movement.*
 import net.ccbluex.liquidbounce.features.module.modules.player.*
 import net.ccbluex.liquidbounce.features.module.modules.render.*
 import net.ccbluex.liquidbounce.features.module.modules.world.*
-import net.ccbluex.liquidbounce.features.module.modules.world.Timer
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import java.util.*
 
@@ -58,18 +56,17 @@ class ModuleManager : Listenable {
                 BowAimbot::class.java,
                 Criticals::class.java,
                 KillAura::class.java,
-                Trigger::class.java,
                 Velocity::class.java,
                 Fly::class.java,
                 ClickGUI::class.java,
                 HighJump::class.java,
-                InventoryMove::class.java,
                 NoSlow::class.java,
                 LiquidWalk::class.java,
                 SafeWalk::class.java,
-                WallClimb::class.java,
+                Spider::class.java,
                 Strafe::class.java,
                 Sprint::class.java,
+                Speed::class.java,
                 Teams::class.java,
                 NoRotate::class.java,
                 AntiBot::class.java,
@@ -80,26 +77,22 @@ class ModuleManager : Listenable {
                 FastBreak::class.java,
                 FastPlace::class.java,
                 ESP::class.java,
-                Speed::class.java,
                 Tracers::class.java,
                 NameTags::class.java,
                 FastUse::class.java,
-                Teleport::class.java,
                 Fullbright::class.java,
                 ItemESP::class.java,
                 StorageESP::class.java,
                 Projectiles::class.java,
-                NoClip::class.java,
                 Nuker::class.java,
                 PingSpoof::class.java,
                 FastClimb::class.java,
                 Step::class.java,
                 AutoRespawn::class.java,
                 AutoTool::class.java,
-                NoWeb::class.java,
                 Spammer::class.java,
-                IceSpeed::class.java,
                 Zoot::class.java,
+                GuiMove::class.java,
                 Regen::class.java,
                 NoFall::class.java,
                 Blink::class.java,
@@ -108,9 +101,7 @@ class ModuleManager : Listenable {
                 MidClick::class.java,
                 XRay::class.java,
                 Timer::class.java,
-                Sneak::class.java,
                 SkinDerp::class.java,
-                Paralyze::class.java,
                 GhostHand::class.java,
                 AutoWalk::class.java,
                 AutoBreak::class.java,
@@ -121,7 +112,6 @@ class ModuleManager : Listenable {
                 AntiCactus::class.java,
                 Plugins::class.java,
                 AntiHunger::class.java,
-                ConsoleSpammer::class.java,
                 LongJump::class.java,
                 Parkour::class.java,
                 FastBow::class.java,
@@ -134,10 +124,7 @@ class ModuleManager : Listenable {
                 BlockESP::class.java,
                 Chams::class.java,
                 Clip::class.java,
-                Phase::class.java,
-                ServerCrasher::class.java,
                 FOV::class.java,
-                FastStairs::class.java,
                 SwingAnimation::class.java,
                 Derp::class.java,
                 ReverseStep::class.java,
@@ -146,41 +133,26 @@ class ModuleManager : Listenable {
                 LiquidChat::class.java,
                 AntiBlind::class.java,
                 NoSwing::class.java,
-                BedGodMode::class.java,
                 BugUp::class.java,
                 Breadcrumbs::class.java,
                 AbortBreaking::class.java,
-                PotionSaver::class.java,
                 CameraClip::class.java,
-                WaterSpeed::class.java,
-                Ignite::class.java,
                 SlimeJump::class.java,
                 MoreCarry::class.java,
                 NoPitchLimit::class.java,
                 Kick::class.java,
                 Liquids::class.java,
                 AtAllProvider::class.java,
-                AirLadder::class.java,
-                GodMode::class.java,
                 ForceUnicodeChat::class.java,
-                ItemTeleport::class.java,
-                BufferSpeed::class.java,
                 SuperKnockback::class.java,
                 ProphuntESP::class.java,
-                AutoFish::class.java,
-                Damage::class.java,
-                Freeze::class.java,
                 KeepContainer::class.java,
                 VehicleOneHit::class.java,
                 Reach::class.java,
                 HeadRotations::class.java,
                 NoJumpDelay::class.java,
-                BlockWalk::class.java,
-                PerfectHorseJump::class.java,
                 HUD::class.java,
                 TNTESP::class.java,
-                ComponentOnHover::class.java,
-                KeepAlive::class.java,
                 ResourcePackSpoof::class.java,
                 NoSlowBreak::class.java,
                 PortalMenu::class.java

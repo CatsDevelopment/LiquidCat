@@ -11,14 +11,16 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.Rotation
+import lol.liquidcat.utils.entity.getDistanceToEntityBox
 import net.ccbluex.liquidbounce.utils.EntityUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.extensions.getDistanceToEntityBox
 import net.ccbluex.liquidbounce.utils.misc.RandomUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import kotlin.random.Random
+
+//TODO Rewrite?
 
 @ModuleInfo(name = "Aimbot", description = "Automatically faces selected entities around you.", category = ModuleCategory.COMBAT)
 class Aimbot : Module() {

@@ -11,15 +11,13 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.utils.entity.strafe
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
-import net.ccbluex.liquidbounce.utils.MovementUtils
-import net.minecraft.network.play.client.C07PacketPlayerDigging
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
 import net.minecraft.network.play.server.S12PacketEntityVelocity
 import net.minecraft.network.play.server.S27PacketExplosion
 
-@ModuleInfo(name = "Velocity", description = "Allows you to modify the amount of knockback you take.", category = ModuleCategory.COMBAT)
+@ModuleInfo("Velocity", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT)
 class Velocity : Module() {
 
     private val modeValue = ListValue("Mode", arrayOf("Normal", "Strafe"), "Normal")
@@ -34,29 +32,25 @@ class Velocity : Module() {
         val packet = event.packet
 
         if (packet is S12PacketEntityVelocity) {
-            if (mc.thePlayer == null || (mc.theWorld?.getEntityByID(packet.entityID) ?: return) != mc.thePlayer)
-                return
+            if ((mc.theWorld.getEntityByID(packet.entityID) ?: return) == mc.thePlayer) {
+                if (modeValue.get() == "Normal") {
+                    val horizontal = horizontalValue.get()
+                    val vertical = verticalValue.get()
 
-            //TODO: Add more modes
-            if (modeValue.get() == "Normal") {
-                val horizontal = horizontalValue.get()
-                val vertical = verticalValue.get()
+                    if (horizontal == 0F && vertical == 0F) event.cancelEvent()
 
-                if (horizontal == 0F && vertical == 0F) event.cancelEvent()
-
-                packet.motionX = (packet.getMotionX() * horizontal).toInt()
-                packet.motionY = (packet.getMotionY() * vertical).toInt()
-                packet.motionZ = (packet.getMotionZ() * horizontal).toInt()
+                    packet.motionX = (packet.getMotionX() * horizontal).toInt()
+                    packet.motionY = (packet.getMotionY() * vertical).toInt()
+                    packet.motionZ = (packet.getMotionZ() * horizontal).toInt()
+                }
             }
         }
 
-        if (packet is S27PacketExplosion) {
-            event.cancelEvent()
-        }
+        if (packet is S27PacketExplosion) event.cancelEvent()
     }
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if (modeValue.get() == "Strafe" && mc.thePlayer.hurtTime > 0) MovementUtils.strafe()
+        if (modeValue.get() == "Strafe" && mc.thePlayer.hurtTime > 0) mc.thePlayer.strafe()
     }
 }

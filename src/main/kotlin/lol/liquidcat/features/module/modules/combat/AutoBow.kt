@@ -11,26 +11,21 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.utils.entity.aiming
 import lol.liquidcat.value.BoolValue
-import net.minecraft.init.Items
-import net.minecraft.network.play.client.C07PacketPlayerDigging
-import net.minecraft.network.play.client.C07PacketPlayerDigging.Action
-import net.minecraft.util.BlockPos
-import net.minecraft.util.EnumFacing
+import lol.liquidcat.value.IntegerValue
 
-@ModuleInfo(name = "AutoBow", description = "Automatically shoots an arrow whenever your bow is fully loaded.", category = ModuleCategory.COMBAT)
+@ModuleInfo("AutoBow", "Automatically shoots an arrow whenever your bow is fully loaded.", ModuleCategory.COMBAT)
 class AutoBow : Module() {
 
+    private val delayValue = IntegerValue("Delay", 20, 3, 20)
     private val waitForBowAimbot = BoolValue("WaitForBowAimbot", true)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         val bowAimbot = LiquidCat.moduleManager[BowAimbot::class.java] as BowAimbot
 
-        if (mc.thePlayer.isUsingItem && mc.thePlayer.heldItem?.item == Items.bow &&
-                mc.thePlayer.itemInUseDuration > 20 && (!waitForBowAimbot.get() || !bowAimbot.state || bowAimbot.hasTarget())) {
-            mc.thePlayer.stopUsingItem()
-            mc.netHandler.addToSendQueue(C07PacketPlayerDigging(Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
-        }
+        if (mc.thePlayer.aiming && mc.thePlayer.itemInUseDuration > delayValue.get() && (!waitForBowAimbot.get() || !bowAimbot.state || bowAimbot.hasTarget()))
+            mc.playerController.onStoppedUsingItem(mc.thePlayer)
     }
 }

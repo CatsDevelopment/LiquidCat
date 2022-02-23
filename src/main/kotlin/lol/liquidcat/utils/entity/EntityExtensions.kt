@@ -4,36 +4,20 @@ import lol.liquidcat.utils.mc
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.EnumAction
 import net.minecraft.potion.Potion
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import net.minecraft.util.AxisAlignedBB
+import net.minecraft.util.Vec3
+import kotlin.math.*
 
-val EntityPlayerSP.moving: Boolean
+val EntityPlayerSP.moving
     get() = movementInput.moveForward != 0f || movementInput.moveStrafe != 0f
 
-val EntityPlayer.ping: Int
-    get() = mc.netHandler.getPlayerInfo(uniqueID)?.responseTime ?: 0
-
-val EntityPlayerSP.minFallDistance: Float
+val EntityPlayerSP.minFallDistance
     get() = if (isPotionActive(Potion.jump)) 3f + getActivePotionEffect(Potion.jump).amplifier + 1 else 3f
 
-val Entity.sqrtSpeed: Double
-    get() = sqrt(motionX * motionX + motionZ * motionZ)
-
-fun EntityPlayerSP.strafe(yaw: Float = directionYaw, speed: Double = sqrtSpeed) {
-    if (!moving) {
-        motionX = 0.0
-        motionZ = 0.0
-
-        return
-    }
-
-    val angle = Math.toRadians(yaw.toDouble())
-
-    motionX = -sin(angle) * speed
-    motionZ = cos(angle) * speed
-}
+val EntityPlayerSP.jumpHeight
+    get() = 0.42f + if (isPotionActive(Potion.jump)) (getActivePotionEffect(Potion.jump).amplifier + 1) * 0.1f else 0f
 
 val EntityPlayerSP.directionYaw: Float
     get() {
@@ -43,15 +27,70 @@ val EntityPlayerSP.directionYaw: Float
         if (moveForward < 0f) {
             rotationYaw += 180f
             forward = -0.5f
+        } else if (moveForward > 0f) forward = 0.5f
 
-        } else if (moveForward > 0f)
-            forward = 0.5f
-
-        if (moveStrafing > 0f)
-            rotationYaw -= 90f * forward
-
-        if (moveStrafing < 0f)
-            rotationYaw += 90f * forward
+        if (moveStrafing > 0f) rotationYaw -= 90f * forward
+        if (moveStrafing < 0f) rotationYaw += 90f * forward
 
         return rotationYaw
     }
+
+fun EntityPlayerSP.strafe(yaw: Float = directionYaw, speed: Double = this.speed) {
+    if (moving) {
+        val angle = Math.toRadians(yaw.toDouble())
+
+        motionX = -sin(angle) * speed
+        motionZ = cos(angle) * speed
+    } else {
+        motionX = 0.0
+        motionZ = 0.0
+    }
+}
+
+val EntityPlayer.ping
+    get() = mc.netHandler.getPlayerInfo(uniqueID)?.responseTime ?: 0
+
+val EntityPlayer.eating
+    get() = itemInUse?.itemUseAction == EnumAction.EAT
+
+val EntityPlayer.drinking
+    get() = itemInUse?.itemUseAction == EnumAction.DRINK
+
+val EntityPlayer.aiming
+    get() = itemInUse?.itemUseAction == EnumAction.BOW
+
+val Entity.speed
+    get() = sqrt(motionX * motionX + motionZ * motionZ)
+
+/**
+ * Allows to get the distance between the current entity and [entity] from the nearest corner of the bounding box
+ */
+fun Entity.getDistanceToEntityBox(entity: Entity): Double {
+    val eyes = getPositionEyes(0f)
+    val pos = getNearestPointBB(eyes, entity.entityBoundingBox)
+    val xDist = abs(pos.xCoord - eyes.xCoord)
+    val yDist = abs(pos.yCoord - eyes.yCoord)
+    val zDist = abs(pos.zCoord - eyes.zCoord)
+    
+    return sqrt(xDist.pow(2) + yDist.pow(2) + zDist.pow(2))
+}
+
+private fun getNearestPointBB(eye: Vec3, box: AxisAlignedBB): Vec3 {
+    val origin = doubleArrayOf(eye.xCoord, eye.yCoord, eye.zCoord)
+    val destMins = doubleArrayOf(box.minX, box.minY, box.minZ)
+    val destMaxs = doubleArrayOf(box.maxX, box.maxY, box.maxZ)
+    
+    for (i in 0..2)
+        if (origin[i] > destMaxs[i]) origin[i] = destMaxs[i]
+        else if (origin[i] < destMins[i]) origin[i] = destMins[i]
+    
+    return Vec3(origin[0], origin[1], origin[2])
+}
+
+fun EntityPlayerSP.forward(length: Double) {
+    val yaw = Math.toRadians(rotationYaw.toDouble())
+
+    setPosition(posX + -sin(yaw) * length, posY, posZ + cos(yaw) * length)
+}
+
+fun EntityPlayerSP.upwards(height: Double) = mc.thePlayer.setPosition(posX, posY + height, posZ)

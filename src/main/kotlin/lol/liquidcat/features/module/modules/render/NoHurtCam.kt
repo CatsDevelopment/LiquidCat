@@ -9,5 +9,5 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 
-@ModuleInfo(name = "NoHurtCam", description = "Disables hurt cam effect when getting hurt.", category = ModuleCategory.RENDER)
+@ModuleInfo("NoHurtCam", "Disables hurt cam effect when getting hurt.", ModuleCategory.RENDER)
 class NoHurtCam : Module()

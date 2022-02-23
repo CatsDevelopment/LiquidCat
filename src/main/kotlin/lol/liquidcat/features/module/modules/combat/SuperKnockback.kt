@@ -14,7 +14,7 @@ import lol.liquidcat.value.IntegerValue
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C0BPacketEntityAction
 
-@ModuleInfo(name = "SuperKnockback", description = "Increases knockback dealt to other entities.", category = ModuleCategory.COMBAT)
+@ModuleInfo("SuperKnockback", "Increases knockback dealt to other entities.", ModuleCategory.COMBAT)
 class SuperKnockback : Module() {
 
     private val hurtTimeValue = IntegerValue("HurtTime", 10, 0, 10)
@@ -31,9 +31,9 @@ class SuperKnockback : Module() {
             mc.netHandler.addToSendQueue(C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING))
             mc.netHandler.addToSendQueue(C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.STOP_SPRINTING))
             mc.netHandler.addToSendQueue(C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING))
+
             mc.thePlayer.isSprinting = true
             mc.thePlayer.serverSprintState = true
         }
     }
-
 }

@@ -6,7 +6,6 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
 import lol.liquidcat.LiquidCat;
-import net.ccbluex.liquidbounce.features.module.modules.misc.ComponentOnHover;
 import net.ccbluex.liquidbounce.features.module.modules.render.HUD;
 import net.ccbluex.liquidbounce.ui.client.GuiBackground;
 import net.ccbluex.liquidbounce.utils.render.ParticleUtils;
@@ -17,9 +16,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.event.ClickEvent;
-import net.minecraft.event.HoverEvent;
-import net.minecraft.util.ChatStyle;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -30,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Collections;
 import java.util.List;
 
 @Mixin(GuiScreen.class)
@@ -126,18 +121,5 @@ public abstract class MixinGuiScreen {
             LiquidCat.commandManager.executeCommands(msg);
             callbackInfo.cancel();
         }
-    }
-
-    @Inject(method = "handleComponentHover", at = @At("HEAD"))
-    private void handleHoverOverComponent(IChatComponent component, int x, int y, final CallbackInfo callbackInfo) {
-        if (component == null || component.getChatStyle().getChatClickEvent() == null || !LiquidCat.moduleManager.getModule(ComponentOnHover.class).getState())
-            return;
-
-        final ChatStyle chatStyle = component.getChatStyle();
-
-        final ClickEvent clickEvent = chatStyle.getChatClickEvent();
-        final HoverEvent hoverEvent = chatStyle.getChatHoverEvent();
-
-        drawHoveringText(Collections.singletonList("§c§l" + clickEvent.getAction().getCanonicalName().toUpperCase() + ": §a" + clickEvent.getValue()), x, y - (hoverEvent != null ? 17 : 0));
     }
 }

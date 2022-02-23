@@ -22,6 +22,8 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemBow
 import java.awt.Color
 
+//TODO Rewrite
+
 @ModuleInfo(name = "BowAimbot", description = "Automatically aims at players when using a bow.", category = ModuleCategory.COMBAT)
 class BowAimbot : Module() {
 

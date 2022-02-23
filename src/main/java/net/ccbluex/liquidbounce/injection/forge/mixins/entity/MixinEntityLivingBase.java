@@ -7,14 +7,12 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.entity;
 
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.JumpEvent;
-import net.ccbluex.liquidbounce.features.module.modules.movement.AirJump;
-import net.ccbluex.liquidbounce.features.module.modules.movement.LiquidWalk;
-import net.ccbluex.liquidbounce.features.module.modules.movement.NoJumpDelay;
+import lol.liquidcat.features.module.modules.movement.AirJump;
+import lol.liquidcat.features.module.modules.movement.NoJumpDelay;
 import net.ccbluex.liquidbounce.features.module.modules.render.AntiBlind;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -63,6 +61,8 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
 
     @Shadow protected abstract void updateAITick();
 
+    @Shadow public float swingProgress;
+
     /**
      * @author CCBlueX
      */
@@ -103,13 +103,6 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
         if (LiquidCat.moduleManager.getModule(AirJump.class).getState() && isJumping && this.jumpTicks == 0) {
             this.jump();
             this.jumpTicks = 10;
-        }
-
-        final LiquidWalk liquidWalk = (LiquidWalk) LiquidCat.moduleManager.getModule(LiquidWalk.class);
-
-        if(liquidWalk.getState() && !isJumping && !isSneaking() && isInWater() &&
-                liquidWalk.modeValue.get().equalsIgnoreCase("Swim")) {
-            this.updateAITick();
         }
     }
 

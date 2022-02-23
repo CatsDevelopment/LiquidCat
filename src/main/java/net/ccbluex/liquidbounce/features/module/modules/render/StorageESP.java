@@ -12,7 +12,7 @@ import lol.liquidcat.event.Render3DEvent;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleInfo;
-import net.ccbluex.liquidbounce.features.module.modules.world.ChestAura;
+import lol.liquidcat.features.module.modules.world.ChestAura;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.ccbluex.liquidbounce.utils.render.shader.FramebufferShader;

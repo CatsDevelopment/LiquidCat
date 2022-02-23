@@ -10,13 +10,13 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.utils.item.ArmorComparator
 import lol.liquidcat.utils.item.ArmorPiece
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
 import net.ccbluex.liquidbounce.utils.InventoryUtils
-import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.item.ItemArmor
@@ -26,6 +26,8 @@ import net.minecraft.network.play.client.C0DPacketCloseWindow
 import net.minecraft.network.play.client.C16PacketClientStatus
 import java.util.stream.Collectors
 import java.util.stream.IntStream
+
+//TODO Rewrite
 
 @ModuleInfo(
     name = "AutoArmor",
@@ -99,7 +101,7 @@ class AutoArmor : Module() {
             mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
             delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
             return true
-        } else if (!(noMoveValue.get() && MovementUtils.isMoving()) && (!invOpenValue.get() || mc.currentScreen is GuiInventory) && item != -1) {
+        } else if (!(noMoveValue.get() && mc.thePlayer.moving) && (!invOpenValue.get() || mc.currentScreen is GuiInventory) && item != -1) {
             val openInventory = simulateInventory.get() && mc.currentScreen !is GuiInventory
 
             if (openInventory) mc.netHandler.addToSendQueue(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))

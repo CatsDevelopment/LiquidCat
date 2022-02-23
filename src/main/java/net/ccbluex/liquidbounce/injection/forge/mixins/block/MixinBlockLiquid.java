@@ -6,7 +6,7 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.block;
 
 import lol.liquidcat.LiquidCat;
-import net.ccbluex.liquidbounce.features.module.modules.world.Liquids;
+import lol.liquidcat.features.module.modules.world.Liquids;
 import net.minecraft.block.BlockLiquid;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

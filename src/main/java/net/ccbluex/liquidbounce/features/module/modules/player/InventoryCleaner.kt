@@ -14,13 +14,13 @@ import lol.liquidcat.utils.item.ArmorPiece
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.InventoryUtils
-import net.ccbluex.liquidbounce.utils.MovementUtils
 import lol.liquidcat.utils.item.ItemUtils
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
 import lol.liquidcat.features.module.modules.combat.AutoArmor
+import lol.liquidcat.utils.entity.moving
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.init.Blocks
@@ -79,7 +79,7 @@ class InventoryCleaner : Module() {
     fun onUpdate(event: UpdateEvent) {
         if (!InventoryUtils.CLICK_TIMER.hasTimePassed(delay) ||
                 mc.currentScreen !is GuiInventory && invOpenValue.get() ||
-                noMoveValue.get() && MovementUtils.isMoving() ||
+                noMoveValue.get() && mc.thePlayer.moving ||
                 mc.thePlayer.openContainer != null && mc.thePlayer.openContainer.windowId != 0)
             return
 

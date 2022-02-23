@@ -30,6 +30,8 @@ import net.minecraft.network.play.client.C0DPacketCloseWindow
 import net.minecraft.network.play.client.C16PacketClientStatus
 import net.minecraft.potion.Potion
 
+//TODO Rewrite
+
 @ModuleInfo(name = "AutoPot", description = "Automatically throws healing potions.", category = ModuleCategory.COMBAT)
 class AutoPot : Module() {
 

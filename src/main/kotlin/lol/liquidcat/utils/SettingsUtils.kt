@@ -4,7 +4,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.value.*
 import lol.liquidcat.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.modules.misc.NameProtect
-import net.ccbluex.liquidbounce.features.module.modules.misc.Spammer
+import lol.liquidcat.features.module.modules.misc.Spammer
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.EntityUtils
 import net.ccbluex.liquidbounce.utils.misc.HttpUtils.get

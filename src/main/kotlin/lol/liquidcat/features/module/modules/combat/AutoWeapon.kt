@@ -21,6 +21,8 @@ import net.minecraft.item.ItemTool
 import net.minecraft.network.play.client.C02PacketUseEntity
 import net.minecraft.network.play.client.C09PacketHeldItemChange
 
+//TODO Rewrite
+
 @ModuleInfo(name = "AutoWeapon", description = "Automatically selects the best weapon in your hotbar.", category = ModuleCategory.COMBAT)
 class AutoWeapon : Module() {
 

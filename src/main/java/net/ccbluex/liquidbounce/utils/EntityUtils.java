@@ -85,13 +85,4 @@ public final class EntityUtils extends MinecraftInstance {
         return networkPlayerInfoIn.getDisplayName() != null ? networkPlayerInfoIn.getDisplayName().getFormattedText() :
                 ScorePlayerTeam.formatPlayerName(networkPlayerInfoIn.getPlayerTeam(), networkPlayerInfoIn.getGameProfile().getName());
     }
-
-    public static int getPing(final EntityPlayer entityPlayer) {
-        if(entityPlayer == null)
-            return 0;
-
-        final NetworkPlayerInfo networkPlayerInfo = mc.getNetHandler().getPlayerInfo(entityPlayer.getUniqueID());
-
-        return networkPlayerInfo == null ? 0 : networkPlayerInfo.getResponseTime();
-    }
 }

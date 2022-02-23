@@ -7,6 +7,8 @@ package net.ccbluex.liquidbounce.utils;
 
 import net.minecraft.client.Minecraft;
 
+//TODO Remove when everything is converted to Kotlin
+
 public class MinecraftInstance {
     protected static final Minecraft mc = Minecraft.getMinecraft();
 }

@@ -9,5 +9,5 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 
-@ModuleInfo(name = "NoBob", description = "Disables the view bobbing effect.", category = ModuleCategory.RENDER)
+@ModuleInfo("NoBob", "Disables the view bobbing effect.", ModuleCategory.RENDER)
 class NoBob : Module()

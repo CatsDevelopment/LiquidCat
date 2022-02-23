@@ -6,7 +6,7 @@
 package lol.liquidcat.utils
 
 import lol.liquidcat.event.StrafeEvent
-import net.ccbluex.liquidbounce.utils.block.PlaceInfo
+import lol.liquidcat.utils.block.PlaceInfo
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.MathHelper
 import net.minecraft.util.Vec3

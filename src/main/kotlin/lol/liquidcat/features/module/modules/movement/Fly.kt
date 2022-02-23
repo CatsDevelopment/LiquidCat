@@ -14,11 +14,13 @@ import lol.liquidcat.utils.entity.strafe
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
 
-@ModuleInfo(name = "Fly", description = "Allows you to fly in survival mode.", category = ModuleCategory.MOVEMENT)
+//TODO Add more modes
+
+@ModuleInfo("Fly", "Allows you to fly in survival mode.", ModuleCategory.MOVEMENT)
 class Fly : Module() {
 
-    val modeValue = ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
-    private val vanillaSpeedValue = FloatValue("VanillaSpeed", 2f, 0f, 5f)
+    private val modeValue = ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
+    private val speedValue = FloatValue("Speed", 2f, 0f, 5f)
 
     override val tag: String
         get() = modeValue.get()
@@ -27,15 +29,13 @@ class Fly : Module() {
         mc.thePlayer.motionX = 0.0
         mc.thePlayer.motionY = 0.0
         mc.thePlayer.motionZ = 0.0
-
-        super.onDisable()
     }
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         when (modeValue.get()) {
             "Vanilla" -> {
-                val vanillaSpeed = vanillaSpeedValue.get()
+                val vanillaSpeed = speedValue.get().toDouble()
 
                 mc.thePlayer.capabilities.isFlying = false
 
@@ -44,15 +44,13 @@ class Fly : Module() {
                 mc.thePlayer.motionZ = 0.0
 
                 if (mc.gameSettings.keyBindJump.isKeyDown)
-                    mc.thePlayer.motionY += vanillaSpeed.toDouble()
+                    mc.thePlayer.motionY += vanillaSpeed
 
                 if (mc.gameSettings.keyBindSneak.isKeyDown)
-                    mc.thePlayer.motionY -= vanillaSpeed.toDouble()
+                    mc.thePlayer.motionY -= vanillaSpeed
 
-                mc.thePlayer.strafe(speed = vanillaSpeed.toDouble())
+                mc.thePlayer.strafe(speed = vanillaSpeed)
             }
-
-            //TODO: Add more modes
         }
     }
 }

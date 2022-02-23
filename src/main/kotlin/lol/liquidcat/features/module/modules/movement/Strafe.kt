@@ -13,12 +13,11 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.entity.strafe
 
-@ModuleInfo(name = "Strafe", description = "Allows you to freely move in mid air.", category = ModuleCategory.MOVEMENT)
+@ModuleInfo("Strafe", "Allows you to freely move in mid air.", ModuleCategory.MOVEMENT)
 class Strafe : Module() {
 
     @EventTarget
     fun onMotion(event: MotionEvent) {
-        if (event.eventState == EventState.PRE)
-            mc.thePlayer.strafe()
+        if (event.eventState == EventState.PRE) mc.thePlayer.strafe()
     }
 }

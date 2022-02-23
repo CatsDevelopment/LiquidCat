@@ -22,6 +22,8 @@ import net.minecraft.network.play.client.*
 import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 
+//TODO Rewrite
+
 @ModuleInfo(name = "AutoSoup", description = "Makes you automatically eat soup whenever your health is low.", category = ModuleCategory.COMBAT)
 class AutoSoup : Module() {
 

@@ -6,16 +6,17 @@
 package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.features.command.Command
-import net.ccbluex.liquidbounce.utils.MovementUtils
+import lol.liquidcat.utils.entity.forward
 
-class HClipCommand : lol.liquidcat.features.command.Command("hclip", emptyArray()) {
+class HClipCommand : Command("hclip", emptyArray()) {
+
     /**
      * Execute commands with provided [args]
      */
     override fun execute(args: Array<String>) {
         if (args.size > 1) {
             try {
-                MovementUtils.forward(args[1].toDouble())
+                mc.thePlayer.forward(args[1].toDouble())
                 chat("You were teleported.")
             } catch (exception: NumberFormatException) {
                 chatSyntaxError()

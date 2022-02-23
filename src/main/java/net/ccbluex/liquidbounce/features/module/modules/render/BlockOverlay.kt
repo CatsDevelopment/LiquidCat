@@ -6,38 +6,33 @@
 package net.ccbluex.liquidbounce.features.module.modules.render
 
 import lol.liquidcat.event.EventTarget
-import lol.liquidcat.event.Render2DEvent
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.block.BlockUtils.canBeClicked
-import net.ccbluex.liquidbounce.utils.block.BlockUtils.getBlock
-import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
+import lol.liquidcat.utils.block.isClickable
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
-import net.minecraft.block.Block
-import net.minecraft.client.gui.ScaledResolution
+import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
+import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-@ModuleInfo(name = "BlockOverlay", description = "Allows you to change the design of the block overlay.", category = ModuleCategory.RENDER)
+@ModuleInfo("BlockOverlay", "Allows you to change the design of the block overlay.", ModuleCategory.RENDER)
 class BlockOverlay : Module() {
+
     private val colorRedValue = IntegerValue("R", 68, 0, 255)
     private val colorGreenValue = IntegerValue("G", 117, 0, 255)
     private val colorBlueValue = IntegerValue("B", 255, 0, 255)
     private val colorRainbow = BoolValue("Rainbow", false)
-    val infoValue = BoolValue("Info", false)
 
     val currentBlock: BlockPos?
         get() {
             val blockPos = mc.objectMouseOver?.blockPos ?: return null
 
-            if (canBeClicked(blockPos) && mc.theWorld.worldBorder.contains(blockPos))
+            if (blockPos.isClickable() && mc.theWorld.worldBorder.contains(blockPos))
                 return blockPos
 
             return null
@@ -74,27 +69,5 @@ class BlockOverlay : Module() {
         GlStateManager.enableTexture2D()
         GlStateManager.disableBlend()
         GlStateManager.resetColor()
-    }
-
-    @EventTarget
-    fun onRender2D(event: Render2DEvent) {
-        if (infoValue.get()) {
-            val blockPos = currentBlock ?: return
-            val block = getBlock(blockPos) ?: return
-
-            val info = "${block.localizedName} §7ID: ${Block.getIdFromBlock(block)}"
-            val scaledResolution = ScaledResolution(mc)
-
-            RenderUtils.drawBorderedRect(
-                    scaledResolution.scaledWidth / 2 - 2F,
-                    scaledResolution.scaledHeight / 2 + 5F,
-                    scaledResolution.scaledWidth / 2 + Fonts.font40.getStringWidth(info) + 2F,
-                    scaledResolution.scaledHeight / 2 + 16F,
-                    3F, Color.BLACK.rgb, Color.BLACK.rgb
-            )
-            GlStateManager.resetColor()
-            Fonts.font40.drawString(info, scaledResolution.scaledWidth / 2, scaledResolution.scaledHeight / 2 + 7,
-                    Color.WHITE.rgb)
-        }
     }
 }

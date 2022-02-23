@@ -7,7 +7,7 @@ package net.ccbluex.liquidbounce.utils.render;
 
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
-import net.ccbluex.liquidbounce.utils.block.BlockUtils;
+import lol.liquidcat.utils.block.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;

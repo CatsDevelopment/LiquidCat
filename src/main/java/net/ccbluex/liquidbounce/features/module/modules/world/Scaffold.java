@@ -15,8 +15,8 @@ import lol.liquidcat.utils.Rotation;
 import net.ccbluex.liquidbounce.features.module.modules.render.BlockOverlay;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.utils.*;
-import net.ccbluex.liquidbounce.utils.block.BlockUtils;
-import net.ccbluex.liquidbounce.utils.block.PlaceInfo;
+import lol.liquidcat.utils.block.BlockUtils;
+import lol.liquidcat.utils.block.PlaceInfo;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.ccbluex.liquidbounce.utils.timer.MSTimer;
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils;
@@ -95,12 +95,6 @@ public class Scaffold extends Module {
     private final IntegerValue keepLengthValue = new IntegerValue("KeepRotationLength", 0, 0, 20);
     private final BoolValue keepRotationValue = new BoolValue("KeepRotation", false);
 
-    // Zitter
-    private final BoolValue zitterValue = new BoolValue("Zitter", false);
-    private final ListValue zitterModeValue = new ListValue("ZitterMode", new String[] {"Teleport", "Smooth"}, "Teleport");
-    private final FloatValue zitterSpeed = new FloatValue("ZitterSpeed", 0.13F, 0.1F, 0.3F);
-    private final FloatValue zitterStrength = new FloatValue("ZitterStrength", 0.072F, 0.05F, 0.2F);
-
     // Game
     private final FloatValue timerValue = new FloatValue("Timer", 1F, 0.1F, 10F);
     private final FloatValue speedModifierValue = new FloatValue("SpeedModifier", 1F, 0, 2F);
@@ -170,35 +164,6 @@ public class Scaffold extends Module {
             mc.gameSettings.keyBindSneak.pressed = false;
 
         if (mc.thePlayer.onGround) {
-            final String mode = modeValue.get();
-
-            // Rewinside scaffold mode
-            if (mode.equalsIgnoreCase("Rewinside")) {
-                MovementUtils.strafe(0.2F);
-                mc.thePlayer.motionY = 0D;
-            }
-
-            // Smooth Zitter
-            if (zitterValue.get() && zitterModeValue.get().equalsIgnoreCase("smooth")) {
-                if (!GameSettings.isKeyDown(mc.gameSettings.keyBindRight))
-                    mc.gameSettings.keyBindRight.pressed = false;
-
-                if (!GameSettings.isKeyDown(mc.gameSettings.keyBindLeft))
-                    mc.gameSettings.keyBindLeft.pressed = false;
-
-                if (zitterTimer.hasTimePassed(100)) {
-                    zitterDirection = !zitterDirection;
-                    zitterTimer.reset();
-                }
-
-                if (zitterDirection) {
-                    mc.gameSettings.keyBindRight.pressed = true;
-                    mc.gameSettings.keyBindLeft.pressed = false;
-                } else {
-                    mc.gameSettings.keyBindRight.pressed = false;
-                    mc.gameSettings.keyBindLeft.pressed = true;
-                }
-            }
 
             // Eagle
             if (eagleValue.get() && !shouldGoDown) {
@@ -222,16 +187,6 @@ public class Scaffold extends Module {
                     placedBlocksWithoutEagle = 0;
                 } else
                     placedBlocksWithoutEagle++;
-            }
-
-            // Zitter
-            if (zitterValue.get() && zitterModeValue.get().equalsIgnoreCase("teleport")) {
-                MovementUtils.strafe(zitterSpeed.get());
-
-                final double yaw = Math.toRadians(mc.thePlayer.rotationYaw + (zitterDirection ? 90D : -90D));
-                mc.thePlayer.motionX -= Math.sin(yaw) * zitterStrength.get();
-                mc.thePlayer.motionZ += Math.cos(yaw) * zitterStrength.get();
-                zitterDirection = !zitterDirection;
             }
         }
     }
@@ -416,10 +371,6 @@ public class Scaffold extends Module {
     public void onRender2D(final Render2DEvent event) {
         if (counterDisplayValue.get()) {
             GlStateManager.pushMatrix();
-
-            final BlockOverlay blockOverlay = (BlockOverlay) LiquidCat.moduleManager.getModule(BlockOverlay.class);
-            if (blockOverlay.getState() && blockOverlay.getInfoValue().get() && blockOverlay.getCurrentBlock() != null)
-                GlStateManager.translate(0, 15F, 0);
 
             final String info = "Blocks: §7" + getBlocksAmount();
             final ScaledResolution scaledResolution = new ScaledResolution(mc);

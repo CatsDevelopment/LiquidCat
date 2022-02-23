@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.modules.combat.Criticals;
 import lol.liquidcat.features.module.modules.exploit.GhostHand;
 import lol.liquidcat.features.module.modules.player.NoFall;
 import net.ccbluex.liquidbounce.features.module.modules.render.XRay;
-import net.ccbluex.liquidbounce.features.module.modules.world.NoSlowBreak;
+import lol.liquidcat.features.module.modules.world.NoSlowBreak;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
@@ -98,20 +98,17 @@ public abstract class MixinBlock {
         // NoSlowBreak
         final NoSlowBreak noSlowBreak = (NoSlowBreak) LiquidCat.moduleManager.getModule(NoSlowBreak.class);
         if (noSlowBreak.getState()) {
-            if (noSlowBreak.getWaterValue().get() && playerIn.isInsideOfMaterial(Material.water) &&
-                    !EnchantmentHelper.getAquaAffinityModifier(playerIn)) {
+            if (noSlowBreak.getWaterValue().get() && playerIn.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(playerIn)) {
                 f *= 5.0F;
             }
 
             if (noSlowBreak.getAirValue().get() && !playerIn.onGround) {
                 f *= 5.0F;
             }
-        } else if (playerIn.onGround) { // NoGround
+        } else if (playerIn.onGround) {
             final NoFall noFall = (NoFall) LiquidCat.moduleManager.getModule(NoFall.class);
-            final Criticals criticals = (Criticals) LiquidCat.moduleManager.getModule(Criticals.class);
 
-            if (noFall.getState() && noFall.getModeValue().get().equalsIgnoreCase("NoGround") ||
-                    criticals.getState() && criticals.getModeValue().get().equalsIgnoreCase("NoGround")) {
+            if (noFall.getState() && noFall.getModeValue().get().equals("NoGround")) {
                 f /= 5F;
             }
         }

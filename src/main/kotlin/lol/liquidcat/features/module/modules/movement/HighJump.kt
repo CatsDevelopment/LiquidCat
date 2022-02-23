@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.FloatValue
 
-@ModuleInfo(name = "HighJump", description = "Allows you to jump higher.", category = ModuleCategory.MOVEMENT)
+@ModuleInfo("HighJump", "Allows you to jump higher.", ModuleCategory.MOVEMENT)
 class HighJump : Module() {
 
     private val heightValue = FloatValue("Height", 2f, 1.01f, 5f)

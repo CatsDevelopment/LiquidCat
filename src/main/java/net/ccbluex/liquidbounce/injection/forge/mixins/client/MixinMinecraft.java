@@ -10,7 +10,7 @@ import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.combat.AutoClicker;
 import lol.liquidcat.features.module.modules.exploit.AbortBreaking;
 import lol.liquidcat.features.module.modules.exploit.MultiActions;
-import net.ccbluex.liquidbounce.features.module.modules.world.FastPlace;
+import lol.liquidcat.features.module.modules.world.FastPlace;
 import net.ccbluex.liquidbounce.ui.client.GuiMainMenu;
 import net.ccbluex.liquidbounce.utils.CPSCounter;
 import net.ccbluex.liquidbounce.utils.render.IconUtils;

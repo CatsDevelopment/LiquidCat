@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 
-@ModuleInfo(name = "NoRotate", description = "Prevents the server from rotating your head.", category = ModuleCategory.MISC)
+@ModuleInfo("NoRotate", "Prevents the server from rotating your head.", ModuleCategory.MISC)
 class NoRotate : Module() {
 
     @EventTarget

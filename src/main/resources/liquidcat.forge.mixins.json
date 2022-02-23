@@ -1,14 +1,14 @@
 {
   "required": true,
   "package": "net.ccbluex.liquidbounce.injection.forge.mixins",
-  "refmap": "liquidbounce.mixins.refmap.json",
+  "refmap": "liquidcat.mixins.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "block.MixinBlock",
     "block.MixinBlockAnvil",
-    "block.MixinBlockLadder",
     "block.MixinBlockLiquid",
     "block.MixinBlockModelRenderer",
+    "block.MixinBlockWeb",
     "block.MixinBlockSoulSand",
     "client.MixinMinecraft",
     "client.MixinProfiler",

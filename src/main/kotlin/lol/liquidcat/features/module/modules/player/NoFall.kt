@@ -14,9 +14,12 @@ import lol.liquidcat.utils.entity.minFallDistance
 import lol.liquidcat.value.ListValue
 import net.minecraft.network.play.client.C03PacketPlayer
 
-@ModuleInfo(name = "NoFall", description = "Prevents you from taking fall damage.", category = ModuleCategory.PLAYER)
+//TODO Add more modes
+
+@ModuleInfo("NoFall", "Prevents you from taking fall damage.", ModuleCategory.PLAYER)
 class NoFall : Module() {
-    val modeValue = ListValue("Mode", arrayOf("Spoof"), "Spoof")
+
+    val modeValue = ListValue("Mode", arrayOf("Spoof", "NoGround"), "Spoof")
 
     override val tag: String
         get() = modeValue.get()
@@ -25,10 +28,13 @@ class NoFall : Module() {
     fun onPacket(event: PacketEvent) {
         val packet = event.packet
 
-        if (packet is C03PacketPlayer) {
-            if (modeValue.get() == "Spoof" && mc.thePlayer.fallDistance > mc.thePlayer.minFallDistance) {
-                packet.onGround = true
+        if (packet is C03PacketPlayer)
+            when {
+                modeValue.get() == "Spoof" && mc.thePlayer.fallDistance > mc.thePlayer.minFallDistance -> {
+                    packet.onGround = true
+                    mc.thePlayer.fallDistance = 0.0f
+                }
+                modeValue.get() == "NoGround" -> packet.onGround = false
             }
-        }
     }
 }

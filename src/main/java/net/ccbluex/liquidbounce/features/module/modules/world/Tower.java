@@ -6,24 +6,23 @@
 package net.ccbluex.liquidbounce.features.module.modules.world;
 
 import lol.liquidcat.event.*;
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleInfo;
 import lol.liquidcat.utils.PlaceRotation;
 import lol.liquidcat.utils.Rotation;
 import lol.liquidcat.utils.VecRotation;
-import net.ccbluex.liquidbounce.features.module.modules.render.BlockOverlay;
-import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.utils.*;
-import net.ccbluex.liquidbounce.utils.block.BlockUtils;
-import net.ccbluex.liquidbounce.utils.block.PlaceInfo;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
-import net.ccbluex.liquidbounce.utils.timer.TickTimer;
+import lol.liquidcat.utils.block.BlockUtils;
+import lol.liquidcat.utils.block.PlaceInfo;
 import lol.liquidcat.value.BoolValue;
 import lol.liquidcat.value.FloatValue;
 import lol.liquidcat.value.IntegerValue;
 import lol.liquidcat.value.ListValue;
+import net.ccbluex.liquidbounce.ui.font.Fonts;
+import net.ccbluex.liquidbounce.utils.InventoryUtils;
+import net.ccbluex.liquidbounce.utils.RotationUtils;
+import net.ccbluex.liquidbounce.utils.render.RenderUtils;
+import net.ccbluex.liquidbounce.utils.timer.TickTimer;
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -374,10 +373,6 @@ public class Tower extends Module {
     public void onRender2D(final Render2DEvent event) {
         if(counterDisplayValue.get()) {
             GlStateManager.pushMatrix();
-
-            final BlockOverlay blockOverlay = (BlockOverlay) LiquidCat.moduleManager.getModule(BlockOverlay.class);
-            if (blockOverlay.getState() && blockOverlay.getInfoValue().get() && blockOverlay.getCurrentBlock() != null)
-                GlStateManager.translate(0, 15F, 0);
 
             final String info = "Blocks: §7" + getBlocksAmount();
             final ScaledResolution scaledResolution = new ScaledResolution(mc);

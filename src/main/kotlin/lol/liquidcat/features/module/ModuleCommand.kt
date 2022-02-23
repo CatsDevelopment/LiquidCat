@@ -6,8 +6,7 @@
 package lol.liquidcat.features.module
 
 import lol.liquidcat.value.*
-import lol.liquidcat.features.command.Command
-import net.ccbluex.liquidbounce.utils.block.BlockUtils
+import lol.liquidcat.utils.block.BlockUtils
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import net.minecraft.block.Block
 
