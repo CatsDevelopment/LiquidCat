@@ -5,9 +5,8 @@
  */
 package lol.liquidcat.features.command.commands
 
-import lol.liquidcat.features.command.Command
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
-import net.ccbluex.liquidbounce.utils.ServerUtils
+import lol.liquidcat.utils.ServerUtils
 import net.ccbluex.liquidbounce.utils.login.MinecraftAccount
 
 class LoginCommand : lol.liquidcat.features.command.Command("login", emptyArray()) {

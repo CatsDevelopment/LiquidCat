@@ -11,6 +11,7 @@ import lol.liquidcat.event.UpdateEvent;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleInfo;
+import lol.liquidcat.utils.block.BlockExtensionsKt;
 import lol.liquidcat.utils.block.BlockUtils;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
@@ -63,7 +64,8 @@ public class BlockESP extends Module {
                             final int zPos = ((int) mc.thePlayer.posZ + z);
 
                             final BlockPos blockPos = new BlockPos(xPos, yPos, zPos);
-                            final Block block = BlockUtils.getBlock(blockPos);
+                            final Block block = BlockExtensionsKt.getBlock(blockPos);
+
                             if(block == selectedBlock)
                                 blockList.add(blockPos);
                         }

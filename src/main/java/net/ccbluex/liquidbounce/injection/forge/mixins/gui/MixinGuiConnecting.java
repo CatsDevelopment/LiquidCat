@@ -5,9 +5,8 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
-import com.mojang.authlib.GameProfile;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.utils.ServerUtils;
+import lol.liquidcat.utils.ServerUtils;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDisconnected;
@@ -60,7 +59,7 @@ public abstract class MixinGuiConnecting extends GuiScreen {
 
     @Inject(method = "connect", at = @At("HEAD"))
     private void headConnect(final String ip, final int port, CallbackInfo callbackInfo) {
-        ServerUtils.serverData = new ServerData("", ip + ":" + port, false);
+        ServerUtils.INSTANCE.setServerData(new ServerData("", ip + ":" + port, false));
     }
 
     /**

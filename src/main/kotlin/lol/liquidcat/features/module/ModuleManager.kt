@@ -18,16 +18,13 @@ import lol.liquidcat.features.module.modules.misc.ResourcePackSpoof
 import lol.liquidcat.features.module.modules.misc.Spammer
 import lol.liquidcat.features.module.modules.movement.*
 import lol.liquidcat.features.module.modules.player.*
-import lol.liquidcat.features.module.modules.render.FreeCam
-import lol.liquidcat.features.module.modules.render.NoBob
-import lol.liquidcat.features.module.modules.render.NoHurtCam
+import lol.liquidcat.features.module.modules.render.*
 import lol.liquidcat.features.module.modules.world.*
 import lol.liquidcat.features.module.modules.world.Timer
 import net.ccbluex.liquidbounce.features.module.modules.misc.*
 import net.ccbluex.liquidbounce.features.module.modules.movement.*
 import net.ccbluex.liquidbounce.features.module.modules.player.*
 import net.ccbluex.liquidbounce.features.module.modules.render.*
-import net.ccbluex.liquidbounce.features.module.modules.world.*
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import java.util.*
 
@@ -73,7 +70,6 @@ class ModuleManager : Listenable {
                 ChestStealer::class.java,
                 Scaffold::class.java,
                 CivBreak::class.java,
-                Tower::class.java,
                 FastBreak::class.java,
                 FastPlace::class.java,
                 ESP::class.java,

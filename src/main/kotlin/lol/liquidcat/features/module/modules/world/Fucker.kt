@@ -15,10 +15,10 @@ import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.features.module.modules.combat.KillAura
 import lol.liquidcat.features.module.modules.player.AutoTool
 import lol.liquidcat.utils.block.BlockUtils.getBlockName
-import lol.liquidcat.utils.block.BlockUtils.getCenterDistance
-import lol.liquidcat.utils.block.BlockUtils.searchBlocks
 import lol.liquidcat.utils.block.getBlock
+import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.block.isFullBlock
+import lol.liquidcat.utils.block.searchBlocks
 import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
@@ -74,7 +74,7 @@ object Fucker : Module() {
         val targetId = blockValue.get()
 
         if (pos == null || Block.getIdFromBlock(pos?.getBlock()) != targetId ||
-                getCenterDistance(pos!!) > rangeValue.get())
+                pos!!.getCenterDistance() > rangeValue.get())
             pos = find(targetId)
 
         // Reset current breaking when there is no target block
@@ -207,10 +207,10 @@ object Fucker : Module() {
      */
     private fun find(targetID: Int) = searchBlocks(rangeValue.get().toInt() + 1)
             .filter {
-                Block.getIdFromBlock(it.value) == targetID && getCenterDistance(it.key) <= rangeValue.get()
+                Block.getIdFromBlock(it.value) == targetID && it.key.getCenterDistance() <= rangeValue.get()
                         && (isHitable(it.key) || surroundingsValue.get())
             }
-            .minBy { getCenterDistance(it.key) }?.key
+            .minBy { it.key.getCenterDistance() }?.key
 
     /**
      * Check if block is hitable (or allowed to hit through walls)

@@ -11,6 +11,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.block.BlockUtils
 import lol.liquidcat.utils.block.getBlock
+import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
@@ -57,12 +58,12 @@ class CivBreak : Module() {
         val pos = blockPos ?: return
 
         if (airResetValue.get() && pos.getBlock() is BlockAir ||
-                rangeResetValue.get() && BlockUtils.getCenterDistance(pos) > range.get()) {
+                rangeResetValue.get() && pos.getCenterDistance() > range.get()) {
             blockPos = null
             return
         }
 
-        if (pos.getBlock() is BlockAir || BlockUtils.getCenterDistance(pos) > range.get())
+        if (pos.getBlock() is BlockAir || pos.getCenterDistance() > range.get())
             return
 
         when (event.eventState) {

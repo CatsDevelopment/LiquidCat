@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.modules.player.Reach;
 import net.ccbluex.liquidbounce.features.module.modules.render.CameraClip;
 import lol.liquidcat.features.module.modules.render.NoBob;
 import lol.liquidcat.features.module.modules.render.NoHurtCam;
-import net.ccbluex.liquidbounce.features.module.modules.render.Tracers;
+import lol.liquidcat.features.module.modules.render.Tracers;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

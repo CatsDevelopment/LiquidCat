@@ -14,9 +14,9 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.features.module.modules.player.AutoTool
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import lol.liquidcat.utils.block.BlockUtils.getCenterDistance
-import lol.liquidcat.utils.block.BlockUtils.searchBlocks
 import lol.liquidcat.utils.block.getBlock
+import lol.liquidcat.utils.block.getCenterDistance
+import lol.liquidcat.utils.block.searchBlocks
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.utils.timer.TickTimer
 import lol.liquidcat.value.BoolValue
@@ -87,7 +87,7 @@ class Nuker : Module() {
 
             val validBlocks = searchBlocks(radiusValue.get().roundToInt() + 1)
                     .filter { (pos, block) ->
-                        if (getCenterDistance(pos) <= radiusValue.get() && validBlock(block)) {
+                        if (pos.getCenterDistance() <= radiusValue.get() && validBlock(block)) {
                             if (layerValue.get() && pos.y < mc.thePlayer.posY) { // Layer: Break all blocks above you
                                 return@filter false
                             }
@@ -109,7 +109,7 @@ class Nuker : Module() {
             do{
                 val (blockPos, block) = when(priorityValue.get()) {
                     "Distance" -> validBlocks.minBy { (pos, block) ->
-                        val distance = getCenterDistance(pos)
+                        val distance = pos.getCenterDistance()
                         val safePos = BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1, mc.thePlayer.posZ)
 
                         if (pos.x == safePos.x && safePos.y <= pos.y && pos.z == safePos.z)
@@ -189,7 +189,7 @@ class Nuker : Module() {
             // Serach for new blocks to break
             searchBlocks(radiusValue.get().roundToInt() + 1)
                     .filter { (pos, block) ->
-                        if (getCenterDistance(pos) <= radiusValue.get() && validBlock(block)) {
+                        if (pos.getCenterDistance() <= radiusValue.get() && validBlock(block)) {
                             if (layerValue.get() && pos.y < mc.thePlayer.posY) { // Layer: Break all blocks above you
                                 return@filter false
                             }

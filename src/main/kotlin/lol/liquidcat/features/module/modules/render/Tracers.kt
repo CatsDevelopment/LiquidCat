@@ -3,7 +3,7 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package net.ccbluex.liquidbounce.features.module.modules.render
+package lol.liquidcat.features.module.modules.render
 
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render3DEvent
@@ -14,48 +14,43 @@ import net.ccbluex.liquidbounce.utils.EntityUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
+import lol.liquidcat.value.IntegerValue
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.util.Vec3
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-@ModuleInfo(name = "Tracers", description = "Draws a line to targets around you.", category = ModuleCategory.RENDER)
+@ModuleInfo("Tracers", "Draws a line to targets around you.", ModuleCategory.RENDER)
 class Tracers : Module() {
-    private val thicknessValue = FloatValue("Thickness", 2F, 1F, 5F)
-    private val distanceColorValue = BoolValue("DistanceColor", false)
+
+    private val redValue = IntegerValue("Red", 255, 0, 255)
+    private val greenValue = IntegerValue("Green", 255, 0, 255)
+    private val blueValue = IntegerValue("Blue", 255, 0, 255)
+    private val thicknessValue = FloatValue("Thickness", 2f, 1f, 5f)
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
         GL11.glEnable(GL11.GL_BLEND)
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
         GL11.glEnable(GL11.GL_LINE_SMOOTH)
         GL11.glLineWidth(thicknessValue.get())
         GL11.glDisable(GL11.GL_TEXTURE_2D)
+        GL11.glShadeModel(GL11.GL_SMOOTH)
         GL11.glDisable(GL11.GL_DEPTH_TEST)
         GL11.glDepthMask(false)
 
         GL11.glBegin(GL11.GL_LINES)
 
         for (entity in mc.theWorld.loadedEntityList) {
-            if (entity != null && entity != mc.thePlayer && EntityUtils.isSelected(entity, false)) {
-                var dist = (mc.thePlayer.getDistanceToEntity(entity) * 2).toInt()
-
-                if (dist > 255) dist = 255
-
-                val color = when {
-                    EntityUtils.isFriend(entity) -> Color(0, 0, 255, 150)
-                    distanceColorValue.get() -> Color(255 - dist, dist, 0, 150)
-                    else -> Color(255, 255, 255, 150)
-                }
-
-                drawTraces(entity, color)
-            }
+            if (EntityUtils.isSelected(entity, false))
+                drawTraces(entity, Color(redValue.get(), greenValue.get(), blueValue.get(), 100))
         }
 
         GL11.glEnd()
 
         GL11.glEnable(GL11.GL_TEXTURE_2D)
+        GL11.glShadeModel(GL11.GL_FLAT)
         GL11.glDisable(GL11.GL_LINE_SMOOTH)
         GL11.glEnable(GL11.GL_DEPTH_TEST)
         GL11.glDepthMask(true)
@@ -76,10 +71,9 @@ class Tracers : Module() {
                 .rotateYaw((-Math.toRadians(mc.thePlayer.rotationYaw.toDouble())).toFloat())
 
         RenderUtils.glColor(color)
+        GL11.glVertex3d(eyeVector.xCoord, eyeVector.yCoord + mc.thePlayer.eyeHeight, eyeVector.zCoord)
 
-        GL11.glVertex3d(eyeVector.xCoord, mc.thePlayer.getEyeHeight().toDouble() + eyeVector.yCoord, eyeVector.zCoord)
-        GL11.glVertex3d(x, y, z)
-        GL11.glVertex3d(x, y, z)
-        GL11.glVertex3d(x, y + entity.height, z)
+        RenderUtils.glColor(Color(redValue.get(), greenValue.get(), blueValue.get(), 0))
+        GL11.glVertex3d(x, y + entity.height / 2, z)
     }
 }

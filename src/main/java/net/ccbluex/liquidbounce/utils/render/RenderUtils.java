@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.utils.render;
 
+import lol.liquidcat.utils.block.BlockExtensionsKt;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 import lol.liquidcat.utils.block.BlockUtils;
@@ -93,7 +94,7 @@ public final class RenderUtils extends MinecraftInstance {
         final double z = blockPos.getZ() - renderManager.renderPosZ;
 
         AxisAlignedBB axisAlignedBB = new AxisAlignedBB(x, y, z, x + 1.0, y + 1.0, z + 1.0);
-        final Block block = BlockUtils.getBlock(blockPos);
+        final Block block = BlockExtensionsKt.getBlock(blockPos);
 
         if (block != null) {
             final EntityPlayer player = mc.thePlayer;

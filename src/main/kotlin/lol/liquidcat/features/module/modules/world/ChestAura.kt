@@ -15,7 +15,9 @@ import lol.liquidcat.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.module.modules.player.Blink
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import lol.liquidcat.utils.block.BlockUtils
+import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.block.getVec
+import lol.liquidcat.utils.block.searchBlocks
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import lol.liquidcat.value.BlockValue
 import lol.liquidcat.value.BoolValue
@@ -64,10 +66,10 @@ object ChestAura : Module() {
                 val eyesPos = Vec3(mc.thePlayer.posX, mc.thePlayer.entityBoundingBox.minY + mc.thePlayer.getEyeHeight(),
                         mc.thePlayer.posZ)
 
-                currentBlock = BlockUtils.searchBlocks(radius.toInt())
+                currentBlock = searchBlocks(radius.toInt())
                         .filter {
                             Block.getIdFromBlock(it.value) == chestValue.get() && !clickedBlocks.contains(it.key)
-                                    && BlockUtils.getCenterDistance(it.key) < rangeValue.get()
+                                    && it.key.getCenterDistance() < rangeValue.get()
                         }
                         .filter {
                             if (throughWallsValue.get())
@@ -79,7 +81,7 @@ object ChestAura : Module() {
 
                             movingObjectPosition != null && movingObjectPosition.blockPos == blockPos
                         }
-                        .minBy { BlockUtils.getCenterDistance(it.key) }?.key
+                        .minBy { it.key.getCenterDistance() }?.key
 
                 if (rotationsValue.get())
                     RotationUtils.setTargetRotation((RotationUtils.faceBlock(currentBlock ?: return)
