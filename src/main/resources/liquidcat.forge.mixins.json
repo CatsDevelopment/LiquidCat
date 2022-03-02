@@ -55,7 +55,6 @@
     "render.MixinTileEntityRendererDispatcher",
     "render.MixinVisGraph",
     "resources.MixinSkinManager",
-    "world.MixinChunk",
     "world.MixinWorld",
     "world.MixinWorldClient"
   ]

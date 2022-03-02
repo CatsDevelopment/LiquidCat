@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
@@ -13,7 +14,6 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.render.AnimationUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color
 
@@ -73,13 +73,13 @@ class Notification(private val message: String) {
      */
     fun drawNotification() {
         // Draw notification
-        RenderUtils.drawRect(-x + 8 + textLength, 0F, -x, -20F, Color.BLACK.rgb)
-        RenderUtils.drawRect(-x, 0F, -x - 5, -20F, Color(0, 160, 255).rgb)
+        GLUtils.drawRect(-x + 8 + textLength, 0F, -x, -20F, Color.BLACK.rgb)
+        GLUtils.drawRect(-x, 0F, -x - 5, -20F, Color(0, 160, 255).rgb)
         Fonts.font35.drawString(message, -x + 4, -14F, Int.MAX_VALUE)
         GlStateManager.resetColor()
 
         // Animation
-        val delta = RenderUtils.deltaTime
+        val delta = GLUtils.deltaTime
         val width = textLength + 8F
 
         when (fadeState) {

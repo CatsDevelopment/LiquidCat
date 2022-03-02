@@ -6,8 +6,9 @@
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import lol.liquidcat.LiquidCat
-import lol.liquidcat.value.*
 import lol.liquidcat.features.module.Module
+import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
@@ -19,7 +20,6 @@ import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.render.AnimationUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color
 
@@ -69,7 +69,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
         AWTFontRenderer.assumeNonVolatile = true
 
         // Slide animation - update every render
-        val delta = RenderUtils.deltaTime
+        val delta = GLUtils.deltaTime
 
         for (module in LiquidCat.moduleManager.modules) {
             if (!module.array || (!module.state && module.slide == 0F)) continue
@@ -134,7 +134,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                             if (side.vertical == Vertical.DOWN) index + 1 else index
                     val moduleColor = Color.getHSBColor(module.hue, saturation, brightness).rgb
 
-                    RenderUtils.drawRect(
+                    GLUtils.drawRect(
                             xPos - if (rectMode.equals("right", true)) 5 else 2,
                             yPos,
                             if (rectMode.equals("right", true)) -3F else 0F,
@@ -159,9 +159,9 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                         }
 
                         when {
-                            rectMode.equals("left", true) -> RenderUtils.drawRect(xPos - 5, yPos, xPos - 2, yPos + textHeight,
+                            rectMode.equals("left", true) -> GLUtils.drawRect(xPos - 5, yPos, xPos - 2, yPos + textHeight,
                                     rectColor)
-                            rectMode.equals("right", true) -> RenderUtils.drawRect(-3F, yPos, 0F,
+                            rectMode.equals("right", true) -> GLUtils.drawRect(-3F, yPos, 0F,
                                     yPos + textHeight, rectColor)
                         }
                     }
@@ -185,7 +185,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                             if (side.vertical == Vertical.DOWN) index + 1 else index
                     val moduleColor = Color.getHSBColor(module.hue, saturation, brightness).rgb
 
-                    RenderUtils.drawRect(
+                    GLUtils.drawRect(
                             0F,
                             yPos,
                             xPos + width + if (rectMode.equals("right", true)) 5 else 2,
@@ -210,10 +210,10 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
                         }
 
                         when {
-                            rectMode.equals("left", true) -> RenderUtils.drawRect(0F,
+                            rectMode.equals("left", true) -> GLUtils.drawRect(0F,
                                     yPos - 1, 3F, yPos + textHeight, rectColor)
                             rectMode.equals("right", true) ->
-                                RenderUtils.drawRect(xPos + width + 2, yPos, xPos + width + 2 + 3,
+                                GLUtils.drawRect(xPos + width + 2, yPos, xPos + width + 2 + 3,
                                         yPos + textHeight, rectColor)
                         }
                     }

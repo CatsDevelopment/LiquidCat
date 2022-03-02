@@ -13,16 +13,16 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.features.module.modules.player.AutoTool
-import net.ccbluex.liquidbounce.utils.RotationUtils
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.block.searchBlocks
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
-import net.ccbluex.liquidbounce.utils.timer.TickTimer
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
+import net.ccbluex.liquidbounce.utils.RotationUtils
+import net.ccbluex.liquidbounce.utils.timer.TickTimer
 import net.minecraft.block.Block
 import net.minecraft.block.BlockAir
 import net.minecraft.block.BlockLiquid
@@ -226,12 +226,12 @@ class Nuker : Module() {
             val safePos = BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1, mc.thePlayer.posZ)
             val safeBlock = safePos.getBlock()
             if (safeBlock != null && validBlock(safeBlock))
-                RenderUtils.drawBlockBox(safePos, Color.GREEN, true)
+                GLUtils.drawBlockBox(safePos, Color.GREEN, false, true)
         }
 
         // Just draw all blocks
         for (blockPos in attackedBlocks)
-            RenderUtils.drawBlockBox(blockPos, Color.RED, true)
+            GLUtils.drawBlockBox(blockPos, Color.RED, false, true)
     }
 
     /**

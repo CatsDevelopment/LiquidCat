@@ -8,12 +8,12 @@ package net.ccbluex.liquidbounce.ui.client
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName
+import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.injection.implementations.IMixinGuiSlot
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.misc.HttpUtils
 import net.ccbluex.liquidbounce.utils.render.CustomTexture
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiScreen
@@ -130,7 +130,7 @@ class GuiContributors(private val prevGui: GuiScreen) : GuiScreen() {
                 drawCenteredString(Fonts.font40, "Failed to load", width / 8, height / 2, Color(255, gb, gb).rgb)
             } else {
                 drawCenteredString(Fonts.font40, "Loading...", width / 8, height / 2, Color.WHITE.rgb)
-                RenderUtils.drawLoadingCircle((width / 8).toFloat(), (height / 2 - 40).toFloat())
+                GLUtils.drawLoadingCircle((width / 8).toFloat(), (height / 2 - 40).toFloat())
             }
         }
 

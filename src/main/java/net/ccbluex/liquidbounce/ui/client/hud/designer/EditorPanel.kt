@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.ui.client.hud.designer
 
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.features.module.modules.render.ClickGUI
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.createDefault
@@ -16,7 +17,6 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.ui.font.GameFontRenderer
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.util.MathHelper
@@ -66,7 +66,7 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
 
         if (shouldScroll) {
             GL11.glPushMatrix()
-            RenderUtils.makeScissorBox(x.toFloat(), y + 1F, x + width.toFloat(), y + 200F)
+            GLUtils.makeScissorBox(x.toFloat(), y + 1F, x + width.toFloat(), y + 200F)
             GL11.glEnable(GL11.GL_SCISSOR_TEST)
 
             if (y + 200 < currMouseY)
@@ -96,7 +96,7 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
                     Color(41, 41, 41).rgb)
 
             val v = 197 * (-scroll / (realHeight - 170F))
-            RenderUtils.drawRect(x + width - 5F, y + 15 + v, x + width - 2F, y + 20 + v,
+            GLUtils.drawRect(x + width - 5F, y + 15 + v, x + width - 2F, y + 20 + v,
                     Color(37, 126, 255).rgb)
 
             GL11.glDisable(GL11.GL_SCISSOR_TEST)
@@ -307,11 +307,11 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
                         width = stringWidth + 8
 
                     // Slider
-                    RenderUtils.drawRect(x + 8F, y + height + 12F, x + prevWidth - 8F, y + height + 13F, Color.WHITE)
+                    GLUtils.drawRect(x + 8F, y + height + 12F, x + prevWidth - 8F, y + height + 13F, Color.WHITE.rgb)
 
                     // Slider mark
                     val sliderValue = x + ((prevWidth - 18F) * (current - min) / (max - min))
-                    RenderUtils.drawRect(8F + sliderValue, y + height + 9F, sliderValue + 11F, y + height
+                    GLUtils.drawRect(8F + sliderValue, y + height + 9F, sliderValue + 11F, y + height
                             + 15F, Color(37, 126, 255).rgb)
 
                     // Slider changer
@@ -342,11 +342,11 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
                         width = stringWidth + 8
 
                     // Slider
-                    RenderUtils.drawRect(x + 8F, y + height + 12F, x + prevWidth - 8F, y + height + 13F, Color.WHITE)
+                    GLUtils.drawRect(x + 8F, y + height + 12F, x + prevWidth - 8F, y + height + 13F, Color.WHITE.rgb)
 
                     // Slider mark
                     val sliderValue = x + ((prevWidth - 18F) * (current - min) / (max - min))
-                    RenderUtils.drawRect(8F + sliderValue, y + height + 9F, sliderValue + 11F, y + height
+                    GLUtils.drawRect(8F + sliderValue, y + height + 9F, sliderValue + 11F, y + height
                             + 15F, Color(37, 126, 255).rgb)
 
                     // Slider changer

@@ -10,11 +10,10 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.utils.EntityUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
-import lol.liquidcat.value.BoolValue
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
+import net.ccbluex.liquidbounce.utils.EntityUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.util.Vec3
@@ -38,6 +37,7 @@ class Tracers : Module() {
         GL11.glDisable(GL11.GL_TEXTURE_2D)
         GL11.glShadeModel(GL11.GL_SMOOTH)
         GL11.glDisable(GL11.GL_DEPTH_TEST)
+        GL11.glDisable(GL11.GL_ALPHA_TEST)
         GL11.glDepthMask(false)
 
         GL11.glBegin(GL11.GL_LINES)
@@ -52,6 +52,7 @@ class Tracers : Module() {
         GL11.glEnable(GL11.GL_TEXTURE_2D)
         GL11.glShadeModel(GL11.GL_FLAT)
         GL11.glDisable(GL11.GL_LINE_SMOOTH)
+        GL11.glEnable(GL11.GL_ALPHA_TEST)
         GL11.glEnable(GL11.GL_DEPTH_TEST)
         GL11.glDepthMask(true)
         GL11.glDisable(GL11.GL_BLEND)
@@ -70,10 +71,10 @@ class Tracers : Module() {
                 .rotatePitch((-Math.toRadians(mc.thePlayer.rotationPitch.toDouble())).toFloat())
                 .rotateYaw((-Math.toRadians(mc.thePlayer.rotationYaw.toDouble())).toFloat())
 
-        RenderUtils.glColor(color)
+        GLUtils.glColor(color)
         GL11.glVertex3d(eyeVector.xCoord, eyeVector.yCoord + mc.thePlayer.eyeHeight, eyeVector.zCoord)
 
-        RenderUtils.glColor(Color(redValue.get(), greenValue.get(), blueValue.get(), 0))
+        GLUtils.glColor(Color(redValue.get(), greenValue.get(), blueValue.get(), 0))
         GL11.glVertex3d(x, y + entity.height / 2, z)
     }
 }

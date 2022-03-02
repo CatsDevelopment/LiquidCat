@@ -16,6 +16,7 @@ import lol.liquidcat.utils.block.PlaceInfo.Companion.get
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.isClickable
 import lol.liquidcat.utils.block.isReplaceable
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
@@ -23,7 +24,6 @@ import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.InventoryUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.client.gui.ScaledResolution
@@ -284,7 +284,7 @@ class Scaffold : Module() {
             GlStateManager.pushMatrix()
             val info = "Blocks: §7$blocksAmount"
             val scaledResolution = ScaledResolution(mc)
-            RenderUtils.drawBorderedRect(
+            GLUtils.drawBorderedRect(
                 (scaledResolution.scaledWidth / 2 - 2).toFloat(),
                 (scaledResolution.scaledHeight / 2 + 5).toFloat(),
                 (scaledResolution.scaledWidth / 2 + Fonts.font40.getStringWidth(info) + 2).toFloat(),
@@ -320,7 +320,7 @@ class Scaffold : Module() {
             )
             val placeInfo = get(blockPos)
             if (blockPos.isReplaceable() && placeInfo != null) {
-                RenderUtils.drawBlockBox(blockPos, Color(68, 117, 255, 100), false)
+                GLUtils.drawBlockBox(blockPos, Color(68, 117, 255, 100), true, false)
                 break
             }
         }

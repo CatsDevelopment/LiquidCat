@@ -10,13 +10,12 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.EntityUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.*
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.player.EntityPlayer
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
 
@@ -60,9 +59,7 @@ class NameTags : Module() {
 
         val scale = (distance / 100f) / glGetFloat(GL_PROJECTION_MATRIX)
 
-        disableGlCap(GL_DEPTH_TEST, GL_LIGHTING)
-        enableGlCap(GL_BLEND)
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        glDisable(GL_DEPTH_TEST)
         glScalef(-scale, -scale, scale)
 
         AWTFontRenderer.assumeNonVolatile = true
@@ -76,21 +73,21 @@ class NameTags : Module() {
         val endX = width + 4f
         val xDiff = endX - startX
 
-        drawRect(startX, -4f, endX, Fonts.displayRegular50.FONT_HEIGHT + 8f, Color(30, 30, 30, 150))
-        drawRect(
+        GLUtils.drawRect(startX, -4f, endX, Fonts.displayRegular50.FONT_HEIGHT + 8f, Color(30, 30, 30, 150).rgb)
+        GLUtils.drawRect(
             startX,
             20f,
             startX + (entity.health.coerceAtMost(entity.maxHealth) / entity.maxHealth) * xDiff,
             Fonts.displayRegular50.FONT_HEIGHT + 8f,
-            Color(redValue.get(), greenValue.get(), blueValue.get(), 200)
+            Color(redValue.get(), greenValue.get(), blueValue.get(), 200).rgb
         )
 
         Fonts.displayRegular50.drawString(upText, -width, 0, Color.WHITE.rgb)
         Fonts.displayLight25.drawString(downText, -width, Fonts.displayRegular50.FONT_HEIGHT, Color.WHITE.rgb)
 
         AWTFontRenderer.assumeNonVolatile = false
+        glEnable(GL_DEPTH_TEST)
 
-        resetCaps()
         glPopMatrix()
     }
 }

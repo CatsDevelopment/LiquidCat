@@ -8,6 +8,7 @@ package net.ccbluex.liquidbounce.ui.client.clickgui;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.utils.render.GLUtils;
 import net.ccbluex.liquidbounce.features.module.modules.render.ClickGUI;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.Element;
@@ -17,7 +18,6 @@ import net.ccbluex.liquidbounce.ui.client.clickgui.style.styles.SlowlyStyle;
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner;
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer;
 import net.ccbluex.liquidbounce.utils.EntityUtils;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -215,12 +215,12 @@ public class ClickGui extends GuiScreen {
 
         drawDefaultBackground();
 
-        RenderUtils.drawImage(hudIcon, 9, height - 41, 32, 32);
+        GLUtils.drawImage(hudIcon, 9, height - 41, 32, 32);
 
         GlStateManager.scale(scale, scale, scale);
 
         for (final Panel panel : panels) {
-            panel.updateFade(RenderUtils.deltaTime);
+            panel.updateFade(GLUtils.deltaTime);
             panel.drawScreen(mouseX, mouseY, partialTicks);
         }
 

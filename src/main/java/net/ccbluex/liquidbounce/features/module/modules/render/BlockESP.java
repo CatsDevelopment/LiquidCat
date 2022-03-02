@@ -13,13 +13,12 @@ import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleInfo;
 import lol.liquidcat.utils.block.BlockExtensionsKt;
 import lol.liquidcat.utils.block.BlockUtils;
-import net.ccbluex.liquidbounce.utils.render.ColorUtils;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
-import net.ccbluex.liquidbounce.utils.timer.MSTimer;
+import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.value.BlockValue;
 import lol.liquidcat.value.BoolValue;
 import lol.liquidcat.value.IntegerValue;
-import lol.liquidcat.value.ListValue;
+import net.ccbluex.liquidbounce.utils.render.ColorUtils;
+import net.ccbluex.liquidbounce.utils.timer.MSTimer;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -30,7 +29,6 @@ import java.util.List;
 
 @ModuleInfo(name = "BlockESP", description = "Allows you to see a selected block through walls.", category = ModuleCategory.RENDER)
 public class BlockESP extends Module {
-    private final ListValue modeValue = new ListValue("Mode", new String[] {"Box", "2D"}, "Box");
 
     private final BlockValue blockValue = new BlockValue("Block", 168);
     private final IntegerValue radiusValue = new IntegerValue("Radius", 40, 5, 120);
@@ -89,14 +87,7 @@ public class BlockESP extends Module {
             final Color color = colorRainbow.get() ? ColorUtils.rainbow() : new Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get());
 
             for(final BlockPos blockPos : posList) {
-                switch(modeValue.get().toLowerCase()) {
-                    case "box":
-                        RenderUtils.drawBlockBox(blockPos, color, true);
-                        break;
-                    case "2d":
-                        RenderUtils.draw2D(blockPos, color.getRGB(), Color.BLACK.getRGB());
-                        break;
-                }
+                GLUtils.drawBlockBox(blockPos, color, false, true);
             }
         }
     }

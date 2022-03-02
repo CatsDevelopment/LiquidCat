@@ -5,16 +5,16 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.client;
 
-import lol.liquidcat.event.*;
 import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.*;
 import lol.liquidcat.features.module.modules.combat.AutoClicker;
 import lol.liquidcat.features.module.modules.exploit.AbortBreaking;
 import lol.liquidcat.features.module.modules.exploit.MultiActions;
 import lol.liquidcat.features.module.modules.world.FastPlace;
+import lol.liquidcat.utils.render.GLUtils;
 import net.ccbluex.liquidbounce.ui.client.GuiMainMenu;
 import net.ccbluex.liquidbounce.utils.CPSCounter;
 import net.ccbluex.liquidbounce.utils.render.IconUtils;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -121,7 +121,7 @@ public abstract class MixinMinecraft {
         final int deltaTime = (int) (currentTime - lastFrame);
         lastFrame = currentTime;
 
-        RenderUtils.deltaTime = deltaTime;
+        GLUtils.deltaTime = deltaTime;
     }
 
     public long getTime() {

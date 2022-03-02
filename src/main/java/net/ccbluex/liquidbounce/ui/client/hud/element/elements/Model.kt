@@ -5,12 +5,12 @@
  */
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
+import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.value.FloatValue
+import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
-import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.ListValue
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.OpenGlHelper
 import net.minecraft.client.renderer.RenderHelper
@@ -43,7 +43,7 @@ class Model(x: Double = 40.0, y: Double = 100.0) : Element(x, y) {
         val yaw = when (yawMode.get().toLowerCase()) {
             "player" -> mc.thePlayer.rotationYaw
             "animation" -> {
-                val delta = RenderUtils.deltaTime
+                val delta = GLUtils.deltaTime
 
                 if (rotateDirection) {
                     if (rotate <= 70F) {

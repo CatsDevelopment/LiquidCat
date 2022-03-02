@@ -8,8 +8,8 @@ package net.ccbluex.liquidbounce.ui.font
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.TextEvent
 import lol.liquidcat.utils.ClassUtils
+import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.renderer.GlStateManager
@@ -144,12 +144,12 @@ class GameFontRenderer(font: Font) : FontRenderer(Minecraft.getMinecraft().gameS
                     currentFont.drawString(if (randomCase) ColorUtils.randomMagicText(words) else words, width, 0.0, hexColor)
 
                     if (strikeThrough)
-                        RenderUtils.drawLine(width / 2.0 + 1, currentFont.height / 3.0,
+                        GLUtils.drawLine(width / 2.0 + 1, currentFont.height / 3.0,
                                 (width + currentFont.getStringWidth(words)) / 2.0 + 1, currentFont.height / 3.0,
                                 FONT_HEIGHT / 16F)
 
                     if (underline)
-                        RenderUtils.drawLine(width / 2.0 + 1, currentFont.height / 2.0,
+                        GLUtils.drawLine(width / 2.0 + 1, currentFont.height / 2.0,
                                 (width + currentFont.getStringWidth(words)) / 2.0 + 1, currentFont.height / 2.0,
                                 FONT_HEIGHT / 16F)
 

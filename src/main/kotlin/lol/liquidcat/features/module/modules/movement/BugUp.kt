@@ -12,13 +12,15 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.block.getBlock
-import net.ccbluex.liquidbounce.utils.misc.FallingPlayer
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
+import net.ccbluex.liquidbounce.ui.font.Fonts
+import net.ccbluex.liquidbounce.utils.misc.FallingPlayer
 import net.minecraft.block.BlockAir
+import net.minecraft.client.gui.Gui
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.util.AxisAlignedBB
@@ -118,8 +120,8 @@ class BugUp : Module() {
         GL11.glDisable(GL11.GL_DEPTH_TEST)
         GL11.glDepthMask(false)
 
-        RenderUtils.glColor(Color(255, 0, 0, 90))
-        RenderUtils.drawFilledBox(AxisAlignedBB(
+        GLUtils.glColor(Color(255, 0, 0, 90))
+        GLUtils.drawFilledBB(AxisAlignedBB(
                 x - renderManager.renderPosX,
                 y + 1 - renderManager.renderPosY,
                 z - renderManager.renderPosZ,
@@ -135,8 +137,33 @@ class BugUp : Module() {
 
         val fallDist = floor(mc.thePlayer.fallDistance + (mc.thePlayer.posY - (y + 0.5))).toInt()
 
-        RenderUtils.renderNameTag("${fallDist}m (~${max(0, fallDist - 3)} damage)", x + 0.5, y + 1.7, z + 0.5)
+        renderNameTag("${fallDist}m (~${max(0, fallDist - 3)} damage)", x + 0.5, y + 1.7, z + 0.5)
 
         GlStateManager.resetColor()
+    }
+
+    fun renderNameTag(string: String?, x: Double, y: Double, z: Double) {
+        val renderManager = mc.renderManager
+        GL11.glPushMatrix()
+        GL11.glTranslated(x - renderManager.renderPosX, y - renderManager.renderPosY, z - renderManager.renderPosZ)
+        GL11.glNormal3f(0f, 1f, 0f)
+        GL11.glRotatef(-mc.renderManager.playerViewY, 0f, 1f, 0f)
+        GL11.glRotatef(mc.renderManager.playerViewX, 1f, 0f, 0f)
+        GL11.glScalef(-0.05f, -0.05f, 0.05f)
+
+        GL11.glDisable(GL11.GL_DEPTH_TEST)
+        GL11.glEnable(GL11.GL_BLEND)
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
+
+        val width = Fonts.font35.getStringWidth(string!!) / 2
+
+        Gui.drawRect(-width - 1, -1, width + 1, Fonts.font35.FONT_HEIGHT, Int.MIN_VALUE)
+        Fonts.font35.drawString(string, -width.toFloat(), 1.5f, Color.WHITE.rgb, true)
+
+        GL11.glEnable(GL11.GL_DEPTH_TEST)
+        GL11.glDisable(GL11.GL_BLEND)
+
+        GL11.glColor4f(1f, 1f, 1f, 1f)
+        GL11.glPopMatrix()
     }
 }

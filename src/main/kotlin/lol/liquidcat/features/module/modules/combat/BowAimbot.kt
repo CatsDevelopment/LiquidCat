@@ -11,12 +11,12 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.utils.EntityUtils
-import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
+import net.ccbluex.liquidbounce.utils.EntityUtils
+import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemBow
@@ -55,7 +55,7 @@ class BowAimbot : Module() {
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
         if (target != null && !priorityValue.get().equals("Multi", ignoreCase = true) && markValue.get())
-            RenderUtils.drawPlatform(target, Color(37, 126, 255, 70))
+            GLUtils.drawPlatform(target!!, Color(37, 126, 255, 70))
     }
 
     private fun getTarget(throughWalls: Boolean, priorityMode: String): Entity? {

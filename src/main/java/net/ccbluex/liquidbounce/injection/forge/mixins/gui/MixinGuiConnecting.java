@@ -5,9 +5,9 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
-import net.ccbluex.liquidbounce.ui.font.Fonts;
 import lol.liquidcat.utils.ServerUtils;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
+import lol.liquidcat.utils.render.GLUtils;
+import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDisconnected;
 import net.minecraft.client.gui.GuiScreen;
@@ -115,7 +115,7 @@ public abstract class MixinGuiConnecting extends GuiScreen {
 
         this.drawDefaultBackground();
 
-        RenderUtils.drawLoadingCircle(scaledResolution.getScaledWidth() / 2, scaledResolution.getScaledHeight() / 4 + 70);
+        GLUtils.drawLoadingCircle(scaledResolution.getScaledWidth() / 2, scaledResolution.getScaledHeight() / 4 + 70);
 
         String ip = "Unknown";
 

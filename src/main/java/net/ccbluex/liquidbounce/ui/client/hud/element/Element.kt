@@ -5,9 +5,9 @@
  */
 package net.ccbluex.liquidbounce.ui.client.hud.element
 
-import net.ccbluex.liquidbounce.utils.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.Value
+import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.minecraft.client.gui.ScaledResolution
 import kotlin.math.max
 import kotlin.math.min
@@ -181,6 +181,6 @@ class Side(var horizontal: Horizontal, var vertical: Vertical) {
  */
 data class Border(val x: Float, val y: Float, val x2: Float, val y2: Float) {
 
-    fun draw() = RenderUtils.drawBorderedRect(x, y, x2, y2, 3F, Int.MIN_VALUE, 0)
+    fun draw() = GLUtils.drawBorder(x, y, x2, y2, 1f, Int.MIN_VALUE)
 
 }

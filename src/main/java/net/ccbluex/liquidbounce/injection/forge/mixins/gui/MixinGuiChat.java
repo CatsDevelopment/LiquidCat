@@ -6,7 +6,7 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
 import lol.liquidcat.LiquidCat;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
+import lol.liquidcat.utils.render.GLUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiTextField;
@@ -56,7 +56,7 @@ public abstract class MixinGuiChat extends MixinGuiScreen {
 
     @Inject(method = "updateScreen", at = @At("HEAD"))
     private void updateScreen(CallbackInfo callbackInfo) {
-        final int delta = RenderUtils.deltaTime;
+        final int delta = GLUtils.deltaTime;
 
         if (fade < 14) fade += 0.4F * delta;
         if (fade > 14) fade = 14;

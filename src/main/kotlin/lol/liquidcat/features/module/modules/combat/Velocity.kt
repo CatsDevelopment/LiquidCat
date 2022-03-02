@@ -32,7 +32,7 @@ class Velocity : Module() {
         val packet = event.packet
 
         if (packet is S12PacketEntityVelocity) {
-            if ((mc.theWorld.getEntityByID(packet.entityID) ?: return) == mc.thePlayer) {
+            if ((mc.theWorld.getEntityByID(packet.entityID) ?: return) == (mc.thePlayer ?: return)) {
                 if (modeValue.get() == "Normal") {
                     val horizontal = horizontalValue.get()
                     val vertical = verticalValue.get()

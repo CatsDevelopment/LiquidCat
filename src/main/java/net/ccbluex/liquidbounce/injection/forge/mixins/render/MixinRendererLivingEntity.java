@@ -7,13 +7,13 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
 import co.uk.hexeption.utils.OutlineUtils;
 import lol.liquidcat.LiquidCat;
+import lol.liquidcat.features.module.modules.render.ESP;
+import lol.liquidcat.utils.render.GLUtils;
 import net.ccbluex.liquidbounce.features.module.modules.render.Chams;
-import net.ccbluex.liquidbounce.features.module.modules.render.ESP;
 import net.ccbluex.liquidbounce.features.module.modules.render.NameTags;
 import net.ccbluex.liquidbounce.features.module.modules.render.TrueSight;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.EntityUtils;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -96,7 +96,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                 float gamma = mc.gameSettings.gammaSetting;
                 mc.gameSettings.gammaSetting = 100000F;
 
-                switch(esp.modeValue.get().toLowerCase()) {
+                switch(esp.getModeValue().get().toLowerCase()) {
                     case "wireframe":
                         GL11.glPushMatrix();
                         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
@@ -107,8 +107,8 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                         GL11.glEnable(GL11.GL_LINE_SMOOTH);
                         GL11.glEnable(GL11.GL_BLEND);
                         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-                        RenderUtils.glColor(esp.getColor(entitylivingbaseIn));
-                        GL11.glLineWidth(esp.wireframeWidth.get());
+                        GLUtils.glColor(esp.getColor());
+                        GL11.glLineWidth(esp.getWireframeWidth().get());
                         this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
                         GL11.glPopAttrib();
                         GL11.glPopMatrix();
@@ -117,9 +117,9 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                         ClientUtils.disableFastRender();
                         GlStateManager.resetColor();
 
-                        final Color color = esp.getColor(entitylivingbaseIn);
+                        final Color color = esp.getColor();
                         OutlineUtils.setColor(color);
-                        OutlineUtils.renderOne(esp.outlineWidth.get());
+                        OutlineUtils.renderOne(esp.getOutlineWidth().get());
                         this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
                         OutlineUtils.setColor(color);
                         OutlineUtils.renderTwo();

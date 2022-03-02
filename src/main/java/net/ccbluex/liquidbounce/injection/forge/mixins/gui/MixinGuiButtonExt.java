@@ -1,7 +1,7 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
+import lol.liquidcat.utils.render.GLUtils;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -41,7 +41,7 @@ public abstract class MixinGuiButtonExt extends GuiButton {
          hovered = (mouseX >= this.xPosition && mouseY >= this.yPosition &&
                     mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height);
 
-         final int delta = RenderUtils.deltaTime;
+         final int delta = GLUtils.deltaTime;
 
          if (enabled && hovered) {
             cut += 0.05F * delta;

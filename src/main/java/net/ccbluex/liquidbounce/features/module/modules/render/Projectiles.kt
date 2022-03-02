@@ -10,9 +10,9 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
+import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -118,11 +118,16 @@ class Projectiles : Module() {
 
         // Start drawing of path
         GL11.glDepthMask(false)
-        RenderUtils.enableGlCap(GL11.GL_BLEND, GL11.GL_LINE_SMOOTH)
-        RenderUtils.disableGlCap(GL11.GL_DEPTH_TEST, GL11.GL_ALPHA_TEST, GL11.GL_TEXTURE_2D)
+        GL11.glEnable(GL11.GL_BLEND)
+        GL11.glEnable(GL11.GL_LINE_SMOOTH)
+
+        GL11.glDisable(GL11.GL_DEPTH_TEST)
+        GL11.glDisable(GL11.GL_ALPHA_TEST)
+        GL11.glDisable(GL11.GL_TEXTURE_2D)
+
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
         GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST)
-        RenderUtils.glColor(Color(0, 160, 255, 255))
+        GLUtils.glColor(Color(0, 160, 255, 255))
         GL11.glLineWidth(2f)
 
         worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION)
@@ -215,7 +220,7 @@ class Projectiles : Module() {
 
             // Check if hitting a entity
             if (hitEntity)
-                RenderUtils.glColor(Color(255, 0, 0, 150))
+                GLUtils.glColor(Color(255, 0, 0, 150))
         }
 
         // Rendering hit cylinder
@@ -227,7 +232,13 @@ class Projectiles : Module() {
 
         GL11.glPopMatrix()
         GL11.glDepthMask(true)
-        RenderUtils.resetCaps()
+        GL11.glDisable(GL11.GL_BLEND)
+        GL11.glDisable(GL11.GL_LINE_SMOOTH)
+
+        GL11.glEnable(GL11.GL_DEPTH_TEST)
+        GL11.glEnable(GL11.GL_ALPHA_TEST)
+        GL11.glEnable(GL11.GL_TEXTURE_2D)
+
         GL11.glColor4f(1F, 1F, 1F, 1F)
     }
 }

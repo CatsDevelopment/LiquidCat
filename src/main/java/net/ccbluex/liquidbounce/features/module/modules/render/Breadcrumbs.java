@@ -11,10 +11,10 @@ import lol.liquidcat.event.UpdateEvent;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleInfo;
-import net.ccbluex.liquidbounce.utils.render.ColorUtils;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
+import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.value.BoolValue;
 import lol.liquidcat.value.IntegerValue;
+import net.ccbluex.liquidbounce.utils.render.ColorUtils;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -43,7 +43,7 @@ public class Breadcrumbs extends Module {
             glDisable(GL_DEPTH_TEST);
             mc.entityRenderer.disableLightmap();
             glBegin(GL_LINE_STRIP);
-            RenderUtils.glColor(color);
+            GLUtils.glColor(color);
             final double renderPosX = mc.getRenderManager().viewerPosX;
             final double renderPosY = mc.getRenderManager().viewerPosY;
             final double renderPosZ = mc.getRenderManager().viewerPosZ;

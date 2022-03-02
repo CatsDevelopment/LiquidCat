@@ -8,6 +8,11 @@ package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.value.BoolValue
+import lol.liquidcat.value.FloatValue
+import lol.liquidcat.value.FontValue
+import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
@@ -15,11 +20,6 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
-import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.FontValue
-import lol.liquidcat.value.IntegerValue
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.input.Keyboard
@@ -99,10 +99,10 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
         val guiHeight = tabs.size * tabHeight.get()
 
         if (borderValue.get())
-            RenderUtils.drawBorderedRect(1F, 0F, width.get(), guiHeight, borderStrength.get(), borderColor.rgb, backgroundColor.rgb)
+            GLUtils.drawBorderedRect(1F, 0F, width.get(), guiHeight, borderStrength.get(), borderColor.rgb, backgroundColor.rgb)
         else
-            RenderUtils.drawRect(1F, 0F, width.get(), guiHeight, backgroundColor.rgb)
-        RenderUtils.drawRect(1F, 1 + tabY - 1, width.get(), tabY + tabHeight.get(), color)
+            GLUtils.drawRect(1F, 0F, width.get(), guiHeight, backgroundColor.rgb)
+        GLUtils.drawRect(1F, 1 + tabY - 1, width.get(), tabY + tabHeight.get(), color.rgb)
         GlStateManager.resetColor()
 
         var y = 1F
@@ -167,7 +167,7 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
     }
 
     private fun updateAnimation() {
-        val delta = RenderUtils.deltaTime
+        val delta = GLUtils.deltaTime
 
         val xPos = tabHeight.get() * selectedCategory
         if (tabY.toInt() != xPos.toInt()) {
@@ -283,11 +283,11 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
             val menuHeight = modules.size * tabHeight.get()
 
             if (borderValue.get())
-                RenderUtils.drawBorderedRect(x - 1F, y - 1F, x + menuWidth - 2F, y + menuHeight - 1F, borderStrength, borderColor, backgroundColor)
+                GLUtils.drawBorderedRect(x - 1F, y - 1F, x + menuWidth - 2F, y + menuHeight - 1F, borderStrength, borderColor, backgroundColor)
             else
-                RenderUtils.drawRect(x - 1F, y - 1F, x + menuWidth - 2F, y + menuHeight - 1F, backgroundColor)
+                GLUtils.drawRect(x - 1F, y - 1F, x + menuWidth - 2F, y + menuHeight - 1F, backgroundColor)
 
-            RenderUtils.drawRect(x - 1.toFloat(), y + itemY - 1, x + menuWidth - 2F, y + itemY + tabHeight.get() - 1, color)
+            GLUtils.drawRect(x - 1.toFloat(), y + itemY - 1, x + menuWidth - 2F, y + itemY + tabHeight.get() - 1, color)
             GlStateManager.resetColor()
 
             modules.forEachIndexed { index, module ->

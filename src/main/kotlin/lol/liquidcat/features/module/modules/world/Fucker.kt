@@ -19,9 +19,9 @@ import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.block.isFullBlock
 import lol.liquidcat.utils.block.searchBlocks
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.block.Block
 import net.minecraft.block.BlockAir
@@ -199,7 +199,7 @@ object Fucker : Module() {
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        RenderUtils.drawBlockBox(pos ?: return, Color.RED, true)
+        GLUtils.drawBlockBox(pos ?: return, Color.RED, false, true)
     }
 
     /**

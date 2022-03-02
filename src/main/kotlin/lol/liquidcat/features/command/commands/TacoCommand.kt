@@ -11,12 +11,12 @@ import lol.liquidcat.event.Listenable
 import lol.liquidcat.event.Render2DEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.utils.ClientUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.util.ResourceLocation
 
-class TacoCommand : lol.liquidcat.features.command.Command("taco", emptyArray()), Listenable {
+class TacoCommand : Command("taco", emptyArray()), Listenable {
     private var toggle = false
     private var image = 0
     private var running = 0f
@@ -52,9 +52,9 @@ class TacoCommand : lol.liquidcat.features.command.Command("taco", emptyArray())
         if (!toggle)
             return
 
-        running += 0.15f * RenderUtils.deltaTime
+        running += 0.15f * GLUtils.deltaTime
         val scaledResolution = ScaledResolution(mc)
-        RenderUtils.drawImage(tacoTextures[image], running.toInt(), scaledResolution.scaledHeight - 60, 64, 32)
+        GLUtils.drawImage(tacoTextures[image], running.toInt(), scaledResolution.scaledHeight - 60, 64, 32)
         if (scaledResolution.scaledWidth <= running)
             running = -64f
     }

@@ -11,10 +11,10 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.block.isClickable
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
@@ -48,7 +48,7 @@ class BlockOverlay : Module() {
 
         GlStateManager.enableBlend()
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
-        RenderUtils.glColor(color)
+        GLUtils.glColor(color)
         GL11.glLineWidth(2F)
         GlStateManager.disableTexture2D()
         GlStateManager.depthMask(false)
@@ -63,8 +63,8 @@ class BlockOverlay : Module() {
                 .expand(0.0020000000949949026, 0.0020000000949949026, 0.0020000000949949026)
                 .offset(-x, -y, -z)
 
-        RenderUtils.drawSelectionBoundingBox(axisAlignedBB)
-        RenderUtils.drawFilledBox(axisAlignedBB)
+        GLUtils.drawOutlinedBB(axisAlignedBB)
+        GLUtils.drawFilledBB(axisAlignedBB)
         GlStateManager.depthMask(true)
         GlStateManager.enableTexture2D()
         GlStateManager.disableBlend()
