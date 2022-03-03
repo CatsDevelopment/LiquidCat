@@ -22,7 +22,7 @@ import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.InventoryUtils
+import lol.liquidcat.utils.item.InventoryUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils

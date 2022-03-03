@@ -10,7 +10,7 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.utils.InventoryUtils
+import lol.liquidcat.utils.item.InventoryUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
@@ -43,7 +43,7 @@ class AutoSoup : Module() {
         if (!timer.hasTimePassed(delayValue.get().toLong()))
             return
 
-        val soupInHotbar = InventoryUtils.findItem(36, 45, Items.mushroom_stew)
+        val soupInHotbar = InventoryUtils.findHotbarSlot(Items.mushroom_stew)
         if (mc.thePlayer.health <= healthValue.get() && soupInHotbar != -1) {
             mc.netHandler.addToSendQueue(C09PacketHeldItemChange(soupInHotbar - 36))
             mc.netHandler.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.inventoryContainer
@@ -56,7 +56,7 @@ class AutoSoup : Module() {
             return
         }
 
-        val bowlInHotbar = InventoryUtils.findItem(36, 45, Items.bowl)
+        val bowlInHotbar = InventoryUtils.findHotbarSlot(Items.bowl)
         if (bowlValue.get().equals("Move", true) && bowlInHotbar != -1) {
             if (openInventoryValue.get() && mc.currentScreen !is GuiInventory)
                 return
@@ -84,8 +84,8 @@ class AutoSoup : Module() {
             }
         }
 
-        val soupInInventory = InventoryUtils.findItem(9, 36, Items.mushroom_stew)
-        if (soupInInventory != -1 && InventoryUtils.hasSpaceHotbar()) {
+        val soupInInventory = InventoryUtils.findInventorySlot(Items.mushroom_stew)
+        if (soupInInventory != -1 && !InventoryUtils.isHotbarFull()) {
             if (openInventoryValue.get() && mc.currentScreen !is GuiInventory)
                 return
 

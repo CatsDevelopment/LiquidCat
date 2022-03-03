@@ -11,6 +11,7 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.features.module.modules.player.InventoryCleaner
@@ -61,7 +62,7 @@ class ChestStealer : Module() {
 
         if (screen is GuiChest)
             if (screen.lowerChestInventory.name.contains(ItemStack(Item.itemRegistry.getObject(ResourceLocation("minecraft:chest"))).displayName))
-                if (!isEmpty(screen) && !isInventoryFull()) {
+                if (!isEmpty(screen) && !InventoryUtils.isInventoryFull()) {
                     val slots = mutableListOf<Slot>()
 
                     for (i in 0 until screen.inventoryRows * 9) {
@@ -93,6 +94,4 @@ class ChestStealer : Module() {
 
         return true
     }
-
-    private fun isInventoryFull() = mc.thePlayer.inventory.mainInventory.none { it == null }
 }

@@ -13,7 +13,7 @@ import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.item.ArmorPiece
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
 import net.ccbluex.liquidbounce.utils.ClientUtils
-import net.ccbluex.liquidbounce.utils.InventoryUtils
+import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.utils.item.ItemUtils
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import lol.liquidcat.value.BoolValue

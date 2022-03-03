@@ -13,7 +13,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.Rotation
-import net.ccbluex.liquidbounce.utils.InventoryUtils
+import lol.liquidcat.utils.item.InventoryUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.misc.FallingPlayer
 import net.ccbluex.liquidbounce.utils.misc.RandomUtils
@@ -94,7 +94,7 @@ class AutoPot : Module() {
 
                 // Inventory Potion -> Hotbar Potion
                 val potionInInventory = findPotion(9, 36)
-                if (potionInInventory != -1 && InventoryUtils.hasSpaceHotbar()) {
+                if (potionInInventory != -1 && !InventoryUtils.isHotbarFull()) {
                     if (openInventoryValue.get() && mc.currentScreen !is GuiInventory)
                         return
 

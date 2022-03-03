@@ -23,7 +23,7 @@ import net.ccbluex.liquidbounce.ui.client.hud.HUD
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.createDefault
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.ClientUtils
-import net.ccbluex.liquidbounce.utils.InventoryUtils
+import lol.liquidcat.utils.item.InventoryUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.util.ResourceLocation
 
@@ -74,7 +74,7 @@ object LiquidCat {
         eventManager.registerListener(AntiForge())
         eventManager.registerListener(BungeeCordSpoof())
         eventManager.registerListener(DonatorCape())
-        eventManager.registerListener(InventoryUtils())
+        eventManager.registerListener(InventoryUtils)
 
         // Create command manager
         commandManager = CommandManager()

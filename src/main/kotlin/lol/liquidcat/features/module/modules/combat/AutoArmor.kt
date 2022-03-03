@@ -16,7 +16,7 @@ import lol.liquidcat.utils.item.ArmorPiece
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
-import net.ccbluex.liquidbounce.utils.InventoryUtils
+import lol.liquidcat.utils.item.InventoryUtils
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.item.ItemArmor
