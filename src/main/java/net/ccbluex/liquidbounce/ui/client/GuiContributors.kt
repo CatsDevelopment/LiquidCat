@@ -8,6 +8,7 @@ package net.ccbluex.liquidbounce.ui.client
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName
+import lol.liquidcat.LiquidCat
 import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.injection.implementations.IMixinGuiSlot
 import net.ccbluex.liquidbounce.ui.font.Fonts
@@ -217,7 +218,7 @@ class GuiContributors(private val prevGui: GuiScreen) : GuiScreen() {
                 }
             }
         } catch (e: Exception) {
-            ClientUtils.getLogger().error("Failed to load credits.", e)
+            LiquidCat.logger.error("Failed to load credits.", e)
             failed = true
         }
     }

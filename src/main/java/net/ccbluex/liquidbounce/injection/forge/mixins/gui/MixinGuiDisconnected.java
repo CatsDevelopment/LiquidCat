@@ -88,7 +88,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
                         ServerUtils.connectToLastServer();
                         break;
                     } catch (final Throwable throwable) {
-                        ClientUtils.getLogger().error("Failed to login into random account from TheAltening.", throwable);
+                        LiquidCat.INSTANCE.getLogger().error("Failed to login into random account from TheAltening.", throwable);
                     }
                 }
 

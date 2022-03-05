@@ -8,12 +8,13 @@ package lol.liquidcat.features.command.commands
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.command.Command
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import lol.liquidcat.utils.SettingsUtils
 import net.ccbluex.liquidbounce.utils.misc.HttpUtils
 import kotlin.concurrent.thread
 
-class AutoSettingsCommand : lol.liquidcat.features.command.Command("autosettings", arrayOf("setting", "settings", "config", "autosetting")) {
+class AutoSettingsCommand : Command("autosettings", arrayOf("setting", "settings", "config", "autosetting")) {
     private val loadingLock = Object()
     private var autoSettingFiles: MutableList<String>? = null
 

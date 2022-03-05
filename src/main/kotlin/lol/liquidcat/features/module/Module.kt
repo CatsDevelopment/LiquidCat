@@ -5,13 +5,18 @@
  */
 package lol.liquidcat.features.module
 
+import com.google.gson.JsonObject
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.LiquidCat.logger
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.value.Value
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.stripColor
 import net.minecraft.client.audio.PositionedSoundRecord
+import net.minecraft.client.gui.GuiChat
+import net.minecraft.client.gui.GuiNewChat
+import net.minecraft.util.IChatComponent
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly

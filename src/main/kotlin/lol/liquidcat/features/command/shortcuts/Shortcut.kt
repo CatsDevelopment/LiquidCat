@@ -7,7 +7,7 @@ package lol.liquidcat.features.command.shortcuts
 
 import lol.liquidcat.features.command.Command
 
-class Shortcut(val name: String, val script: List<Pair<lol.liquidcat.features.command.Command, Array<String>>>): lol.liquidcat.features.command.Command(name, arrayOf()) {
+class Shortcut(val name: String, val script: List<Pair<Command, Array<String>>>): Command(name, arrayOf()) {
     /**
      * Execute commands with provided [args]
      */

@@ -5,6 +5,7 @@
  */
 package lol.liquidcat.features.module
 
+import lol.liquidcat.features.command.Command
 import lol.liquidcat.value.*
 import lol.liquidcat.utils.block.BlockUtils
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
@@ -16,7 +17,7 @@ import net.minecraft.block.Block
  * @author SenkJu
  */
 class ModuleCommand(val module: Module, val values: List<Value<*>> = module.values) :
-    lol.liquidcat.features.command.Command(module.name.toLowerCase(), emptyArray()) {
+    Command(module.name.toLowerCase(), emptyArray()) {
 
     init {
         if (values.isEmpty())

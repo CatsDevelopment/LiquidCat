@@ -5,8 +5,6 @@
 */
 package lol.liquidcat.utils.item
 
-import lol.liquidcat.utils.item.ItemUtils.getEnchantment
-import lol.liquidcat.utils.item.ItemUtils.getEnchantmentCount
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.item.ItemArmor
 import net.minecraft.item.ItemStack
@@ -30,7 +28,7 @@ class ArmorComparator : Comparator<ArmorPiece> {
 
             // If both have the same enchantment threshold, prefer the item with more enchantments
             if (otherEnchantmentCmp == 0) {
-                val enchantmentCountCmp = getEnchantmentCount(o1.itemStack).compareTo(getEnchantmentCount(o2.itemStack))
+                val enchantmentCountCmp = o1.itemStack.getEnchantmentCount().compareTo(o2.itemStack.getEnchantmentCount())
 
                 if (enchantmentCountCmp != 0) return enchantmentCountCmp
 
@@ -61,7 +59,7 @@ class ArmorComparator : Comparator<ArmorPiece> {
         var sum = 0.0f
 
         for (i in DAMAGE_REDUCTION_ENCHANTMENTS.indices) {
-            sum += getEnchantment(itemStack, DAMAGE_REDUCTION_ENCHANTMENTS[i]) * ENCHANTMENT_FACTORS[i] * ENCHANTMENT_DAMAGE_REDUCTION_FACTOR[i]
+            sum += itemStack.getEnchantment(DAMAGE_REDUCTION_ENCHANTMENTS[i]) * ENCHANTMENT_FACTORS[i] * ENCHANTMENT_DAMAGE_REDUCTION_FACTOR[i]
         }
         return sum
     }
@@ -70,7 +68,7 @@ class ArmorComparator : Comparator<ArmorPiece> {
         var sum = 0.0f
 
         for (i in OTHER_ENCHANTMENTS.indices) {
-            sum += getEnchantment(itemStack, OTHER_ENCHANTMENTS[i]) * OTHER_ENCHANTMENT_FACTORS[i]
+            sum += itemStack.getEnchantment(OTHER_ENCHANTMENTS[i]) * OTHER_ENCHANTMENT_FACTORS[i]
         }
         return sum
     }

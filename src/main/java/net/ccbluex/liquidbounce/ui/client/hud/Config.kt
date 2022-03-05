@@ -9,6 +9,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.createDefault
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.elements
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
@@ -85,7 +86,7 @@ class Config {
                         }
                     }
                 } catch (e: Exception) {
-                    ClientUtils.getLogger().error("Error while loading custom hud element from config.", e)
+                    LiquidCat.logger.error("Error while loading custom hud element from config.", e)
                 }
             }
 
@@ -97,7 +98,7 @@ class Config {
                 }
             }
         } catch (e: Exception) {
-            ClientUtils.getLogger().error("Error while loading custom hud config.", e)
+            LiquidCat.logger.error("Error while loading custom hud config.", e)
             return createDefault()
         }
 

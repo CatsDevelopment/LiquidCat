@@ -62,12 +62,18 @@ object InventoryUtils : Listenable {
 
     fun isHotbarFull() = mc.thePlayer.inventory.mainInventory.filterIndexed { i, _ -> i < 9 }.none { it == null }
 
+    /**
+     * Returns the slot index of the searched [item] in the inventory
+     */
     fun findInventorySlot(item: Item) = findInventorySlot { it?.item == item }
 
     private fun findInventorySlot(predicate: (ItemStack?) -> Boolean): Int {
         return (9..35).firstOrNull { predicate(mc.thePlayer.inventoryContainer.getSlot(it).stack) } ?: -1
     }
 
+    /**
+     * Returns the slot index of the searched [item] in the hotbar
+     */
     fun findHotbarSlot(item: Item) = findHotbarSlot { it?.item == item }
 
     private fun findHotbarSlot(predicate: (ItemStack?) -> Boolean): Int {

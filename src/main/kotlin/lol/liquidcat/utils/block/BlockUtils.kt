@@ -5,15 +5,13 @@
  */
 package lol.liquidcat.utils.block
 
-import net.ccbluex.liquidbounce.utils.MinecraftInstance
+import lol.liquidcat.utils.mc
 import net.minecraft.block.Block
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
 import net.minecraft.util.MathHelper
 
-//TODO Remove when everything is converted to Kotlin
-
-object BlockUtils : MinecraftInstance() {
+object BlockUtils {
 
     /**
      * Get block name by [id]
@@ -22,18 +20,16 @@ object BlockUtils : MinecraftInstance() {
     fun getBlockName(id: Int): String = Block.getBlockById(id).localizedName
 
     /**
-     * Check if [axisAlignedBB] has collidable blocks using custom [collide] check
+     * Check if [axisAlignedBB] has collidable blocks using [predicate] check
      */
-    @JvmStatic
-    fun collideBlock(axisAlignedBB: AxisAlignedBB, collide: Collidable): Boolean {
+    fun collideBlock(axisAlignedBB: AxisAlignedBB, predicate: (Block?) -> Boolean): Boolean {
         for (x in MathHelper.floor_double(mc.thePlayer.entityBoundingBox.minX) until
                 MathHelper.floor_double(mc.thePlayer.entityBoundingBox.maxX) + 1) {
             for (z in MathHelper.floor_double(mc.thePlayer.entityBoundingBox.minZ) until
                     MathHelper.floor_double(mc.thePlayer.entityBoundingBox.maxZ) + 1) {
                 val block = BlockPos(x.toDouble(), axisAlignedBB.minY, z.toDouble()).getBlock()
 
-                if (!collide.collideBlock(block))
-                    return false
+                if (!predicate(block)) return false
             }
         }
 
@@ -41,10 +37,9 @@ object BlockUtils : MinecraftInstance() {
     }
 
     /**
-     * Check if [axisAlignedBB] has collidable blocks using custom [collide] check
+     * Check if [axisAlignedBB] has collidable blocks using [predicate] check
      */
-    @JvmStatic
-    fun collideBlockIntersects(axisAlignedBB: AxisAlignedBB, collide: Collidable): Boolean {
+    fun collideBlockIntersects(axisAlignedBB: AxisAlignedBB, predicate: (Block?) -> Boolean): Boolean {
         for (x in MathHelper.floor_double(mc.thePlayer.entityBoundingBox.minX) until
                 MathHelper.floor_double(mc.thePlayer.entityBoundingBox.maxX) + 1) {
             for (z in MathHelper.floor_double(mc.thePlayer.entityBoundingBox.minZ) until
@@ -52,9 +47,9 @@ object BlockUtils : MinecraftInstance() {
                 val blockPos = BlockPos(x.toDouble(), axisAlignedBB.minY, z.toDouble())
                 val block = blockPos.getBlock()
 
-                if (collide.collideBlock(block)) {
+                if (predicate(block)) {
                     val boundingBox = block?.getCollisionBoundingBox(mc.theWorld, blockPos, blockPos.getState())
-                            ?: continue
+                        ?: continue
 
                     if (mc.thePlayer.entityBoundingBox.intersectsWith(boundingBox))
                         return true
@@ -62,13 +57,5 @@ object BlockUtils : MinecraftInstance() {
             }
         }
         return false
-    }
-
-    interface Collidable {
-
-        /**
-         * Check if [block] is collidable
-         */
-        fun collideBlock(block: Block?): Boolean
     }
 }

@@ -13,7 +13,7 @@ import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
-import net.ccbluex.liquidbounce.utils.EntityUtils
+import lol.liquidcat.utils.entity.EntityUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.util.Vec3

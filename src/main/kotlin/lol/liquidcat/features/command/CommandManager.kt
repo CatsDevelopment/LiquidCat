@@ -9,13 +9,13 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.commands.*
 import lol.liquidcat.features.command.shortcuts.Shortcut
 import lol.liquidcat.features.command.shortcuts.ShortcutParser
-import net.ccbluex.liquidbounce.utils.ClientUtils
+import lol.liquidcat.utils.msg
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 @SideOnly(Side.CLIENT)
 class CommandManager {
-    val commands = mutableListOf<lol.liquidcat.features.command.Command>()
+    val commands = mutableListOf<Command>()
     var latestAutoComplete: Array<String> = emptyArray()
 
     var prefix = '.'
@@ -74,7 +74,7 @@ class CommandManager {
             }
         }
 
-        ClientUtils.displayChatMessage("§cCommand not found. Type ${prefix}help to view all commands.")
+        msg("§cCommand not found. Type ${prefix}help to view all commands.")
     }
 
     /**
@@ -128,7 +128,7 @@ class CommandManager {
     /**
      * Get command instance by given [name]
      */
-    fun getCommand(name: String): lol.liquidcat.features.command.Command? {
+    fun getCommand(name: String): Command? {
         return commands.find {
             it.command.equals(name, ignoreCase = true)
                 || it.alias.any { alias -> alias.equals(name, true) }
@@ -138,7 +138,7 @@ class CommandManager {
     /**
      * Register [command] by just adding it to the commands registry
      */
-    fun registerCommand(command: lol.liquidcat.features.command.Command) = commands.add(command)
+    fun registerCommand(command: Command) = commands.add(command)
 
     fun registerShortcut(name: String, script: String) {
         if (getCommand(name) == null) {
@@ -167,5 +167,5 @@ class CommandManager {
     /**
      * Unregister [command] by just removing it from the commands registry
      */
-    fun unregisterCommand(command: lol.liquidcat.features.command.Command?) = commands.remove(command)
+    fun unregisterCommand(command: Command?) = commands.remove(command)
 }

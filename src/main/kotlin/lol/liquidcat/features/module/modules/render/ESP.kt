@@ -5,6 +5,7 @@
  */
 package lol.liquidcat.features.module.modules.render
 
+import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render2DEvent
 import lol.liquidcat.event.Render3DEvent
@@ -16,8 +17,7 @@ import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
-import net.ccbluex.liquidbounce.utils.ClientUtils
-import net.ccbluex.liquidbounce.utils.EntityUtils
+import lol.liquidcat.utils.entity.EntityUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import net.ccbluex.liquidbounce.utils.render.WorldToScreen
 import net.ccbluex.liquidbounce.utils.render.shader.shaders.GlowShader
@@ -163,7 +163,7 @@ class ESP : Module() {
                 if (EntityUtils.isSelected(entity, false))
                     mc.renderManager.renderEntityStatic(entity, mc.timer.renderPartialTicks, true)
         } catch (e: Exception) {
-            ClientUtils.getLogger().error("An error occurred while rendering all entities for shader esp", e)
+            LiquidCat.logger.error("An error occurred while rendering all entities for shader esp", e)
         }
 
         renderNameTags = true

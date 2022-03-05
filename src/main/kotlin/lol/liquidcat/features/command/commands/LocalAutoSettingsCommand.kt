@@ -74,7 +74,7 @@ class LocalAutoSettingsCommand : lol.liquidcat.features.command.Command("localau
                             chat("§6Settings saved successfully.")
                         } catch (throwable: Throwable) {
                             chat("§cFailed to create local config: §3${throwable.message}")
-                            ClientUtils.getLogger().error("Failed to create local config.", throwable)
+                            LiquidCat.logger.error("Failed to create local config.", throwable)
                         }
                         return
                     }

@@ -11,6 +11,7 @@ import lol.liquidcat.event.Listenable
 import lol.liquidcat.event.Render2DEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.utils.msg
 import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.minecraft.client.gui.ScaledResolution
@@ -44,7 +45,7 @@ class TacoCommand : Command("taco", emptyArray()), Listenable {
      */
     override fun execute(args: Array<String>) {
         toggle = !toggle
-        ClientUtils.displayChatMessage(if (toggle) "§aTACO TACO TACO. :)" else "§cYou made the little taco sad! :(")
+        msg(if (toggle) "§aTACO TACO TACO. :)" else "§cYou made the little taco sad! :(")
     }
 
     @EventTarget

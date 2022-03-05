@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.ui.client.altmanager.sub;
 
+import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager;
 import net.ccbluex.liquidbounce.ui.elements.GuiPasswordField;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
@@ -117,10 +118,10 @@ public class GuiDirectLogin extends GuiScreen {
                     }).start();
                 } catch (final UnsupportedFlavorException e) {
                     status = "§cClipboard flavor unsupported!";
-                    ClientUtils.getLogger().error("Failed to read data from clipboard.", e);
+                    LiquidCat.INSTANCE.getLogger().error("Failed to read data from clipboard.", e);
                 } catch (IOException e) {
                     status = "§cUnknown error! (See log)";
-                    ClientUtils.getLogger().error(e);
+                    LiquidCat.INSTANCE.getLogger().error(e);
                 }
                 break;
         }

@@ -11,6 +11,7 @@ import lol.liquidcat.event.ClientShutdownEvent
 import lol.liquidcat.event.EventManager
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.ModuleManager
+import lol.liquidcat.utils.item.InventoryUtils
 import net.ccbluex.liquidbounce.features.special.AntiForge
 import net.ccbluex.liquidbounce.features.special.BungeeCordSpoof
 import net.ccbluex.liquidbounce.features.special.DonatorCape
@@ -23,9 +24,10 @@ import net.ccbluex.liquidbounce.ui.client.hud.HUD
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.createDefault
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.ClientUtils
-import lol.liquidcat.utils.item.InventoryUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.util.ResourceLocation
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 
 object LiquidCat {
 
@@ -36,6 +38,8 @@ object LiquidCat {
     const val CLIENT_CLOUD = "https://cloud.liquidbounce.net/LiquidBounce"
 
     var isStarting = false
+
+    val logger: Logger = LogManager.getLogger(CLIENT_NAME)
 
     // Managers
     lateinit var moduleManager: ModuleManager
@@ -61,7 +65,7 @@ object LiquidCat {
     fun startClient() {
         isStarting = true
 
-        ClientUtils.getLogger().info("Launching $CLIENT_NAME $CLIENT_VERSION, by $CLIENT_CREATOR")
+        logger.info("Launching $CLIENT_NAME $CLIENT_VERSION, by $CLIENT_CREATOR")
 
         // Create file manager
         fileManager = FileManager()
@@ -95,7 +99,7 @@ object LiquidCat {
             scriptManager.loadScripts()
             scriptManager.enableScripts()
         } catch (throwable: Throwable) {
-            ClientUtils.getLogger().error("Failed to load scripts.", throwable)
+            logger.error("Failed to load scripts.", throwable)
         }
 
         // Register commands
@@ -114,7 +118,7 @@ object LiquidCat {
         try {
             registerCapeService()
         } catch (throwable: Throwable) {
-            ClientUtils.getLogger().error("Failed to register cape service", throwable)
+            logger.error("Failed to register cape service", throwable)
         }
 
         // Setup Discord RPC
@@ -122,7 +126,7 @@ object LiquidCat {
             clientRichPresence = ClientRichPresence()
             clientRichPresence.setup()
         } catch (throwable: Throwable) {
-            ClientUtils.getLogger().error("Failed to setup Discord RPC.", throwable)
+            logger.error("Failed to setup Discord RPC.", throwable)
         }
 
         // Set HUD
@@ -143,7 +147,7 @@ object LiquidCat {
      * Execute if client will be stopped
      */
     fun stopClient() {
-        ClientUtils.getLogger().info("Shutting down $CLIENT_NAME...")
+        logger.info("Shutting down $CLIENT_NAME...")
 
         // Call client shutdown
         eventManager.callEvent(ClientShutdownEvent())
@@ -154,5 +158,4 @@ object LiquidCat {
         // Shutdown discord rpc
         clientRichPresence.shutdown()
     }
-
 }

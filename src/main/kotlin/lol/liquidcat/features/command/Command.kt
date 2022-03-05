@@ -6,7 +6,7 @@
 package lol.liquidcat.features.command
 
 import lol.liquidcat.LiquidCat
-import net.ccbluex.liquidbounce.utils.ClientUtils
+import lol.liquidcat.utils.msg
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
@@ -35,27 +35,27 @@ abstract class Command(val command: String, val alias: Array<String>) : Minecraf
     /**
      * Print [msg] to chat
      */
-    protected fun chat(msg: String) = ClientUtils.displayChatMessage("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3$msg")
+    protected fun chat(msg: String) = msg("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3$msg")
 
     /**
      * Print [syntax] of command to chat
      */
-    protected fun chatSyntax(syntax: String) = ClientUtils.displayChatMessage("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3Syntax: §7${LiquidCat.commandManager.prefix}$syntax")
+    protected fun chatSyntax(syntax: String) = msg("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3Syntax: §7${LiquidCat.commandManager.prefix}$syntax")
 
     /**
      * Print [syntaxes] of command to chat
      */
     protected fun chatSyntax(syntaxes: Array<String>) {
-        ClientUtils.displayChatMessage("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3Syntax:")
+        msg("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3Syntax:")
 
         for (syntax in syntaxes)
-            ClientUtils.displayChatMessage("§8> §7${LiquidCat.commandManager.prefix}$command ${syntax.toLowerCase()}")
+            msg("§8> §7${LiquidCat.commandManager.prefix}$command ${syntax.toLowerCase()}")
     }
 
     /**
      * Print a syntax error to chat
      */
-    protected fun chatSyntaxError() = ClientUtils.displayChatMessage("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3Syntax error")
+    protected fun chatSyntaxError() = msg("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3Syntax error")
 
     /**
      * Play edit sound

@@ -13,7 +13,7 @@ import net.ccbluex.liquidbounce.features.module.modules.render.Chams;
 import net.ccbluex.liquidbounce.features.module.modules.render.NameTags;
 import net.ccbluex.liquidbounce.features.module.modules.render.TrueSight;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
-import net.ccbluex.liquidbounce.utils.EntityUtils;
+import lol.liquidcat.utils.entity.EntityUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;

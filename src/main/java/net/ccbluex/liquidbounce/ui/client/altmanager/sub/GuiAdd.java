@@ -106,7 +106,7 @@ public class GuiAdd extends GuiScreen {
                     addAccount(accountData[0], accountData[1]);
                 }catch(final UnsupportedFlavorException e) {
                     status = "§cClipboard flavor unsupported!";
-                    ClientUtils.getLogger().error("Failed to read data from clipboard.", e);
+                    LiquidCat.INSTANCE.getLogger().error("Failed to read data from clipboard.", e);
                 }
                 break;
         }

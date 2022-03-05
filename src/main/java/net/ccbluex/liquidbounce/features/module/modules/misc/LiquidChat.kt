@@ -15,11 +15,11 @@ import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.utils.ClientUtils
+import lol.liquidcat.utils.msg
+import lol.liquidcat.value.BoolValue
 import net.ccbluex.liquidbounce.utils.login.UserUtils
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
-import lol.liquidcat.value.BoolValue
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting
@@ -58,14 +58,14 @@ class LiquidChat : Module() {
          * Handle connect to web socket
          */
         override fun onConnect() {
-            ClientUtils.displayChatMessage("§7[§a§lChat§7] §9Connecting to chat server...")
+            msg("§7[§a§lChat§7] §9Connecting to chat server...")
         }
 
         /**
          * Handle connect to web socket
          */
         override fun onConnected() {
-            ClientUtils.displayChatMessage("§7[§a§lChat§7] §9Connected to chat server!")
+            msg("§7[§a§lChat§7] §9Connected to chat server!")
         }
 
         /**
@@ -77,14 +77,14 @@ class LiquidChat : Module() {
          * Handle disconnect
          */
         override fun onDisconnect() {
-            ClientUtils.displayChatMessage("§7[§a§lChat§7] §cDisconnected from chat server!")
+            msg("§7[§a§lChat§7] §cDisconnected from chat server!")
         }
 
         /**
          * Handle logon to web socket with minecraft account
          */
         override fun onLogon() {
-            ClientUtils.displayChatMessage("§7[§a§lChat§7] §9Logging in...")
+            msg("§7[§a§lChat§7] §9Logging in...")
         }
 
         /**
@@ -94,7 +94,7 @@ class LiquidChat : Module() {
             when (packet) {
                 is ClientMessagePacket -> {
                     if (mc.thePlayer == null) {
-                        ClientUtils.getLogger().info("[LiquidChat] ${packet.user.name}: ${packet.content}")
+                        LiquidCat.logger.info("[LiquidChat] ${packet.user.name}: ${packet.content}")
                         return
                     }
 
@@ -104,7 +104,7 @@ class LiquidChat : Module() {
 
                     mc.thePlayer.addChatMessage(chatComponent)
                 }
-                is ClientPrivateMessagePacket -> ClientUtils.displayChatMessage("§7[§a§lChat§7] §c(P)§9 ${packet.user.name}: §7${packet.content}")
+                is ClientPrivateMessagePacket -> msg("§7[§a§lChat§7] §c(P)§9 ${packet.user.name}: §7${packet.content}")
                 is ClientErrorPacket -> {
                     val message = when(packet.message) {
                         "NotSupported" -> "This method is not supported!"
@@ -125,23 +125,23 @@ class LiquidChat : Module() {
                         else -> packet.message
                     }
 
-                    ClientUtils.displayChatMessage("§7[§a§lChat§7] §cError: §7$message")
+                    msg("§7[§a§lChat§7] §cError: §7$message")
                 }
                 is ClientSuccessPacket -> {
                     when(packet.reason) {
                         "Login" -> {
-                            ClientUtils.displayChatMessage("§7[§a§lChat§7] §9Logged in!")
+                            msg("§7[§a§lChat§7] §9Logged in!")
 
-                            ClientUtils.displayChatMessage("====================================")
-                            ClientUtils.displayChatMessage("§c>> §lLiquidChat")
-                            ClientUtils.displayChatMessage("§7Write message: §a.chat <message>")
-                            ClientUtils.displayChatMessage("§7Write private message: §a.pchat <user> <message>")
-                            ClientUtils.displayChatMessage("====================================")
+                            msg("====================================")
+                            msg("§c>> §lLiquidChat")
+                            msg("§7Write message: §a.chat <message>")
+                            msg("§7Write private message: §a.pchat <user> <message>")
+                            msg("====================================")
 
                             loggedIn = true
                         }
-                        "Ban" -> ClientUtils.displayChatMessage("§7[§a§lChat§7] §9Successfully banned user!")
-                        "Unban" -> ClientUtils.displayChatMessage("§7[§a§lChat§7] §9Successfully unbanned user!")
+                        "Ban" -> msg("§7[§a§lChat§7] §9Successfully banned user!")
+                        "Unban" -> msg("§7[§a§lChat§7] §9Successfully unbanned user!")
                     }
                 }
                 is ClientNewJWTPacket -> {
@@ -158,7 +158,7 @@ class LiquidChat : Module() {
          * Handle error
          */
         override fun onError(cause: Throwable) {
-            ClientUtils.displayChatMessage("§7[§a§lChat§7] §c§lError: §7${cause.javaClass.name}: ${cause.message}")
+            msg("§7[§a§lChat§7] §c§lError: §7${cause.javaClass.name}: ${cause.message}")
         }
     }
 
@@ -169,7 +169,7 @@ class LiquidChat : Module() {
     private val connectTimer = MSTimer()
 
     init {
-        LiquidCat.commandManager.registerCommand(object : lol.liquidcat.features.command.Command("chat", arrayOf("lc", "irc")) {
+        LiquidCat.commandManager.registerCommand(object : Command("chat", arrayOf("lc", "irc")) {
 
             override fun execute(args: Array<String>) {
                 if(args.size > 1) {
@@ -192,7 +192,7 @@ class LiquidChat : Module() {
 
         })
 
-        LiquidCat.commandManager.registerCommand(object : lol.liquidcat.features.command.Command("pchat", arrayOf("privatechat", "lcpm")) {
+        LiquidCat.commandManager.registerCommand(object : Command("pchat", arrayOf("privatechat", "lcpm")) {
 
             override fun execute(args: Array<String>) {
                 if(args.size > 2) {
@@ -217,7 +217,7 @@ class LiquidChat : Module() {
 
         })
 
-        LiquidCat.commandManager.registerCommand(object : lol.liquidcat.features.command.Command("chattoken", emptyArray()) {
+        LiquidCat.commandManager.registerCommand(object : Command("chattoken", emptyArray()) {
 
             override fun execute(args: Array<String>) {
 
@@ -262,7 +262,7 @@ class LiquidChat : Module() {
 
         })
 
-        LiquidCat.commandManager.registerCommand(object : lol.liquidcat.features.command.Command("chatadmin", emptyArray()) {
+        LiquidCat.commandManager.registerCommand(object : Command("chatadmin", emptyArray()) {
 
             override fun execute(args: Array<String>) {
                 if (!state) {
@@ -318,7 +318,7 @@ class LiquidChat : Module() {
         if(client.isConnected() || (loginThread != null && loginThread!!.isAlive)) return
 
         if(jwtValue.get() && jwtToken.isEmpty()) {
-            ClientUtils.displayChatMessage("§7[§a§lChat§7] §cError: §7No token provided!")
+            msg("§7[§a§lChat§7] §cError: §7No token provided!")
             state = false
             return
         }
@@ -334,8 +334,8 @@ class LiquidChat : Module() {
                 else if(UserUtils.isValidToken(mc.session.token))
                     client.loginMojang()
             }catch (cause: Exception) {
-                ClientUtils.getLogger().error("LiquidChat error", cause)
-                ClientUtils.displayChatMessage("§7[§a§lChat§7] §cError: §7${cause.javaClass.name}: ${cause.message}")
+                LiquidCat.logger.error("LiquidChat error", cause)
+                msg("§7[§a§lChat§7] §cError: §7${cause.javaClass.name}: ${cause.message}")
             }
 
             loginThread = null

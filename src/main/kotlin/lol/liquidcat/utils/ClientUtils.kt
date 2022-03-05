@@ -3,10 +3,10 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package lol.liquidcat.features.command.shortcuts
+package lol.liquidcat.utils
 
-open class Token
+import net.minecraft.util.ChatComponentText
 
-class Literal(val literal: String): Token()
-
-class StatementEnd: Token()
+fun msg(message: String) {
+    mc.ingameGUI.chatGUI.printChatMessage(ChatComponentText(message))
+}

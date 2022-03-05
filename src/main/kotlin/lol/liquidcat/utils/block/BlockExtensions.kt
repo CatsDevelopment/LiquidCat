@@ -25,8 +25,6 @@ fun BlockPos.isClickable() = getBlock()
 
 fun BlockPos.getVec() = Vec3(x + 0.5, y + 0.5, z + 0.5)
 
-fun getBlockName(id: Int): String = Block.getBlockById(id).localizedName
-
 fun BlockPos.getCenterDistance() = mc.thePlayer.getDistance(x + 0.5, y + 0.5, z + 0.5)
 
 fun searchBlocks(radius: Int): Map<BlockPos, Block> {

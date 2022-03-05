@@ -38,7 +38,7 @@ public class XRayConfig extends FileConfig {
         final XRay xRay = (XRay) LiquidCat.moduleManager.getModule(XRay.class);
 
         if(xRay == null) {
-            ClientUtils.getLogger().error("[FileManager] Failed to find xray module.");
+            LiquidCat.INSTANCE.getLogger().error("[FileManager] Failed to find xray module.");
             return;
         }
 
@@ -51,13 +51,13 @@ public class XRayConfig extends FileConfig {
                 final Block block = Block.getBlockFromName(jsonElement.getAsString());
 
                 if (xRay.getXrayBlocks().contains(block)) {
-                    ClientUtils.getLogger().error("[FileManager] Skipped xray block '" + block.getRegistryName() + "' because the block is already added.");
+                    LiquidCat.INSTANCE.getLogger().error("[FileManager] Skipped xray block '" + block.getRegistryName() + "' because the block is already added.");
                     continue;
                 }
 
                 xRay.getXrayBlocks().add(block);
             }catch(final Throwable throwable) {
-                ClientUtils.getLogger().error("[FileManager] Failed to add block to xray.", throwable);
+                LiquidCat.INSTANCE.getLogger().error("[FileManager] Failed to add block to xray.", throwable);
             }
         }
     }
@@ -72,7 +72,7 @@ public class XRayConfig extends FileConfig {
         final XRay xRay = (XRay) LiquidCat.moduleManager.getModule(XRay.class);
 
         if(xRay == null) {
-            ClientUtils.getLogger().error("[FileManager] Failed to find xray module.");
+            LiquidCat.INSTANCE.getLogger().error("[FileManager] Failed to find xray module.");
             return;
         }
 

@@ -76,7 +76,7 @@ class ScriptManagerCommand : lol.liquidcat.features.command.Command("scriptmanag
 
                         chat("The file extension has to be .js or .zip")
                     } catch (t: Throwable) {
-                        ClientUtils.getLogger().error("Something went wrong while importing a script.", t)
+                        LiquidCat.logger.error("Something went wrong while importing a script.", t)
                         chat("${t.javaClass.name}: ${t.message}")
                     }
                 }
@@ -107,7 +107,7 @@ class ScriptManagerCommand : lol.liquidcat.features.command.Command("scriptmanag
                     } catch (numberFormat: NumberFormatException) {
                         chatSyntaxError()
                     } catch (t: Throwable) {
-                        ClientUtils.getLogger().error("Something went wrong while deleting a script.", t)
+                        LiquidCat.logger.error("Something went wrong while deleting a script.", t)
                         chat("${t.javaClass.name}: ${t.message}")
                     }
                 }
@@ -130,7 +130,7 @@ class ScriptManagerCommand : lol.liquidcat.features.command.Command("scriptmanag
                         LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.clickGuiConfig)
                         chat("Successfully reloaded all scripts.")
                     } catch (t: Throwable) {
-                        ClientUtils.getLogger().error("Something went wrong while reloading all scripts.", t)
+                        LiquidCat.logger.error("Something went wrong while reloading all scripts.", t)
                         chat("${t.javaClass.name}: ${t.message}")
                     }
                 }
@@ -140,7 +140,7 @@ class ScriptManagerCommand : lol.liquidcat.features.command.Command("scriptmanag
                         Desktop.getDesktop().open(LiquidCat.scriptManager.scriptsFolder)
                         chat("Successfully opened scripts folder.")
                     } catch (t: Throwable) {
-                        ClientUtils.getLogger().error("Something went wrong while trying to open your scripts folder.", t)
+                        LiquidCat.logger.error("Something went wrong while trying to open your scripts folder.", t)
                         chat("${t.javaClass.name}: ${t.message}")
                     }
                 }

@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.ui.client.hud
 
+import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.*
@@ -67,7 +68,7 @@ open class HUD : MinecraftInstance() {
                 if (designer)
                     element.border?.draw()
             } catch (ex: Exception) {
-                ClientUtils.getLogger()
+                LiquidCat.logger
                         .error("Something went wrong while drawing ${element.name} element in HUD.", ex)
             }
 

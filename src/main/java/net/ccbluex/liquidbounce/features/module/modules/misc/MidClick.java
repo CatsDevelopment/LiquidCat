@@ -11,8 +11,8 @@ import lol.liquidcat.event.Render2DEvent;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleInfo;
+import lol.liquidcat.utils.ClientUtilsKt;
 import net.ccbluex.liquidbounce.file.configs.FriendsConfig;
-import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,14 +38,14 @@ public class MidClick extends Module {
                 if(!friendsConfig.isFriend(playerName)) {
                     friendsConfig.addFriend(playerName);
                     LiquidCat.fileManager.saveConfig(friendsConfig);
-                    ClientUtils.displayChatMessage("§a§l" + playerName + "§c was added to your friends.");
+                    ClientUtilsKt.msg("§a§l" + playerName + "§c was added to your friends.");
                 }else{
                     friendsConfig.removeFriend(playerName);
                     LiquidCat.fileManager.saveConfig(friendsConfig);
-                    ClientUtils.displayChatMessage("§a§l" + playerName + "§c was removed from your friends.");
+                    ClientUtilsKt.msg("§a§l" + playerName + "§c was removed from your friends.");
                 }
             }else
-                ClientUtils.displayChatMessage("§c§lError: §aYou need to select a player.");
+                ClientUtilsKt.msg("§c§lError: §aYou need to select a player.");
         }
 
         wasDown = Mouse.isButtonDown(2);

@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.script.api
 
 import jdk.nashorn.api.scripting.JSObject
+import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
@@ -127,7 +128,7 @@ class ScriptModule(private val moduleObject: JSObject) : Module() {
         try {
             events[eventName]?.call(moduleObject, payload)
         } catch (throwable: Throwable) {
-            ClientUtils.getLogger().error("[ScriptAPI] Exception in module '$name'!", throwable)
+            LiquidCat.logger.error("[ScriptAPI] Exception in module '$name'!", throwable)
         }
     }
 }

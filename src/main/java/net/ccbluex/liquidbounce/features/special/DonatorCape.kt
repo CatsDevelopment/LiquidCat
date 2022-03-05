@@ -5,11 +5,11 @@
  */
 package net.ccbluex.liquidbounce.features.special
 
+import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.event.SessionEvent
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDonatorCape
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.ccbluex.liquidbounce.utils.login.UserUtils
 import net.minecraftforge.fml.relauncher.Side
@@ -51,7 +51,7 @@ class DonatorCape : Listenable, MinecraftInstance() {
             val response = httpClient.execute(request)
             val statusCode = response.statusLine.statusCode
 
-            ClientUtils.getLogger().info(
+            LiquidCat.logger.info(
                     if(statusCode == HttpStatus.SC_NO_CONTENT)
                         "[Donator Cape] Successfully transferred cape to $uuid ($username)"
                     else

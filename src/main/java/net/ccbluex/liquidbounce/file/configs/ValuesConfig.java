@@ -20,7 +20,7 @@ import net.ccbluex.liquidbounce.file.FileManager;
 import net.ccbluex.liquidbounce.ui.client.GuiBackground;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDonatorCape;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAltening;
-import net.ccbluex.liquidbounce.utils.EntityUtils;
+import lol.liquidcat.utils.entity.EntityUtils;
 import lol.liquidcat.value.Value;
 
 import java.io.*;

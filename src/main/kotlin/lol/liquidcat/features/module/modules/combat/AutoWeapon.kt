@@ -12,7 +12,7 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
-import lol.liquidcat.utils.item.ItemUtils
+import lol.liquidcat.utils.item.getEnchantment
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import net.minecraft.enchantment.Enchantment
@@ -49,7 +49,7 @@ class AutoWeapon : Module() {
                     .filter { it.second != null && (it.second.item is ItemSword || it.second.item is ItemTool) }
                     .maxBy {
                         (it.second.attributeModifiers["generic.attackDamage"].first()?.amount
-                                ?: 0.0) + 1.25 * ItemUtils.getEnchantment(it.second, Enchantment.sharpness)
+                                ?: 0.0) + 1.25 * it.second.getEnchantment(Enchantment.sharpness)
                     } ?: return
 
             if (slot == mc.thePlayer.inventory.currentItem) // If in hand no need to swap

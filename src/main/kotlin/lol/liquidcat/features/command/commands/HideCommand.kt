@@ -8,6 +8,7 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.utils.msg
 import net.ccbluex.liquidbounce.utils.ClientUtils
 
 class HideCommand : lol.liquidcat.features.command.Command("hide", emptyArray()) {
@@ -21,7 +22,7 @@ class HideCommand : lol.liquidcat.features.command.Command("hide", emptyArray())
                 args[1].equals("list", true) -> {
                     chat("§c§lHidden")
                     LiquidCat.moduleManager.modules.filter { !it.array }.forEach {
-                        ClientUtils.displayChatMessage("§6> §c${it.name}")
+                        msg("§6> §c${it.name}")
                     }
                     return
                 }

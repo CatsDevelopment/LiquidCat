@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.file.configs.*;
-import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.util.ResourceLocation;
@@ -82,7 +81,7 @@ public class FileManager extends MinecraftInstance {
                     final FileConfig fileConfig = (FileConfig) field.get(this);
                     loadConfig(fileConfig);
                 }catch(final IllegalAccessException e) {
-                    ClientUtils.getLogger().error("Failed to load config file of field " + field.getName() + ".", e);
+                    LiquidCat.INSTANCE.getLogger().error("Failed to load config file of field " + field.getName() + ".", e);
                 }
             }
         }
@@ -105,7 +104,7 @@ public class FileManager extends MinecraftInstance {
      */
     public void loadConfig(final FileConfig config) {
         if(!config.hasConfig()) {
-            ClientUtils.getLogger().info("[FileManager] Skipped loading config: " + config.getFile().getName() + ".");
+            LiquidCat.INSTANCE.getLogger().info("[FileManager] Skipped loading config: " + config.getFile().getName() + ".");
 
             saveConfig(config, true);
             return;
@@ -113,9 +112,9 @@ public class FileManager extends MinecraftInstance {
 
         try {
             config.loadConfig();
-            ClientUtils.getLogger().info("[FileManager] Loaded config: " + config.getFile().getName() + ".");
+            LiquidCat.INSTANCE.getLogger().info("[FileManager] Loaded config: " + config.getFile().getName() + ".");
         }catch(final Throwable t) {
-            ClientUtils.getLogger().error("[FileManager] Failed to load config file: " + config.getFile().getName() + ".", t);
+            LiquidCat.INSTANCE.getLogger().error("[FileManager] Failed to load config file: " + config.getFile().getName() + ".", t);
         }
     }
 
@@ -132,7 +131,7 @@ public class FileManager extends MinecraftInstance {
                     final FileConfig fileConfig = (FileConfig) field.get(this);
                     saveConfig(fileConfig);
                 }catch(final IllegalAccessException e) {
-                    ClientUtils.getLogger().error("[FileManager] Failed to save config file of field " +
+                    LiquidCat.INSTANCE.getLogger().error("[FileManager] Failed to save config file of field " +
                             field.getName() + ".", e);
                 }
             }
@@ -173,9 +172,9 @@ public class FileManager extends MinecraftInstance {
                 config.createConfig();
 
             config.saveConfig();
-            ClientUtils.getLogger().info("[FileManager] Saved config: " + config.getFile().getName() + ".");
+            LiquidCat.INSTANCE.getLogger().info("[FileManager] Saved config: " + config.getFile().getName() + ".");
         }catch(final Throwable t) {
-            ClientUtils.getLogger().error("[FileManager] Failed to save config file: " +
+            LiquidCat.INSTANCE.getLogger().error("[FileManager] Failed to save config file: " +
                     config.getFile().getName() + ".", t);
         }
     }
@@ -193,9 +192,9 @@ public class FileManager extends MinecraftInstance {
 
                 LiquidCat.INSTANCE.setBackground(new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/background.png"));
                 mc.getTextureManager().loadTexture(LiquidCat.INSTANCE.getBackground(), new DynamicTexture(bufferedImage));
-                ClientUtils.getLogger().info("[FileManager] Loaded background.");
+                LiquidCat.INSTANCE.getLogger().info("[FileManager] Loaded background.");
             }catch(final Exception e) {
-                ClientUtils.getLogger().error("[FileManager] Failed to load background.", e);
+                LiquidCat.INSTANCE.getLogger().error("[FileManager] Failed to load background.", e);
             }
         }
     }

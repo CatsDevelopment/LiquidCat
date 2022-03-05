@@ -14,7 +14,7 @@ import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.EntityUtils
+import lol.liquidcat.utils.entity.EntityUtils
 import net.minecraft.entity.EntityLivingBase
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color

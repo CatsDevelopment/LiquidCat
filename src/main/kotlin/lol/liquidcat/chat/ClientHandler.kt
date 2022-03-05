@@ -13,6 +13,7 @@ import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker
 import io.netty.handler.codec.http.websocketx.WebSocketHandshakeException
+import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.utils.ClientUtils
 
 class ClientHandler(val client: Client, private val handshaker: WebSocketClientHandshaker) : SimpleChannelInboundHandler<Any>() {
@@ -56,7 +57,7 @@ class ClientHandler(val client: Client, private val handshaker: WebSocketClientH
      * Sub-classes may override this method to change behavior.
      */
     override fun exceptionCaught(ctx: ChannelHandlerContext, cause: Throwable) {
-        ClientUtils.getLogger().error("LiquidChat error", cause)
+        LiquidCat.logger.error("LiquidChat error", cause)
         client.onError(cause)
         if(!handshakeFuture.isDone) handshakeFuture.setFailure(cause)
         ctx.close()

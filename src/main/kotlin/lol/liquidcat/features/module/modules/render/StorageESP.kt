@@ -6,6 +6,7 @@
 package lol.liquidcat.features.module.modules.render
 
 import co.uk.hexeption.utils.OutlineUtils
+import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render2DEvent
 import lol.liquidcat.event.Render3DEvent
@@ -130,7 +131,7 @@ class StorageESP : Module() {
                         event.partialTicks
                     )
         } catch (e: Exception) {
-            ClientUtils.getLogger().error("An error occurred while rendering all storages for shader esp", e)
+            LiquidCat.logger.error("An error occurred while rendering all storages for shader esp", e)
         }
 
         val radius = when(mode) {

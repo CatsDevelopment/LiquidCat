@@ -5,6 +5,7 @@
  */
 package lol.liquidcat.features.module.modules.misc
 
+import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.features.module.Module
@@ -44,7 +45,7 @@ class ResourcePackSpoof : Module() {
                 mc.netHandler.addToSendQueue(C19PacketResourcePackStatus(packet.hash,
                         C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED))
             } catch (e: URISyntaxException) {
-                ClientUtils.getLogger().error("Failed to handle resource pack", e)
+                LiquidCat.logger.error("Failed to handle resource pack", e)
                 mc.netHandler.addToSendQueue(C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD))
             }
         }

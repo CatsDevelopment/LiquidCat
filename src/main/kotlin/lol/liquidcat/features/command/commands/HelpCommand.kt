@@ -8,6 +8,7 @@ package lol.liquidcat.features.command.commands
 import joptsimple.internal.Strings
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.utils.msg
 import net.ccbluex.liquidbounce.utils.ClientUtils
 
 class HelpCommand : lol.liquidcat.features.command.Command("help", emptyArray()) {
@@ -43,7 +44,7 @@ class HelpCommand : lol.liquidcat.features.command.Command("help", emptyArray())
         }
 
         chat("§c§lHelp")
-        ClientUtils.displayChatMessage("§7> Page: §8$page / $maxPage")
+        msg("§7> Page: §8$page / $maxPage")
 
         val commands = LiquidCat.commandManager.commands.sortedBy { it.command }
 
@@ -51,10 +52,10 @@ class HelpCommand : lol.liquidcat.features.command.Command("help", emptyArray())
         while (i < 8 * page && i < commands.size) {
             val command = commands[i]
 
-            ClientUtils.displayChatMessage("§6> §7${LiquidCat.commandManager.prefix}${command.command}${if (command.alias.isEmpty()) "" else " §7(§8" + Strings.join(command.alias, "§7, §8") + "§7)"}")
+            msg("§6> §7${LiquidCat.commandManager.prefix}${command.command}${if (command.alias.isEmpty()) "" else " §7(§8" + Strings.join(command.alias, "§7, §8") + "§7)"}")
             i++
         }
 
-        ClientUtils.displayChatMessage("§a------------\n§7> §c${LiquidCat.commandManager.prefix}help §8<§7§lpage§8>")
+        msg("§a------------\n§7> §c${LiquidCat.commandManager.prefix}help §8<§7§lpage§8>")
     }
 }

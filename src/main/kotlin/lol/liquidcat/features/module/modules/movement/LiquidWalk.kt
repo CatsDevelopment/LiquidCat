@@ -9,12 +9,10 @@ import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
-import lol.liquidcat.utils.block.BlockUtils.Collidable
 import lol.liquidcat.utils.block.BlockUtils.collideBlock
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.ListValue
-import net.minecraft.block.Block
 import net.minecraft.block.BlockLiquid
 import net.minecraft.block.material.Material
 import net.minecraft.network.play.client.C03PacketPlayer
@@ -42,15 +40,9 @@ class LiquidWalk : Module() {
     fun onUpdate(event: UpdateEvent) {
         if (!mc.thePlayer.isSneaking)
             when (modeValue.get()) {
-                "NCP", "Vanilla" -> if (collideBlock(
-                        mc.thePlayer.entityBoundingBox,
-                        object : Collidable {
-                            override fun collideBlock(block: Block?): Boolean {
-                                return block is BlockLiquid
-                            }
-                        }
-                    ) && mc.thePlayer.isInsideOfMaterial(Material.air) && !mc.thePlayer.isSneaking
-                ) mc.thePlayer.motionY = 0.08
+                "NCP", "Vanilla" -> if (collideBlock(mc.thePlayer.entityBoundingBox) { it is BlockLiquid }
+                    && mc.thePlayer.isInsideOfMaterial(Material.air) && !mc.thePlayer.isSneaking)
+                    mc.thePlayer.motionY = 0.08
 
                 "Dolphin" -> if (mc.thePlayer.isInWater) mc.thePlayer.motionY += 0.03999999910593033
             }
@@ -60,15 +52,7 @@ class LiquidWalk : Module() {
     fun onBlockBB(event: BlockBBEvent) {
         if (mc.thePlayer == null || mc.thePlayer.entityBoundingBox == null) return
 
-        if (event.block is BlockLiquid && !collideBlock(
-                mc.thePlayer.entityBoundingBox,
-                object : Collidable {
-                    override fun collideBlock(block: Block?): Boolean {
-                        return block is BlockLiquid
-                    }
-                }
-            ) && !mc.thePlayer.isSneaking
-        )
+        if (event.block is BlockLiquid && !collideBlock(mc.thePlayer.entityBoundingBox) { it is BlockLiquid } && !mc.thePlayer.isSneaking)
             when (modeValue.get()) {
                 "NCP", "Vanilla" -> event.boundingBox = AxisAlignedBB.fromBounds(
                     event.x.toDouble(),
@@ -85,21 +69,14 @@ class LiquidWalk : Module() {
     fun onPacket(event: PacketEvent) {
         if (mc.thePlayer == null || modeValue.get() != "NCP") return
 
+        val aabb = AxisAlignedBB(
+            mc.thePlayer.entityBoundingBox.maxX, mc.thePlayer.entityBoundingBox.maxY,
+            mc.thePlayer.entityBoundingBox.maxZ, mc.thePlayer.entityBoundingBox.minX,
+            mc.thePlayer.entityBoundingBox.minY - 0.01, mc.thePlayer.entityBoundingBox.minZ
+        )
+
         if (event.packet is C03PacketPlayer) {
-            if (collideBlock(AxisAlignedBB(
-                    mc.thePlayer.entityBoundingBox.maxX,
-                    mc.thePlayer.entityBoundingBox.maxY,
-                    mc.thePlayer.entityBoundingBox.maxZ,
-                    mc.thePlayer.entityBoundingBox.minX,
-                    mc.thePlayer.entityBoundingBox.minY - 0.01,
-                    mc.thePlayer.entityBoundingBox.minZ
-                ), object : Collidable {
-                        override fun collideBlock(block: Block?): Boolean {
-                            return block is BlockLiquid
-                        }
-                    }
-                )
-            ) {
+            if (collideBlock(aabb) { it is BlockLiquid }) {
                 nextTick = !nextTick
                 if (nextTick) event.packet.y -= 0.001
             }

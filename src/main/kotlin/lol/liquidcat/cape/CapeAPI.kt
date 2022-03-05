@@ -37,22 +37,22 @@ object CapeAPI : MinecraftInstance() {
                 val url = jsonObject.get("api").asJsonObject.get("url").asString
 
                 capeService = ServiceAPI(url)
-                ClientUtils.getLogger().info("Registered $url as '$serviceType' service type.")
+                LiquidCat.logger.info("Registered $url as '$serviceType' service type.")
             }
             "list" -> {
                 val users = HashMap<String, String>()
 
                 for ((key, value) in jsonObject.get("users").asJsonObject.entrySet()) {
                     users[key] = value.asString
-                    ClientUtils.getLogger().info("Loaded user cape for '$key'.")
+                    LiquidCat.logger.info("Loaded user cape for '$key'.")
                 }
 
                 capeService = ServiceList(users)
-                ClientUtils.getLogger().info("Registered '$serviceType' service type.")
+                LiquidCat.logger.info("Registered '$serviceType' service type.")
             }
         }
 
-        ClientUtils.getLogger().info("Loaded.")
+        LiquidCat.logger.info("Loaded.")
     }
 
     /**

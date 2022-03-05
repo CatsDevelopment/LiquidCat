@@ -7,6 +7,7 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.utils.msg
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import org.lwjgl.input.Keyboard
 
@@ -27,7 +28,7 @@ class BindsCommand : lol.liquidcat.features.command.Command("binds", emptyArray(
 
         chat("§c§lBinds")
         LiquidCat.moduleManager.modules.filter { it.keyBind != Keyboard.KEY_NONE }.forEach {
-            ClientUtils.displayChatMessage("§6> §c${it.name}: §a§l${Keyboard.getKeyName(it.keyBind)}")
+            msg("§6> §c${it.name}: §a§l${Keyboard.getKeyName(it.keyBind)}")
         }
         chatSyntax("binds clear")
     }

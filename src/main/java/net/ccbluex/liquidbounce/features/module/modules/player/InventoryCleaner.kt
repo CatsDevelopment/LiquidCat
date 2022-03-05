@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.player
 
+import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
@@ -12,15 +13,14 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.item.ArmorPiece
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import lol.liquidcat.utils.item.InventoryUtils
-import lol.liquidcat.utils.item.ItemUtils
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
 import lol.liquidcat.features.module.modules.combat.AutoArmor
 import lol.liquidcat.utils.entity.moving
+import lol.liquidcat.utils.item.getEnchantment
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.init.Blocks
@@ -138,19 +138,19 @@ class InventoryCleaner : Module() {
                 }
 
                 val damage = (itemStack.attributeModifiers["generic.attackDamage"].firstOrNull()?.amount
-                        ?: 0.0) + 1.25 * ItemUtils.getEnchantment(itemStack, Enchantment.sharpness)
+                        ?: 0.0) + 1.25 * itemStack.getEnchantment(Enchantment.sharpness)
 
                 items(0, 45).none { (_, stack) ->
                     stack != itemStack && stack.javaClass == itemStack.javaClass
                             && damage <= (stack.attributeModifiers["generic.attackDamage"].firstOrNull()?.amount
-                            ?: 0.0) + 1.25 * ItemUtils.getEnchantment(stack, Enchantment.sharpness)
+                            ?: 0.0) + 1.25 * stack.getEnchantment(Enchantment.sharpness)
                 }
             } else if (item is ItemBow) {
-                val currPower = ItemUtils.getEnchantment(itemStack, Enchantment.power)
+                val currPower = itemStack.getEnchantment(Enchantment.power)
 
                 items().none { (_, stack) ->
                     itemStack != stack && stack.item is ItemBow &&
-                            currPower <= ItemUtils.getEnchantment(stack, Enchantment.power)
+                            currPower <= stack.getEnchantment(Enchantment.power)
                 }
             } else if (item is ItemArmor) {
                 val currArmor = ArmorPiece(itemStack, slot)
@@ -174,7 +174,7 @@ class InventoryCleaner : Module() {
                     item is ItemPotion || item is ItemEnderPearl || item is ItemEnchantedBook || item is ItemBucket || itemStack.unlocalizedName == "item.stick" || 
                     ignoreVehiclesValue.get() && (item is ItemBoat || item is ItemMinecart)
         } catch (ex: Exception) {
-            ClientUtils.getLogger().error("(InventoryCleaner) Failed to check item: ${itemStack.unlocalizedName}.", ex)
+            LiquidCat.logger.error("(InventoryCleaner) Failed to check item: ${itemStack.unlocalizedName}.", ex)
 
             true
         }
@@ -231,12 +231,12 @@ class InventoryCleaner : Module() {
                             bestWeapon = index
                         } else {
                             val currDamage = (itemStack.attributeModifiers["generic.attackDamage"].firstOrNull()?.amount
-                                    ?: 0.0) + 1.25 * ItemUtils.getEnchantment(itemStack, Enchantment.sharpness)
+                                    ?: 0.0) + 1.25 * itemStack.getEnchantment(Enchantment.sharpness)
 
                             val bestStack = mc.thePlayer.inventory.getStackInSlot(bestWeapon)
                                     ?: return@forEachIndexed
                             val bestDamage = (bestStack.attributeModifiers["generic.attackDamage"].firstOrNull()?.amount
-                                    ?: 0.0) + 1.25 * ItemUtils.getEnchantment(bestStack, Enchantment.sharpness)
+                                    ?: 0.0) + 1.25 * bestStack.getEnchantment(Enchantment.sharpness)
 
                             if (bestDamage < currDamage)
                                 bestWeapon = index
@@ -250,7 +250,7 @@ class InventoryCleaner : Module() {
             "bow" -> {
                 var bestBow = if (slotStack?.item is ItemBow) targetSlot else -1
                 var bestPower = if (bestBow != -1)
-                    ItemUtils.getEnchantment(slotStack, Enchantment.power)
+                    slotStack.getEnchantment(Enchantment.power)
                 else
                     0
 
@@ -259,9 +259,9 @@ class InventoryCleaner : Module() {
                         if (bestBow == -1) {
                             bestBow = index
                         } else {
-                            val power = ItemUtils.getEnchantment(itemStack, Enchantment.power)
+                            val power = itemStack.getEnchantment(Enchantment.power)
 
-                            if (ItemUtils.getEnchantment(itemStack, Enchantment.power) > bestPower) {
+                            if (itemStack.getEnchantment(Enchantment.power) > bestPower) {
                                 bestBow = index
                                 bestPower = power
                             }

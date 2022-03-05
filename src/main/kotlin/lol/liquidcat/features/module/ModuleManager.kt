@@ -22,10 +22,8 @@ import lol.liquidcat.features.module.modules.render.*
 import lol.liquidcat.features.module.modules.world.*
 import lol.liquidcat.features.module.modules.world.Timer
 import net.ccbluex.liquidbounce.features.module.modules.misc.*
-import net.ccbluex.liquidbounce.features.module.modules.movement.*
 import net.ccbluex.liquidbounce.features.module.modules.player.*
 import net.ccbluex.liquidbounce.features.module.modules.render.*
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import java.util.*
 
 class ModuleManager : Listenable {
@@ -41,7 +39,7 @@ class ModuleManager : Listenable {
      * Register all modules
      */
     fun registerModules() {
-        ClientUtils.getLogger().info("[ModuleManager] Loading modules...")
+        LiquidCat.logger.info("[ModuleManager] Loading modules...")
 
         registerModules(
                 AutoArmor::class.java,
@@ -155,7 +153,7 @@ class ModuleManager : Listenable {
         registerModule(Fucker)
         registerModule(ChestAura)
 
-        ClientUtils.getLogger().info("[ModuleManager] Loaded ${modules.size} modules.")
+        LiquidCat.logger.info("[ModuleManager] Loaded ${modules.size} modules.")
     }
 
     /**
@@ -176,7 +174,7 @@ class ModuleManager : Listenable {
         try {
             registerModule(moduleClass.newInstance())
         } catch (e: Throwable) {
-            ClientUtils.getLogger().error("Failed to load module: ${moduleClass.name} (${e.javaClass.name}: ${e.message})")
+            LiquidCat.logger.error("Failed to load module: ${moduleClass.name} (${e.javaClass.name}: ${e.message})")
         }
     }
 

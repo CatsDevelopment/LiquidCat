@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.ui.client.altmanager.sub
 
 import com.thealtening.AltService
+import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.ClientUtils
@@ -97,9 +98,9 @@ class GuiSessionLogin(private val prevGui: GuiAltManager) : GuiScreen() {
                                 try {
                                     GuiAltManager.altService.switchService(AltService.EnumAltService.MOJANG)
                                 } catch (e: NoSuchFieldException) {
-                                    ClientUtils.getLogger().error("Something went wrong while trying to switch alt service.", e)
+                                    LiquidCat.logger.error("Something went wrong while trying to switch alt service.", e)
                                 } catch (e: IllegalAccessException) {
-                                    ClientUtils.getLogger().error("Something went wrong while trying to switch alt service.", e)
+                                    LiquidCat.logger.error("Something went wrong while trying to switch alt service.", e)
                                 }
                             }
 

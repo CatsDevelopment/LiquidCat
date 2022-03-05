@@ -63,7 +63,7 @@ public class GuiAltManager extends GuiScreen {
             }
         } catch (final Throwable throwable) {
             // Print throwable to console
-            ClientUtils.getLogger().error("Failed to load enabled generators.", throwable);
+            LiquidCat.INSTANCE.getLogger().error("Failed to load enabled generators.", throwable);
         }
     }
 
@@ -75,7 +75,7 @@ public class GuiAltManager extends GuiScreen {
             try {
                 altService.switchService(AltService.EnumAltService.MOJANG);
             } catch (final NoSuchFieldException | IllegalAccessException e) {
-                ClientUtils.getLogger().error("Something went wrong while trying to switch alt service.", e);
+                LiquidCat.INSTANCE.getLogger().error("Something went wrong while trying to switch alt service.", e);
             }
         }
 

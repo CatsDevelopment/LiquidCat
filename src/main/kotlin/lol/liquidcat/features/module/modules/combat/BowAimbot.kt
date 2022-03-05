@@ -15,7 +15,7 @@ import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
-import net.ccbluex.liquidbounce.utils.EntityUtils
+import lol.liquidcat.utils.entity.EntityUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase

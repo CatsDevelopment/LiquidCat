@@ -13,7 +13,7 @@ import lol.liquidcat.event.WorldEvent;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleInfo;
-import net.ccbluex.liquidbounce.utils.EntityUtils;
+import lol.liquidcat.utils.entity.EntityUtils;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;
 import lol.liquidcat.value.BoolValue;
 import lol.liquidcat.value.IntegerValue;

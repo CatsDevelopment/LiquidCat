@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.utils.render.shader;
 
+import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 import org.apache.commons.io.IOUtils;
@@ -50,7 +51,7 @@ public abstract class Shader extends MinecraftInstance {
         ARBShaderObjects.glLinkProgramARB(program);
         ARBShaderObjects.glValidateProgramARB(program);
 
-        ClientUtils.getLogger().info("[Shader] Successfully loaded: " + fragmentShader);
+        LiquidCat.INSTANCE.getLogger().info("[Shader] Successfully loaded: " + fragmentShader);
     }
 
     public void startShader() {

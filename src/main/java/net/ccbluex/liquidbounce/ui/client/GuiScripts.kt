@@ -100,7 +100,7 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
 
                 MiscUtils.showErrorPopup("Wrong file extension.", "The file extension has to be .js or .zip")
             } catch (t: Throwable) {
-                ClientUtils.getLogger().error("Something went wrong while importing a script.", t)
+                LiquidCat.logger.error("Something went wrong while importing a script.", t)
                 MiscUtils.showErrorPopup(t.javaClass.name, t.message)
             }
 
@@ -115,19 +115,19 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                     LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.hudConfig)
                 }
             } catch (t: Throwable) {
-                ClientUtils.getLogger().error("Something went wrong while deleting a script.", t)
+                LiquidCat.logger.error("Something went wrong while deleting a script.", t)
                 MiscUtils.showErrorPopup(t.javaClass.name, t.message)
             }
             3 -> try {
                 LiquidCat.scriptManager.reloadScripts()
             } catch (t: Throwable) {
-                ClientUtils.getLogger().error("Something went wrong while reloading all scripts.", t)
+                LiquidCat.logger.error("Something went wrong while reloading all scripts.", t)
                 MiscUtils.showErrorPopup(t.javaClass.name, t.message)
             }
             4 -> try {
                 Desktop.getDesktop().open(LiquidCat.scriptManager.scriptsFolder)
             } catch (t: Throwable) {
-                ClientUtils.getLogger().error("Something went wrong while trying to open your scripts folder.", t)
+                LiquidCat.logger.error("Something went wrong while trying to open your scripts folder.", t)
                 MiscUtils.showErrorPopup(t.javaClass.name, t.message)
             }
             5 -> try {

@@ -5,8 +5,7 @@
  */
 package lol.liquidcat.features.command.commands
 
-import lol.liquidcat.features.command.Command
-import net.ccbluex.liquidbounce.utils.EntityUtils
+import lol.liquidcat.utils.entity.EntityUtils
 
 class TargetCommand : lol.liquidcat.features.command.Command("target", emptyArray()) {
     /**

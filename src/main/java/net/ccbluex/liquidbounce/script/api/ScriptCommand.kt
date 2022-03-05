@@ -7,6 +7,7 @@ package net.ccbluex.liquidbounce.script.api
 
 import jdk.nashorn.api.scripting.JSObject
 import jdk.nashorn.api.scripting.ScriptUtils
+import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import net.ccbluex.liquidbounce.utils.ClientUtils
 
@@ -29,7 +30,7 @@ class ScriptCommand(private val commandObject: JSObject) : lol.liquidcat.feature
         try {
             events["execute"]?.call(commandObject, args)
         } catch (throwable: Throwable) {
-            ClientUtils.getLogger().error("[ScriptAPI] Exception in command '$command'!", throwable)
+            LiquidCat.logger.error("[ScriptAPI] Exception in command '$command'!", throwable)
         }
     }
 }

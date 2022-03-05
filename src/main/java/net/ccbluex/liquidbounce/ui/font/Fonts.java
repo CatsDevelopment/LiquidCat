@@ -54,7 +54,7 @@ public class Fonts {
     public static void loadFonts() {
         long l = System.currentTimeMillis();
 
-        ClientUtils.getLogger().info("Loading Fonts.");
+        LiquidCat.INSTANCE.getLogger().info("Loading Fonts.");
 
         downloadFonts();
 
@@ -99,7 +99,7 @@ public class Fonts {
             e.printStackTrace();
         }
 
-        ClientUtils.getLogger().info("Loaded Fonts. (" + (System.currentTimeMillis() - l) + "ms)");
+        LiquidCat.INSTANCE.getLogger().info("Loaded Fonts. (" + (System.currentTimeMillis() - l) + "ms)");
     }
 
     private static void downloadFonts() {
@@ -107,9 +107,9 @@ public class Fonts {
             final File outputFile = new File(LiquidCat.fileManager.fontsDir, "roboto.zip");
 
             if(!outputFile.exists()) {
-                ClientUtils.getLogger().info("Downloading fonts...");
+                LiquidCat.INSTANCE.getLogger().info("Downloading fonts...");
                 HttpUtils.download(LiquidCat.CLIENT_CLOUD + "/fonts/Roboto.zip", outputFile);
-                ClientUtils.getLogger().info("Extract fonts...");
+                LiquidCat.INSTANCE.getLogger().info("Extract fonts...");
                 extractZip(outputFile.getPath(), LiquidCat.fileManager.fontsDir.getPath());
             }
         }catch(IOException e) {
