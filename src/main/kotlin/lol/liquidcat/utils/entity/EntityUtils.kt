@@ -8,9 +8,8 @@ package lol.liquidcat.utils.entity
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.modules.combat.NoFriends
 import lol.liquidcat.utils.mc
-import net.ccbluex.liquidbounce.features.module.modules.misc.AntiBot
-import net.ccbluex.liquidbounce.features.module.modules.misc.Teams
-import net.ccbluex.liquidbounce.utils.render.ColorUtils.stripColor
+import lol.liquidcat.features.module.modules.misc.AntiBot
+import lol.liquidcat.features.module.modules.misc.Teams
 import net.minecraft.client.network.NetworkPlayerInfo
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -63,7 +62,7 @@ object EntityUtils {
 
     fun isFriend(entity: Entity): Boolean {
         return entity is EntityPlayer && entity.getName() != null &&
-                LiquidCat.fileManager.friendsConfig.isFriend(stripColor(entity.getName()))
+                LiquidCat.fileManager.friendsConfig.isFriend(entity.getName())
     }
 
     fun isAnimal(entity: Entity?): Boolean {

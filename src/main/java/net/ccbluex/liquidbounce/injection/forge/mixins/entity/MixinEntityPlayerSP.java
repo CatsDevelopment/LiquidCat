@@ -14,7 +14,7 @@ import lol.liquidcat.features.module.modules.fun.Derp;
 import lol.liquidcat.features.module.modules.movement.Sprint;
 import lol.liquidcat.utils.Rotation;
 import lol.liquidcat.features.module.modules.movement.NoSlow;
-import net.ccbluex.liquidbounce.features.module.modules.render.NoSwing;
+import lol.liquidcat.features.module.modules.render.NoSwing;
 import lol.liquidcat.features.module.modules.world.Scaffold;
 import net.ccbluex.liquidbounce.utils.RotationUtils;
 import net.minecraft.block.Block;

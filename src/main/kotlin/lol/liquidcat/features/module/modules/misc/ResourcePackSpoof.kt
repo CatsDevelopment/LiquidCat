@@ -10,8 +10,6 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.minecraft.network.play.client.C19PacketResourcePackStatus
 import net.minecraft.network.play.server.S48PacketResourcePackSend
 import java.net.URI
@@ -19,8 +17,7 @@ import java.net.URISyntaxException
 
 //TODO Rewrite?
 
-@ModuleInfo("ResourcePackSpoof","Prevents servers from forcing you to download their resource pack.", ModuleCategory.MISC)
-class ResourcePackSpoof : Module() {
+class ResourcePackSpoof : Module("ResourcePackSpoof","Prevents servers from forcing you to download their resource pack.", ModuleCategory.MISC) {
 
     @EventTarget
     fun onPacket(event: PacketEvent) {

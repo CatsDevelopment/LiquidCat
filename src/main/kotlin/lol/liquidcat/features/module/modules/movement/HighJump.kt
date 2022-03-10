@@ -9,11 +9,9 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.JumpEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.FloatValue
 
-@ModuleInfo("HighJump", "Allows you to jump higher.", ModuleCategory.MOVEMENT)
-class HighJump : Module() {
+class HighJump : Module("HighJump", "Allows you to jump higher.", ModuleCategory.MOVEMENT) {
 
     private val heightValue = FloatValue("Height", 2f, 1.01f, 5f)
 

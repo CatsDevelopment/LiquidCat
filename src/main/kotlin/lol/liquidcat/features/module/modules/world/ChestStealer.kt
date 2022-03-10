@@ -10,11 +10,10 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
-import net.ccbluex.liquidbounce.features.module.modules.player.InventoryCleaner
+import lol.liquidcat.features.module.modules.player.InventoryCleaner
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiChest
@@ -26,8 +25,7 @@ import kotlin.random.Random
 
 //TODO Add close delay option
 
-@ModuleInfo("ChestStealer", "Automatically steals all items from a chest.", ModuleCategory.WORLD)
-class ChestStealer : Module() {
+class ChestStealer : Module("ChestStealer", "Automatically steals all items from a chest.", ModuleCategory.WORLD) {
 
     private val takeRandomizedValue = BoolValue("TakeRandomized", false)
 

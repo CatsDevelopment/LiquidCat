@@ -41,3 +41,12 @@ fun ItemStack?.getEnchantmentCount(): Int {
 
     return count
 }
+
+/**
+ * Returns the amount of damage from this item
+ */
+fun ItemStack?.getDamage(): Double {
+    val baseDamage = this?.attributeModifiers?.get("generic.attackDamage")?.first()?.amount ?: 0.0
+
+    return baseDamage + (1.25 * this.getEnchantment(Enchantment.sharpness))
+}

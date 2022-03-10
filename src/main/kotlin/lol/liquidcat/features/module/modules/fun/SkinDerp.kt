@@ -9,15 +9,13 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
+import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.entity.player.EnumPlayerModelParts
 import kotlin.random.Random
 
-@ModuleInfo("SkinDerp", "Makes your skin blink (Requires multi-layer skin).", ModuleCategory.FUN)
-class SkinDerp : Module() {
+class SkinDerp : Module("SkinDerp", "Makes your skin blink (Requires multi-layer skin).", ModuleCategory.FUN) {
 
     private val hatValue = BoolValue("Hat", true)
     private val jacketValue = BoolValue("Jacket", true)

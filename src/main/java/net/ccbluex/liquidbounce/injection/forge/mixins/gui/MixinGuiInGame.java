@@ -7,9 +7,9 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.Render2DEvent;
-import net.ccbluex.liquidbounce.features.module.modules.render.AntiBlind;
-import net.ccbluex.liquidbounce.features.module.modules.render.HUD;
-import net.ccbluex.liquidbounce.features.module.modules.render.NoScoreboard;
+import lol.liquidcat.features.module.modules.render.AntiBlind;
+import lol.liquidcat.features.module.modules.render.HUD;
+import lol.liquidcat.features.module.modules.render.NoScoreboard;
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer;
 import lol.liquidcat.utils.ClassUtils;
 import net.minecraft.client.Minecraft;
@@ -43,7 +43,7 @@ public abstract class MixinGuiInGame {
     private void renderTooltip(ScaledResolution sr, float partialTicks, CallbackInfo callbackInfo) {
         final HUD hud = (HUD) LiquidCat.moduleManager.getModule(HUD.class);
 
-        if(Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer && hud.getState() && hud.blackHotbarValue.get()) {
+        if(Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer && hud.getState() && hud.getBlackHotbarValue().get()) {
             EntityPlayer entityPlayer = (EntityPlayer) Minecraft.getMinecraft().getRenderViewEntity();
 
             int middleScreen = sr.getScaledWidth() / 2;

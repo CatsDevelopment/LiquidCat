@@ -7,7 +7,5 @@ package lol.liquidcat.features.module.modules.movement
 
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 
-@ModuleInfo("AirJump", "Allows you to jump in the mid air", ModuleCategory.MOVEMENT)
-class AirJump : Module()
+class AirJump : Module("AirJump", "Allows you to jump in the mid air", ModuleCategory.MOVEMENT)

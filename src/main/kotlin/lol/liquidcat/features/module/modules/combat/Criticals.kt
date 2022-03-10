@@ -9,15 +9,13 @@ import lol.liquidcat.event.AttackEvent
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
-@ModuleInfo("Criticals", "Automatically deals critical hits.", ModuleCategory.COMBAT)
-class Criticals : Module() {
+class Criticals : Module("Criticals", "Automatically deals critical hits.", ModuleCategory.COMBAT) {
 
     val modeValue = ListValue("Mode", arrayOf("NCP", "Lowest", "Phase", "Visual"), "NCP")
     val delayValue = IntegerValue("Delay", 0, 0, 500)

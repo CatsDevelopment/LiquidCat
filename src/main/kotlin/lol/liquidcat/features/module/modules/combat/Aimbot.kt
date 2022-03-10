@@ -9,21 +9,19 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.StrafeEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.Rotation
-import lol.liquidcat.utils.entity.getDistanceToEntityBox
 import lol.liquidcat.utils.entity.EntityUtils
+import lol.liquidcat.utils.entity.getDistanceToEntityBox
+import lol.liquidcat.value.BoolValue
+import lol.liquidcat.value.FloatValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.misc.RandomUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
-import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.FloatValue
 import kotlin.random.Random
 
 //TODO Rewrite?
 
-@ModuleInfo(name = "Aimbot", description = "Automatically faces selected entities around you.", category = ModuleCategory.COMBAT)
-class Aimbot : Module() {
+class Aimbot : Module("Aimbot", "Automatically faces selected entities around you.", ModuleCategory.COMBAT) {
 
     private val rangeValue = FloatValue("Range", 4.4F, 1F, 8F)
     private val turnSpeedValue = FloatValue("TurnSpeed", 2F, 1F, 180F)

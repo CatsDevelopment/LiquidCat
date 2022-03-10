@@ -8,10 +8,9 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.utils.msg
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import org.lwjgl.input.Keyboard
 
-class BindsCommand : lol.liquidcat.features.command.Command("binds", emptyArray()) {
+class BindsCommand : Command("binds", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

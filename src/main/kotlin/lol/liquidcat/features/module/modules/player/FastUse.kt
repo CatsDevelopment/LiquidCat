@@ -9,16 +9,12 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.entity.drinking
 import lol.liquidcat.utils.entity.eating
 import lol.liquidcat.value.IntegerValue
 import net.minecraft.network.play.client.C03PacketPlayer
 
-//TODO Add timer option?
-
-@ModuleInfo("FastUse", "Allows you to use items faster.", ModuleCategory.PLAYER)
-class FastUse : Module() {
+class FastUse : Module("FastUse", "Allows you to use items faster.", ModuleCategory.PLAYER) {
 
     private val delayValue = IntegerValue("Delay", 16, 1, 32)
 

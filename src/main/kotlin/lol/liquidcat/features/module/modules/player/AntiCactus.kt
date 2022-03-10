@@ -9,12 +9,10 @@ import lol.liquidcat.event.BlockBBEvent
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import net.minecraft.block.BlockCactus
 import net.minecraft.util.AxisAlignedBB
 
-@ModuleInfo("AntiCactus", "Prevents cactuses from damaging you.", ModuleCategory.PLAYER)
-class AntiCactus : Module() {
+class AntiCactus : Module("AntiCactus", "Prevents cactuses from damaging you.", ModuleCategory.PLAYER) {
 
     @EventTarget
     fun onBlockBB(event: BlockBBEvent) {

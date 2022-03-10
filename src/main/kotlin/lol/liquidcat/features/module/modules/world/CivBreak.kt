@@ -8,7 +8,6 @@ package lol.liquidcat.features.module.modules.world
 import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.render.GLUtils
@@ -25,8 +24,7 @@ import java.awt.Color
 
 //TODO Rewrite
 
-@ModuleInfo(name = "CivBreak", description = "Allows you to break blocks instantly.", category = ModuleCategory.WORLD)
-class CivBreak : Module() {
+class CivBreak : Module("CivBreak", "Allows you to break blocks instantly.", ModuleCategory.WORLD) {
 
     private var blockPos: BlockPos? = null
     private var enumFacing: EnumFacing? = null

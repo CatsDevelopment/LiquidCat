@@ -5,76 +5,46 @@
  */
 package lol.liquidcat.features.module
 
-import com.google.gson.JsonObject
 import lol.liquidcat.LiquidCat
-import lol.liquidcat.LiquidCat.logger
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.value.Value
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
-import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.stripColor
 import net.minecraft.client.audio.PositionedSoundRecord
-import net.minecraft.client.gui.GuiChat
-import net.minecraft.client.gui.GuiNewChat
-import net.minecraft.util.IChatComponent
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.input.Keyboard
 
-@SideOnly(Side.CLIENT)
-open class Module : MinecraftInstance(), Listenable {
+open class Module(
+    var name: String,
+    var description: String,
+    var category: ModuleCategory,
+    keyBind: Int = Keyboard.CHAR_NONE,
+    val canEnable: Boolean = true,
+    array: Boolean = true
+) : Listenable {
+    var keyBind = keyBind
+        set(value) {
+            field = value
 
-    // Module information
-    // TODO: Remove ModuleInfo and change to constructor (#Kotlin)
-    var name: String
-    var description: String
-    var category: ModuleCategory
-    var keyBind = Keyboard.CHAR_NONE
-        set(keyBind) {
-            field = keyBind
-
-            if (!LiquidCat.isStarting)
-                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.modulesConfig)
+            if (!LiquidCat.isStarting) LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.modulesConfig)
         }
-    var array = true
-        set(array) {
-            field = array
+    var array = array
+        set(value) {
+            field = value
 
-            if (!LiquidCat.isStarting)
-                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.modulesConfig)
+            if (!LiquidCat.isStarting) LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.modulesConfig)
         }
-    private val canEnable: Boolean
-
-    var slideStep = 0F
-
-    init {
-        val moduleInfo = javaClass.getAnnotation(ModuleInfo::class.java)!!
-
-        name = moduleInfo.name
-        description = moduleInfo.description
-        category = moduleInfo.category
-        keyBind = moduleInfo.keyBind
-        array = moduleInfo.array
-        canEnable = moduleInfo.canEnable
-    }
-
-    // Current state of module
     var state = false
         set(value) {
             if (field == value) return
 
-            // Call toggle
             onToggle(value)
 
-            // Play sound and add notification
             if (!LiquidCat.isStarting) {
-                mc.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("random.click"),
-                        1F))
+                mc.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("random.click"), 1f))
                 LiquidCat.hud.addNotification(Notification("${if (value) "Enabled " else "Disabled "}$name"))
             }
 
-            // Call on enabled or disabled
             if (value) {
                 onEnable()
 
@@ -85,14 +55,12 @@ open class Module : MinecraftInstance(), Listenable {
                 field = false
             }
 
-            // Save module state
             LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.modulesConfig)
         }
-
-
     // HUD
     val hue = Math.random().toFloat()
     var slide = 0F
+    var slideStep = 0F
 
     // Tag
     open val tag: String?
@@ -110,6 +78,8 @@ open class Module : MinecraftInstance(), Listenable {
     fun toggle() {
         state = !state
     }
+
+    val mc = lol.liquidcat.utils.mc
 
     /**
      * Called when module toggled

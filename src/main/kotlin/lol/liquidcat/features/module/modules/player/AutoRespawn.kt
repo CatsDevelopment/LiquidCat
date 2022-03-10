@@ -9,11 +9,9 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.ScreenEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import net.minecraft.client.gui.GuiGameOver
 
-@ModuleInfo("AutoRespawn", "Automatically respawns you after dying.", ModuleCategory.PLAYER)
-class AutoRespawn : Module() {
+class AutoRespawn : Module("AutoRespawn", "Automatically respawns you after dying.", ModuleCategory.PLAYER) {
 
     @EventTarget
     fun onScreen(event: ScreenEvent) {

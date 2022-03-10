@@ -10,12 +10,11 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
-import lol.liquidcat.utils.entity.EntityUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -24,8 +23,7 @@ import java.awt.Color
 
 //TODO Rewrite
 
-@ModuleInfo(name = "BowAimbot", description = "Automatically aims at players when using a bow.", category = ModuleCategory.COMBAT)
-class BowAimbot : Module() {
+class BowAimbot : Module("BowAimbot", "Automatically aims at players when using a bow.", ModuleCategory.COMBAT) {
 
     private val silentValue = BoolValue("Silent", true)
     private val predictValue = BoolValue("Predict", true)

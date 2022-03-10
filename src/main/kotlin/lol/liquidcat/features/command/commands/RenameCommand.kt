@@ -9,7 +9,7 @@ import lol.liquidcat.features.command.Command
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils
 
-class RenameCommand : lol.liquidcat.features.command.Command("rename", emptyArray()) {
+class RenameCommand : Command("rename", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

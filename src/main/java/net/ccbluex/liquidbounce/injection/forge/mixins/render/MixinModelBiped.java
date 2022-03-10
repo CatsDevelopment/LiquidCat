@@ -6,7 +6,7 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
 import lol.liquidcat.LiquidCat;
-import net.ccbluex.liquidbounce.features.module.modules.render.HeadRotations;
+import lol.liquidcat.features.module.modules.render.HeadRotations;
 import net.ccbluex.liquidbounce.utils.RotationUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;

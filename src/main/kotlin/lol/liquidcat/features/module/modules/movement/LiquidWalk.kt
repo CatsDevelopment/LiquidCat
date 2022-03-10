@@ -8,7 +8,6 @@ package lol.liquidcat.features.module.modules.movement
 import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.block.BlockUtils.collideBlock
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.value.BoolValue
@@ -21,12 +20,7 @@ import net.minecraft.util.BlockPos
 
 //TODO Rewrite and add more modes
 
-@ModuleInfo(
-    "LiquidWalk",
-    "Allows you to walk on water.",
-    ModuleCategory.MOVEMENT
-)
-class LiquidWalk : Module() {
+class LiquidWalk : Module("LiquidWalk", "Allows you to walk on water.", ModuleCategory.MOVEMENT) {
 
     val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP", "Dolphin"), "NCP")
     private val noJumpValue = BoolValue("NoJump", false)

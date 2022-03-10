@@ -8,7 +8,7 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 
-class RemoteViewCommand : lol.liquidcat.features.command.Command("remoteview", arrayOf("rv")) {
+class RemoteViewCommand : Command("remoteview", arrayOf("rv")) {
     /**
      * Execute commands with provided [args]
      */

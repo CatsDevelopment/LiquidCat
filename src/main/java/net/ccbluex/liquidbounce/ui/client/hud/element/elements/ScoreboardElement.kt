@@ -12,7 +12,7 @@ import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FontValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
-import net.ccbluex.liquidbounce.features.module.modules.render.NoScoreboard
+import lol.liquidcat.features.module.modules.render.NoScoreboard
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo

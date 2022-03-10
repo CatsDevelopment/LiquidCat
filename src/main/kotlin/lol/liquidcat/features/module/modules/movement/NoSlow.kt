@@ -12,7 +12,6 @@ import lol.liquidcat.event.MotionEvent
 import lol.liquidcat.event.SlowDownEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.features.module.modules.combat.KillAura
 import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.value.BoolValue
@@ -25,8 +24,7 @@ import net.minecraft.util.EnumFacing
 
 //TODO Add more modes
 
-@ModuleInfo("NoSlow", "Cancels slowness effects caused by soulsand and using items.", ModuleCategory.MOVEMENT)
-class NoSlow : Module() {
+class NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and using items.", ModuleCategory.MOVEMENT) {
 
     private val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP"), "Vanilla")
 

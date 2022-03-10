@@ -7,14 +7,12 @@ package lol.liquidcat.features.module.modules.`fun`
 
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 
 //TODO Rewrite and add more options
 
-@ModuleInfo(name = "Derp", description = "Makes it look like you were derping around.", category = ModuleCategory.FUN)
-class Derp : Module() {
+class Derp : Module("Derp", "Makes it look like you were derping around.", ModuleCategory.FUN) {
 
     private val headlessValue = BoolValue("Headless", false)
     private val spinnyValue = BoolValue("Spinny", false)

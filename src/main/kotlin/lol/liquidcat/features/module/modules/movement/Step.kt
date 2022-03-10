@@ -11,7 +11,6 @@ import lol.liquidcat.event.StepEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.entity.jumpHeight
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
@@ -19,8 +18,7 @@ import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
 // TODO Make more height for NCP
 
-@ModuleInfo("Step", "Allows you to step up blocks.", ModuleCategory.MOVEMENT)
-class Step : Module() {
+class Step : Module("Step", "Allows you to step up blocks.", ModuleCategory.MOVEMENT) {
 
     private val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP", "Matrix"), "NCP")
     private val heightValue = FloatValue("Height", 1f, 0.6f, 10f)

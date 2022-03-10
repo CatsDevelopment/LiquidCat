@@ -11,13 +11,12 @@ import lol.liquidcat.event.Render2DEvent
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
-import lol.liquidcat.utils.entity.EntityUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import net.ccbluex.liquidbounce.utils.render.WorldToScreen
 import net.ccbluex.liquidbounce.utils.render.shader.shaders.GlowShader
@@ -27,8 +26,7 @@ import org.lwjgl.opengl.GL11
 import org.lwjgl.util.vector.Vector3f
 import java.awt.Color
 
-@ModuleInfo("ESP", "Allows you to see targets through walls.", ModuleCategory.RENDER)
-class ESP : Module() {
+class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCategory.RENDER) {
 
     val modeValue = ListValue(
         "Mode",

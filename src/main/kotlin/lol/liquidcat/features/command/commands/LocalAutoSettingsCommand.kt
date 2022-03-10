@@ -6,14 +6,14 @@
 package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.LiquidCat
-import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
-import net.ccbluex.liquidbounce.utils.ClientUtils
+import lol.liquidcat.features.command.Command
 import lol.liquidcat.utils.SettingsUtils
+import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import java.io.File
 import java.io.IOException
 
-class LocalAutoSettingsCommand : lol.liquidcat.features.command.Command("localautosettings", arrayOf("localsetting", "localsettings", "localconfig")) {
+class LocalAutoSettingsCommand : Command("localautosettings", arrayOf("localsetting", "localsettings", "localconfig")) {
     /**
      * Execute commands with provided [args]
      */

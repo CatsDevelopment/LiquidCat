@@ -10,7 +10,6 @@ import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.entity.strafe
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
@@ -20,8 +19,7 @@ import net.minecraft.network.play.client.C0BPacketEntityAction
 
 //TODO Rewrite?
 
-@ModuleInfo("FreeCam", "Allows you to move out of your body.", ModuleCategory.RENDER)
-class FreeCam : Module() {
+class FreeCam : Module("FreeCam", "Allows you to move out of your body.", ModuleCategory.RENDER) {
 
     private val speedValue = FloatValue("Speed", 0.8f, 0.1f, 2f)
     private val flyValue = BoolValue("Fly", true)

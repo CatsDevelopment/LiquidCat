@@ -9,14 +9,13 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.utils.item.ArmorComparator
 import lol.liquidcat.utils.item.ArmorPiece
+import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
-import lol.liquidcat.utils.item.InventoryUtils
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.item.ItemArmor
@@ -29,12 +28,8 @@ import java.util.stream.IntStream
 
 //TODO Rewrite
 
-@ModuleInfo(
-    name = "AutoArmor",
-    description = "Automatically equips the best armor in your inventory.",
-    category = ModuleCategory.COMBAT
-)
-class AutoArmor : Module() {
+class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in your inventory.", ModuleCategory.COMBAT) {
+
     private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 200, 0, 400) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val minDelay = minDelayValue.get()

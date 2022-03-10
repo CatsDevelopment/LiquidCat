@@ -9,14 +9,12 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.client.settings.KeyBinding
 
-@ModuleInfo("AutoClicker", "Constantly clicks when holding down a mouse button.", ModuleCategory.COMBAT)
-class AutoClicker : Module() {
+class AutoClicker : Module("AutoClicker", "Constantly clicks when holding down a mouse button.", ModuleCategory.COMBAT) {
 
     private val rightValue = BoolValue("Right", true)
     private val leftValue = BoolValue("Left", true)

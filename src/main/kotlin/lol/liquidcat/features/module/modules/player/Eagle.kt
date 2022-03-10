@@ -9,13 +9,11 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.block.getBlock
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.init.Blocks
 
-@ModuleInfo("Eagle", "Makes you eagle (aka. FastBridge).", ModuleCategory.PLAYER)
-class Eagle : Module() {
+class Eagle : Module("Eagle", "Makes you eagle (aka. FastBridge).", ModuleCategory.PLAYER) {
 
     override fun onDisable() {
         if (!GameSettings.isKeyDown(mc.gameSettings.keyBindSneak))

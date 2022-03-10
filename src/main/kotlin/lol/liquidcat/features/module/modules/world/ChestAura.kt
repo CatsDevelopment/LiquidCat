@@ -11,18 +11,16 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.MotionEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.features.module.modules.player.Blink
-import net.ccbluex.liquidbounce.utils.RotationUtils
-import lol.liquidcat.utils.block.BlockUtils
 import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.block.getVec
 import lol.liquidcat.utils.block.searchBlocks
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import lol.liquidcat.value.BlockValue
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.features.module.modules.player.Blink
+import net.ccbluex.liquidbounce.utils.RotationUtils
+import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.block.Block
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.init.Blocks
@@ -33,8 +31,7 @@ import net.minecraft.util.Vec3
 
 //TODO Rewrite
 
-@ModuleInfo("ChestAura", "Automatically opens chests around you.", ModuleCategory.WORLD)
-object ChestAura : Module() {
+object ChestAura : Module("ChestAura", "Automatically opens chests around you.", ModuleCategory.WORLD) {
 
     private val rangeValue = FloatValue("Range", 5F, 1F, 6F)
     private val delayValue = IntegerValue("Delay", 100, 50, 200)

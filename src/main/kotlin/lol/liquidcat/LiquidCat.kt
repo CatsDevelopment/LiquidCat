@@ -15,7 +15,7 @@ import lol.liquidcat.utils.item.InventoryUtils
 import net.ccbluex.liquidbounce.features.special.AntiForge
 import net.ccbluex.liquidbounce.features.special.BungeeCordSpoof
 import net.ccbluex.liquidbounce.features.special.DonatorCape
-import net.ccbluex.liquidbounce.file.FileManager
+import lol.liquidcat.file.FileManager
 import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.script.remapper.Remapper.loadSrg
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager

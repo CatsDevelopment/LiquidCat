@@ -8,7 +8,6 @@ package lol.liquidcat.features.module.modules.world
 import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.PlaceRotation
 import lol.liquidcat.utils.Rotation
 import lol.liquidcat.utils.block.PlaceInfo
@@ -16,13 +15,13 @@ import lol.liquidcat.utils.block.PlaceInfo.Companion.get
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.isClickable
 import lol.liquidcat.utils.block.isReplaceable
+import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import lol.liquidcat.utils.item.InventoryUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
@@ -37,12 +36,7 @@ import net.minecraft.network.play.client.C0BPacketEntityAction
 import net.minecraft.util.*
 import java.awt.Color
 
-@ModuleInfo(
-    name = "Scaffold",
-    description = "Automatically places blocks beneath your feet.",
-    category = ModuleCategory.WORLD
-)
-class Scaffold : Module() {
+class Scaffold : Module("Scaffold", "Automatically places blocks beneath your feet.", ModuleCategory.WORLD) {
 
     val modeValue = ListValue("Mode", arrayOf("Normal", "Rewinside", "Expand"), "Normal")
 

@@ -11,17 +11,16 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.MotionEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.Rotation
 import lol.liquidcat.utils.item.InventoryUtils
-import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.misc.FallingPlayer
-import net.ccbluex.liquidbounce.utils.misc.RandomUtils
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
+import net.ccbluex.liquidbounce.utils.RotationUtils
+import net.ccbluex.liquidbounce.utils.misc.FallingPlayer
+import net.ccbluex.liquidbounce.utils.misc.RandomUtils
+import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.item.ItemPotion
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
@@ -32,8 +31,7 @@ import net.minecraft.potion.Potion
 
 //TODO Rewrite
 
-@ModuleInfo(name = "AutoPot", description = "Automatically throws healing potions.", category = ModuleCategory.COMBAT)
-class AutoPot : Module() {
+class AutoPot : Module("AutoPot", "Automatically throws healing potions.", ModuleCategory.COMBAT) {
 
     private val healthValue = FloatValue("Health", 15F, 1F, 20F)
     private val delayValue = IntegerValue("Delay", 500, 500, 1000)

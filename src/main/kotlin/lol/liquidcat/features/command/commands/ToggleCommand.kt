@@ -8,7 +8,7 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 
-class ToggleCommand : lol.liquidcat.features.command.Command("toggle", arrayOf("t")) {
+class ToggleCommand : Command("toggle", arrayOf("t")) {
     /**
      * Execute commands with provided [args]
      */

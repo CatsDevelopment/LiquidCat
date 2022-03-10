@@ -9,7 +9,7 @@ import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.utils.render.GLUtils;
-import net.ccbluex.liquidbounce.features.module.modules.render.ClickGUI;
+import lol.liquidcat.features.module.modules.render.ClickGUI;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.Element;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ModuleElement;
@@ -205,7 +205,7 @@ public class ClickGui extends GuiScreen {
         // Enable DisplayList optimization
         AWTFontRenderer.Companion.setAssumeNonVolatile(true);
 
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).scaleValue.get();
+        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScaleValue().get();
 
         mouseX /= scale;
         mouseY /= scale;
@@ -254,7 +254,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).scaleValue.get();
+        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScaleValue().get();
 
         mouseX /= scale;
         mouseY /= scale;
@@ -283,7 +283,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).scaleValue.get();
+        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScaleValue().get();
 
         mouseX /= scale;
         mouseY /= scale;

@@ -3,7 +3,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.resources;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import lol.liquidcat.LiquidCat;
-import net.ccbluex.liquidbounce.features.module.modules.misc.NameProtect;
+import lol.liquidcat.features.module.modules.misc.NameProtect;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.SkinManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,8 +25,8 @@ public class MixinSkinManager {
         
         NameProtect nameProtect = (NameProtect) LiquidCat.moduleManager.getModule(NameProtect.class);
 
-        if (nameProtect.getState() && nameProtect.skinProtectValue.get()) {
-            if (nameProtect.allPlayersValue.get() || Objects.equals(gameProfile.getId(), Minecraft.getMinecraft().getSession().getProfile().getId())) {
+        if (nameProtect.getState() && nameProtect.getSkinProtectValue().get()) {
+            if (nameProtect.getAllPlayersValue().get() || Objects.equals(gameProfile.getId(), Minecraft.getMinecraft().getSession().getProfile().getId())) {
                 cir.setReturnValue(new HashMap<>());
                 cir.cancel();
             }

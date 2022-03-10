@@ -9,11 +9,9 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.MoveEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.FloatValue
 
-@ModuleInfo("FastClimb", "Allows you to climb up ladders and vines faster.", ModuleCategory.MOVEMENT)
-class FastClimb : Module() {
+class FastClimb : Module("FastClimb", "Allows you to climb up ladders and vines faster.", ModuleCategory.MOVEMENT) {
 
     private val speedValue = FloatValue("Speed", 0.2872f, 0.01f, 5f)
 

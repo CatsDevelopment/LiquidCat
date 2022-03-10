@@ -11,7 +11,6 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.features.module.modules.player.AutoTool
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.getCenterDistance
@@ -37,8 +36,7 @@ import kotlin.math.roundToInt
 
 //TODO Rewrite
 
-@ModuleInfo(name = "Nuker", description = "Breaks all blocks around you.", category = ModuleCategory.WORLD)
-class Nuker : Module() {
+class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WORLD) {
 
     /**
      * OPTIONS

@@ -15,5 +15,4 @@ enum class ModuleCategory(val displayName: String) {
     MISC("Misc"),
     EXPLOIT("Exploit"),
     FUN("Fun")
-
 }

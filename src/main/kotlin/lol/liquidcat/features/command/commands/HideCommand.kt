@@ -7,11 +7,9 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.msg
-import net.ccbluex.liquidbounce.utils.ClientUtils
 
-class HideCommand : lol.liquidcat.features.command.Command("hide", emptyArray()) {
+class HideCommand : Command("hide", emptyArray()) {
 
     /**
      * Execute commands with provided [args]
@@ -35,14 +33,6 @@ class HideCommand : lol.liquidcat.features.command.Command("hide", emptyArray())
                     return
                 }
 
-                args[1].equals("reset", true) -> {
-                    for (module in LiquidCat.moduleManager.modules)
-                        module.array = module::class.java.getAnnotation(ModuleInfo::class.java).array
-
-                    chat("Reset hidden modules.")
-                    return
-                }
-
                 else -> {
                     // Get module by name
                     val module = LiquidCat.moduleManager.getModule(args[1])
@@ -63,7 +53,7 @@ class HideCommand : lol.liquidcat.features.command.Command("hide", emptyArray())
             }
         }
 
-        chatSyntax("hide <module/list/clear/reset>")
+        chatSyntax("hide <module/list/clear>")
     }
 
     override fun tabComplete(args: Array<String>): List<String> {
@@ -79,5 +69,4 @@ class HideCommand : lol.liquidcat.features.command.Command("hide", emptyArray())
             else -> emptyList()
         }
     }
-
 }

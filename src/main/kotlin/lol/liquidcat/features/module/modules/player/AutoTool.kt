@@ -9,14 +9,12 @@ import lol.liquidcat.event.ClickBlockEvent
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.block.getBlock
 import net.minecraft.util.BlockPos
 
 //TODO Add efficiency enchant check
 
-@ModuleInfo("AutoTool", "Automatically selects the best tool in your inventory to mine a block.", ModuleCategory.PLAYER)
-class AutoTool : Module() {
+class AutoTool : Module("AutoTool", "Automatically selects the best tool in your inventory to mine a block.", ModuleCategory.PLAYER) {
 
     @EventTarget
     fun onClick(event: ClickBlockEvent) {

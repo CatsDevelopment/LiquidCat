@@ -8,7 +8,7 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.features.command.Command
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 
-class SayCommand : lol.liquidcat.features.command.Command("say", emptyArray()) {
+class SayCommand : Command("say", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

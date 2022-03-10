@@ -9,13 +9,11 @@ import lol.liquidcat.event.AttackEvent
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.IntegerValue
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C0BPacketEntityAction
 
-@ModuleInfo("SuperKnockback", "Increases knockback dealt to other entities.", ModuleCategory.COMBAT)
-class SuperKnockback : Module() {
+class SuperKnockback : Module("SuperKnockback", "Increases knockback dealt to other entities.", ModuleCategory.COMBAT) {
 
     private val hurtTimeValue = IntegerValue("HurtTime", 10, 0, 10)
 

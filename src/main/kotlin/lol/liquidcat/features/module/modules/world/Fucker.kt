@@ -11,7 +11,6 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.features.module.modules.combat.KillAura
 import lol.liquidcat.features.module.modules.player.AutoTool
 import lol.liquidcat.utils.block.BlockUtils.getBlockName
@@ -33,8 +32,7 @@ import java.awt.Color
 
 //TODO Rewrite
 
-@ModuleInfo(name = "Fucker", description = "Destroys selected blocks around you. (aka.  IDNuker)", category = ModuleCategory.WORLD)
-object Fucker : Module() {
+object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  IDNuker)", ModuleCategory.WORLD) {
 
     /**
      * SETTINGS

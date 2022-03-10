@@ -10,15 +10,13 @@ import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.entity.strafe
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
 import net.minecraft.network.play.server.S12PacketEntityVelocity
 import net.minecraft.network.play.server.S27PacketExplosion
 
-@ModuleInfo("Velocity", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT)
-class Velocity : Module() {
+class Velocity : Module("Velocity", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT) {
 
     private val modeValue = ListValue("Mode", arrayOf("Normal", "Strafe"), "Normal")
     private val horizontalValue = FloatValue("Horizontal", 0F, 0F, 1F)

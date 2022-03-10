@@ -6,7 +6,7 @@
 package net.ccbluex.liquidbounce.ui.client.clickgui;
 
 import lol.liquidcat.LiquidCat;
-import net.ccbluex.liquidbounce.features.module.modules.render.ClickGUI;
+import lol.liquidcat.features.module.modules.render.ClickGUI;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.Element;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -61,7 +61,7 @@ public abstract class Panel extends MinecraftInstance {
         if(!visible)
             return;
 
-        final int maxElements = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).maxElementsValue.get();
+        final int maxElements = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getMaxElementsValue().get();
 
         // Drag
         if(drag) {
@@ -126,7 +126,7 @@ public abstract class Panel extends MinecraftInstance {
     }
 
     public boolean handleScroll(int mouseX, int mouseY, int wheel) {
-        final int maxElements = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).maxElementsValue.get();
+        final int maxElements = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getMaxElementsValue().get();
 
         if(mouseX >= getX() && mouseX <= getX() + 100 && mouseY >= getY() && mouseY <= getY() + 19 + elementsHeight) {
             if(wheel < 0 && scroll < elements.size() - maxElements) {
@@ -225,7 +225,7 @@ public abstract class Panel extends MinecraftInstance {
         int height = 0;
         int count = 0;
         for(final Element element : elements) {
-            if (count >= ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).maxElementsValue.get())
+            if (count >= ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getMaxElementsValue().get())
                 continue;
             height += element.getHeight() + 1;
             ++count;

@@ -9,14 +9,12 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.potion.Potion
 
-@ModuleInfo("Regen", "Regenerates your health much faster.", ModuleCategory.PLAYER)
-class Regen : Module() {
+class Regen : Module("Regen", "Regenerates your health much faster.", ModuleCategory.PLAYER) {
 
     private val healthValue = IntegerValue("Health", 18, 0, 20)
     private val speedValue = IntegerValue("Speed", 10, 1, 100)

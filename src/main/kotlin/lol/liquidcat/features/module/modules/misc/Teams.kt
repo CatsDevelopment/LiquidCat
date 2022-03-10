@@ -1,0 +1,46 @@
+/*
+ * LiquidCat Hacked Client
+ * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
+ * https://github.com/CatsDevelopment/LiquidCat
+ */
+package lol.liquidcat.features.module.modules.misc
+
+import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.value.BoolValue
+import net.minecraft.entity.EntityLivingBase
+
+class Teams : Module("Teams", "Prevents Killaura from attacking team mates.", ModuleCategory.MISC) {
+
+    private val scoreboardValue = BoolValue("ScoreboardTeam", true)
+    private val colorValue = BoolValue("Color", true)
+    private val gommeSWValue = BoolValue("GommeSW", false)
+
+    /**
+     * Check if [entity] is in your own team using scoreboard, name color or team prefix
+     */
+    fun isInYourTeam(entity: EntityLivingBase): Boolean {
+        mc.thePlayer ?: return false
+
+        if (scoreboardValue.get() && mc.thePlayer.team != null && entity.team != null &&
+                mc.thePlayer.team.isSameTeam(entity.team))
+            return true
+
+        if (gommeSWValue.get() && mc.thePlayer.displayName != null && entity.displayName != null) {
+            val targetName = entity.displayName.formattedText.replace("§r", "")
+            val clientName = mc.thePlayer.displayName.formattedText.replace("§r", "")
+            if (targetName.startsWith("T") && clientName.startsWith("T"))
+                if (targetName[1].isDigit() && clientName[1].isDigit())
+                    return targetName[1] == clientName[1]
+        }
+
+        if (colorValue.get() && mc.thePlayer.displayName != null && entity.displayName != null) {
+            val targetName = entity.displayName.formattedText.replace("§r", "")
+            val clientName = mc.thePlayer.displayName.formattedText.replace("§r", "")
+            return targetName.startsWith("§${clientName[1]}")
+        }
+
+        return false
+    }
+
+}

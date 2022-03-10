@@ -13,17 +13,12 @@ import lol.liquidcat.features.module.modules.`fun`.Derp
 import lol.liquidcat.features.module.modules.`fun`.SkinDerp
 import lol.liquidcat.features.module.modules.combat.*
 import lol.liquidcat.features.module.modules.exploit.*
-import lol.liquidcat.features.module.modules.misc.NoRotate
-import lol.liquidcat.features.module.modules.misc.ResourcePackSpoof
-import lol.liquidcat.features.module.modules.misc.Spammer
+import lol.liquidcat.features.module.modules.misc.*
 import lol.liquidcat.features.module.modules.movement.*
 import lol.liquidcat.features.module.modules.player.*
 import lol.liquidcat.features.module.modules.render.*
 import lol.liquidcat.features.module.modules.world.*
 import lol.liquidcat.features.module.modules.world.Timer
-import net.ccbluex.liquidbounce.features.module.modules.misc.*
-import net.ccbluex.liquidbounce.features.module.modules.player.*
-import net.ccbluex.liquidbounce.features.module.modules.render.*
 import java.util.*
 
 class ModuleManager : Listenable {
@@ -53,7 +48,6 @@ class ModuleManager : Listenable {
                 KillAura::class.java,
                 Velocity::class.java,
                 Fly::class.java,
-                ClickGUI::class.java,
                 HighJump::class.java,
                 NoSlow::class.java,
                 LiquidWalk::class.java,
@@ -64,7 +58,6 @@ class ModuleManager : Listenable {
                 Speed::class.java,
                 Teams::class.java,
                 NoRotate::class.java,
-                AntiBot::class.java,
                 ChestStealer::class.java,
                 Scaffold::class.java,
                 CivBreak::class.java,
@@ -152,6 +145,8 @@ class ModuleManager : Listenable {
         registerModule(NoScoreboard)
         registerModule(Fucker)
         registerModule(ChestAura)
+        registerModule(AntiBot)
+        registerModule(ClickGUI)
 
         LiquidCat.logger.info("[ModuleManager] Loaded ${modules.size} modules.")
     }

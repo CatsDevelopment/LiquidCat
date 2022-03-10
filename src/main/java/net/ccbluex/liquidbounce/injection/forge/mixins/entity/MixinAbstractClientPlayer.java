@@ -8,7 +8,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.entity;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.cape.CapeAPI;
 import lol.liquidcat.cape.CapeInfo;
-import net.ccbluex.liquidbounce.features.module.modules.misc.NameProtect;
+import lol.liquidcat.features.module.modules.misc.NameProtect;
 import lol.liquidcat.features.module.modules.render.FOV;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -71,8 +71,8 @@ public abstract class MixinAbstractClientPlayer extends MixinEntityPlayer {
     private void getSkin(CallbackInfoReturnable<ResourceLocation> callbackInfoReturnable) {
         final NameProtect nameProtect = (NameProtect) LiquidCat.moduleManager.getModule(NameProtect.class);
 
-        if(nameProtect.getState() && nameProtect.skinProtectValue.get()) {
-            if (!nameProtect.allPlayersValue.get() && !Objects.equals(getGameProfile().getName(), Minecraft.getMinecraft().thePlayer.getGameProfile().getName()))
+        if(nameProtect.getState() && nameProtect.getSkinProtectValue().get()) {
+            if (!nameProtect.getAllPlayersValue().get() && !Objects.equals(getGameProfile().getName(), Minecraft.getMinecraft().thePlayer.getGameProfile().getName()))
                 return;
 
             callbackInfoReturnable.setReturnValue(DefaultPlayerSkin.getDefaultSkin(getUniqueID()));

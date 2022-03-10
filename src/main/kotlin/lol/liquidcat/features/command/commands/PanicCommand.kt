@@ -9,7 +9,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.module.ModuleCategory
 
-class PanicCommand : lol.liquidcat.features.command.Command("panic", emptyArray()) {
+class PanicCommand : Command("panic", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

@@ -8,7 +8,7 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.features.command.Command
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
-class HurtCommand : lol.liquidcat.features.command.Command("hurt", emptyArray()) {
+class HurtCommand : Command("hurt", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

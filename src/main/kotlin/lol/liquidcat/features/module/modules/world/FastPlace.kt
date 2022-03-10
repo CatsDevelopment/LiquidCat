@@ -7,10 +7,8 @@ package lol.liquidcat.features.module.modules.world
 
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.IntegerValue
 
-@ModuleInfo("FastPlace", "Allows you to place blocks faster.", ModuleCategory.WORLD)
-class FastPlace : Module() {
+class FastPlace : Module("FastPlace", "Allows you to place blocks faster.", ModuleCategory.WORLD) {
     val speedValue = IntegerValue("Speed", 0, 0, 4)
 }

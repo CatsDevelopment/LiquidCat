@@ -11,20 +11,15 @@ import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
-import lol.liquidcat.utils.item.getEnchantment
+import lol.liquidcat.utils.item.getDamage
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
-import net.minecraft.enchantment.Enchantment
 import net.minecraft.item.ItemSword
 import net.minecraft.item.ItemTool
 import net.minecraft.network.play.client.C02PacketUseEntity
 import net.minecraft.network.play.client.C09PacketHeldItemChange
 
-//TODO Rewrite
-
-@ModuleInfo(name = "AutoWeapon", description = "Automatically selects the best weapon in your hotbar.", category = ModuleCategory.COMBAT)
-class AutoWeapon : Module() {
+class AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon in your hotbar.", ModuleCategory.COMBAT) {
 
     private val silentValue = BoolValue("SpoofItem", false)
     private val ticksValue = IntegerValue("SpoofTicks", 10, 1, 20)
@@ -39,18 +34,14 @@ class AutoWeapon : Module() {
 
     @EventTarget
     fun onPacket(event: PacketEvent) {
-        if (event.packet is C02PacketUseEntity && event.packet.action == C02PacketUseEntity.Action.ATTACK
-                && attackEnemy) {
+        if (event.packet is C02PacketUseEntity && event.packet.action == C02PacketUseEntity.Action.ATTACK && attackEnemy) {
             attackEnemy = false
 
             // Find best weapon in hotbar (#Kotlin Style)
             val (slot, _) = (0..8)
                     .map { Pair(it, mc.thePlayer.inventory.getStackInSlot(it)) }
                     .filter { it.second != null && (it.second.item is ItemSword || it.second.item is ItemTool) }
-                    .maxBy {
-                        (it.second.attributeModifiers["generic.attackDamage"].first()?.amount
-                                ?: 0.0) + 1.25 * it.second.getEnchantment(Enchantment.sharpness)
-                    } ?: return
+                    .maxBy { it.second.getDamage() } ?: return
 
             if (slot == mc.thePlayer.inventory.currentItem) // If in hand no need to swap
                 return

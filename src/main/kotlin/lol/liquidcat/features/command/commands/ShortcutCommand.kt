@@ -9,7 +9,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 
-class ShortcutCommand: lol.liquidcat.features.command.Command("shortcut", arrayOf()) {
+class ShortcutCommand: Command("shortcut", arrayOf()) {
     /**
      * Execute commands with provided [args]
      */

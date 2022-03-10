@@ -10,7 +10,6 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.TextValue
@@ -21,8 +20,7 @@ import kotlin.random.Random
 
 //TODO Add more options
 
-@ModuleInfo("Spammer", "Spams the chat with a given message.", ModuleCategory.MISC)
-class Spammer : Module() {
+class Spammer : Module("Spammer", "Spams the chat with a given message.", ModuleCategory.MISC) {
 
     private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 1000, 0, 5000) {
         override fun onChanged(oldValue: Int, newValue: Int) {

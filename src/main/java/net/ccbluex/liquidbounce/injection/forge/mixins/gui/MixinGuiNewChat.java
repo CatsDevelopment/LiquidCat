@@ -6,7 +6,7 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
 import lol.liquidcat.LiquidCat;
-import net.ccbluex.liquidbounce.features.module.modules.render.HUD;
+import lol.liquidcat.features.module.modules.render.HUD;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
@@ -70,7 +70,7 @@ public abstract class MixinGuiNewChat {
     private void drawChat(int p_drawChat_1_, final CallbackInfo callbackInfo) {
         final HUD hud = (HUD) LiquidCat.moduleManager.getModule(HUD.class);
 
-        if(hud.getState() && hud.fontChatValue.get()) {
+        if(hud.getState() && hud.getFontChatValue().get()) {
             callbackInfo.cancel();
             if(this.mc.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN) {
                 int lvt_2_1_ = this.getLineCount();
@@ -186,7 +186,7 @@ public abstract class MixinGuiNewChat {
     private void getChatComponent(int p_getChatComponent_1_, int p_getChatComponent_2_, final CallbackInfoReturnable<IChatComponent> callbackInfo) {
         final HUD hud = (HUD) LiquidCat.moduleManager.getModule(HUD.class);
 
-        if(hud.getState() && hud.fontChatValue.get()) {
+        if(hud.getState() && hud.getFontChatValue().get()) {
             if(!this.getChatOpen()) {
                 callbackInfo.setReturnValue(null);
             }else{

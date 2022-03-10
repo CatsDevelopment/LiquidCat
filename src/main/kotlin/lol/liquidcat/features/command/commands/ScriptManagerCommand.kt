@@ -9,16 +9,14 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.command.CommandManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
 import org.apache.commons.io.IOUtils
 import java.awt.Desktop
 import java.io.File
 import java.io.FileOutputStream
-import java.util.*
 import java.util.zip.ZipFile
 
-class ScriptManagerCommand : lol.liquidcat.features.command.Command("scriptmanager", arrayOf("scripts")) {
+class ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
     /**
      * Execute commands with provided [args]
      */

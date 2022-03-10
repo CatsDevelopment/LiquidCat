@@ -7,8 +7,8 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.item;
 
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.combat.KillAura;
-import net.ccbluex.liquidbounce.features.module.modules.render.AntiBlind;
-import net.ccbluex.liquidbounce.features.module.modules.render.SwingAnimation;
+import lol.liquidcat.features.module.modules.render.AntiBlind;
+import lol.liquidcat.features.module.modules.render.SwingAnimation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;

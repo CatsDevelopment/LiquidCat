@@ -8,7 +8,6 @@ package lol.liquidcat.features.module.modules.movement
 import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.entity.directionYaw
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
@@ -18,8 +17,7 @@ import net.minecraft.util.AxisAlignedBB
 import kotlin.math.cos
 import kotlin.math.sin
 
-@ModuleInfo("Spider", "Allows you to climb up walls like a spider.", ModuleCategory.MOVEMENT)
-class Spider : Module() {
+class Spider : Module("Spider", "Allows you to climb up walls like a spider.", ModuleCategory.MOVEMENT) {
 
     private val modeValue = ListValue("Mode", arrayOf("Simple", "Clip"), "Simple")
     private val motionValue = FloatValue("Motion", 0f, 0f, 1f)

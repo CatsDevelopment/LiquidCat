@@ -9,12 +9,10 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import net.minecraft.client.gui.GuiChat
 import net.minecraft.client.settings.GameSettings
 
-@ModuleInfo("GuiMove", "Allows you to walk while an inventory is opened.", ModuleCategory.MOVEMENT)
-class GuiMove : Module() {
+class GuiMove : Module("GuiMove", "Allows you to walk while an inventory is opened.", ModuleCategory.MOVEMENT) {
 
     private val keys = arrayOf(
         mc.gameSettings.keyBindForward,

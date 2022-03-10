@@ -9,19 +9,17 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
+import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
-import lol.liquidcat.utils.entity.EntityUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.util.Vec3
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-@ModuleInfo("Tracers", "Draws a line to targets around you.", ModuleCategory.RENDER)
-class Tracers : Module() {
+class Tracers : Module("Tracers", "Draws a line to targets around you.", ModuleCategory.RENDER) {
 
     private val redValue = IntegerValue("Red", 255, 0, 255)
     private val greenValue = IntegerValue("Green", 255, 0, 255)

@@ -10,13 +10,10 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import lol.liquidcat.value.Value
 
 @Suppress("unused")
-@ModuleInfo(name = "ScriptModule", description = "Empty", category = ModuleCategory.MISC)
-class ScriptModule(private val moduleObject: JSObject) : Module() {
+class ScriptModule(private val moduleObject: JSObject) : Module("ScriptModule", "Empty", ModuleCategory.MISC) {
 
     private val events = HashMap<String, JSObject>()
     private val _values = LinkedHashMap<String, Value<*>>()

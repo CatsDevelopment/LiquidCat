@@ -9,7 +9,6 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.entity.aiming
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
@@ -19,8 +18,7 @@ import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
 import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 
-@ModuleInfo("FastBow", "Turns your bow into a machine gun.", ModuleCategory.COMBAT)
-class FastBow : Module() {
+class FastBow : Module("FastBow", "Turns your bow into a machine gun.", ModuleCategory.COMBAT) {
 
     private val packetsValue = IntegerValue("Packets", 20, 3, 20)
 

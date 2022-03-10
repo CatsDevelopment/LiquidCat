@@ -12,7 +12,6 @@ import lol.liquidcat.event.Render2DEvent
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.features.module.modules.world.ChestAura.clickedBlocks
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.FloatValue
@@ -26,8 +25,7 @@ import net.minecraft.tileentity.TileEntityChest
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-@ModuleInfo("StorageESP", "Allows you to see chests, dispensers, etc. through walls.", ModuleCategory.RENDER)
-class StorageESP : Module() {
+class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, etc. through walls.", ModuleCategory.RENDER) {
 
     private val modeValue = ListValue(
         "Mode",

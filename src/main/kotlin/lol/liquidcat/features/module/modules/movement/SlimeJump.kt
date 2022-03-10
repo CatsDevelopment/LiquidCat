@@ -9,18 +9,12 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.JumpEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.value.FloatValue
 import net.minecraft.block.BlockSlime
 import net.minecraft.util.BlockPos
 
-@ModuleInfo(
-    "SlimeJump",
-    "Allows you to to jump higher on slime blocks.",
-    ModuleCategory.MOVEMENT
-)
-class SlimeJump : Module() {
+class SlimeJump : Module("SlimeJump", "Allows you to to jump higher on slime blocks.", ModuleCategory.MOVEMENT) {
 
     private val heightValue = FloatValue("Height", 2f, 1.01f, 5f)
 

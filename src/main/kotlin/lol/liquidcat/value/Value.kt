@@ -14,6 +14,7 @@ import net.minecraft.client.gui.FontRenderer
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
+import kotlin.random.Random
 
 @SideOnly(Side.CLIENT)
 abstract class Value<T>(val name: String, protected var value: T) {

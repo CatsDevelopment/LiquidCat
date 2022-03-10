@@ -11,7 +11,7 @@ import lol.liquidcat.features.command.CommandManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.font.Fonts
 
-class ReloadCommand : lol.liquidcat.features.command.Command("reload", arrayOf("configreload")) {
+class ReloadCommand : Command("reload", arrayOf("configreload")) {
     /**
      * Execute commands with provided [args]
      */

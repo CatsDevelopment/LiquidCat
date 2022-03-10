@@ -14,7 +14,7 @@ import net.minecraft.nbt.NBTTagDouble
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.network.play.client.C10PacketCreativeInventoryAction
 
-class HoloStandCommand : lol.liquidcat.features.command.Command("holostand", emptyArray()) {
+class HoloStandCommand : Command("holostand", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

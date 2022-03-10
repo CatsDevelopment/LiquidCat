@@ -9,7 +9,7 @@ import com.google.common.base.Predicates;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.Render3DEvent;
 import lol.liquidcat.features.module.modules.player.Reach;
-import net.ccbluex.liquidbounce.features.module.modules.render.CameraClip;
+import lol.liquidcat.features.module.modules.render.CameraClip;
 import lol.liquidcat.features.module.modules.render.NoBob;
 import lol.liquidcat.features.module.modules.render.NoHurtCam;
 import lol.liquidcat.features.module.modules.render.Tracers;

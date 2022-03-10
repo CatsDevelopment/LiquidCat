@@ -10,13 +10,11 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.entity.aiming
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 
-@ModuleInfo("AutoBow", "Automatically shoots an arrow whenever your bow is fully loaded.", ModuleCategory.COMBAT)
-class AutoBow : Module() {
+class AutoBow : Module("AutoBow", "Automatically shoots an arrow whenever your bow is fully loaded.", ModuleCategory.COMBAT) {
 
     private val delayValue = IntegerValue("Delay", 20, 3, 20)
     private val waitForBowAimbot = BoolValue("WaitForBowAimbot", true)

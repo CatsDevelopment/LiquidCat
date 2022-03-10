@@ -11,7 +11,7 @@ import lol.liquidcat.features.command.Command
 import lol.liquidcat.utils.msg
 import net.ccbluex.liquidbounce.utils.ClientUtils
 
-class HelpCommand : lol.liquidcat.features.command.Command("help", emptyArray()) {
+class HelpCommand : Command("help", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

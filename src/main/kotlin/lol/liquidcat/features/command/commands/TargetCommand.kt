@@ -5,9 +5,10 @@
  */
 package lol.liquidcat.features.command.commands
 
+import lol.liquidcat.features.command.Command
 import lol.liquidcat.utils.entity.EntityUtils
 
-class TargetCommand : lol.liquidcat.features.command.Command("target", emptyArray()) {
+class TargetCommand : Command("target", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

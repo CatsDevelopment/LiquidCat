@@ -10,7 +10,7 @@ import lol.liquidcat.features.command.Command
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import org.lwjgl.input.Keyboard
 
-class BindCommand : lol.liquidcat.features.command.Command("bind", emptyArray()) {
+class BindCommand : Command("bind", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

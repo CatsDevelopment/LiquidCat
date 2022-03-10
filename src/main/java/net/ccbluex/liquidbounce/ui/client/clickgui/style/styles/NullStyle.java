@@ -8,7 +8,7 @@ package net.ccbluex.liquidbounce.ui.client.clickgui.style.styles;
 import lol.liquidcat.utils.block.BlockUtils;
 import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.value.*;
-import net.ccbluex.liquidbounce.features.module.modules.render.ClickGUI;
+import lol.liquidcat.features.module.modules.render.ClickGUI;
 import net.ccbluex.liquidbounce.ui.client.clickgui.Panel;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ModuleElement;

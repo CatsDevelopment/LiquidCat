@@ -9,18 +9,17 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.features.module.modules.render.FreeCam
+import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.entity.getDistanceToEntityBox
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
-import net.ccbluex.liquidbounce.features.module.modules.misc.AntiBot
-import net.ccbluex.liquidbounce.features.module.modules.misc.Teams
-import net.ccbluex.liquidbounce.features.module.modules.player.Blink
-import lol.liquidcat.utils.entity.EntityUtils
+import lol.liquidcat.features.module.modules.misc.AntiBot
+import lol.liquidcat.features.module.modules.misc.Teams
+import lol.liquidcat.features.module.modules.player.Blink
 import net.ccbluex.liquidbounce.utils.RaycastUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.misc.RandomUtils
@@ -40,7 +39,6 @@ import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.MathHelper
 import net.minecraft.world.WorldSettings
-import org.lwjgl.input.Keyboard
 import java.awt.Color
 import java.util.*
 import kotlin.math.max
@@ -48,9 +46,7 @@ import kotlin.math.min
 
 //TODO Rewrite
 
-@ModuleInfo(name = "KillAura", description = "Automatically attacks targets around you.",
-        category = ModuleCategory.COMBAT, keyBind = Keyboard.KEY_R)
-class KillAura : Module() {
+class KillAura : Module("KillAura", "Automatically attacks targets around you.", ModuleCategory.COMBAT) {
 
     /**
      * OPTIONS

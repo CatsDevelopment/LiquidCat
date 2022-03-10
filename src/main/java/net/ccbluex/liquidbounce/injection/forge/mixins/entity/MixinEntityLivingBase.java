@@ -9,7 +9,7 @@ import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.JumpEvent;
 import lol.liquidcat.features.module.modules.movement.AirJump;
 import lol.liquidcat.features.module.modules.movement.NoJumpDelay;
-import net.ccbluex.liquidbounce.features.module.modules.render.AntiBlind;
+import lol.liquidcat.features.module.modules.render.AntiBlind;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

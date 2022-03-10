@@ -7,10 +7,9 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.block;
 
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.BlockBBEvent;
-import lol.liquidcat.features.module.modules.combat.Criticals;
 import lol.liquidcat.features.module.modules.exploit.GhostHand;
 import lol.liquidcat.features.module.modules.player.NoFall;
-import net.ccbluex.liquidbounce.features.module.modules.render.XRay;
+import lol.liquidcat.features.module.modules.render.XRay;
 import lol.liquidcat.features.module.modules.world.NoSlowBreak;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

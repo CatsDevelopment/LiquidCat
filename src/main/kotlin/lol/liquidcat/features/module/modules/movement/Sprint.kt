@@ -9,7 +9,6 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.Rotation
 import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.value.BoolValue
@@ -18,8 +17,7 @@ import net.minecraft.potion.Potion
 
 //TODO Rewrite
 
-@ModuleInfo("Sprint", "Automatically sprints all the time.", ModuleCategory.MOVEMENT)
-class Sprint : Module() {
+class Sprint : Module("Sprint", "Automatically sprints all the time.", ModuleCategory.MOVEMENT) {
 
     val allDirectionsValue = BoolValue("AllDirections", true)
     private val blindnessValue = BoolValue("Blindness", true)

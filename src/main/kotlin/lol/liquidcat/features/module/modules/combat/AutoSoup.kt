@@ -9,13 +9,12 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.item.InventoryUtils
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
+import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.init.Items
 import net.minecraft.network.play.client.*
@@ -24,8 +23,7 @@ import net.minecraft.util.EnumFacing
 
 //TODO Rewrite
 
-@ModuleInfo(name = "AutoSoup", description = "Makes you automatically eat soup whenever your health is low.", category = ModuleCategory.COMBAT)
-class AutoSoup : Module() {
+class AutoSoup : Module("AutoSoup", "Makes you automatically eat soup whenever your health is low.", ModuleCategory.COMBAT) {
 
     private val healthValue = FloatValue("Health", 15f, 0f, 20f)
     private val delayValue = IntegerValue("Delay", 150, 0, 500)

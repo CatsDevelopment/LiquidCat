@@ -9,13 +9,11 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.block.getBlock
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.init.Blocks
 
-@ModuleInfo("AutoBreak", "Automatically breaks the block you are looking at.", ModuleCategory.WORLD)
-class AutoBreak : Module() {
+class AutoBreak : Module("AutoBreak", "Automatically breaks the block you are looking at.", ModuleCategory.WORLD) {
 
     override fun onDisable() {
         if (!GameSettings.isKeyDown(mc.gameSettings.keyBindAttack))

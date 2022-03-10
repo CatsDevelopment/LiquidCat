@@ -10,18 +10,18 @@ import lol.liquidcat.event.JumpEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.utils.block.BlockUtils.collideBlock
 import lol.liquidcat.value.FloatValue
 import net.minecraft.block.BlockLiquid
 import net.minecraft.util.AxisAlignedBB
 
-@ModuleInfo("ReverseStep", "Allows you to step down blocks faster.", ModuleCategory.MOVEMENT)
-class ReverseStep : Module() {
+class ReverseStep : Module("ReverseStep", "Allows you to step down blocks faster.", ModuleCategory.MOVEMENT) {
+
     private val motionValue = FloatValue("Motion", 1f, 0.21f, 1f)
 
     private var jumped = false
 
+    @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (mc.thePlayer.onGround) jumped = false
         if (mc.thePlayer.motionY > 0) jumped = true
@@ -35,6 +35,7 @@ class ReverseStep : Module() {
             (-motionValue.get()).toDouble()
     }
 
+    @EventTarget
     fun onJump(event: JumpEvent) {
         jumped = true
     }

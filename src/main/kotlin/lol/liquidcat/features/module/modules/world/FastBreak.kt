@@ -9,11 +9,9 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.features.module.ModuleInfo
 import lol.liquidcat.value.FloatValue
 
-@ModuleInfo("FastBreak", "Allows you to break blocks faster.", ModuleCategory.WORLD)
-class FastBreak : Module() {
+class FastBreak : Module("FastBreak", "Allows you to break blocks faster.", ModuleCategory.WORLD) {
 
     private val breakDamage = FloatValue("BreakDamage", 0.8f, 0.1f, 1f)
 
