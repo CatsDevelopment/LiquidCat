@@ -10,7 +10,7 @@ import lol.liquidcat.event.JumpEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.utils.block.BlockUtils.collideBlock
+import lol.liquidcat.utils.block.collideBlock
 import lol.liquidcat.value.FloatValue
 import net.minecraft.block.BlockLiquid
 import net.minecraft.util.AxisAlignedBB

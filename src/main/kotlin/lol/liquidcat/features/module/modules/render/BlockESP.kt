@@ -10,7 +10,7 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.utils.block.BlockUtils.getBlockName
+import lol.liquidcat.utils.block.getBlockName
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.render.GLUtils.drawBlockBox
 import lol.liquidcat.value.BlockValue

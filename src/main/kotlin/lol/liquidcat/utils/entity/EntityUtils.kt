@@ -7,9 +7,9 @@ package lol.liquidcat.utils.entity
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.modules.combat.NoFriends
-import lol.liquidcat.utils.mc
 import lol.liquidcat.features.module.modules.misc.AntiBot
 import lol.liquidcat.features.module.modules.misc.Teams
+import lol.liquidcat.utils.mc
 import net.minecraft.client.network.NetworkPlayerInfo
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -24,10 +24,7 @@ import net.minecraft.entity.passive.EntitySquid
 import net.minecraft.entity.passive.EntityVillager
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.scoreboard.ScorePlayerTeam
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
-@SideOnly(Side.CLIENT)
 object EntityUtils {
     @JvmField
     var targetInvisible = false
@@ -75,7 +72,6 @@ object EntityUtils {
                 entity is EntityGhast || entity is EntityDragon
     }
 
-    @JvmStatic
     fun getName(networkPlayerInfoIn: NetworkPlayerInfo): String {
         return if (networkPlayerInfoIn.displayName != null) networkPlayerInfoIn.displayName.formattedText else ScorePlayerTeam.formatPlayerName(
             networkPlayerInfoIn.playerTeam,

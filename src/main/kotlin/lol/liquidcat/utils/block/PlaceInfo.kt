@@ -17,7 +17,6 @@ class PlaceInfo(val blockPos: BlockPos, val enumFacing: EnumFacing,
         /**
          * Allows you to find a specific place info for your [blockPos]
          */
-        @JvmStatic
         fun get(blockPos: BlockPos): PlaceInfo? {
             return when {
                 blockPos.add(0, -1, 0).isClickable() ->

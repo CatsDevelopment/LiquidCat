@@ -13,7 +13,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.modules.combat.KillAura
 import lol.liquidcat.features.module.modules.player.AutoTool
-import lol.liquidcat.utils.block.BlockUtils.getBlockName
+import lol.liquidcat.utils.block.getBlockName
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.block.isFullBlock

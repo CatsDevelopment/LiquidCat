@@ -21,7 +21,7 @@ class NameProtect : Module("NameProtect", "Changes playernames clientside.", Mod
     val allPlayersValue = BoolValue("AllPlayers", false)
     val skinProtectValue = BoolValue("SkinProtect", true)
 
-    //@EventTarget(ignoreCondition = true)
+    @EventTarget(ignoreCondition = true)
     fun onText(event: TextEvent) {
         if (mc.thePlayer == null || event.text!!.contains("§8[§9§l" + LiquidCat.CLIENT_NAME + "§8] §3")) return
         for (friend in LiquidCat.fileManager.friendsConfig.friends) event.text = StringUtils.replace(

@@ -10,10 +10,10 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.modules.player.InventoryCleaner
 import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
-import lol.liquidcat.features.module.modules.player.InventoryCleaner
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiChest
@@ -21,13 +21,12 @@ import net.minecraft.inventory.Slot
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
-import kotlin.random.Random
-
-//TODO Add close delay option
 
 class ChestStealer : Module("ChestStealer", "Automatically steals all items from a chest.", ModuleCategory.WORLD) {
 
-    private val takeRandomizedValue = BoolValue("TakeRandomized", false)
+    private val random = BoolValue("TakeRandomized", false)
+    private val title = BoolValue("CheckTitle", true)
+    private val close = BoolValue("AutoClose", true)
 
     private val maxDelayValue: IntegerValue = object : IntegerValue("MaximumDelay", 250, 0, 500) {
         override fun onChanged(oldValue: Int, newValue: Int) {
@@ -52,26 +51,30 @@ class ChestStealer : Module("ChestStealer", "Automatically steals all items from
     private val delayTimer = MSTimer()
     private var nextDelay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
 
-    private val closeValue = BoolValue("Close", true)
-
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
         val screen = mc.currentScreen
 
-        if (screen is GuiChest)
-            if (screen.lowerChestInventory.name.contains(ItemStack(Item.itemRegistry.getObject(ResourceLocation("minecraft:chest"))).displayName))
-                if (!isEmpty(screen) && !InventoryUtils.isInventoryFull()) {
-                    val slots = mutableListOf<Slot>()
+        if (screen is GuiChest) {
+            if (title.get() && !screen.lowerChestInventory.name.contains(ItemStack(Item.itemRegistry.getObject(ResourceLocation("minecraft:chest"))).displayName))
+                return
 
-                    for (i in 0 until screen.inventoryRows * 9) {
-                        val slot = screen.inventorySlots.getSlot(i)
+            if (!delayTimer.hasTimePassed(nextDelay))
+                return
 
-                        if (slot.hasStack) slots.add(slot)
-                    }
+            if (isEmpty(screen) && InventoryUtils.isInventoryFull()) {
+                val slots = mutableListOf<Slot>()
 
-                    if (delayTimer.hasTimePassed(nextDelay))
-                        move(screen, if (takeRandomizedValue.get()) slots[Random.nextInt(slots.size)] else slots[0])
-                } else if (closeValue.get()) mc.thePlayer.closeScreen()
+                for (i in 0 until screen.inventoryRows * 9) {
+                    val slot = screen.inventorySlots.getSlot(i)
+
+                    if (slot.hasStack) slots.add(slot)
+                }
+
+                move(screen, if (random.get()) slots.random() else slots.first())
+            } else if (close.get())
+                mc.thePlayer.closeScreen()
+        }
     }
 
     private fun move(screen: GuiChest, slot: Slot) {

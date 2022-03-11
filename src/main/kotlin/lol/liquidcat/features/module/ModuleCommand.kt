@@ -6,8 +6,8 @@
 package lol.liquidcat.features.module
 
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.utils.block.getBlockName
 import lol.liquidcat.value.*
-import lol.liquidcat.utils.block.BlockUtils
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import net.minecraft.block.Block
 
@@ -78,7 +78,7 @@ class ModuleCommand(val module: Module, val values: List<Value<*>> = module.valu
                         }
 
                         value.set(id)
-                        chat("§7${module.name} §8${args[1].toLowerCase()}§7 was set to §8${BlockUtils.getBlockName(id)}§7.")
+                        chat("§7${module.name} §8${args[1].toLowerCase()}§7 was set to §8${getBlockName(id)}§7.")
                         playEdit()
                         return
                     }

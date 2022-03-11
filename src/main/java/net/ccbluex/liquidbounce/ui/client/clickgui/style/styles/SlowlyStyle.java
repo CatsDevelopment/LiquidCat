@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.ui.client.clickgui.style.styles;
 
-import lol.liquidcat.utils.block.BlockUtils;
+import lol.liquidcat.utils.block.BlockExtensions;
 import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.value.*;
 import net.ccbluex.liquidbounce.ui.client.clickgui.Panel;
@@ -194,7 +194,7 @@ public class SlowlyStyle extends Style {
                         moduleElement.slowlySettingsYPos += 19;
                     } else if (value instanceof IntegerValue) {
                         final IntegerValue integerValue = (IntegerValue) value;
-                        final String text = value.getName() + "§f: " + (value instanceof BlockValue ? BlockUtils.getBlockName(integerValue.get()) + " (" + integerValue.get() + ")" : integerValue.get());
+                        final String text = value.getName() + "§f: " + (value instanceof BlockValue ? BlockExtensions.getBlockName(integerValue.get()) + " (" + integerValue.get() + ")" : integerValue.get());
                         final float textWidth = Fonts.font35.getStringWidth(text);
 
                         if (moduleElement.getSettingsWidth() < textWidth + 8)

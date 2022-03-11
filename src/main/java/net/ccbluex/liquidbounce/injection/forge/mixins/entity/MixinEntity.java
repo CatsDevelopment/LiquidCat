@@ -187,7 +187,7 @@ public abstract class MixinEntity {
         final HitBox hitBox = (HitBox) LiquidCat.moduleManager.getModule(HitBox.class);
 
         if (hitBox.getState())
-            callbackInfoReturnable.setReturnValue(0.1F + hitBox.getSizeValue().get());
+            callbackInfoReturnable.setReturnValue(0.1F + hitBox.getSize().get());
     }
 
     @Inject(method = "setAngles", at = @At("HEAD"), cancellable = true)

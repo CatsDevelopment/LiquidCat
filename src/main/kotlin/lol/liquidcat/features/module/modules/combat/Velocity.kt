@@ -19,21 +19,21 @@ import net.minecraft.network.play.server.S27PacketExplosion
 class Velocity : Module("Velocity", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT) {
 
     private val modeValue = ListValue("Mode", arrayOf("Normal", "Strafe"), "Normal")
-    private val horizontalValue = FloatValue("Horizontal", 0F, 0F, 1F)
-    private val verticalValue = FloatValue("Vertical", 0F, 0F, 1F)
+    private val horizontal = FloatValue("Horizontal", 0F, 0F, 1F)
+    private val vertical = FloatValue("Vertical", 0F, 0F, 1F)
 
     override val tag: String
-        get() = if (modeValue.get() == "Normal") "${horizontalValue.get()}% ${verticalValue.get()}%" else modeValue.get()
+        get() = if (modeValue.get() == "Normal") "${horizontal.get()}% ${vertical.get()}%" else modeValue.get()
 
     @EventTarget
     fun onPacket(event: PacketEvent) {
         val packet = event.packet
 
         if (packet is S12PacketEntityVelocity) {
-            if ((mc.theWorld.getEntityByID(packet.entityID) ?: return) == (mc.thePlayer ?: return)) {
+            if ((mc.theWorld?.getEntityByID(packet.entityID) ?: return) == (mc.thePlayer ?: return)) {
                 if (modeValue.get() == "Normal") {
-                    val horizontal = horizontalValue.get()
-                    val vertical = verticalValue.get()
+                    val horizontal = horizontal.get()
+                    val vertical = vertical.get()
 
                     if (horizontal == 0F && vertical == 0F) event.cancelEvent()
 

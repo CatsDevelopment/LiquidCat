@@ -5,10 +5,10 @@
  */
 package net.ccbluex.liquidbounce.ui.client.clickgui.style.styles;
 
-import lol.liquidcat.utils.block.BlockUtils;
+import lol.liquidcat.features.module.modules.render.ClickGUI;
+import lol.liquidcat.utils.block.BlockExtensions;
 import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.value.*;
-import lol.liquidcat.features.module.modules.render.ClickGUI;
 import net.ccbluex.liquidbounce.ui.client.clickgui.Panel;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ModuleElement;
@@ -172,7 +172,7 @@ public class NullStyle extends Style {
                         yPos += 22;
                     }else if(value instanceof IntegerValue) {
                         IntegerValue integerValue = (IntegerValue) value;
-                        String text = value.getName() + "§f: §c" + (value instanceof BlockValue ? BlockUtils.getBlockName(integerValue.get()) + " (" + integerValue.get() + ")" : integerValue.get());
+                        String text = value.getName() + "§f: §c" + (value instanceof BlockValue ? BlockExtensions.getBlockName(integerValue.get()) + " (" + integerValue.get() + ")" : integerValue.get());
                         float textWidth = Fonts.font35.getStringWidth(text);
 
                         if(moduleElement.getSettingsWidth() < textWidth + 8)

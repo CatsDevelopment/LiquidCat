@@ -38,7 +38,7 @@ import java.awt.Color
 
 class Scaffold : Module("Scaffold", "Automatically places blocks beneath your feet.", ModuleCategory.WORLD) {
 
-    val modeValue = ListValue("Mode", arrayOf("Normal", "Rewinside", "Expand"), "Normal")
+    val mode = ListValue("Mode", arrayOf("Normal", "Rewinside", "Expand"), "Normal")
 
     private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 0, 0, 1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
@@ -163,7 +163,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         if (if (autoBlockValue.get()) InventoryUtils.findAutoBlockBlock() == -1 else mc.thePlayer.heldItem == null ||
                     mc.thePlayer.heldItem.item !is ItemBlock
         ) return
-        findBlock(modeValue.get().equals("expand", ignoreCase = true))
+        findBlock(mode.get().equals("expand", ignoreCase = true))
     }
 
     /**
@@ -306,7 +306,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
     @EventTarget
     fun onRender3D(event: Render3DEvent?) {
         if (!markValue.get()) return
-        for (i in 0 until if (modeValue.get().equals("Expand", ignoreCase = true)) expandLengthValue.get() + 1 else 2) {
+        for (i in 0 until if (mode.get().equals("Expand", ignoreCase = true)) expandLengthValue.get() + 1 else 2) {
             val blockPos = BlockPos(
                 mc.thePlayer.posX + if (mc.thePlayer.horizontalFacing == EnumFacing.WEST) -i else if (mc.thePlayer.horizontalFacing == EnumFacing.EAST) i else 0,
                 mc.thePlayer.posY - (if (mc.thePlayer.posY == mc.thePlayer.posY.toInt() + 0.5) 0.0 else 1.0) - if (shouldGoDown) 1.0 else 0.0,
@@ -409,5 +409,5 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             return amount
         }
     override val tag: String
-        get() = modeValue.get()
+        get() = mode.get()
 }

@@ -8,7 +8,7 @@ package lol.liquidcat.features.module.modules.movement
 import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.utils.block.BlockUtils.collideBlock
+import lol.liquidcat.utils.block.collideBlock
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.ListValue

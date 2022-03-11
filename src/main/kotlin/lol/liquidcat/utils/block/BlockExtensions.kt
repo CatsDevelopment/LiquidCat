@@ -3,11 +3,16 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
+
+@file:JvmName("BlockExtensions")
+
 package lol.liquidcat.utils.block
 
 import lol.liquidcat.utils.mc
 import net.minecraft.block.Block
+import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
+import net.minecraft.util.MathHelper
 import net.minecraft.util.Vec3
 
 fun BlockPos.getState() = mc.theWorld?.getBlockState(this)
@@ -33,15 +38,25 @@ fun searchBlocks(radius: Int): Map<BlockPos, Block> {
     for (x in radius downTo -radius + 1)
         for (y in radius downTo -radius + 1)
             for (z in radius downTo -radius + 1) {
-                val blockPos = BlockPos(
-                    mc.thePlayer.posX.toInt() + x,
-                    mc.thePlayer.posY.toInt() + y,
-                    mc.thePlayer.posZ.toInt() + z
-                )
+                val blockPos = BlockPos(mc.thePlayer.posX.toInt() + x, mc.thePlayer.posY.toInt() + y, mc.thePlayer.posZ.toInt() + z)
                 val block = blockPos.getBlock() ?: continue
 
                 blocks[blockPos] = block
             }
 
     return blocks
+}
+
+fun getBlockName(id: Int): String = Block.getBlockById(id).localizedName
+
+fun collideBlock(aabb: AxisAlignedBB, predicate: (Block?) -> Boolean): Boolean {
+    for (x in MathHelper.floor_double(aabb.minX) until MathHelper.floor_double(aabb.maxX) + 1) {
+        for (z in MathHelper.floor_double(aabb.minZ) until MathHelper.floor_double(aabb.maxZ) + 1) {
+            val block = BlockPos(x.toDouble(), aabb.minY, z.toDouble()).getBlock()
+
+            if (!predicate(block)) return false
+        }
+    }
+
+    return true
 }
