@@ -10,9 +10,8 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.block.getBlock
+import lol.liquidcat.utils.item.getMineSpeed
 import net.minecraft.util.BlockPos
-
-//TODO Add efficiency enchant check
 
 class AutoTool : Module("AutoTool", "Automatically selects the best tool in your inventory to mine a block.", ModuleCategory.PLAYER) {
 
@@ -23,12 +22,12 @@ class AutoTool : Module("AutoTool", "Automatically selects the best tool in your
 
     fun switchSlot(blockPos: BlockPos) {
         val block = blockPos.getBlock()
-        var bestSpeed = 1F
+        var bestSpeed = 1f
         var bestSlot = -1
 
         for (i in 0..8) {
             val item = mc.thePlayer.inventory.getStackInSlot(i) ?: continue
-            val speed = item.getStrVsBlock(block)
+            val speed = item.getMineSpeed(block)
 
             if (speed > bestSpeed) {
                 bestSpeed = speed

@@ -70,9 +70,46 @@ object GLUtils {
     }
 
     @JvmStatic
-    fun drawBorderedRect(x: Float, y: Float, x2: Float, y2: Float, width: Float, color: Int, color2: Int) {
+    fun drawBorderedRect(x: Float, y: Float, x2: Float, y2: Float, width: Float, color: Int, color2: Int = color) {
         drawRect(x, y, x2, y2, color2)
         drawBorder(x, y, x2, y2, width, color)
+    }
+
+    @JvmStatic
+    fun drawRoundedRect(x: Float, y: Float, x2: Float, y2: Float, radius: Float, color: Int) {
+        val x1 = x + radius
+        val y1 = y + radius
+        val x3 = x2 - radius
+        val y3 = y2 - radius
+
+        drawRect(x1, y1, x3, y3, color)
+        drawRect(x1, y, x3, y1, color)
+        drawRect(x1, y3, x3, y2, color)
+        drawRect(x, y1, x1, y3, color)
+        drawRect(x3, y1, x2, y3, color)
+
+        drawFilledCircle(x3, y3, radius, color, 0, 90)
+        drawFilledCircle(x3, y1, radius, color, 90, 180)
+        drawFilledCircle(x1, y1, radius, color, 180, 270)
+        drawFilledCircle(x1, y3, radius, color, 270, 360)
+    }
+
+    @JvmStatic
+    fun drawRoundedBorder(x: Float, y: Float, x2: Float, y2: Float, radius: Float, width: Float, color: Int) {
+        val x1 = x + radius
+        val y1 = y + radius
+        val x3 = x2 - radius
+        val y3 = y2 - radius
+
+        drawCircle(x3, y3, radius, width, Color(color), 0, 90)
+        drawCircle(x1, y3, radius, width, Color(color), 90, 180)
+        drawCircle(x1, y1, radius, width, Color(color), 180, 270)
+        drawCircle(x3, y1, radius, width, Color(color), 270, 360)
+
+        drawLine(x1, y1 - radius, x3, y1 - radius, width, color)
+        drawLine(x1, y3 + radius, x3, y3 + radius, width, color)
+        drawLine(x1 - radius, y1, x1 - radius, y3, width, color)
+        drawLine(x3 + radius, y1, x3 + radius, y3, width, color)
     }
 
     private fun drawCircle(x: Float, y: Float, radius: Float, width: Float, color: Color, start: Int = 0, end: Int = 360) {
@@ -100,18 +137,16 @@ object GLUtils {
     }
 
     @JvmStatic
-    fun drawFilledCircle(x: Float, y: Float, radius: Float, color: Color) {
-        drawCircle(x, y, radius, 1f, color)
-
+    fun drawFilledCircle(x: Float, y: Float, radius: Float, color: Int, start: Int = 0, end: Int = 360) {
         glEnable(GL_BLEND)
         glDisable(GL_TEXTURE_2D)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        glEnable(GL_LINE_SMOOTH)
+        glColor(color)
 
         glBegin(GL_TRIANGLE_FAN)
 
-        for (i in 0..360) {
-            glColor(color)
+        glVertex2f(x, y)
+        for (i in start..end) {
             glVertex2f(
                 x + (radius * sin(i * PI / 180)).toFloat(),
                 y + (radius * cos(i * PI / 180)).toFloat()
@@ -122,7 +157,6 @@ object GLUtils {
 
         glDisable(GL_BLEND)
         glEnable(GL_TEXTURE_2D)
-        glDisable(GL_LINE_SMOOTH)
     }
 
     @JvmStatic
@@ -164,6 +198,26 @@ object GLUtils {
 
         glEnd()
         glEnable(GL_TEXTURE_2D)
+    }
+
+    fun drawLine(x: Float, y: Float, x2: Float, y2: Float, width: Float, color: Int) {
+        glEnable(GL_BLEND)
+        glDisable(GL_TEXTURE_2D)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        glEnable(GL_LINE_SMOOTH)
+        glLineWidth(width)
+        glColor(color)
+
+        glBegin(GL_LINES)
+
+        glVertex2f(x, y)
+        glVertex2f(x2, y2)
+
+        glEnd()
+
+        glDisable(GL_BLEND)
+        glEnable(GL_TEXTURE_2D)
+        glDisable(GL_LINE_SMOOTH)
     }
 
     fun drawOutlinedBB(boundingBox: AxisAlignedBB) {

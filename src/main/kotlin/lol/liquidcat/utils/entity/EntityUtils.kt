@@ -46,8 +46,7 @@ object EntityUtils {
                         if (AntiBot.isBot(entity)) return false
                         if (isFriend(entity) && !LiquidCat.moduleManager.getModule(NoFriends::class.java)!!.state) return false
                         if (entity.isSpectator) return false
-                        val teams = LiquidCat.moduleManager.getModule(Teams::class.java) as Teams
-                        return !teams.state || !teams.isInYourTeam(entity)
+                        return !Teams.isInYourTeam(entity)
                     }
                     return true
                 }

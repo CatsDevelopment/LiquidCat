@@ -12,6 +12,7 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.jumpHeight
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
@@ -58,11 +59,11 @@ class Step : Module("Step", "Allows you to step up blocks.", ModuleCategory.MOVE
 
             when (modeValue.get()) {
                 "NCP" -> {
-                    mc.netHandler.addToSendQueue(C04PacketPlayerPosition(x, y + 0.41999998688698 * stepHeight, z, false))
-                    mc.netHandler.addToSendQueue(C04PacketPlayerPosition(x, y + 0.7531999805212 * stepHeight, z, false))
+                    sendPacket(C04PacketPlayerPosition(x, y + 0.41999998688698 * stepHeight, z, false))
+                    sendPacket(C04PacketPlayerPosition(x, y + 0.7531999805212 * stepHeight, z, false))
                 }
 
-                "Matrix" -> mc.netHandler.addToSendQueue(C04PacketPlayerPosition(x, y + mc.thePlayer.jumpHeight, z, true))
+                "Matrix" -> sendPacket(C04PacketPlayerPosition(x, y + mc.thePlayer.jumpHeight, z, true))
             }
             usedTimer = true
         }

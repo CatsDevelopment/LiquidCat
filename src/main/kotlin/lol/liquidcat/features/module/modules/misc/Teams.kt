@@ -8,39 +8,37 @@ package lol.liquidcat.features.module.modules.misc
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
-import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.player.EntityPlayer
 
-class Teams : Module("Teams", "Prevents Killaura from attacking team mates.", ModuleCategory.MISC) {
+object Teams : Module("Teams", "Prevents Killaura from attacking team mates.", ModuleCategory.MISC) {
 
-    private val scoreboardValue = BoolValue("ScoreboardTeam", true)
-    private val colorValue = BoolValue("Color", true)
-    private val gommeSWValue = BoolValue("GommeSW", false)
+    private val scoreboard = BoolValue("ScoreboardTeam", true)
+    private val color = BoolValue("Color", true)
 
     /**
      * Check if [entity] is in your own team using scoreboard, name color or team prefix
      */
-    fun isInYourTeam(entity: EntityLivingBase): Boolean {
-        mc.thePlayer ?: return false
+    fun isInYourTeam(entity: EntityPlayer): Boolean {
+        if (!state) return false
 
-        if (scoreboardValue.get() && mc.thePlayer.team != null && entity.team != null &&
-                mc.thePlayer.team.isSameTeam(entity.team))
-            return true
+        if (color.get()) {
+            val eName = entity.displayName?.unformattedText
+            val pName = mc.thePlayer.displayName?.unformattedText
 
-        if (gommeSWValue.get() && mc.thePlayer.displayName != null && entity.displayName != null) {
-            val targetName = entity.displayName.formattedText.replace("§r", "")
-            val clientName = mc.thePlayer.displayName.formattedText.replace("§r", "")
-            if (targetName.startsWith("T") && clientName.startsWith("T"))
-                if (targetName[1].isDigit() && clientName[1].isDigit())
-                    return targetName[1] == clientName[1]
+            if (eName != null && pName != null && eName.startsWith(pName.substring(0..1))) {
+                return true
+            }
         }
 
-        if (colorValue.get() && mc.thePlayer.displayName != null && entity.displayName != null) {
-            val targetName = entity.displayName.formattedText.replace("§r", "")
-            val clientName = mc.thePlayer.displayName.formattedText.replace("§r", "")
-            return targetName.startsWith("§${clientName[1]}")
+        if (scoreboard.get()) {
+            val eTeam = entity.team
+            val pTeam = mc.thePlayer.team
+
+            if (eTeam != null && pTeam != null && pTeam.isSameTeam(eTeam)) {
+                return true
+            }
         }
 
         return false
     }
-
 }

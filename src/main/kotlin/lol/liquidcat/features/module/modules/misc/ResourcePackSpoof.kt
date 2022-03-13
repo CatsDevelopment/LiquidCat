@@ -10,12 +10,11 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.sendPacket
 import net.minecraft.network.play.client.C19PacketResourcePackStatus
 import net.minecraft.network.play.server.S48PacketResourcePackSend
 import java.net.URI
 import java.net.URISyntaxException
-
-//TODO Rewrite?
 
 class ResourcePackSpoof : Module("ResourcePackSpoof","Prevents servers from forcing you to download their resource pack.", ModuleCategory.MISC) {
 
@@ -37,13 +36,11 @@ class ResourcePackSpoof : Module("ResourcePackSpoof","Prevents servers from forc
                 if (isLevelProtocol && (url.contains("..") || !url.endsWith("/resources.zip")))
                     throw URISyntaxException(url, "Invalid levelstorage resourcepack path")
 
-                mc.netHandler.addToSendQueue(C19PacketResourcePackStatus(packet.hash,
-                        C19PacketResourcePackStatus.Action.ACCEPTED))
-                mc.netHandler.addToSendQueue(C19PacketResourcePackStatus(packet.hash,
-                        C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED))
+                sendPacket(C19PacketResourcePackStatus(packet.hash, C19PacketResourcePackStatus.Action.ACCEPTED))
+                sendPacket(C19PacketResourcePackStatus(packet.hash, C19PacketResourcePackStatus.Action.SUCCESSFULLY_LOADED))
             } catch (e: URISyntaxException) {
                 LiquidCat.logger.error("Failed to handle resource pack", e)
-                mc.netHandler.addToSendQueue(C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD))
+                sendPacket(C19PacketResourcePackStatus(hash, C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD))
             }
         }
     }

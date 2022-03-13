@@ -18,7 +18,7 @@ import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
-import net.ccbluex.liquidbounce.utils.render.WorldToScreen
+import lol.liquidcat.utils.render.WorldToScreen
 import net.ccbluex.liquidbounce.utils.render.shader.shaders.GlowShader
 import net.ccbluex.liquidbounce.utils.render.shader.shaders.OutlineShader
 import net.minecraft.client.renderer.GlStateManager
@@ -106,7 +106,7 @@ class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCate
                         var maxY = -1f
 
                         for (boxVertex in boxVertices) {
-                            val screenPos = WorldToScreen.worldToScreen(
+                            val screenPos = WorldToScreen.toScreen(
                                 Vector3f(
                                     boxVertex[0].toFloat(), boxVertex[1].toFloat(), boxVertex[2].toFloat()
                                 ), mvMatrix, projectionMatrix, mc.displayWidth, mc.displayHeight

@@ -23,6 +23,6 @@ public class MixinBlockSoulSand {
     private void onEntityCollidedWithBlock(CallbackInfo callbackInfo) {
         final NoSlow noSlow = (NoSlow) LiquidCat.moduleManager.getModule(NoSlow.class);
 
-        if (noSlow.getState() && noSlow.getSoulsandValue().get()) callbackInfo.cancel();
+        if (noSlow.getState() && noSlow.getSoulsand().get()) callbackInfo.cancel();
     }
 }

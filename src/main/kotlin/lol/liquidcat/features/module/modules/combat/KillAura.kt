@@ -488,9 +488,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
                 if (EntityUtils.isFriend(entity) && !LiquidCat.moduleManager[NoFriends::class.java]!!.state)
                     return false
 
-                val teams = LiquidCat.moduleManager[Teams::class.java] as Teams
-
-                return !teams.state || !teams.isInYourTeam(entity)
+                return !Teams.isInYourTeam(entity)
             }
 
             return EntityUtils.targetMobs && EntityUtils.isMob(entity) || EntityUtils.targetAnimals &&

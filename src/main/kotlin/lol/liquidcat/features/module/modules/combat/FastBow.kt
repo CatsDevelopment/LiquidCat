@@ -10,6 +10,7 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.aiming
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.network.play.client.C03PacketPlayer.C05PacketPlayerLook
@@ -25,7 +26,7 @@ class FastBow : Module("FastBow", "Turns your bow into a machine gun.", ModuleCa
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (mc.thePlayer.aiming) {
-            mc.netHandler.addToSendQueue(C08PacketPlayerBlockPlacement(BlockPos.ORIGIN, 255, mc.thePlayer.currentEquippedItem, 0F, 0F, 0F))
+            sendPacket(C08PacketPlayerBlockPlacement(BlockPos.ORIGIN, 255, mc.thePlayer.currentEquippedItem, 0f, 0f, 0f))
 
             val yaw = if (RotationUtils.targetRotation != null)
                 RotationUtils.targetRotation.yaw
@@ -38,10 +39,10 @@ class FastBow : Module("FastBow", "Turns your bow into a machine gun.", ModuleCa
                 mc.thePlayer.rotationPitch
 
             repeat(packetsValue.get()) {
-                mc.netHandler.addToSendQueue(C05PacketPlayerLook(yaw, pitch, true))
+                sendPacket(C05PacketPlayerLook(yaw, pitch, mc.thePlayer.onGround))
             }
 
-            mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
+            sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
             mc.thePlayer.itemInUseCount = mc.thePlayer.inventory.getCurrentItem().maxItemUseDuration - 1
         }
     }

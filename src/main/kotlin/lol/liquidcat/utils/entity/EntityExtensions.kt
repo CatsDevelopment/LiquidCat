@@ -15,12 +15,21 @@ import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.Vec3
 import kotlin.math.*
 
+/**
+ * Checks if the player moves
+ */
 val EntityPlayerSP.moving
     get() = movementInput.moveForward != 0f || movementInput.moveStrafe != 0f
 
+/**
+ * Returns the minimum fall distance to take damage
+ */
 val EntityPlayerSP.minFallDistance
     get() = if (isPotionActive(Potion.jump)) 3f + getActivePotionEffect(Potion.jump).amplifier + 1 else 3f
 
+/**
+ * Returns the height of the player's jump
+ */
 val EntityPlayerSP.jumpHeight
     get() = 0.42f + if (isPotionActive(Potion.jump)) (getActivePotionEffect(Potion.jump).amplifier + 1) * 0.1f else 0f
 
@@ -52,18 +61,33 @@ fun EntityPlayerSP.strafe(yaw: Float = directionYaw, speed: Double = this.speed)
     }
 }
 
+/**
+ * Returns the player's ping
+ */
 val EntityPlayer.ping
     get() = mc.netHandler.getPlayerInfo(uniqueID)?.responseTime ?: 0
 
+/**
+ * Checks if the player eats
+ */
 val EntityPlayer.eating
     get() = itemInUse?.itemUseAction == EnumAction.EAT
 
+/**
+ * Checks if the player drinks
+ */
 val EntityPlayer.drinking
     get() = itemInUse?.itemUseAction == EnumAction.DRINK
 
+/**
+ * Checks if the player is aiming with a bow
+ */
 val EntityPlayer.aiming
     get() = itemInUse?.itemUseAction == EnumAction.BOW
 
+/**
+ * Returns the motion speed of the entity
+ */
 val Entity.speed
     get() = sqrt(motionX * motionX + motionZ * motionZ)
 
@@ -92,10 +116,22 @@ private fun getNearestPointBB(eye: Vec3, box: AxisAlignedBB): Vec3 {
     return Vec3(origin[0], origin[1], origin[2])
 }
 
+/**
+ * Moves the player's position forward
+ *
+ * @param length Move length
+ */
 fun EntityPlayerSP.forward(length: Double) {
     val yaw = Math.toRadians(rotationYaw.toDouble())
 
     setPosition(posX + -sin(yaw) * length, posY, posZ + cos(yaw) * length)
 }
 
-fun EntityPlayerSP.upwards(height: Double) = mc.thePlayer.setPosition(posX, posY + height, posZ)
+/**
+ * Moves the player's position up
+ *
+ * @param height Move height
+ */
+fun EntityPlayerSP.upwards(height: Double) {
+    mc.thePlayer.setPosition(posX, posY + height, posZ)
+}

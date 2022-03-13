@@ -5,8 +5,13 @@
  */
 package lol.liquidcat.utils
 
+import net.minecraft.network.Packet
 import net.minecraft.util.ChatComponentText
 
 fun msg(message: String) {
     mc.ingameGUI.chatGUI.printChatMessage(ChatComponentText(message))
+}
+
+fun sendPacket(packet: Packet<*>) {
+    mc.netHandler?.addToSendQueue(packet)
 }

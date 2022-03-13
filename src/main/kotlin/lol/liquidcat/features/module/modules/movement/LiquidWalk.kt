@@ -8,7 +8,9 @@ package lol.liquidcat.features.module.modules.movement
 import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.block.AxisAlignedBB
 import lol.liquidcat.utils.block.collideBlock
+import lol.liquidcat.utils.block.down
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.ListValue
@@ -48,14 +50,7 @@ class LiquidWalk : Module("LiquidWalk", "Allows you to walk on water.", ModuleCa
 
         if (event.block is BlockLiquid && !collideBlock(mc.thePlayer.entityBoundingBox) { it is BlockLiquid } && !mc.thePlayer.isSneaking)
             when (modeValue.get()) {
-                "NCP", "Vanilla" -> event.boundingBox = AxisAlignedBB.fromBounds(
-                    event.x.toDouble(),
-                    event.y.toDouble(),
-                    event.z.toDouble(),
-                    (event.x + 1).toDouble(),
-                    (event.y + 1).toDouble(),
-                    (event.z + 1).toDouble()
-                )
+                "NCP", "Vanilla" -> event.boundingBox = AxisAlignedBB(event.x, event.y, event.z)
             }
     }
 
@@ -63,11 +58,7 @@ class LiquidWalk : Module("LiquidWalk", "Allows you to walk on water.", ModuleCa
     fun onPacket(event: PacketEvent) {
         if (mc.thePlayer == null || modeValue.get() != "NCP") return
 
-        val aabb = AxisAlignedBB(
-            mc.thePlayer.entityBoundingBox.maxX, mc.thePlayer.entityBoundingBox.maxY,
-            mc.thePlayer.entityBoundingBox.maxZ, mc.thePlayer.entityBoundingBox.minX,
-            mc.thePlayer.entityBoundingBox.minY - 0.01, mc.thePlayer.entityBoundingBox.minZ
-        )
+        val aabb = mc.thePlayer.entityBoundingBox.down(0.01)
 
         if (event.packet is C03PacketPlayer) {
             if (collideBlock(aabb) { it is BlockLiquid }) {

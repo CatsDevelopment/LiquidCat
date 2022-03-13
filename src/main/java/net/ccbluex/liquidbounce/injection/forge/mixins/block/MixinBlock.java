@@ -61,7 +61,9 @@ public abstract class MixinBlock {
     @Overwrite
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         AxisAlignedBB axisalignedbb = this.getCollisionBoundingBox(worldIn, pos, state);
+
         BlockBBEvent blockBBEvent = new BlockBBEvent(pos, blockState.getBlock(), axisalignedbb);
+
         LiquidCat.eventManager.callEvent(blockBBEvent);
         axisalignedbb = blockBBEvent.getBoundingBox();
         if(axisalignedbb != null && mask.intersectsWith(axisalignedbb))

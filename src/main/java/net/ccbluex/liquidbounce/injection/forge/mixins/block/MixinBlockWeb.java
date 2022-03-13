@@ -18,6 +18,6 @@ public class MixinBlockWeb {
     private void onEntityCollidedWithBlock(CallbackInfo callbackInfo) {
         final NoSlow noSlow = (NoSlow) LiquidCat.moduleManager.getModule(NoSlow.class);
 
-        if (noSlow.getState() && noSlow.getWebValue().get()) callbackInfo.cancel();
+        if (noSlow.getState() && noSlow.getWeb().get()) callbackInfo.cancel();
     }
 }

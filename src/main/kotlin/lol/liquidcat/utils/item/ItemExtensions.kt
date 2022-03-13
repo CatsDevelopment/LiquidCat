@@ -5,13 +5,14 @@
  */
 package lol.liquidcat.utils.item
 
+import net.minecraft.block.Block
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.item.ItemStack
 
 /**
- * Returns the [enchantment] level if it was found on this item
+ * Returns the enchantment level
  *
- * If it was not found it returns 0
+ * @param enchantment Enchantment
  */
 fun ItemStack?.getEnchantment(enchantment: Enchantment): Int {
     val enchantments = this?.enchantmentTagList ?: return 0
@@ -27,7 +28,7 @@ fun ItemStack?.getEnchantment(enchantment: Enchantment): Int {
 }
 
 /**
- * Returns the number of enchantments on this item
+ * Returns the number of enchantments
  */
 fun ItemStack?.getEnchantmentCount(): Int {
     val enchantments = this?.enchantmentTagList ?: return 0
@@ -43,10 +44,25 @@ fun ItemStack?.getEnchantmentCount(): Int {
 }
 
 /**
- * Returns the amount of damage from this item
+ * Returns the amount of damage to entity
  */
 fun ItemStack?.getDamage(): Double {
     val baseDamage = this?.attributeModifiers?.get("generic.attackDamage")?.first()?.amount ?: 0.0
 
     return baseDamage + (1.25 * this.getEnchantment(Enchantment.sharpness))
+}
+
+/**
+ * Returns the block digging speed
+ *
+ * @param block Block
+ */
+fun ItemStack?.getMineSpeed(block: Block?): Float {
+    var speed = this?.getStrVsBlock(block) ?: 1f
+    val eff = this.getEnchantment(Enchantment.efficiency)
+
+    if (speed > 1 && eff != 0)
+        speed += eff * eff + 1
+
+    return speed
 }

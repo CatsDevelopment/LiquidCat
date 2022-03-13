@@ -32,6 +32,14 @@ fun BlockPos.getVec() = Vec3(x + 0.5, y + 0.5, z + 0.5)
 
 fun BlockPos.getCenterDistance() = mc.thePlayer.getDistance(x + 0.5, y + 0.5, z + 0.5)
 
+fun AxisAlignedBB(x: Int, y: Int, z: Int): AxisAlignedBB {
+    return AxisAlignedBB(x.toDouble(), y.toDouble(), z.toDouble(), x + 1.0, y + 1.0, z + 1.0)
+}
+
+fun AxisAlignedBB.down(height: Double): AxisAlignedBB {
+    return AxisAlignedBB(minX, minY, minZ, maxX, maxY - height, maxZ)
+}
+
 fun searchBlocks(radius: Int): Map<BlockPos, Block> {
     val blocks = mutableMapOf<BlockPos, Block>()
 

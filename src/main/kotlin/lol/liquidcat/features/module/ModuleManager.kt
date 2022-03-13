@@ -56,7 +56,6 @@ class ModuleManager : Listenable {
                 Strafe::class.java,
                 Sprint::class.java,
                 Speed::class.java,
-                Teams::class.java,
                 NoRotate::class.java,
                 ChestStealer::class.java,
                 Scaffold::class.java,
@@ -139,7 +138,8 @@ class ModuleManager : Listenable {
                 HUD::class.java,
                 ResourcePackSpoof::class.java,
                 NoSlowBreak::class.java,
-                PortalMenu::class.java
+                PortalMenu::class.java,
+                NoClose::class.java
         )
 
         registerModule(NoScoreboard)
@@ -147,6 +147,7 @@ class ModuleManager : Listenable {
         registerModule(ChestAura)
         registerModule(AntiBot)
         registerModule(ClickGUI)
+        registerModule(Teams)
 
         LiquidCat.logger.info("[ModuleManager] Loaded ${modules.size} modules.")
     }

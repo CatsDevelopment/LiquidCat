@@ -14,6 +14,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.modules.combat.KillAura
 import lol.liquidcat.utils.entity.moving
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
@@ -27,12 +28,10 @@ import net.minecraft.util.EnumFacing
 class NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and using items.", ModuleCategory.MOVEMENT) {
 
     private val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP"), "Vanilla")
-
     private val forwardMultiplier = FloatValue("ForwardMultiplier", 1f, 0.2f, 1f)
     private val strafeMultiplier = FloatValue("StrafeMultiplier", 1f, 0.2f, 1f)
-
-    val soulsandValue = BoolValue("Soulsand", true)
-    val webValue = BoolValue("web", true)
+    val soulsand = BoolValue("Soulsand", true)
+    val web = BoolValue("Web", true)
 
     override val tag: String
         get() = modeValue.get()
@@ -44,8 +43,8 @@ class NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and
         if (modeValue.get() == "NCP")
             if (mc.thePlayer.moving && (mc.thePlayer.isBlocking || killAura.blockingStatus))
                 when (event.eventState) {
-                    EventState.PRE -> mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
-                    EventState.POST -> mc.netHandler.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.inventory.getCurrentItem()))
+                    EventState.PRE -> sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
+                    EventState.POST -> sendPacket(C08PacketPlayerBlockPlacement(mc.thePlayer.inventory.getCurrentItem()))
                 }
     }
 

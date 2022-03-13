@@ -13,6 +13,7 @@ import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.utils.item.ArmorComparator
 import lol.liquidcat.utils.item.ArmorPiece
 import lol.liquidcat.utils.item.InventoryUtils
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntegerValue
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
@@ -91,19 +92,19 @@ class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in yo
      */
     private fun move(item: Int, isArmorSlot: Boolean): Boolean {
         if (!isArmorSlot && item < 9 && hotbarValue.get() && mc.currentScreen !is GuiInventory) {
-            mc.netHandler.addToSendQueue(C09PacketHeldItemChange(item))
-            mc.netHandler.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.inventoryContainer.getSlot(item).stack))
-            mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+            sendPacket(C09PacketHeldItemChange(item))
+            sendPacket(C08PacketPlayerBlockPlacement(mc.thePlayer.inventoryContainer.getSlot(item).stack))
+            sendPacket(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
             delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
             return true
         } else if (!(noMoveValue.get() && mc.thePlayer.moving) && (!invOpenValue.get() || mc.currentScreen is GuiInventory) && item != -1) {
             val openInventory = simulateInventory.get() && mc.currentScreen !is GuiInventory
 
-            if (openInventory) mc.netHandler.addToSendQueue(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
+            if (openInventory) sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
 
             mc.playerController.windowClick(mc.thePlayer.inventoryContainer.windowId, if (isArmorSlot) item else if (item < 9) item + 36 else item, 0, 1, mc.thePlayer)
             delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
-            if (openInventory) mc.netHandler.addToSendQueue(C0DPacketCloseWindow())
+            if (openInventory) sendPacket(C0DPacketCloseWindow())
             return true
         }
         return false

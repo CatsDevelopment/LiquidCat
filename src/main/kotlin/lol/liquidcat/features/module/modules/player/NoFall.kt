@@ -25,12 +25,13 @@ class NoFall : Module("NoFall", "Prevents you from taking fall damage.", ModuleC
     @EventTarget
     fun onPacket(event: PacketEvent) {
         val packet = event.packet
+        val player = mc.thePlayer ?: return
 
         if (packet is C03PacketPlayer)
             when {
-                modeValue.get() == "Spoof" && mc.thePlayer.fallDistance > mc.thePlayer.minFallDistance -> {
+                modeValue.get() == "Spoof" && player.fallDistance > player.minFallDistance -> {
                     packet.onGround = true
-                    mc.thePlayer.fallDistance = 0.0f
+                    player.fallDistance = 0.0f
                 }
                 modeValue.get() == "NoGround" -> packet.onGround = false
             }

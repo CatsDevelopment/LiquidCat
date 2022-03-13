@@ -9,18 +9,12 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import net.minecraft.network.play.server.S08PacketPlayerPosLook
+import net.minecraft.network.play.server.S2EPacketCloseWindow
 
-class NoRotate : Module("NoRotate", "Prevents the server from rotating your head.", ModuleCategory.MISC) {
+class NoClose : Module("NoClose", "Prevents the server from closing your inventory.", ModuleCategory.MISC) {
 
     @EventTarget
     fun onPacket(event: PacketEvent) {
-        val player = mc.thePlayer ?: return
-        val packet = event.packet
-
-        if (packet is S08PacketPlayerPosLook) {
-            packet.yaw = player.rotationYaw
-            packet.pitch = player.rotationPitch
-        }
+        if (event.packet is S2EPacketCloseWindow) event.cancelEvent()
     }
 }

@@ -18,12 +18,12 @@ import net.minecraft.network.play.server.S27PacketExplosion
 
 class Velocity : Module("Velocity", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT) {
 
-    private val modeValue = ListValue("Mode", arrayOf("Normal", "Strafe"), "Normal")
+    private val mode = ListValue("Mode", arrayOf("Normal", "Strafe"), "Normal")
     private val horizontal = FloatValue("Horizontal", 0F, 0F, 1F)
     private val vertical = FloatValue("Vertical", 0F, 0F, 1F)
 
     override val tag: String
-        get() = if (modeValue.get() == "Normal") "${horizontal.get()}% ${vertical.get()}%" else modeValue.get()
+        get() = if (mode.get() == "Normal") "${horizontal.get()}% ${vertical.get()}%" else mode.get()
 
     @EventTarget
     fun onPacket(event: PacketEvent) {
@@ -31,11 +31,11 @@ class Velocity : Module("Velocity", "Allows you to modify the amount of knockbac
 
         if (packet is S12PacketEntityVelocity) {
             if ((mc.theWorld?.getEntityByID(packet.entityID) ?: return) == (mc.thePlayer ?: return)) {
-                if (modeValue.get() == "Normal") {
+                if (mode.get() == "Normal") {
                     val horizontal = horizontal.get()
                     val vertical = vertical.get()
 
-                    if (horizontal == 0F && vertical == 0F) event.cancelEvent()
+                    if (horizontal == 0f && vertical == 0f) event.cancelEvent()
 
                     packet.motionX = (packet.getMotionX() * horizontal).toInt()
                     packet.motionY = (packet.getMotionY() * vertical).toInt()
@@ -49,6 +49,6 @@ class Velocity : Module("Velocity", "Allows you to modify the amount of knockbac
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if (modeValue.get() == "Strafe" && mc.thePlayer.hurtTime > 0) mc.thePlayer.strafe()
+        if (mode.get() == "Strafe" && mc.thePlayer.hurtTime > 0) mc.thePlayer.strafe()
     }
 }
