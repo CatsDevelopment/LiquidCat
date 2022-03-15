@@ -18,8 +18,8 @@ import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.ClientUtils
-import net.ccbluex.liquidbounce.utils.render.shader.shaders.GlowShader
-import net.ccbluex.liquidbounce.utils.render.shader.shaders.OutlineShader
+import lol.liquidcat.utils.render.shader.shaders.GlowShader
+import lol.liquidcat.utils.render.shader.shaders.OutlineShader
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher
 import net.minecraft.tileentity.TileEntityChest
 import org.lwjgl.opengl.GL11
@@ -109,8 +109,8 @@ class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, e
     fun onRender2D(event: Render2DEvent) {
         val mode = modeValue.get()
         val shader = when(mode) {
-            "ShaderOutline" -> OutlineShader.OUTLINE_SHADER
-            "ShaderGlow" -> GlowShader.GLOW_SHADER
+            "ShaderOutline" -> OutlineShader
+            "ShaderGlow" -> GlowShader
 
             else -> return
         }

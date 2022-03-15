@@ -19,8 +19,8 @@ import lol.liquidcat.value.IntegerValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import lol.liquidcat.utils.render.WorldToScreen
-import net.ccbluex.liquidbounce.utils.render.shader.shaders.GlowShader
-import net.ccbluex.liquidbounce.utils.render.shader.shaders.OutlineShader
+import lol.liquidcat.utils.render.shader.shaders.GlowShader
+import lol.liquidcat.utils.render.shader.shaders.OutlineShader
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11
 import org.lwjgl.util.vector.Vector3f
@@ -147,8 +147,8 @@ class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCate
         val mode = modeValue.get()
 
         val shader = when(mode) {
-            "ShaderOutline" -> OutlineShader.OUTLINE_SHADER
-            "ShaderGlow" -> GlowShader.GLOW_SHADER
+            "ShaderOutline" -> OutlineShader
+            "ShaderGlow" -> GlowShader
 
             else -> return
         }

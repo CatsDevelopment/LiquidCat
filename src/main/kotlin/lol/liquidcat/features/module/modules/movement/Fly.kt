@@ -31,6 +31,7 @@ class Fly : Module("Fly", "Allows you to fly in survival mode.", ModuleCategory.
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
+        println(mc.framebuffer.framebufferTexture)
         when (modeValue.get()) {
             "Vanilla" -> {
                 val vanillaSpeed = speedValue.get().toDouble()

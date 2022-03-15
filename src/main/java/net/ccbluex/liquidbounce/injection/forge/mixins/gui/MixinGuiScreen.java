@@ -9,7 +9,7 @@ import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.render.HUD;
 import net.ccbluex.liquidbounce.ui.client.GuiBackground;
 import net.ccbluex.liquidbounce.utils.render.ParticleUtils;
-import net.ccbluex.liquidbounce.utils.render.shader.shaders.BackgroundShader;
+import lol.liquidcat.utils.render.shader.shaders.BackgroundShader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
@@ -79,7 +79,7 @@ public abstract class MixinGuiScreen {
 
         if(GuiBackground.Companion.getEnabled()) {
             if (LiquidCat.INSTANCE.getBackground() == null) {
-                BackgroundShader.BACKGROUND_SHADER.startShader();
+                BackgroundShader.INSTANCE.startShader();
 
                 final Tessellator instance = Tessellator.getInstance();
                 final WorldRenderer worldRenderer = instance.getWorldRenderer();
@@ -90,7 +90,7 @@ public abstract class MixinGuiScreen {
                 worldRenderer.pos(0, 0, 0.0D).endVertex();
                 instance.draw();
 
-                BackgroundShader.BACKGROUND_SHADER.stopShader();
+                BackgroundShader.INSTANCE.stopShader();
             }else{
                 final ScaledResolution scaledResolution = new ScaledResolution(mc);
                 final int width = scaledResolution.getScaledWidth();
