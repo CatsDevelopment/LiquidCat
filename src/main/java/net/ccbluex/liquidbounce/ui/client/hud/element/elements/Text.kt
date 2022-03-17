@@ -18,7 +18,7 @@ import lol.liquidcat.utils.ServerUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FontValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.TextValue
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ChatAllowedCharacters
@@ -61,9 +61,9 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F,
     }
 
     private val displayString = TextValue("DisplayText", "")
-    private val redValue = IntegerValue("Red", 255, 0, 255)
-    private val greenValue = IntegerValue("Green", 255, 0, 255)
-    private val blueValue = IntegerValue("Blue", 255, 0, 255)
+    private val redValue = IntValue("Red", 255, 0..255)
+    private val greenValue = IntValue("Green", 255, 0..255)
+    private val blueValue = IntValue("Blue", 255, 0..255)
     private val rainbow = BoolValue("Rainbow", false)
     private val shadow = BoolValue("Shadow", true)
     private var fontValue = FontValue("Font", Fonts.font40)

@@ -15,7 +15,7 @@ import lol.liquidcat.utils.entity.getDistanceToEntityBox
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import lol.liquidcat.features.module.modules.misc.AntiBot
 import lol.liquidcat.features.module.modules.misc.Teams
@@ -53,7 +53,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
      */
 
     // CPS - Attack speed
-    private val maxCPS: IntegerValue = object : IntegerValue("MaxCPS", 8, 1, 20) {
+    private val maxCPS: IntValue = object : IntValue("MaxCPS", 8, 1..20) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = minCPS.get()
             if (i > newValue) set(i)
@@ -62,7 +62,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
         }
     }
 
-    private val minCPS: IntegerValue = object : IntegerValue("MinCPS", 5, 1, 20) {
+    private val minCPS: IntValue = object : IntValue("MinCPS", 5, 1..20) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = maxCPS.get()
             if (i < newValue) set(i)
@@ -71,12 +71,12 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
         }
     }
 
-    private val hurtTimeValue = IntegerValue("HurtTime", 10, 0, 10)
+    private val hurtTimeValue = IntValue("HurtTime", 10, 0..10)
 
     // Range
-    private val rangeValue = FloatValue("Range", 3.7f, 1f, 8f)
-    private val throughWallsRangeValue = FloatValue("ThroughWallsRange", 3f, 0f, 8f)
-    private val rangeSprintReducementValue = FloatValue("RangeSprintReducement", 0f, 0f, 0.4f)
+    private val rangeValue = FloatValue("Range", 3.7f, 1f..8f)
+    private val throughWallsRangeValue = FloatValue("ThroughWallsRange", 3f, 0f..8f)
+    private val rangeSprintReducementValue = FloatValue("RangeSprintReducement", 0f, 0f..0.4f)
 
     // Modes
     private val priorityValue = ListValue("Priority", arrayOf("Health", "Distance", "Direction", "LivingTime"), "Distance")
@@ -90,7 +90,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
     private val autoBlockValue = BoolValue("AutoBlock", false)
     private val interactAutoBlockValue = BoolValue("InteractAutoBlock", true)
     private val delayedBlockValue = BoolValue("DelayedBlock", true)
-    private val blockRate = IntegerValue("BlockRate", 100, 1, 100)
+    private val blockRate = IntValue("BlockRate", 100, 1..100)
 
     // Raycast
     private val raycastValue = BoolValue("RayCast", true)
@@ -101,14 +101,14 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
     private val aacValue = BoolValue("AAC", false)
 
     // Turn Speed
-    private val maxTurnSpeed: FloatValue = object : FloatValue("MaxTurnSpeed", 180f, 0f, 180f) {
+    private val maxTurnSpeed: FloatValue = object : FloatValue("MaxTurnSpeed", 180f, 0f..180f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             val v = minTurnSpeed.get()
             if (v > newValue) set(v)
         }
     }
 
-    private val minTurnSpeed: FloatValue = object : FloatValue("MinTurnSpeed", 180f, 0f, 180f) {
+    private val minTurnSpeed: FloatValue = object : FloatValue("MinTurnSpeed", 180f, 0f..180f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             val v = maxTurnSpeed.get()
             if (v < newValue) set(v)
@@ -119,19 +119,19 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
     private val rotationStrafeValue = ListValue("Strafe", arrayOf("Off", "Strict", "Silent"), "Off")
     private val randomCenterValue = BoolValue("RandomCenter", true)
     private val outborderValue = BoolValue("Outborder", false)
-    private val fovValue = FloatValue("FOV", 180f, 0f, 180f)
+    private val fovValue = FloatValue("FOV", 180f, 0f..180f)
 
     // Predict
     private val predictValue = BoolValue("Predict", true)
 
-    private val maxPredictSize: FloatValue = object : FloatValue("MaxPredictSize", 1f, 0.1f, 5f) {
+    private val maxPredictSize: FloatValue = object : FloatValue("MaxPredictSize", 1f, 0.1f..5f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             val v = minPredictSize.get()
             if (v > newValue) set(v)
         }
     }
 
-    private val minPredictSize: FloatValue = object : FloatValue("MinPredictSize", 1f, 0.1f, 5f) {
+    private val minPredictSize: FloatValue = object : FloatValue("MinPredictSize", 1f, 0.1f..5f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             val v = maxPredictSize.get()
             if (v < newValue) set(v)
@@ -139,11 +139,11 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
     }
 
     // Bypass
-    private val failRateValue = FloatValue("FailRate", 0f, 0f, 100f)
+    private val failRateValue = FloatValue("FailRate", 0f, 0f..100f)
     private val fakeSwingValue = BoolValue("FakeSwing", true)
     private val noInventoryAttackValue = BoolValue("NoInvAttack", false)
-    private val noInventoryDelayValue = IntegerValue("NoInvDelay", 200, 0, 500)
-    private val limitedMultiTargetsValue = IntegerValue("LimitedMultiTargets", 0, 0, 50)
+    private val noInventoryDelayValue = IntValue("NoInvDelay", 200, 0..500)
+    private val limitedMultiTargetsValue = IntValue("LimitedMultiTargets", 0, 0..50)
 
     // Visuals
     private val markValue = BoolValue("Mark", true)

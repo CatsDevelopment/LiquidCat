@@ -11,7 +11,7 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.network.play.client.C01PacketChatMessage
@@ -19,14 +19,14 @@ import java.util.concurrent.LinkedBlockingQueue
 
 class AtAllProvider : Module("AtAllProvider", "Automatically mentions everyone on the server when using '@a' in your message.", ModuleCategory.MISC) {
 
-    private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 1000, 0, 20000) {
+    private val maxDelayValue: IntValue = object : IntValue("MaxDelay", 1000, 0..20000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = minDelayValue.get()
             if (i > newValue) set(i)
         }
     }
 
-    private val minDelayValue: IntegerValue = object : IntegerValue("MinDelay", 500, 0, 20000) {
+    private val minDelayValue: IntValue = object : IntValue("MinDelay", 500, 0..20000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = maxDelayValue.get()
             if (i < newValue) set(i)

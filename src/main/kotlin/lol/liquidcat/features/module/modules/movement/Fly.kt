@@ -18,7 +18,7 @@ import lol.liquidcat.value.ListValue
 class Fly : Module("Fly", "Allows you to fly in survival mode.", ModuleCategory.MOVEMENT) {
 
     private val modeValue = ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
-    private val speedValue = FloatValue("Speed", 2f, 0f, 5f)
+    private val speedValue = FloatValue("Speed", 2f, 0f..5f)
 
     override val tag: String
         get() = modeValue.get()

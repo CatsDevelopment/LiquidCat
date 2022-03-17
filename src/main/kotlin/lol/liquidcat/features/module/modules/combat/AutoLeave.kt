@@ -17,7 +17,7 @@ import kotlin.random.Random
 
 class AutoLeave : Module("AutoLeave", "Automatically makes you leave the server whenever your health is low.", ModuleCategory.COMBAT) {
 
-    private val healthValue = FloatValue("Health", 8f, 0f, 20f)
+    private val healthValue = FloatValue("Health", 8f, 0f..20f)
     private val modeValue = ListValue("Mode", arrayOf("Quit", "InvalidPacket", "SelfHurt", "IllegalChat"), "Quit")
 
     @EventTarget

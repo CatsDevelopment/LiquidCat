@@ -23,9 +23,9 @@ import kotlin.random.Random
 
 class Aimbot : Module("Aimbot", "Automatically faces selected entities around you.", ModuleCategory.COMBAT) {
 
-    private val rangeValue = FloatValue("Range", 4.4F, 1F, 8F)
-    private val turnSpeedValue = FloatValue("TurnSpeed", 2F, 1F, 180F)
-    private val fovValue = FloatValue("FOV", 180F, 1F, 180F)
+    private val rangeValue = FloatValue("Range", 4.4f, 1f..8f)
+    private val turnSpeedValue = FloatValue("TurnSpeed", 2f, 1f..180f)
+    private val fovValue = FloatValue("FOV", 180f, 1f..180f)
     private val centerValue = BoolValue("Center", false)
     private val lockValue = BoolValue("Lock", true)
     private val onClickValue = BoolValue("OnClick", false)

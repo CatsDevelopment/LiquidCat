@@ -30,16 +30,16 @@ object Setting {
     /**
      * Creates an integer value.
      * @param settingInfo JavaScript object containing information about the value.
-     * @return An instance of [IntegerValue]
+     * @return An instance of [IntValue]
      */
     @JvmStatic
-    fun integer(settingInfo: JSObject): IntegerValue {
+    fun integer(settingInfo: JSObject): IntValue {
         val name = settingInfo.getMember("name") as String
         val default = (settingInfo.getMember("default") as Number).toInt()
         val min = (settingInfo.getMember("min") as Number).toInt()
         val max = (settingInfo.getMember("max") as Number).toInt()
 
-        return IntegerValue(name, default, min, max)
+        return IntValue(name, default, min..max)
     }
 
     /**
@@ -54,7 +54,7 @@ object Setting {
         val min = (settingInfo.getMember("min") as Number).toFloat()
         val max = (settingInfo.getMember("max") as Number).toFloat()
 
-        return FloatValue(name, default, min, max)
+        return FloatValue(name, default, min..max)
     }
 
     /**

@@ -17,7 +17,7 @@ import lol.liquidcat.utils.block.searchBlocks
 import lol.liquidcat.value.BlockValue
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.features.module.modules.player.Blink
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
@@ -33,8 +33,8 @@ import net.minecraft.util.Vec3
 
 object ChestAura : Module("ChestAura", "Automatically opens chests around you.", ModuleCategory.WORLD) {
 
-    private val rangeValue = FloatValue("Range", 5F, 1F, 6F)
-    private val delayValue = IntegerValue("Delay", 100, 50, 200)
+    private val rangeValue = FloatValue("Range", 5F, 1f..6f)
+    private val delayValue = IntValue("Delay", 100, 50..200)
     private val throughWallsValue = BoolValue("ThroughWalls", true)
     private val visualSwing = BoolValue("VisualSwing", true)
     private val chestValue = BlockValue("Chest", Block.getIdFromBlock(Blocks.chest))

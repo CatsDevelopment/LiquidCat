@@ -13,7 +13,7 @@ import lol.liquidcat.value.FloatValue
 
 class HighJump : Module("HighJump", "Allows you to jump higher.", ModuleCategory.MOVEMENT) {
 
-    private val heightValue = FloatValue("Height", 2f, 1.01f, 5f)
+    private val heightValue = FloatValue("Height", 2f, 1.01f..5f)
 
     override val tag: String
         get() = heightValue.get().toString()

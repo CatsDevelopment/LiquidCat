@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.block.isClickable
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.BlockPos
@@ -21,9 +21,9 @@ import java.awt.Color
 
 class BlockOverlay : Module("BlockOverlay", "Allows you to change the design of the block overlay.", ModuleCategory.RENDER) {
 
-    private val colorRedValue = IntegerValue("R", 68, 0, 255)
-    private val colorGreenValue = IntegerValue("G", 117, 0, 255)
-    private val colorBlueValue = IntegerValue("B", 255, 0, 255)
+    private val colorRedValue = IntValue("R", 68, 0..255)
+    private val colorGreenValue = IntValue("G", 117, 0..255)
+    private val colorBlueValue = IntValue("B", 255, 0..255)
     private val colorRainbow = BoolValue("Rainbow", false)
 
     private val currentBlock: BlockPos?

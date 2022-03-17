@@ -14,7 +14,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.render.GLUtils.glColor
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.features.module.modules.render.Breadcrumbs
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
@@ -31,7 +31,7 @@ import java.util.concurrent.LinkedBlockingQueue
 class Blink : Module("Blink", "Suspends all movement packets.", ModuleCategory.PLAYER) {
 
     private val pulseValue = BoolValue("Pulse", false)
-    private val pulseDelayValue = IntegerValue("PulseDelay", 1000, 500, 5000)
+    private val pulseDelayValue = IntValue("PulseDelay", 1000, 500..5000)
 
     private val packets = LinkedBlockingQueue<Packet<*>>()
     private var fakePlayer: EntityOtherPlayerMP? = null

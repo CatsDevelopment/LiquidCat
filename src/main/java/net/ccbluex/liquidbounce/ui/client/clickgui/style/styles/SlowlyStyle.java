@@ -17,7 +17,6 @@ import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.ui.font.GameFontRenderer;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -187,25 +186,25 @@ public class SlowlyStyle extends Style {
                         if (moduleElement.getSettingsWidth() < textWidth + 8)
                             moduleElement.setSettingsWidth(textWidth + 8);
 
-                        final float valueOfSlide = drawSlider(floatValue.get(), floatValue.getMinimum(), floatValue.getMaximum(), moduleElement.getX() + moduleElement.getWidth() + 8, moduleElement.slowlySettingsYPos + 14, (int) moduleElement.getSettingsWidth() - 12, mouseX, mouseY, new Color(7, 152, 252));
+                        final float valueOfSlide = drawSlider(floatValue.get(), floatValue.min(), floatValue.max(), moduleElement.getX() + moduleElement.getWidth() + 8, moduleElement.slowlySettingsYPos + 14, (int) moduleElement.getSettingsWidth() - 12, mouseX, mouseY, new Color(7, 152, 252));
 
                         if (valueOfSlide != floatValue.get())
                             floatValue.set(valueOfSlide);
 
                         Fonts.font35.drawString(text, moduleElement.getX() + moduleElement.getWidth() + 6, moduleElement.slowlySettingsYPos + 3, 0xffffff);
                         moduleElement.slowlySettingsYPos += 19;
-                    } else if (value instanceof IntegerValue) {
-                        final IntegerValue integerValue = (IntegerValue) value;
-                        final String text = value.getName() + "§f: " + (value instanceof BlockValue ? BlockExtensions.getBlockName(integerValue.get()) + " (" + integerValue.get() + ")" : integerValue.get());
+                    } else if (value instanceof IntValue) {
+                        final IntValue intValue = (IntValue) value;
+                        final String text = value.getName() + "§f: " + (value instanceof BlockValue ? BlockExtensions.getBlockName(intValue.get()) + " (" + intValue.get() + ")" : intValue.get());
                         final float textWidth = Fonts.font35.getStringWidth(text);
 
                         if (moduleElement.getSettingsWidth() < textWidth + 8)
                             moduleElement.setSettingsWidth(textWidth + 8);
 
-                        final float valueOfSlide = drawSlider(integerValue.get(), integerValue.getMinimum(), integerValue.getMaximum(), moduleElement.getX() + moduleElement.getWidth() + 8, moduleElement.slowlySettingsYPos + 14, (int) moduleElement.getSettingsWidth() - 12, mouseX, mouseY, new Color(7, 152, 252));
+                        final float valueOfSlide = drawSlider(intValue.get(), intValue.min(), intValue.max(), moduleElement.getX() + moduleElement.getWidth() + 8, moduleElement.slowlySettingsYPos + 14, (int) moduleElement.getSettingsWidth() - 12, mouseX, mouseY, new Color(7, 152, 252));
 
-                        if (valueOfSlide != integerValue.get())
-                            integerValue.set((int) valueOfSlide);
+                        if (valueOfSlide != intValue.get())
+                            intValue.set((int) valueOfSlide);
 
                         Fonts.font35.drawString(text, moduleElement.getX() + moduleElement.getWidth() + 6, moduleElement.slowlySettingsYPos + 3, 0xffffff);
                         moduleElement.slowlySettingsYPos += 19;

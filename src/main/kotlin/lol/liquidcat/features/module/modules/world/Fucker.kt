@@ -40,10 +40,10 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
 
     private val blockValue = BlockValue("Block", 26)
     private val throughWallsValue = ListValue("ThroughWalls", arrayOf("None", "Raycast", "Around"), "None")
-    private val rangeValue = FloatValue("Range", 5F, 1F, 7F)
+    private val rangeValue = FloatValue("Range", 5f, 1f..7f)
     private val actionValue = ListValue("Action", arrayOf("Destroy", "Use"), "Destroy")
     private val instantValue = BoolValue("Instant", false)
-    private val switchValue = IntegerValue("SwitchDelay", 250, 0, 1000)
+    private val switchValue = IntValue("SwitchDelay", 250, 0..1000)
     private val swingValue = BoolValue("Swing", true)
     private val rotationsValue = BoolValue("Rotations", true)
     private val surroundingsValue = BoolValue("Surroundings", true)

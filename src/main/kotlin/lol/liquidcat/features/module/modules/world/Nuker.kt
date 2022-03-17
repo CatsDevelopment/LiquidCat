@@ -18,7 +18,7 @@ import lol.liquidcat.utils.block.searchBlocks
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.timer.TickTimer
@@ -42,14 +42,14 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
      * OPTIONS
      */
 
-    private val radiusValue = FloatValue("Radius", 5.2F, 1F, 6F)
+    private val radiusValue = FloatValue("Radius", 5.2f, 1F..6f)
     private val throughWallsValue = BoolValue("ThroughWalls", false)
     private val priorityValue = ListValue("Priority", arrayOf("Distance", "Hardness"), "Distance")
     private val rotationsValue = BoolValue("Rotations", true)
     private val layerValue = BoolValue("Layer", false)
-    private val hitDelayValue = IntegerValue("HitDelay", 4, 0, 20)
-    private val nukeValue = IntegerValue("Nuke", 1, 1, 20)
-    private val nukeDelay = IntegerValue("NukeDelay", 1, 1, 20)
+    private val hitDelayValue = IntValue("HitDelay", 4, 0..20)
+    private val nukeValue = IntValue("Nuke", 1, 1..20)
+    private val nukeDelay = IntValue("NukeDelay", 1, 1..20)
 
     /**
      * VALUES

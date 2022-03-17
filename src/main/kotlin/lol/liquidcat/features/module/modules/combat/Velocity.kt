@@ -19,8 +19,8 @@ import net.minecraft.network.play.server.S27PacketExplosion
 class Velocity : Module("Velocity", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT) {
 
     private val mode = ListValue("Mode", arrayOf("Normal", "Strafe"), "Normal")
-    private val horizontal = FloatValue("Horizontal", 0F, 0F, 1F)
-    private val vertical = FloatValue("Vertical", 0F, 0F, 1F)
+    private val horizontal = FloatValue("Horizontal", 0f, 0f..1f)
+    private val vertical = FloatValue("Vertical", 0f, 0f..1f)
 
     override val tag: String
         get() = if (mode.get() == "Normal") "${horizontal.get()}% ${vertical.get()}%" else mode.get()

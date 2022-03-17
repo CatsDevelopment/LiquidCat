@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.entity.EntityLivingBase
@@ -20,9 +20,9 @@ import java.awt.Color
 
 class NameTags : Module("NameTags", "Changes the scale of the nametags so you can always read them.", ModuleCategory.RENDER) {
 
-    private val redValue = IntegerValue("Red", 255, 0, 255)
-    private val greenValue = IntegerValue("Green", 150, 0, 255)
-    private val blueValue = IntegerValue("Blue", 150, 0, 255)
+    private val redValue = IntValue("Red", 255, 0..255)
+    private val greenValue = IntValue("Green", 150, 0..255)
+    private val blueValue = IntValue("Blue", 150, 0..255)
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {

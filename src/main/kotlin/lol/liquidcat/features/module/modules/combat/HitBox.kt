@@ -10,5 +10,5 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.FloatValue
 
 class HitBox : Module("HitBox", "Makes hitboxes of targets bigger.", ModuleCategory.COMBAT) {
-    val size = FloatValue("Size", 0.5f, 0f, 1f)
+    val size = FloatValue("Size", 0.5f, 0f..1f)
 }

@@ -16,7 +16,7 @@ class Derp : Module("Derp", "Makes it look like you were derping around.", Modul
 
     private val headlessValue = BoolValue("Headless", false)
     private val spinnyValue = BoolValue("Spinny", false)
-    private val incrementValue = FloatValue("Increment", 1F, 0F, 50F)
+    private val incrementValue = FloatValue("Increment", 1f, 0f..50f)
 
     private var currentSpin = 0F
 

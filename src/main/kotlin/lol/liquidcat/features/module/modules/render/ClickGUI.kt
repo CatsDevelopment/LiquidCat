@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.client.clickgui.style.styles.LiquidBounceStyle
@@ -32,13 +32,13 @@ object ClickGUI : Module("ClickGUI", "Opens the ClickGUI.", ModuleCategory.RENDE
             }
         }
 
-    private val colorRedValue = IntegerValue("R", 0, 0, 255)
-    private val colorGreenValue = IntegerValue("G", 160, 0, 255)
-    private val colorBlueValue = IntegerValue("B", 255, 0, 255)
+    private val colorRedValue = IntValue("R", 0, 0..255)
+    private val colorGreenValue = IntValue("G", 160, 0..255)
+    private val colorBlueValue = IntValue("B", 255, 0..255)
     private val colorRainbow = BoolValue("Rainbow", false)
 
-    val scaleValue = FloatValue("Scale", 1f, 0.7f, 2f)
-    val maxElementsValue = IntegerValue("MaxElements", 15, 1, 20)
+    val scaleValue = FloatValue("Scale", 1f, 0.7f..2f)
+    val maxElementsValue = IntValue("MaxElements", 15, 1..20)
 
     override fun onEnable() {
         updateStyle()

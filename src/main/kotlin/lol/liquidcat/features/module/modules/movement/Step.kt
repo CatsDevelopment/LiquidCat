@@ -22,8 +22,8 @@ import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 class Step : Module("Step", "Allows you to step up blocks.", ModuleCategory.MOVEMENT) {
 
     private val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP", "Matrix"), "NCP")
-    private val heightValue = FloatValue("Height", 1f, 0.6f, 10f)
-    private val timerValue = FloatValue("Timer", 0.3f, 0.1f, 1.0f)
+    private val heightValue = FloatValue("Height", 1f, 0.6f..10f)
+    private val timerValue = FloatValue("Timer", 0.3f, 0.1f..1.0f)
 
     private var usedTimer = false
 

@@ -29,7 +29,7 @@ class CivBreak : Module("CivBreak", "Allows you to break blocks instantly.", Mod
     private var blockPos: BlockPos? = null
     private var enumFacing: EnumFacing? = null
 
-    private val range = FloatValue("Range", 5F, 1F, 6F)
+    private val range = FloatValue("Range", 5f, 1f..6f)
     private val rotationsValue = BoolValue("Rotations", true)
     private val visualSwingValue = BoolValue("VisualSwing", true)
 

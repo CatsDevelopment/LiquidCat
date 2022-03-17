@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.client.gui.inventory.GuiInventory
@@ -25,8 +25,8 @@ import net.minecraft.util.EnumFacing
 
 class AutoSoup : Module("AutoSoup", "Makes you automatically eat soup whenever your health is low.", ModuleCategory.COMBAT) {
 
-    private val healthValue = FloatValue("Health", 15f, 0f, 20f)
-    private val delayValue = IntegerValue("Delay", 150, 0, 500)
+    private val healthValue = FloatValue("Health", 15f, 0f..20f)
+    private val delayValue = IntValue("Delay", 150, 0..500)
     private val openInventoryValue = BoolValue("OpenInv", false)
     private val simulateInventoryValue = BoolValue("SimulateInventory", true)
     private val bowlValue = ListValue("Bowl", arrayOf("Drop", "Move", "Stay"), "Drop")

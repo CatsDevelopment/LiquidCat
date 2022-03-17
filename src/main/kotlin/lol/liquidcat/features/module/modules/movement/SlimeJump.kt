@@ -16,7 +16,7 @@ import net.minecraft.util.BlockPos
 
 class SlimeJump : Module("SlimeJump", "Allows you to to jump higher on slime blocks.", ModuleCategory.MOVEMENT) {
 
-    private val heightValue = FloatValue("Height", 2f, 1.01f, 5f)
+    private val heightValue = FloatValue("Height", 2f, 1.01f..5f)
 
     @EventTarget
     fun onJump(event: JumpEvent) {

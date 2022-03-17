@@ -19,7 +19,7 @@ import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.RotationUtils
@@ -40,7 +40,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
 
     val mode = ListValue("Mode", arrayOf("Normal", "Rewinside", "Expand"), "Normal")
 
-    private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 0, 0, 1000) {
+    private val maxDelayValue: IntValue = object : IntValue("MaxDelay", 0, 0..1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = minDelayValue.get()
 
@@ -48,7 +48,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         }
     }
 
-    private val minDelayValue: IntegerValue = object : IntegerValue("MinDelay", 0, 0, 1000) {
+    private val minDelayValue: IntValue = object : IntValue("MinDelay", 0, 0..1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = maxDelayValue.get()
 
@@ -68,16 +68,16 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
 
     private val eagleValue = BoolValue("Eagle", false)
     private val eagleSilentValue = BoolValue("EagleSilent", false)
-    private val blocksToEagleValue = IntegerValue("BlocksToEagle", 0, 0, 10)
+    private val blocksToEagleValue = IntValue("BlocksToEagle", 0, 0..10)
 
-    private val expandLengthValue = IntegerValue("ExpandLength", 5, 1, 6)
+    private val expandLengthValue = IntValue("ExpandLength", 5, 1..6)
 
     private val rotationsValue = BoolValue("Rotations", true)
-    private val keepLengthValue = IntegerValue("KeepRotationLength", 0, 0, 20)
+    private val keepLengthValue = IntValue("KeepRotationLength", 0, 0..20)
     private val keepRotationValue = BoolValue("KeepRotation", false)
 
-    private val timerValue = FloatValue("Timer", 1f, 0.1f, 10f)
-    private val speedModifierValue = FloatValue("SpeedModifier", 1f, 0f, 2f)
+    private val timerValue = FloatValue("Timer", 1f, 0.1f..10f)
+    private val speedModifierValue = FloatValue("SpeedModifier", 1f, 0f..2f)
 
     private val sameYValue = BoolValue("SameY", false)
     private val safeWalkValue = BoolValue("SafeWalk", true)

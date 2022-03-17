@@ -54,7 +54,7 @@ class ModuleCommand(val module: Module, val values: List<Value<*>> = module.valu
             playEdit()
         } else {
             if (args.size < 3) {
-                if (value is IntegerValue || value is FloatValue || value is TextValue)
+                if (value is IntValue || value is FloatValue || value is TextValue)
                     chatSyntax("$moduleName ${args[1].toLowerCase()} <value>")
                 else if (value is ListValue)
                     chatSyntax("$moduleName ${args[1].toLowerCase()} <${value.values.joinToString(separator = "/").toLowerCase()}>")
@@ -82,7 +82,7 @@ class ModuleCommand(val module: Module, val values: List<Value<*>> = module.valu
                         playEdit()
                         return
                     }
-                    is IntegerValue -> value.set(args[2].toInt())
+                    is IntValue -> value.set(args[2].toInt())
                     is FloatValue -> value.set(args[2].toFloat())
                     is ListValue -> {
                         if (!value.contains(args[2])) {

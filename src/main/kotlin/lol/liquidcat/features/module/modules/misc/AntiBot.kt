@@ -9,7 +9,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.ping
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 
@@ -21,7 +21,7 @@ object AntiBot : Module("AntiBot", "Prevents KillAura from attacking AntiCheat b
     private val invalidPitch = BoolValue("InvalidPitch", true)
     private val health = BoolValue("Health", true)
     private val livingTime = BoolValue("LivingTime", false)
-    private val livingTimeTicks = IntegerValue("LivingTimeTicks", 40, 1, 200)
+    private val livingTimeTicks = IntValue("LivingTimeTicks", 40, 1..200)
     private val entityId = BoolValue("EntityID", true)
 
     private val ping = BoolValue("Ping", false)

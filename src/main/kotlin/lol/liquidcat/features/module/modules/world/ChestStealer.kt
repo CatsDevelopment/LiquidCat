@@ -13,7 +13,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.modules.player.InventoryCleaner
 import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiChest
@@ -28,7 +28,7 @@ class ChestStealer : Module("ChestStealer", "Automatically steals all items from
     private val title = BoolValue("CheckTitle", true)
     private val close = BoolValue("AutoClose", true)
 
-    private val maxDelayValue: IntegerValue = object : IntegerValue("MaximumDelay", 250, 0, 500) {
+    private val maxDelayValue: IntValue = object : IntValue("MaximumDelay", 250, 0..500) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = minDelayValue.get()
 
@@ -38,7 +38,7 @@ class ChestStealer : Module("ChestStealer", "Automatically steals all items from
         }
     }
 
-    private val minDelayValue: IntegerValue = object : IntegerValue("MinimumDelay", 100, 0, 500) {
+    private val minDelayValue: IntValue = object : IntValue("MinimumDelay", 100, 0..500) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val i = maxDelayValue.get()
 

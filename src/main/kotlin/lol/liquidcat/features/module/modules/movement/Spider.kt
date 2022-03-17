@@ -20,7 +20,7 @@ import kotlin.math.sin
 class Spider : Module("Spider", "Allows you to climb up walls like a spider.", ModuleCategory.MOVEMENT) {
 
     private val modeValue = ListValue("Mode", arrayOf("Simple", "Clip"), "Simple")
-    private val motionValue = FloatValue("Motion", 0f, 0f, 1f)
+    private val motionValue = FloatValue("Motion", 0f, 0f..1f)
 
     private var glitch = false
 

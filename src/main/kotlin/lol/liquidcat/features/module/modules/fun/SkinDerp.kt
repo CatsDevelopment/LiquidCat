@@ -10,7 +10,7 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.entity.player.EnumPlayerModelParts
 import kotlin.random.Random
@@ -24,7 +24,7 @@ class SkinDerp : Module("SkinDerp", "Makes your skin blink (Requires multi-layer
     private val leftSleeveValue = BoolValue("LeftSleeve", true)
     private val rightSleeveValue = BoolValue("RightSleeve", true)
 
-    private val delayValue = IntegerValue("Delay", 0, 0, 1000)
+    private val delayValue = IntValue("Delay", 0, 0..1000)
 
     private var prevModelParts = emptySet<EnumPlayerModelParts>()
 

@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.render.GLUtils.glColor
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import org.lwjgl.opengl.GL11
 import java.awt.Color
@@ -20,9 +20,9 @@ import java.util.*
 
 class Breadcrumbs : Module("Breadcrumbs", "Leaves a trail behind you.", ModuleCategory.RENDER) {
 
-    val colorRedValue = IntegerValue("R", 255, 0, 255)
-    val colorGreenValue = IntegerValue("G", 179, 0, 255)
-    val colorBlueValue = IntegerValue("B", 72, 0, 255)
+    val colorRedValue = IntValue("R", 255, 0..255)
+    val colorGreenValue = IntValue("G", 179, 0..255)
+    val colorBlueValue = IntValue("B", 72, 0..255)
     val colorRainbow = BoolValue("Rainbow", false)
 
     private val positions = LinkedList<DoubleArray>()

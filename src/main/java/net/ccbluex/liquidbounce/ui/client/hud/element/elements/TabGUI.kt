@@ -12,7 +12,7 @@ import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.FontValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
@@ -28,29 +28,29 @@ import java.awt.Color
 @ElementInfo(name = "TabGUI")
 class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
 
-    private val redValue = IntegerValue("Rectangle Red", 0, 0, 255)
-    private val greenValue = IntegerValue("Rectangle Green", 148, 0, 255)
-    private val blueValue = IntegerValue("Rectangle Blue", 255, 0, 255)
-    private val alphaValue = IntegerValue("Rectangle Alpha", 140, 0, 255)
+    private val redValue = IntValue("Rectangle Red", 0, 0..255)
+    private val greenValue = IntValue("Rectangle Green", 148, 0..255)
+    private val blueValue = IntValue("Rectangle Blue", 255, 0..255)
+    private val alphaValue = IntValue("Rectangle Alpha", 140, 0..255)
     private val rectangleRainbow = BoolValue("Rectangle Rainbow", false)
-    private val backgroundRedValue = IntegerValue("Background Red", 0, 0, 255)
-    private val backgroundGreenValue = IntegerValue("Background Green", 0, 0, 255)
-    private val backgroundBlueValue = IntegerValue("Background Blue", 0, 0, 255)
-    private val backgroundAlphaValue = IntegerValue("Background Alpha", 150, 0, 255)
+    private val backgroundRedValue = IntValue("Background Red", 0, 0..255)
+    private val backgroundGreenValue = IntValue("Background Green", 0, 0..255)
+    private val backgroundBlueValue = IntValue("Background Blue", 0, 0..255)
+    private val backgroundAlphaValue = IntValue("Background Alpha", 150, 0..255)
     private val borderValue = BoolValue("Border", true)
-    private val borderStrength = FloatValue("Border Strength", 2F, 1F, 5F)
-    private val borderRedValue = IntegerValue("Border Red", 0, 0, 255)
-    private val borderGreenValue = IntegerValue("Border Green", 0, 0, 255)
-    private val borderBlueValue = IntegerValue("Border Blue", 0, 0, 255)
-    private val borderAlphaValue = IntegerValue("Border Alpha", 150, 0, 255)
+    private val borderStrength = FloatValue("Border Strength", 2f, 1f..5f)
+    private val borderRedValue = IntValue("Border Red", 0, 0..255)
+    private val borderGreenValue = IntValue("Border Green", 0, 0..255)
+    private val borderBlueValue = IntValue("Border Blue", 0, 0..255)
+    private val borderAlphaValue = IntValue("Border Alpha", 150, 0..255)
     private val borderRainbow = BoolValue("Border Rainbow", false)
     private val arrowsValue = BoolValue("Arrows", true)
     private val fontValue = FontValue("Font", Fonts.font35)
     private val textShadow = BoolValue("TextShadow", false)
     private val textFade = BoolValue("TextFade", true)
-    private val textPositionY = FloatValue("TextPosition-Y", 2F, 0F, 5F)
-    private val width = FloatValue("Width", 60F, 55F, 100F)
-    private val tabHeight = FloatValue("TabHeight", 12F, 10F, 15F)
+    private val textPositionY = FloatValue("TextPosition-Y", 2f, 0f..5f)
+    private val width = FloatValue("Width", 60f, 55f..100f)
+    private val tabHeight = FloatValue("TabHeight", 12f, 10f..15f)
     private val upperCaseValue = BoolValue("UpperCase", false)
 
     private val tabs = mutableListOf<Tab>()

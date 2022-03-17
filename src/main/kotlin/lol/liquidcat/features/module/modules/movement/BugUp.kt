@@ -14,7 +14,7 @@ import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.misc.FallingPlayer
@@ -34,8 +34,8 @@ import kotlin.math.max
 
 class BugUp : Module("BugUp", "Automatically setbacks you after falling a certain distance.", ModuleCategory.MOVEMENT) {
     private val modeValue = ListValue("Mode", arrayOf("TeleportBack", "FlyFlag", "OnGroundSpoof"), "FlyFlag")
-    private val maxFallDistance = IntegerValue("MaxFallDistance", 10, 2, 255)
-    private val maxDistanceWithoutGround = FloatValue("MaxDistanceToSetback", 2.5f, 1f, 30f)
+    private val maxFallDistance = IntValue("MaxFallDistance", 10, 2..255)
+    private val maxDistanceWithoutGround = FloatValue("MaxDistanceToSetback", 2.5f, 1f..30f)
     private val indicator = BoolValue("Indicator", true)
 
     private var detectedLocation: BlockPos? = null

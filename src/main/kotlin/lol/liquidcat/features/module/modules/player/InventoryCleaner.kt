@@ -16,7 +16,7 @@ import lol.liquidcat.utils.item.ArmorPiece
 import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.utils.item.getEnchantment
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
@@ -33,14 +33,14 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
      * OPTIONS
      */
 
-    private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 600, 0, 1000) {
+    private val maxDelayValue: IntValue = object : IntValue("MaxDelay", 600, 0..1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val minCPS = minDelayValue.get()
             if (minCPS > newValue) set(minCPS)
         }
     }
 
-    private val minDelayValue: IntegerValue = object : IntegerValue("MinDelay", 400, 0, 1000) {
+    private val minDelayValue: IntValue = object : IntValue("MinDelay", 400, 0..1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val maxDelay = maxDelayValue.get()
             if (maxDelay < newValue) set(maxDelay)
@@ -54,7 +54,7 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
     private val hotbarValue = BoolValue("Hotbar", true)
     private val randomSlotValue = BoolValue("RandomSlot", false)
     private val sortValue = BoolValue("Sort", true)
-    private val itemDelayValue = IntegerValue("ItemDelay", 0, 0, 5000)
+    private val itemDelayValue = IntValue("ItemDelay", 0, 0..5000)
 
     private val items = arrayOf("None", "Ignore", "Sword", "Bow", "Pickaxe", "Axe", "Food", "Block", "Water", "Gapple", "Pearl")
     private val sortSlot1Value = ListValue("SortSlot-1", items, "Sword")

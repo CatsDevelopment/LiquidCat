@@ -28,8 +28,8 @@ import net.minecraft.util.EnumFacing
 class NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and using items.", ModuleCategory.MOVEMENT) {
 
     private val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP"), "Vanilla")
-    private val forwardMultiplier = FloatValue("ForwardMultiplier", 1f, 0.2f, 1f)
-    private val strafeMultiplier = FloatValue("StrafeMultiplier", 1f, 0.2f, 1f)
+    private val forwardMultiplier = FloatValue("ForwardMultiplier", 1f, 0.2f..1f)
+    private val strafeMultiplier = FloatValue("StrafeMultiplier", 1f, 0.2f..1f)
     val soulsand = BoolValue("Soulsand", true)
     val web = BoolValue("Web", true)
 

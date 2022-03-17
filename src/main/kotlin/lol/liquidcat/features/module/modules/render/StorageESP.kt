@@ -15,7 +15,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.modules.world.ChestAura.clickedBlocks
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import lol.liquidcat.utils.render.shader.shaders.GlowShader
@@ -33,15 +33,15 @@ class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, e
         "Outline"
     )
 
-    private val redValue = IntegerValue("Red", 255, 0, 255)
-    private val greenValue = IntegerValue("Green", 255, 0, 255)
-    private val blueValue = IntegerValue("Blue", 255, 0, 255)
+    private val redValue = IntValue("Red", 255, 0..255)
+    private val greenValue = IntValue("Green", 255, 0..255)
+    private val blueValue = IntValue("Blue", 255, 0..255)
 
-    private val outlineWidth = FloatValue("Outline-Width", 3f, 0.5f, 5f)
-    private val wireframeWidth = FloatValue("WireFrame-Width", 2f, 0.5f, 5f)
+    private val outlineWidth = FloatValue("Outline-Width", 3f, 0.5f..5f)
+    private val wireframeWidth = FloatValue("WireFrame-Width", 2f, 0.5f..5f)
 
-    private val shaderOutlineRadius = FloatValue("ShaderOutline-Radius", 1.35f, 1f, 2f)
-    private val shaderGlowRadius = FloatValue("ShaderGlow-Radius", 2.3f, 2f, 3f)
+    private val shaderOutlineRadius = FloatValue("ShaderOutline-Radius", 1.35f, 1f..2f)
+    private val shaderGlowRadius = FloatValue("ShaderGlow-Radius", 2.3f, 2f..3f)
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {

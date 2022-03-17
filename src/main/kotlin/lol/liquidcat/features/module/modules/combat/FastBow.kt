@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.aiming
 import lol.liquidcat.utils.sendPacket
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.network.play.client.C03PacketPlayer.C05PacketPlayerLook
 import net.minecraft.network.play.client.C07PacketPlayerDigging
@@ -21,7 +21,7 @@ import net.minecraft.util.EnumFacing
 
 class FastBow : Module("FastBow", "Turns your bow into a machine gun.", ModuleCategory.COMBAT) {
 
-    private val packetsValue = IntegerValue("Packets", 20, 3, 20)
+    private val packetsValue = IntValue("Packets", 20, 3..20)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {

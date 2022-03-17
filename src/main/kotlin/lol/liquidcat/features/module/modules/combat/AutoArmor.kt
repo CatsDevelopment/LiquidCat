@@ -15,7 +15,7 @@ import lol.liquidcat.utils.item.ArmorPiece
 import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiInventory
@@ -31,13 +31,13 @@ import java.util.stream.IntStream
 
 class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in your inventory.", ModuleCategory.COMBAT) {
 
-    private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 200, 0, 400) {
+    private val maxDelayValue: IntValue = object : IntValue("MaxDelay", 200, 0..400) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val minDelay = minDelayValue.get()
             if (minDelay > newValue) set(minDelay)
         }
     }
-    private val minDelayValue: IntegerValue = object : IntegerValue("MinDelay", 100, 0, 400) {
+    private val minDelayValue: IntValue = object : IntValue("MinDelay", 100, 0..400) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val maxDelay = maxDelayValue.get()
             if (maxDelay < newValue) set(maxDelay)
@@ -46,7 +46,7 @@ class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in yo
     private val invOpenValue = BoolValue("InvOpen", false)
     private val simulateInventory = BoolValue("SimulateInventory", true)
     private val noMoveValue = BoolValue("NoMove", false)
-    private val itemDelayValue = IntegerValue("ItemDelay", 0, 0, 5000)
+    private val itemDelayValue = IntValue("ItemDelay", 0, 0..5000)
     private val hotbarValue = BoolValue("Hotbar", true)
 
     private var delay: Long = 0

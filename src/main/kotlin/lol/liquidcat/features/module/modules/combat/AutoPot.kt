@@ -15,7 +15,7 @@ import lol.liquidcat.utils.Rotation
 import lol.liquidcat.utils.item.InventoryUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.misc.FallingPlayer
@@ -33,13 +33,13 @@ import net.minecraft.potion.Potion
 
 class AutoPot : Module("AutoPot", "Automatically throws healing potions.", ModuleCategory.COMBAT) {
 
-    private val healthValue = FloatValue("Health", 15F, 1F, 20F)
-    private val delayValue = IntegerValue("Delay", 500, 500, 1000)
+    private val healthValue = FloatValue("Health", 15f, 1f..20f)
+    private val delayValue = IntValue("Delay", 500, 500..1000)
 
     private val openInventoryValue = BoolValue("OpenInv", false)
     private val simulateInventory = BoolValue("SimulateInventory", true)
 
-    private val groundDistanceValue = FloatValue("GroundDistance", 2F, 0F, 5F)
+    private val groundDistanceValue = FloatValue("GroundDistance", 2f, 0f..5f)
     private val modeValue = ListValue("Mode", arrayOf("Normal", "Jump", "Port"), "Normal")
 
     private val msTimer = MSTimer()

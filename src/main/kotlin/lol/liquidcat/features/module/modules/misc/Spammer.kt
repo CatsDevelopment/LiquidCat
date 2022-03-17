@@ -11,7 +11,7 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.TextValue
 import net.ccbluex.liquidbounce.utils.misc.RandomUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
@@ -22,7 +22,7 @@ import kotlin.random.Random
 
 class Spammer : Module("Spammer", "Spams the chat with a given message.", ModuleCategory.MISC) {
 
-    private val maxDelayValue: IntegerValue = object : IntegerValue("MaxDelay", 1000, 0, 5000) {
+    private val maxDelayValue: IntValue = object : IntValue("MaxDelay", 1000, 0..5000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val minDelayValueObject = minDelayValue.get()
 
@@ -32,7 +32,7 @@ class Spammer : Module("Spammer", "Spams the chat with a given message.", Module
         }
     }
 
-    private val minDelayValue: IntegerValue = object : IntegerValue("MinDelay", 500, 0, 5000) {
+    private val minDelayValue: IntValue = object : IntValue("MinDelay", 500, 0..5000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val maxDelayValueObject = maxDelayValue.get()
 

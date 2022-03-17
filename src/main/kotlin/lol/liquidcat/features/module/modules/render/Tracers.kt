@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.util.Vec3
@@ -21,10 +21,10 @@ import java.awt.Color
 
 class Tracers : Module("Tracers", "Draws a line to targets around you.", ModuleCategory.RENDER) {
 
-    private val redValue = IntegerValue("Red", 255, 0, 255)
-    private val greenValue = IntegerValue("Green", 255, 0, 255)
-    private val blueValue = IntegerValue("Blue", 255, 0, 255)
-    private val thicknessValue = FloatValue("Thickness", 2f, 1f, 5f)
+    private val redValue = IntValue("Red", 255, 0..255)
+    private val greenValue = IntValue("Green", 255, 0..255)
+    private val blueValue = IntValue("Blue", 255, 0..255)
+    private val thicknessValue = FloatValue("Thickness", 2f, 1f..5f)
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {

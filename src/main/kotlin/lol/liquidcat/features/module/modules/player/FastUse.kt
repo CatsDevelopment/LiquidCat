@@ -11,12 +11,12 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.drinking
 import lol.liquidcat.utils.entity.eating
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.minecraft.network.play.client.C03PacketPlayer
 
 class FastUse : Module("FastUse", "Allows you to use items faster.", ModuleCategory.PLAYER) {
 
-    private val delayValue = IntegerValue("Delay", 16, 1, 32)
+    private val delayValue = IntValue("Delay", 16, 1..32)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {

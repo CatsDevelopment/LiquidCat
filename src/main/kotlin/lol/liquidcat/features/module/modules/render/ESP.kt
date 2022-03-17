@@ -15,7 +15,7 @@ import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import lol.liquidcat.utils.render.WorldToScreen
@@ -34,16 +34,16 @@ class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCate
         "Box"
     )
 
-    private val redValue = IntegerValue("Red", 255, 0, 255)
-    private val greenValue = IntegerValue("Green", 255, 0, 255)
-    private val blueValue = IntegerValue("Blue", 255, 0, 255)
+    private val redValue = IntValue("Red", 255, 0..255)
+    private val greenValue = IntValue("Green", 255, 0..255)
+    private val blueValue = IntValue("Blue", 255, 0..255)
     private val rainbowValue = BoolValue("Rainbow", false)
 
-    val outlineWidth = FloatValue("Outline-Width", 3f, 0.5f, 5f)
-    val wireframeWidth = FloatValue("WireFrame-Width", 2f, 0.5f, 5f)
+    val outlineWidth = FloatValue("Outline-Width", 3f, 0.5f..5f)
+    val wireframeWidth = FloatValue("WireFrame-Width", 2f, 0.5f..5f)
 
-    private val shaderOutlineRadius = FloatValue("ShaderOutline-Radius", 1.35f, 1f, 2f)
-    private val shaderGlowRadius = FloatValue("ShaderGlow-Radius", 2.3f, 2f, 3f)
+    private val shaderOutlineRadius = FloatValue("ShaderOutline-Radius", 1.35f, 1f..2f)
+    private val shaderGlowRadius = FloatValue("ShaderGlow-Radius", 2.3f, 2f..3f)
 
     override val tag: String
         get() = modeValue.get()

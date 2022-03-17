@@ -13,7 +13,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.item.getDamage
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.minecraft.item.ItemSword
 import net.minecraft.item.ItemTool
 import net.minecraft.network.play.client.C02PacketUseEntity
@@ -22,7 +22,7 @@ import net.minecraft.network.play.client.C09PacketHeldItemChange
 class AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon in your hotbar.", ModuleCategory.COMBAT) {
 
     private val silentValue = BoolValue("SpoofItem", false)
-    private val ticksValue = IntegerValue("SpoofTicks", 10, 1, 20)
+    private val ticksValue = IntValue("SpoofTicks", 10, 1..20)
     private var attackEnemy = false
 
     private var spoofedSlot = 0

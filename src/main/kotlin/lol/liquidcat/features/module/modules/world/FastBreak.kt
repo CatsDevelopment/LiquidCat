@@ -13,7 +13,7 @@ import lol.liquidcat.value.FloatValue
 
 class FastBreak : Module("FastBreak", "Allows you to break blocks faster.", ModuleCategory.WORLD) {
 
-    private val breakDamage = FloatValue("BreakDamage", 0.8f, 0.1f, 1f)
+    private val breakDamage = FloatValue("BreakDamage", 0.8f, 0.1f..1f)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {

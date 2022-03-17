@@ -11,13 +11,10 @@ import com.google.gson.JsonPrimitive
 import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.gui.FontRenderer
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
-import kotlin.random.Random
 
-@SideOnly(Side.CLIENT)
 abstract class Value<T>(val name: String, protected var value: T) {
+    fun get() = value
 
     fun set(newValue: T) {
         if (newValue == value) return
@@ -34,8 +31,6 @@ abstract class Value<T>(val name: String, protected var value: T) {
         }
     }
 
-    fun get() = value
-
     open fun changeValue(value: T) {
         this.value = value
     }
@@ -45,6 +40,34 @@ abstract class Value<T>(val name: String, protected var value: T) {
 
     protected open fun onChange(oldValue: T, newValue: T) {}
     protected open fun onChanged(oldValue: T, newValue: T) {}
+}
+
+abstract class RangeValue<T : Comparable<T>>(name: String, value: T, private val range: ClosedRange<T>) : Value<T>(name, value) {
+    fun min() = range.start
+
+    fun max() = range.endInclusive
+}
+
+/**
+ * Int value represents a value with an int
+ */
+open class IntValue(name: String, value: Int, range: IntRange) : RangeValue<Int>(name, value, range) {
+    override fun toJson() = JsonPrimitive(value)
+
+    override fun fromJson(element: JsonElement) {
+        if (element.isJsonPrimitive) value = element.asInt
+    }
+}
+
+/**
+ * Float value represents a value with a float
+ */
+open class FloatValue(name: String, value: Float, range: ClosedFloatingPointRange<Float>) : RangeValue<Float>(name, value, range) {
+    override fun toJson() = JsonPrimitive(value)
+
+    override fun fromJson(element: JsonElement) {
+        if (element.isJsonPrimitive) value = element.asFloat
+    }
 }
 
 /**
@@ -72,42 +95,6 @@ open class TextValue(name: String, value: String) : Value<String>(name, value) {
 }
 
 /**
- * Integer value represents a value with a integer
- */
-open class IntegerValue(name: String, value: Int, val minimum: Int = 0, val maximum: Int = Integer.MAX_VALUE)
-    : Value<Int>(name, value) {
-
-    fun set(newValue: Number) {
-        set(newValue.toInt())
-    }
-
-    override fun toJson() = JsonPrimitive(value)
-
-    override fun fromJson(element: JsonElement) {
-        if (element.isJsonPrimitive)
-            value = element.asInt
-    }
-}
-
-/**
- * Float value represents a value with a float
- */
-open class FloatValue(name: String, value: Float, val minimum: Float = 0F, val maximum: Float = Float.MAX_VALUE)
-    : Value<Float>(name, value) {
-
-    fun set(newValue: Number) {
-        set(newValue.toFloat())
-    }
-
-    override fun toJson() = JsonPrimitive(value)
-
-    override fun fromJson(element: JsonElement) {
-        if (element.isJsonPrimitive)
-            value = element.asFloat
-    }
-}
-
-/**
  * Font value represents a value with a font
  */
 class FontValue(valueName: String, value: FontRenderer) : Value<FontRenderer>(valueName, value) {
@@ -130,7 +117,7 @@ class FontValue(valueName: String, value: FontRenderer) : Value<FontRenderer>(va
 /**
  * Block value represents a value with a block
  */
-class BlockValue(name: String, value: Int) : IntegerValue(name, value, 1, 197)
+class BlockValue(name: String, value: Int) : IntValue(name, value, 1..197)
 
 /**
  * List value represents a selectable list of values

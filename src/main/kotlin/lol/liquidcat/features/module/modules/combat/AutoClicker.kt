@@ -10,7 +10,7 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.utils.timer.TimeUtils
 import net.minecraft.client.settings.KeyBinding
 
@@ -19,7 +19,7 @@ class AutoClicker : Module("AutoClicker", "Constantly clicks when holding down a
     private val rightValue = BoolValue("Right", true)
     private val leftValue = BoolValue("Left", true)
 
-    private val maxCPSValue: IntegerValue = object : IntegerValue("MaxCPS", 8, 1, 20) {
+    private val maxCPSValue: IntValue = object : IntValue("MaxCPS", 8, 1..20) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val minCPS = minCPSValue.get()
 
@@ -27,7 +27,7 @@ class AutoClicker : Module("AutoClicker", "Constantly clicks when holding down a
         }
     }
 
-    private val minCPSValue: IntegerValue = object : IntegerValue("MinCPS", 5, 1, 20) {
+    private val minCPSValue: IntValue = object : IntValue("MinCPS", 5, 1..20) {
         override fun onChanged(oldValue: Int, newValue: Int) {
             val maxCPS = maxCPSValue.get()
 

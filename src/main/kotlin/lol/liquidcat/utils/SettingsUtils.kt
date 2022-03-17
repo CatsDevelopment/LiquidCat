@@ -132,7 +132,7 @@ object SettingsUtils {
                         when (moduleValue) {
                             is BoolValue -> moduleValue.changeValue(value.toBoolean())
                             is FloatValue -> moduleValue.changeValue(value.toFloat())
-                            is IntegerValue -> moduleValue.changeValue(value.toInt())
+                            is IntValue -> moduleValue.changeValue(value.toInt())
                             is TextValue -> moduleValue.changeValue(value)
                             is ListValue -> moduleValue.changeValue(value)
                         }

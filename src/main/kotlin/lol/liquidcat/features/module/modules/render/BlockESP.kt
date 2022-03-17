@@ -15,7 +15,7 @@ import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.render.GLUtils.drawBlockBox
 import lol.liquidcat.value.BlockValue
 import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntegerValue
+import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.block.Block
@@ -26,10 +26,10 @@ import java.awt.Color
 class BlockESP : Module("BlockESP", "Allows you to see a selected block through walls.", ModuleCategory.RENDER) {
 
     private val blockValue = BlockValue("Block", 168)
-    private val radiusValue = IntegerValue("Radius", 40, 5, 120)
-    private val colorRedValue = IntegerValue("R", 255, 0, 255)
-    private val colorGreenValue = IntegerValue("G", 179, 0, 255)
-    private val colorBlueValue = IntegerValue("B", 72, 0, 255)
+    private val radiusValue = IntValue("Radius", 40, 5..120)
+    private val colorRedValue = IntValue("R", 255, 0..255)
+    private val colorGreenValue = IntValue("G", 179, 0..255)
+    private val colorBlueValue = IntValue("B", 72, 0..255)
     private val colorRainbow = BoolValue("Rainbow", false)
 
     private val searchTimer = MSTimer()
