@@ -67,16 +67,16 @@ class FreeCam : Module("FreeCam", "Allows you to move out of your body.", Module
         mc.thePlayer.fallDistance = 0f
 
         if (flyValue.get()) {
-            val speed = speedValue.get()
+            val speed = speedValue.get().toDouble()
 
             mc.thePlayer.motionY = 0.0
             mc.thePlayer.motionX = 0.0
             mc.thePlayer.motionZ = 0.0
 
-            if (mc.gameSettings.keyBindJump.isKeyDown) mc.thePlayer.motionY += speed.toDouble()
-            if (mc.gameSettings.keyBindSneak.isKeyDown) mc.thePlayer.motionY -= speed.toDouble()
+            if (mc.gameSettings.keyBindJump.isKeyDown) mc.thePlayer.motionY += speed
+            if (mc.gameSettings.keyBindSneak.isKeyDown) mc.thePlayer.motionY -= speed
 
-            mc.thePlayer.strafe(speed = speed.toDouble())
+            mc.thePlayer.strafe(speed)
         }
     }
 

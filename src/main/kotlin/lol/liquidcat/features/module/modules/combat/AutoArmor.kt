@@ -12,12 +12,12 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.utils.item.ArmorComparator
 import lol.liquidcat.utils.item.ArmorPiece
-import lol.liquidcat.utils.item.InventoryUtils
+import lol.liquidcat.utils.ClickHandler
 import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
-import net.ccbluex.liquidbounce.utils.timer.TimeUtils
+import lol.liquidcat.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.item.ItemArmor
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
@@ -53,7 +53,7 @@ class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in yo
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        if (!InventoryUtils.CLICK_TIMER.hasTimePassed(delay) || mc.thePlayer.openContainer != null && mc.thePlayer.openContainer.windowId != 0) return
+        if (!ClickHandler.CLICK_TIMER.hasTimePassed(delay) || mc.thePlayer.openContainer != null && mc.thePlayer.openContainer.windowId != 0) return
 
         // Find best armor
         val armorPieces = IntStream.range(0, 36)

@@ -12,7 +12,6 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.injection.implementations.IMixinGuiSlot
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.misc.HttpUtils
 import net.ccbluex.liquidbounce.utils.render.CustomTexture
 import net.minecraft.client.gui.Gui

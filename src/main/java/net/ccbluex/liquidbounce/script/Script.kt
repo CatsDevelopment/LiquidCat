@@ -13,7 +13,6 @@ import lol.liquidcat.features.module.Module
 import net.ccbluex.liquidbounce.script.api.*
 import net.ccbluex.liquidbounce.script.api.global.Chat
 import net.ccbluex.liquidbounce.script.api.global.Setting
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import java.io.File
 import java.util.function.Function

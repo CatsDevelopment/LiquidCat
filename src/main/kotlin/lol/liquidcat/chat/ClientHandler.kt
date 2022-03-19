@@ -14,7 +14,6 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker
 import io.netty.handler.codec.http.websocketx.WebSocketHandshakeException
 import lol.liquidcat.LiquidCat
-import net.ccbluex.liquidbounce.utils.ClientUtils
 
 class ClientHandler(val client: Client, private val handshaker: WebSocketClientHandshaker) : SimpleChannelInboundHandler<Any>() {
 

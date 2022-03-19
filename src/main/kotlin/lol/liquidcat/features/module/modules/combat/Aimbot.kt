@@ -15,8 +15,7 @@ import lol.liquidcat.utils.entity.getDistanceToEntityBox
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.misc.RandomUtils
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.MSTimer
 import kotlin.random.Random
 
 //TODO Rewrite?
@@ -71,10 +70,10 @@ class Aimbot : Module("Aimbot", "Automatically faces selected entities around yo
             val pitchNegative = Random.nextBoolean()
 
             if (yaw)
-                mc.thePlayer.rotationYaw += if (yawNegative) -RandomUtils.nextFloat(0F, 1F) else RandomUtils.nextFloat(0F, 1F)
+                mc.thePlayer.rotationYaw += if (yawNegative) -Random.nextFloat() else Random.nextFloat()
 
             if (pitch) {
-                mc.thePlayer.rotationPitch += if (pitchNegative) -RandomUtils.nextFloat(0F, 1F) else RandomUtils.nextFloat(0F, 1F)
+                mc.thePlayer.rotationPitch += if (pitchNegative) -Random.nextFloat() else Random.nextFloat()
                 if (mc.thePlayer.rotationPitch > 90)
                     mc.thePlayer.rotationPitch = 90F
                 else if (mc.thePlayer.rotationPitch < -90)

@@ -9,6 +9,7 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.potion.Potion
@@ -31,14 +32,14 @@ class Zoot : Module("Zoot", "Removes all bad potion effects/fire.", ModuleCatego
 
             if (effect != null)
                 repeat(effect.duration / 20) {
-                    mc.netHandler.addToSendQueue(C03PacketPlayer(mc.thePlayer.onGround))
+                    sendPacket(C03PacketPlayer(mc.thePlayer.onGround))
                 }
         }
 
 
         if (fireValue.get() && mc.thePlayer.isBurning)
             repeat(9) {
-                mc.netHandler.addToSendQueue(C03PacketPlayer(mc.thePlayer.onGround))
+                sendPacket(C03PacketPlayer(mc.thePlayer.onGround))
             }
     }
 }

@@ -9,12 +9,15 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.utils.item.InventoryUtils
+import lol.liquidcat.utils.item.findHotbarSlot
+import lol.liquidcat.utils.item.findInventorySlot
+import lol.liquidcat.utils.item.isHotbarFull
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.init.Items
 import net.minecraft.network.play.client.*
@@ -41,20 +44,18 @@ class AutoSoup : Module("AutoSoup", "Makes you automatically eat soup whenever y
         if (!timer.hasTimePassed(delayValue.get().toLong()))
             return
 
-        val soupInHotbar = InventoryUtils.findHotbarSlot(Items.mushroom_stew)
+        val soupInHotbar = findHotbarSlot(Items.mushroom_stew)
         if (mc.thePlayer.health <= healthValue.get() && soupInHotbar != -1) {
-            mc.netHandler.addToSendQueue(C09PacketHeldItemChange(soupInHotbar - 36))
-            mc.netHandler.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.inventoryContainer
-                    .getSlot(soupInHotbar).stack))
+            sendPacket(C09PacketHeldItemChange(soupInHotbar - 36))
+            sendPacket(C08PacketPlayerBlockPlacement(mc.thePlayer.inventoryContainer.getSlot(soupInHotbar).stack))
             if (bowlValue.get().equals("Drop", true))
-                mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.DROP_ITEM,
-                        BlockPos.ORIGIN, EnumFacing.DOWN))
-            mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.DROP_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
+            sendPacket(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
             timer.reset()
             return
         }
 
-        val bowlInHotbar = InventoryUtils.findHotbarSlot(Items.bowl)
+        val bowlInHotbar = findHotbarSlot(Items.bowl)
         if (bowlValue.get().equals("Move", true) && bowlInHotbar != -1) {
             if (openInventoryValue.get() && mc.currentScreen !is GuiInventory)
                 return
@@ -77,24 +78,24 @@ class AutoSoup : Module("AutoSoup", "Makes you automatically eat soup whenever y
                 val openInventory = mc.currentScreen !is GuiInventory && simulateInventoryValue.get()
 
                 if (openInventory)
-                    mc.netHandler.addToSendQueue(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
+                    sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
                 mc.playerController.windowClick(0, bowlInHotbar, 0, 1, mc.thePlayer)
             }
         }
 
-        val soupInInventory = InventoryUtils.findInventorySlot(Items.mushroom_stew)
-        if (soupInInventory != -1 && !InventoryUtils.isHotbarFull()) {
+        val soupInInventory = findInventorySlot(Items.mushroom_stew)
+        if (soupInInventory != -1 && !isHotbarFull()) {
             if (openInventoryValue.get() && mc.currentScreen !is GuiInventory)
                 return
 
             val openInventory = mc.currentScreen !is GuiInventory && simulateInventoryValue.get()
             if (openInventory)
-                mc.netHandler.addToSendQueue(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
+                sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
 
             mc.playerController.windowClick(0, soupInInventory, 0, 1, mc.thePlayer)
 
             if (openInventory)
-                mc.netHandler.addToSendQueue(C0DPacketCloseWindow())
+                sendPacket(C0DPacketCloseWindow())
 
             timer.reset()
         }

@@ -17,7 +17,7 @@ import lol.liquidcat.value.BlockValue
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos

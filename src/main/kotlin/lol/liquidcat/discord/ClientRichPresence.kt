@@ -10,7 +10,6 @@ import com.jagrosh.discordipc.IPCListener
 import com.jagrosh.discordipc.entities.RichPresence
 import com.jagrosh.discordipc.entities.pipe.PipeStatus
 import lol.liquidcat.LiquidCat
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import org.json.JSONObject
 import java.time.OffsetDateTime

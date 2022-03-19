@@ -6,6 +6,7 @@
 package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.utils.sendPacket
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -46,7 +47,7 @@ class HoloStandCommand : Command("holostand", emptyArray()) {
                 base.setTag("EntityTag", entityTag)
                 itemStack.tagCompound = base
                 itemStack.setStackDisplayName("§c§lHolo§eStand")
-                mc.netHandler.addToSendQueue(C10PacketCreativeInventoryAction(36, itemStack))
+                sendPacket(C10PacketCreativeInventoryAction(36, itemStack))
 
                 chat("The HoloStand was successfully added to your inventory.")
             } catch (exception: NumberFormatException) {

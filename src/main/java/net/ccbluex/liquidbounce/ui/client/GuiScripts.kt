@@ -8,7 +8,6 @@ package net.ccbluex.liquidbounce.ui.client
 import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiScreen
@@ -20,7 +19,6 @@ import java.awt.Desktop
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
-import java.util.*
 import java.util.zip.ZipFile
 
 class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {

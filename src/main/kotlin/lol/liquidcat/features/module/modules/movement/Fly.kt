@@ -48,7 +48,7 @@ class Fly : Module("Fly", "Allows you to fly in survival mode.", ModuleCategory.
                 if (mc.gameSettings.keyBindSneak.isKeyDown)
                     mc.thePlayer.motionY -= vanillaSpeed
 
-                mc.thePlayer.strafe(speed = vanillaSpeed)
+                mc.thePlayer.strafe(vanillaSpeed)
             }
         }
     }

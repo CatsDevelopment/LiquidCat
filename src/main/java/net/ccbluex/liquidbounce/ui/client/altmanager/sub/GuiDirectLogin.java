@@ -9,7 +9,6 @@ import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager;
 import net.ccbluex.liquidbounce.ui.elements.GuiPasswordField;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.TabUtils;
 import net.ccbluex.liquidbounce.utils.login.MinecraftAccount;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;

@@ -15,16 +15,17 @@ import lol.liquidcat.utils.block.PlaceInfo.Companion.get
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.isClickable
 import lol.liquidcat.utils.block.isReplaceable
-import lol.liquidcat.utils.item.InventoryUtils
+import lol.liquidcat.utils.item.findAutoBlockBlock
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
-import net.ccbluex.liquidbounce.utils.timer.TimeUtils
+import lol.liquidcat.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.TimeUtils
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.settings.GameSettings
@@ -115,7 +116,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
                     val shouldEagle = BlockPos(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ).down().getBlock() == Blocks.air
                     if (eagleSilentValue.get()) {
                         if (eagleSneaking != shouldEagle) {
-                            mc.netHandler.addToSendQueue(
+                            sendPacket(
                                 C0BPacketEntityAction(
                                     mc.thePlayer,
                                     if (shouldEagle) C0BPacketEntityAction.Action.START_SNEAKING else C0BPacketEntityAction.Action.STOP_SNEAKING
@@ -160,7 +161,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
     }
 
     private fun update() {
-        if (if (autoBlockValue.get()) InventoryUtils.findAutoBlockBlock() == -1 else mc.thePlayer.heldItem == null ||
+        if (if (autoBlockValue.get()) findAutoBlockBlock() == -1 else mc.thePlayer.heldItem == null ||
                     mc.thePlayer.heldItem.item !is ItemBlock
         ) return
         findBlock(mode.get().equals("expand", ignoreCase = true))
@@ -209,9 +210,9 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         var itemStack = mc.thePlayer.heldItem
         if (mc.thePlayer.heldItem == null || mc.thePlayer.heldItem.item !is ItemBlock) {
             if (!autoBlockValue.get()) return
-            blockSlot = InventoryUtils.findAutoBlockBlock()
+            blockSlot = findAutoBlockBlock()
             if (blockSlot == -1) return
-            mc.netHandler.addToSendQueue(C09PacketHeldItemChange(blockSlot - 36))
+            sendPacket(C09PacketHeldItemChange(blockSlot - 36))
             itemStack = mc.thePlayer.inventoryContainer.getSlot(blockSlot).stack
         }
         if (mc.playerController.onPlayerRightClick(
@@ -226,9 +227,9 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
                 mc.thePlayer.motionX *= modifier.toDouble()
                 mc.thePlayer.motionZ *= modifier.toDouble()
             }
-            if (swingValue.get()) mc.thePlayer.swingItem() else mc.netHandler.addToSendQueue(C0APacketAnimation())
+            if (swingValue.get()) mc.thePlayer.swingItem() else sendPacket(C0APacketAnimation())
         }
-        if (!stayAutoBlock.get() && blockSlot >= 0) mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+        if (!stayAutoBlock.get() && blockSlot >= 0) sendPacket(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
 
         // Reset
         targetPlace = null
@@ -241,7 +242,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         if (mc.thePlayer == null) return
         if (!GameSettings.isKeyDown(mc.gameSettings.keyBindSneak)) {
             mc.gameSettings.keyBindSneak.pressed = false
-            if (eagleSneaking) mc.netHandler.addToSendQueue(
+            if (eagleSneaking) sendPacket(
                 C0BPacketEntityAction(
                     mc.thePlayer,
                     C0BPacketEntityAction.Action.STOP_SNEAKING
@@ -253,7 +254,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         lockRotation = null
         mc.timer.timerSpeed = 1f
         shouldGoDown = false
-        if (slot != mc.thePlayer.inventory.currentItem) mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+        if (slot != mc.thePlayer.inventory.currentItem) sendPacket(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
     }
 
     /**

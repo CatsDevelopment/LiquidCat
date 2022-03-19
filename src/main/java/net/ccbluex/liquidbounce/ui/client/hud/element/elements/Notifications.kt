@@ -13,7 +13,7 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.render.AnimationUtils
+import lol.liquidcat.utils.render.AnimationUtils
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color
 

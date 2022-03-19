@@ -32,6 +32,13 @@ fun BlockPos.getVec() = Vec3(x + 0.5, y + 0.5, z + 0.5)
 
 fun BlockPos.getCenterDistance() = mc.thePlayer.getDistance(x + 0.5, y + 0.5, z + 0.5)
 
+/**
+ * Creates an [AxisAlignedBB] cube with values 1, 1, 1
+ *
+ * @param x X position
+ * @param y Y position
+ * @param z Z position
+ */
 fun AxisAlignedBB(x: Int, y: Int, z: Int): AxisAlignedBB {
     return AxisAlignedBB(x.toDouble(), y.toDouble(), z.toDouble(), x + 1.0, y + 1.0, z + 1.0)
 }
@@ -40,6 +47,11 @@ fun AxisAlignedBB.down(height: Double): AxisAlignedBB {
     return AxisAlignedBB(minX, minY, minZ, maxX, maxY - height, maxZ)
 }
 
+/**
+ * Returns blocks that are in that radius
+ *
+ * @param radius Radius
+ */
 fun searchBlocks(radius: Int): Map<BlockPos, Block> {
     val blocks = mutableMapOf<BlockPos, Block>()
 
@@ -57,7 +69,7 @@ fun searchBlocks(radius: Int): Map<BlockPos, Block> {
 
 fun getBlockName(id: Int): String = Block.getBlockById(id).localizedName
 
-fun collideBlock(aabb: AxisAlignedBB, predicate: (Block?) -> Boolean): Boolean {
+inline fun collideBlock(aabb: AxisAlignedBB, predicate: (Block?) -> Boolean): Boolean {
     for (x in MathHelper.floor_double(aabb.minX) until MathHelper.floor_double(aabb.maxX) + 1) {
         for (z in MathHelper.floor_double(aabb.minZ) until MathHelper.floor_double(aabb.maxZ) + 1) {
             val block = BlockPos(x.toDouble(), aabb.minY, z.toDouble()).getBlock()

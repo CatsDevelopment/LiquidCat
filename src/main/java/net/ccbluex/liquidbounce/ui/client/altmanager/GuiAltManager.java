@@ -13,7 +13,6 @@ import lol.liquidcat.LiquidCat;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.*;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAltening;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.login.LoginUtils;
 import net.ccbluex.liquidbounce.utils.login.MinecraftAccount;
 import net.ccbluex.liquidbounce.utils.login.UserUtils;

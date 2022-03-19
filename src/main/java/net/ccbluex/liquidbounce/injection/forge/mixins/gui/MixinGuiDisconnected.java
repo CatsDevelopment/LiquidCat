@@ -13,19 +13,19 @@ import com.thealtening.api.TheAltening;
 import com.thealtening.api.data.AccountData;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.SessionEvent;
+import lol.liquidcat.utils.ServerUtils;
 import net.ccbluex.liquidbounce.features.special.AntiForge;
 import net.ccbluex.liquidbounce.features.special.AutoReconnect;
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAltening;
-import net.ccbluex.liquidbounce.utils.ClientUtils;
-import lol.liquidcat.utils.ServerUtils;
 import net.ccbluex.liquidbounce.utils.login.LoginUtils;
 import net.ccbluex.liquidbounce.utils.login.MinecraftAccount;
-import net.ccbluex.liquidbounce.utils.misc.RandomUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiDisconnected;
 import net.minecraft.util.Session;
 import net.minecraftforge.fml.client.config.GuiSlider;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -100,7 +100,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
                 ServerUtils.connectToLastServer();
                 break;
             case 4:
-                LoginUtils.loginCracked(RandomUtils.randomString(RandomUtils.nextInt(5, 16)));
+                LoginUtils.loginCracked(RandomStringUtils.randomAlphanumeric(RandomUtils.nextInt(5, 16)));
                 ServerUtils.connectToLastServer();
                 break;
             case 5:

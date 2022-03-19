@@ -6,13 +6,10 @@
 package net.ccbluex.liquidbounce.ui.client
 
 import lol.liquidcat.LiquidCat
-import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.gui.*
 import net.minecraft.client.resources.I18n
-import org.lwjgl.util.glu.GLU
-import java.awt.Color
 
 class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
 

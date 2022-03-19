@@ -11,6 +11,7 @@ import lol.liquidcat.value.Value
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.stripColor
 import net.minecraft.client.audio.PositionedSoundRecord
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.input.Keyboard
 

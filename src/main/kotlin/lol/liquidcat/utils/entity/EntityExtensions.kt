@@ -49,7 +49,7 @@ val EntityPlayerSP.directionYaw: Float
         return rotationYaw
     }
 
-fun EntityPlayerSP.strafe(yaw: Float = directionYaw, speed: Double = this.speed) {
+fun EntityPlayerSP.strafe(speed: Double = this.speed, yaw: Float = directionYaw) {
     if (moving) {
         val angle = Math.toRadians(yaw.toDouble())
 
@@ -96,7 +96,7 @@ val Entity.speed
  */
 fun Entity.getDistanceToEntityBox(entity: Entity): Double {
     val eyes = getPositionEyes(0f)
-    val pos = getNearestPointBB(eyes, entity.entityBoundingBox)
+    val pos = getNearestPoint(eyes, entity.entityBoundingBox)
     val xDist = abs(pos.xCoord - eyes.xCoord)
     val yDist = abs(pos.yCoord - eyes.yCoord)
     val zDist = abs(pos.zCoord - eyes.zCoord)
@@ -104,14 +104,16 @@ fun Entity.getDistanceToEntityBox(entity: Entity): Double {
     return sqrt(xDist.pow(2) + yDist.pow(2) + zDist.pow(2))
 }
 
-private fun getNearestPointBB(eye: Vec3, box: AxisAlignedBB): Vec3 {
+private fun getNearestPoint(eye: Vec3, box: AxisAlignedBB): Vec3 {
     val origin = doubleArrayOf(eye.xCoord, eye.yCoord, eye.zCoord)
     val destMins = doubleArrayOf(box.minX, box.minY, box.minZ)
     val destMaxs = doubleArrayOf(box.maxX, box.maxY, box.maxZ)
     
     for (i in 0..2)
-        if (origin[i] > destMaxs[i]) origin[i] = destMaxs[i]
-        else if (origin[i] < destMins[i]) origin[i] = destMins[i]
+        if (origin[i] > destMaxs[i])
+            origin[i] = destMaxs[i]
+        else if (origin[i] < destMins[i])
+            origin[i] = destMins[i]
     
     return Vec3(origin[0], origin[1], origin[2])
 }

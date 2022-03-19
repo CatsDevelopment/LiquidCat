@@ -13,13 +13,15 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.modules.combat.AutoArmor
 import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.utils.item.ArmorPiece
-import lol.liquidcat.utils.item.InventoryUtils
+import lol.liquidcat.utils.item.BLOCK_BLACKLIST
+import lol.liquidcat.utils.ClickHandler
 import lol.liquidcat.utils.item.getEnchantment
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
-import net.ccbluex.liquidbounce.utils.timer.TimeUtils
+import lol.liquidcat.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.init.Blocks
@@ -75,7 +77,7 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if (!InventoryUtils.CLICK_TIMER.hasTimePassed(delay) ||
+        if (!ClickHandler.CLICK_TIMER.hasTimePassed(delay) ||
                 mc.currentScreen !is GuiInventory && invOpenValue.get() ||
                 noMoveValue.get() && mc.thePlayer.moving ||
                 mc.thePlayer.openContainer != null && mc.thePlayer.openContainer.windowId != 0)
@@ -84,7 +86,7 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
         if (sortValue.get())
             sortHotbar()
 
-        while (InventoryUtils.CLICK_TIMER.hasTimePassed(delay)) {
+        while (ClickHandler.CLICK_TIMER.hasTimePassed(delay)) {
             val garbageItems = items(9, if (hotbarValue.get()) 45 else 36)
                     .filter { !isUseful(it.value, it.key) }
                     .keys
@@ -100,12 +102,12 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
             val openInventory = mc.currentScreen !is GuiInventory && simulateInventory.get()
 
             if (openInventory)
-                mc.netHandler.addToSendQueue(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
+                sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
 
             mc.playerController.windowClick(mc.thePlayer.openContainer.windowId, garbageItem, 4, 4, mc.thePlayer)
 
             if (openInventory)
-                mc.netHandler.addToSendQueue(C0DPacketCloseWindow())
+                sendPacket(C0DPacketCloseWindow())
 
             delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
         }
@@ -193,13 +195,13 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
                 val openInventory = mc.currentScreen !is GuiInventory && simulateInventory.get()
 
                 if (openInventory)
-                    mc.netHandler.addToSendQueue(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
+                    sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
 
                 mc.playerController.windowClick(0, if (bestItem < 9) bestItem + 36 else bestItem, index,
                         2, mc.thePlayer)
 
                 if (openInventory)
-                    mc.netHandler.addToSendQueue(C0DPacketCloseWindow())
+                    sendPacket(C0DPacketCloseWindow())
 
                 delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
                 break
@@ -286,7 +288,7 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
                 mc.thePlayer.inventory.mainInventory.forEachIndexed { index, stack ->
                     val item = stack?.item
 
-                    if (item is ItemBlock && !InventoryUtils.BLOCK_BLACKLIST.contains(item.block) &&
+                    if (item is ItemBlock && !BLOCK_BLACKLIST.contains(item.block) &&
                             !type(index).equals("Block", ignoreCase = true)) {
                         val replaceCurr = slotStack == null || slotStack.item !is ItemBlock
 

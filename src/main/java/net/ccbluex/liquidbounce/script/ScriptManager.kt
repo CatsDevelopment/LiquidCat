@@ -6,7 +6,6 @@
 package net.ccbluex.liquidbounce.script
 
 import lol.liquidcat.LiquidCat
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import java.io.File
 import java.io.FileFilter
 

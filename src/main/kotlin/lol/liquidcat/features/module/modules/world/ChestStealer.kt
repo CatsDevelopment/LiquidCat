@@ -11,11 +11,11 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.modules.player.InventoryCleaner
-import lol.liquidcat.utils.item.InventoryUtils
+import lol.liquidcat.utils.item.isInventoryFull
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
-import net.ccbluex.liquidbounce.utils.timer.TimeUtils
+import lol.liquidcat.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.Slot
 import net.minecraft.item.Item
@@ -62,7 +62,7 @@ class ChestStealer : Module("ChestStealer", "Automatically steals all items from
             if (!delayTimer.hasTimePassed(nextDelay))
                 return
 
-            if (isEmpty(screen) && InventoryUtils.isInventoryFull()) {
+            if (isEmpty(screen) && isInventoryFull()) {
                 val slots = mutableListOf<Slot>()
 
                 for (i in 0 until screen.inventoryRows * 9) {

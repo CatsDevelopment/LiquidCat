@@ -12,6 +12,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
@@ -93,7 +94,7 @@ class BugUp : Module("BugUp", "Automatically setbacks you after falling a certai
                         mc.thePlayer.motionY += 0.1
                         mc.thePlayer.fallDistance = 0F
                     }
-                    "ongroundspoof" -> mc.netHandler.addToSendQueue(C03PacketPlayer(true))
+                    "ongroundspoof" -> sendPacket(C03PacketPlayer(true))
                 }
             }
         }

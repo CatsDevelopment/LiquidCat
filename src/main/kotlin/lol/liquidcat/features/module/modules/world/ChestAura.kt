@@ -19,8 +19,9 @@ import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.features.module.modules.player.Blink
+import lol.liquidcat.utils.sendPacket
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.block.Block
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.init.Blocks
@@ -91,7 +92,7 @@ object ChestAura : Module("ChestAura", "Automatically opens chests around you.",
                     if (visualSwing.get())
                         mc.thePlayer.swingItem()
                     else
-                        mc.netHandler.addToSendQueue(C0APacketAnimation())
+                        sendPacket(C0APacketAnimation())
 
                     clickedBlocks.add(currentBlock!!)
                     currentBlock = null

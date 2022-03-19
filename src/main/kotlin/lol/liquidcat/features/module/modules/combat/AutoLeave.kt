@@ -9,6 +9,7 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.ListValue
 import net.minecraft.network.play.client.C02PacketUseEntity
@@ -25,8 +26,8 @@ class AutoLeave : Module("AutoLeave", "Automatically makes you leave the server 
         if (mc.thePlayer.health <= healthValue.get() && !mc.thePlayer.capabilities.isCreativeMode && !mc.isIntegratedServerRunning) {
             when (modeValue.get()) {
                 "Quit" -> mc.theWorld.sendQuittingDisconnectingPacket()
-                "InvalidPacket" -> mc.netHandler.addToSendQueue(C04PacketPlayerPosition(Double.NaN, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, !mc.thePlayer.onGround))
-                "Selfhurt" -> mc.netHandler.addToSendQueue(C02PacketUseEntity(mc.thePlayer, C02PacketUseEntity.Action.ATTACK))
+                "InvalidPacket" -> sendPacket(C04PacketPlayerPosition(Double.NaN, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, !mc.thePlayer.onGround))
+                "Selfhurt" -> sendPacket(C02PacketUseEntity(mc.thePlayer, C02PacketUseEntity.Action.ATTACK))
                 "IllegalChat" -> mc.thePlayer.sendChatMessage("${Random.nextInt(10000)}§")
             }
 

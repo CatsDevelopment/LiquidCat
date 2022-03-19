@@ -13,7 +13,6 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.utils.msg
 import lol.liquidcat.utils.render.GLUtils
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.util.ResourceLocation
 

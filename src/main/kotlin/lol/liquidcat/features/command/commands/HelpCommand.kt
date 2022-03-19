@@ -9,7 +9,6 @@ import joptsimple.internal.Strings
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.utils.msg
-import net.ccbluex.liquidbounce.utils.ClientUtils
 
 class HelpCommand : Command("help", emptyArray()) {
     /**

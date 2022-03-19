@@ -11,6 +11,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
@@ -46,8 +47,8 @@ class CivBreak : Module("CivBreak", "Allows you to break blocks instantly.", Mod
         enumFacing = event.enumFacing
 
         // Break
-        mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.START_DESTROY_BLOCK, blockPos, enumFacing))
-        mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, blockPos, enumFacing))
+        sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.START_DESTROY_BLOCK, blockPos, enumFacing))
+        sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, blockPos, enumFacing))
     }
 
     @EventTarget
@@ -71,13 +72,11 @@ class CivBreak : Module("CivBreak", "Allows you to break blocks instantly.", Mod
                 if (visualSwingValue.get())
                     mc.thePlayer.swingItem()
                 else
-                    mc.netHandler.addToSendQueue(C0APacketAnimation())
+                    sendPacket(C0APacketAnimation())
 
                 // Break
-                mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.START_DESTROY_BLOCK,
-                        blockPos, enumFacing))
-                mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK,
-                        blockPos, enumFacing))
+                sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.START_DESTROY_BLOCK, blockPos, enumFacing))
+                sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, blockPos, enumFacing))
                 mc.playerController.clickBlock(blockPos, enumFacing)
             }
         }

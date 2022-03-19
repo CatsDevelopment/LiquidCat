@@ -18,7 +18,7 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Side.Horizontal
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side.Vertical
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.render.AnimationUtils
+import lol.liquidcat.utils.render.AnimationUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color

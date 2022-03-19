@@ -12,15 +12,15 @@ import lol.liquidcat.event.MotionEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.Rotation
-import lol.liquidcat.utils.item.InventoryUtils
+import lol.liquidcat.utils.item.isHotbarFull
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.misc.FallingPlayer
-import net.ccbluex.liquidbounce.utils.misc.RandomUtils
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.item.ItemPotion
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
@@ -28,6 +28,7 @@ import net.minecraft.network.play.client.C09PacketHeldItemChange
 import net.minecraft.network.play.client.C0DPacketCloseWindow
 import net.minecraft.network.play.client.C16PacketClientStatus
 import net.minecraft.potion.Potion
+import org.apache.commons.lang3.RandomUtils
 
 //TODO Rewrite
 
@@ -44,6 +45,9 @@ class AutoPot : Module("AutoPot", "Automatically throws healing potions.", Modul
 
     private val msTimer = MSTimer()
     private var potion = -1
+
+    override val tag: String
+        get() = healthValue.get().toString()
 
     @EventTarget
     fun onMotion(motionEvent: MotionEvent) {
@@ -82,30 +86,29 @@ class AutoPot : Module("AutoPot", "Automatically throws healing potions.", Modul
                         return
 
                     potion = potionInHotbar
-                    mc.netHandler.addToSendQueue(C09PacketHeldItemChange(potion - 36))
+                    sendPacket(C09PacketHeldItemChange(potion - 36))
 
                     if (mc.thePlayer.rotationPitch <= 80F) {
-                        RotationUtils.setTargetRotation(Rotation(mc.thePlayer.rotationYaw, RandomUtils.nextFloat(80F, 90F)))
+                        RotationUtils.setTargetRotation(Rotation(mc.thePlayer.rotationYaw, RandomUtils.nextFloat(80f, 90f)))
                     }
                     return
                 }
 
                 // Inventory Potion -> Hotbar Potion
                 val potionInInventory = findPotion(9, 36)
-                if (potionInInventory != -1 && !InventoryUtils.isHotbarFull()) {
+                if (potionInInventory != -1 && !isHotbarFull()) {
                     if (openInventoryValue.get() && mc.currentScreen !is GuiInventory)
                         return
 
                     val openInventory = mc.currentScreen !is GuiInventory && simulateInventory.get()
 
                     if (openInventory)
-                        mc.netHandler.addToSendQueue(
-                                C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
+                        sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
 
                     mc.playerController.windowClick(0, potionInInventory, 0, 1, mc.thePlayer)
 
                     if (openInventory)
-                        mc.netHandler.addToSendQueue(C0DPacketCloseWindow())
+                        sendPacket(C0DPacketCloseWindow())
 
                     msTimer.reset()
                 }
@@ -115,8 +118,8 @@ class AutoPot : Module("AutoPot", "Automatically throws healing potions.", Modul
                     val itemStack = mc.thePlayer.inventoryContainer.getSlot(potion).stack
 
                     if (itemStack != null) {
-                        mc.netHandler.addToSendQueue(C08PacketPlayerBlockPlacement(itemStack))
-                        mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                        sendPacket(C08PacketPlayerBlockPlacement(itemStack))
+                        sendPacket(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
 
                         msTimer.reset()
                     }
@@ -147,8 +150,4 @@ class AutoPot : Module("AutoPot", "Automatically throws healing potions.", Modul
 
         return -1
     }
-
-    override val tag: String?
-        get() = healthValue.get().toString()
-
 }

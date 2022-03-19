@@ -12,6 +12,7 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.item.getDamage
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
 import net.minecraft.item.ItemSword
@@ -48,7 +49,7 @@ class AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon i
 
             // Switch to best weapon
             if (silentValue.get()) {
-                mc.netHandler.addToSendQueue(C09PacketHeldItemChange(slot))
+                sendPacket(C09PacketHeldItemChange(slot))
                 spoofedSlot = ticksValue.get()
             } else {
                 mc.thePlayer.inventory.currentItem = slot
@@ -56,7 +57,7 @@ class AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon i
             }
 
             // Resend attack packet
-            mc.netHandler.addToSendQueue(event.packet)
+            sendPacket(event.packet)
             event.cancelEvent()
         }
     }
@@ -66,7 +67,7 @@ class AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon i
         // Switch back to old item after some time
         if (spoofedSlot > 0) {
             if (spoofedSlot == 1)
-                mc.netHandler.addToSendQueue(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+                sendPacket(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
             spoofedSlot--
         }
     }

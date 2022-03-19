@@ -7,7 +7,6 @@ package net.ccbluex.liquidbounce.ui.font;
 
 import com.google.gson.*;
 import lol.liquidcat.LiquidCat;
-import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.misc.HttpUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

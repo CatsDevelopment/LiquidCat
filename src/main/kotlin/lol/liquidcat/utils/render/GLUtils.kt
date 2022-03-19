@@ -27,6 +27,14 @@ object GLUtils {
     @JvmField
     var deltaTime = 0
 
+    /**
+     * Draws a Rectangle
+     *
+     * @param x Start X position
+     * @param y Start Y position
+     * @param x2 End X position
+     * @param y2 End Y position
+     */
     @JvmStatic
     fun drawRect(x: Float, y: Float, x2: Float, y2: Float, color: Int) {
         glEnable(GL_BLEND)
@@ -47,6 +55,16 @@ object GLUtils {
         glEnable(GL_TEXTURE_2D)
     }
 
+    /**
+     * Draws a rectangular border
+     *
+     * @param x Start X position
+     * @param y Start Y position
+     * @param x2 End X position
+     * @param y2 End Y position
+     * @param width Border width
+     * @param color Border color
+     */
     fun drawBorder(x: Float, y: Float, x2: Float, y2: Float, width: Float, color: Int) {
         glEnable(GL_BLEND)
         glDisable(GL_TEXTURE_2D)
@@ -69,12 +87,33 @@ object GLUtils {
         glDisable(GL_LINE_SMOOTH)
     }
 
+    /**
+     * Draws a rectangle with a border
+     *
+     * @param x Start X position
+     * @param y Start Y position
+     * @param x2 End X position
+     * @param y2 End Y position
+     * @param width Border width
+     * @param color Border color
+     * @param color2 Rectangle color
+     */
     @JvmStatic
     fun drawBorderedRect(x: Float, y: Float, x2: Float, y2: Float, width: Float, color: Int, color2: Int = color) {
         drawRect(x, y, x2, y2, color2)
         drawBorder(x, y, x2, y2, width, color)
     }
 
+    /**
+     * Draws a rectangle with rounded edges
+     *
+     * @param x Start X position
+     * @param y Start Y position
+     * @param x2 End X position
+     * @param y2 End Y position
+     * @param radius Edge rounding radius
+     * @param color Rectangle color
+     */
     @JvmStatic
     fun drawRoundedRect(x: Float, y: Float, x2: Float, y2: Float, radius: Float, color: Int) {
         val x1 = x + radius
@@ -94,6 +133,17 @@ object GLUtils {
         drawFilledCircle(x1, y3, radius, color, 270, 360)
     }
 
+    /**
+     * Draws a rectangular border with rounded edges
+     *
+     * @param x Start X position
+     * @param y Start Y position
+     * @param x2 End X position
+     * @param y2 End Y position
+     * @param radius Edge rounding radius
+     * @param width Border width
+     * @param color Border color
+     */
     @JvmStatic
     fun drawRoundedBorder(x: Float, y: Float, x2: Float, y2: Float, radius: Float, width: Float, color: Int) {
         val x1 = x + radius
@@ -112,6 +162,17 @@ object GLUtils {
         drawLine(x3 + radius, y1, x3 + radius, y3, width, color)
     }
 
+    /**
+     * Draws a circle border
+     *
+     * @param x X position
+     * @param y Y position
+     * @param radius Circle radius
+     * @param width Circle width
+     * @param color Circle color
+     * @param start Start circle angle
+     * @param end End circle angle
+     */
     private fun drawCircle(x: Float, y: Float, radius: Float, width: Float, color: Color, start: Int = 0, end: Int = 360) {
         glEnable(GL_BLEND)
         glDisable(GL_TEXTURE_2D)
@@ -136,6 +197,16 @@ object GLUtils {
         glDisable(GL_LINE_SMOOTH)
     }
 
+    /**
+     * Draws a circle
+     *
+     * @param x X position
+     * @param y Y position
+     * @param radius Circle radius
+     * @param color Circle color
+     * @param start Start circle angle
+     * @param end End circle angle
+     */
     @JvmStatic
     fun drawFilledCircle(x: Float, y: Float, radius: Float, color: Int, start: Int = 0, end: Int = 360) {
         glEnable(GL_BLEND)

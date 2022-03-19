@@ -18,7 +18,7 @@ import lol.liquidcat.utils.msg
 import lol.liquidcat.value.BoolValue
 import net.ccbluex.liquidbounce.utils.login.UserUtils
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting

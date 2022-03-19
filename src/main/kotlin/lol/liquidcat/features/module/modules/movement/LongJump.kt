@@ -27,7 +27,7 @@ class LongJump : Module("LongJump", "Allows you to jump further.", ModuleCategor
 
         if (mc.thePlayer.onGround && mc.thePlayer.moving) {
             mc.thePlayer.jump()
-            mc.thePlayer.strafe(speed = mc.thePlayer.speed * boostValue.get().toDouble())
+            mc.thePlayer.strafe(mc.thePlayer.speed * boostValue.get().toDouble())
         }
     }
 

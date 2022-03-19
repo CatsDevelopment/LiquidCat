@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.entity.player.EnumPlayerModelParts
 import kotlin.random.Random
 

@@ -22,7 +22,7 @@ class Speed : Module("Speed", "Makes you faster.", ModuleCategory.MOVEMENT) {
             "Vanilla" -> {
                 if (mc.thePlayer.onGround && mc.thePlayer.moving) mc.thePlayer.jump()
 
-                mc.thePlayer.strafe(speed = speedValue.get().toDouble())
+                mc.thePlayer.strafe(speedValue.get().toDouble())
             }
         }
     }

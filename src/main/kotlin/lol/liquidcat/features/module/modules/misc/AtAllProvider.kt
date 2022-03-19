@@ -12,8 +12,8 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
-import net.ccbluex.liquidbounce.utils.timer.TimeUtils
+import lol.liquidcat.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.TimeUtils
 import net.minecraft.network.play.client.C01PacketChatMessage
 import java.util.concurrent.LinkedBlockingQueue
 

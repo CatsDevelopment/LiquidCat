@@ -11,11 +11,12 @@ import lol.liquidcat.event.ClientShutdownEvent
 import lol.liquidcat.event.EventManager
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.ModuleManager
-import lol.liquidcat.utils.item.InventoryUtils
+import lol.liquidcat.file.FileManager
+import lol.liquidcat.utils.ClientUtils.disableFastRender
+import lol.liquidcat.utils.ClickHandler
 import net.ccbluex.liquidbounce.features.special.AntiForge
 import net.ccbluex.liquidbounce.features.special.BungeeCordSpoof
 import net.ccbluex.liquidbounce.features.special.DonatorCape
-import lol.liquidcat.file.FileManager
 import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.script.remapper.Remapper.loadSrg
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
@@ -23,7 +24,6 @@ import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.client.hud.HUD
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.createDefault
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.minecraft.util.ResourceLocation
 import org.apache.logging.log4j.LogManager
@@ -78,7 +78,7 @@ object LiquidCat {
         eventManager.registerListener(AntiForge())
         eventManager.registerListener(BungeeCordSpoof())
         eventManager.registerListener(DonatorCape())
-        eventManager.registerListener(InventoryUtils)
+        eventManager.registerListener(ClickHandler)
 
         // Create command manager
         commandManager = CommandManager()
@@ -134,7 +134,7 @@ object LiquidCat {
         fileManager.loadConfig(fileManager.hudConfig)
 
         // Disable optifine fastrender
-        ClientUtils.disableFastRender()
+        disableFastRender()
 
         // Load generators
         GuiAltManager.loadGenerators()

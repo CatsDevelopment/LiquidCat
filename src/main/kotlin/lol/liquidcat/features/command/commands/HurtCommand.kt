@@ -6,6 +6,7 @@
 package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.utils.sendPacket
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
 class HurtCommand : Command("hurt", emptyArray()) {
@@ -30,10 +31,10 @@ class HurtCommand : Command("hurt", emptyArray()) {
         val z = mc.thePlayer.posZ
 
         for (i in 0 until 65 * damage) {
-            mc.netHandler.addToSendQueue(C04PacketPlayerPosition(x, y + 0.049, z, false))
-            mc.netHandler.addToSendQueue(C04PacketPlayerPosition(x, y, z, false))
+            sendPacket(C04PacketPlayerPosition(x, y + 0.049, z, false))
+            sendPacket(C04PacketPlayerPosition(x, y, z, false))
         }
-        mc.netHandler.addToSendQueue(C04PacketPlayerPosition(x, y, z, true))
+        sendPacket(C04PacketPlayerPosition(x, y, z, true))
 
         // Output message
         chat("You were damaged.")

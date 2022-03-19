@@ -11,6 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.drinking
 import lol.liquidcat.utils.entity.eating
+import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.IntValue
 import net.minecraft.network.play.client.C03PacketPlayer
 
@@ -22,7 +23,7 @@ class FastUse : Module("FastUse", "Allows you to use items faster.", ModuleCateg
     fun onUpdate(event: UpdateEvent) {
         if ((mc.thePlayer.eating || mc.thePlayer.drinking) && mc.thePlayer.itemInUseDuration >= delayValue.get()) {
             repeat(33 - mc.thePlayer.itemInUseDuration) {
-                mc.netHandler.addToSendQueue(C03PacketPlayer(mc.thePlayer.onGround))
+                sendPacket(C03PacketPlayer(mc.thePlayer.onGround))
             }
 
             mc.playerController.onStoppedUsingItem(mc.thePlayer)

@@ -17,7 +17,7 @@ import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.features.module.modules.render.Breadcrumbs
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.network.Packet
 import net.minecraft.network.play.client.*

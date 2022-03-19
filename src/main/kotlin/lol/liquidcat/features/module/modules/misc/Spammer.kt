@@ -13,9 +13,9 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.TextValue
-import net.ccbluex.liquidbounce.utils.misc.RandomUtils
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
-import net.ccbluex.liquidbounce.utils.timer.TimeUtils
+import lol.liquidcat.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.TimeUtils
+import org.apache.commons.lang3.RandomStringUtils
 import kotlin.random.Random
 
 //TODO Add more options
@@ -42,7 +42,7 @@ class Spammer : Module("Spammer", "Spams the chat with a given message.", Module
         }
     }
 
-    private val messageValue = TextValue("Message", LiquidCat.CLIENT_NAME + " Client / https://discord.gg/asCkVB9Gj3")
+    private val messageValue = TextValue("Message", "${LiquidCat.CLIENT_NAME} Client / https://discord.gg/asCkVB9Gj3")
     private val customValue = BoolValue("Custom", false)
 
     private var delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
@@ -55,7 +55,7 @@ class Spammer : Module("Spammer", "Spams the chat with a given message.", Module
                 if (customValue.get())
                     replace(messageValue.get())
                 else
-                    "${messageValue.get()} [${RandomUtils.randomString(5 + Random.nextInt(5))}]"
+                    "${messageValue.get()} [${RandomStringUtils.randomAlphanumeric(5 + Random.nextInt(5))}]"
             )
 
             delayTimer.reset()
@@ -73,13 +73,13 @@ class Spammer : Module("Spammer", "Spams the chat with a given message.", Module
             replacedText = replacedText.substring(0, replacedText.indexOf("%i")) + Random.nextInt(10000) + replacedText.substring(replacedText.indexOf("%i") + "%i".length)
 
         while (replacedText.contains("%s"))
-            replacedText = replacedText.substring(0, replacedText.indexOf("%s")) + RandomUtils.randomString(Random.nextInt(8) + 1) + replacedText.substring(replacedText.indexOf("%s") + "%s".length)
+            replacedText = replacedText.substring(0, replacedText.indexOf("%s")) + RandomStringUtils.randomAlphanumeric(Random.nextInt(8) + 1) + replacedText.substring(replacedText.indexOf("%s") + "%s".length)
 
         while (replacedText.contains("%ss"))
-            replacedText = replacedText.substring(0, replacedText.indexOf("%ss")) + RandomUtils.randomString(Random.nextInt(4) + 1) + replacedText.substring(replacedText.indexOf("%ss") + "%ss".length)
+            replacedText = replacedText.substring(0, replacedText.indexOf("%ss")) + RandomStringUtils.randomAlphanumeric(Random.nextInt(4) + 1) + replacedText.substring(replacedText.indexOf("%ss") + "%ss".length)
 
         while (replacedText.contains("%ls"))
-            replacedText = replacedText.substring(0, replacedText.indexOf("%ls")) + RandomUtils.randomString(Random.nextInt(15) + 1) + replacedText.substring(replacedText.indexOf("%ls") + "%ls".length)
+            replacedText = replacedText.substring(0, replacedText.indexOf("%ls")) + RandomStringUtils.randomAlphanumeric(Random.nextInt(15) + 1) + replacedText.substring(replacedText.indexOf("%ls") + "%ls".length)
 
         return replacedText
     }

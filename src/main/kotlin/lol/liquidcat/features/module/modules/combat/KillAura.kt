@@ -20,11 +20,12 @@ import lol.liquidcat.value.ListValue
 import lol.liquidcat.features.module.modules.misc.AntiBot
 import lol.liquidcat.features.module.modules.misc.Teams
 import lol.liquidcat.features.module.modules.player.Blink
+import lol.liquidcat.utils.sendPacket
 import net.ccbluex.liquidbounce.utils.RaycastUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.ccbluex.liquidbounce.utils.misc.RandomUtils
-import net.ccbluex.liquidbounce.utils.timer.MSTimer
-import net.ccbluex.liquidbounce.utils.timer.TimeUtils
+import org.apache.commons.lang3.RandomUtils
+import lol.liquidcat.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.enchantment.EnchantmentHelper
@@ -379,7 +380,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
 
         // Close inventory when open
         if (openInventory)
-            mc.netHandler.addToSendQueue(C0DPacketCloseWindow())
+            sendPacket(C0DPacketCloseWindow())
 
         // Check is not hitable or check failrate
         if (!hitable || failHit) {
@@ -414,7 +415,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
 
         // Open inventory
         if (openInventory)
-            mc.netHandler.addToSendQueue(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
+            sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
     }
 
     /**
@@ -504,7 +505,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
     private fun attackEntity(entity: EntityLivingBase) {
         // Stop blocking
         if (mc.thePlayer.isBlocking || blockingStatus) {
-            mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM,
+            sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM,
                     BlockPos.ORIGIN, EnumFacing.DOWN))
             blockingStatus = false
         }
@@ -515,7 +516,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
         // Attack target
         if (swingValue.get())
             mc.thePlayer.swingItem()
-        mc.netHandler.addToSendQueue(C02PacketUseEntity(entity, C02PacketUseEntity.Action.ATTACK))
+        sendPacket(C02PacketUseEntity(entity, C02PacketUseEntity.Action.ATTACK))
 
         if (keepSprintValue.get()) {
             // Critical Effect
@@ -623,11 +624,11 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
      */
     private fun startBlocking(interactEntity: Entity, interact: Boolean) {
         if (interact) {
-            mc.netHandler.addToSendQueue(C02PacketUseEntity(interactEntity, interactEntity.positionVector))
-            mc.netHandler.addToSendQueue(C02PacketUseEntity(interactEntity, C02PacketUseEntity.Action.INTERACT))
+            sendPacket(C02PacketUseEntity(interactEntity, interactEntity.positionVector))
+            sendPacket(C02PacketUseEntity(interactEntity, C02PacketUseEntity.Action.INTERACT))
         }
 
-        mc.netHandler.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.inventory.getCurrentItem()))
+        sendPacket(C08PacketPlayerBlockPlacement(mc.thePlayer.inventory.getCurrentItem()))
         blockingStatus = true
     }
 
@@ -637,7 +638,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
      */
     private fun stopBlocking() {
         if (blockingStatus) {
-            mc.netHandler.addToSendQueue(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
+            sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
             blockingStatus = false
         }
     }

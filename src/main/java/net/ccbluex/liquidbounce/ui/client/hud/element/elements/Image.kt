@@ -12,9 +12,9 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
-import net.ccbluex.liquidbounce.utils.misc.RandomUtils
 import net.minecraft.client.renderer.texture.DynamicTexture
 import net.minecraft.util.ResourceLocation
+import org.apache.commons.lang3.RandomStringUtils
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.nio.file.Files
@@ -66,7 +66,7 @@ class Image : Element() {
 
     }
 
-    private val resourceLocation = ResourceLocation(RandomUtils.randomNumber(128))
+    private val resourceLocation = ResourceLocation(RandomStringUtils.randomNumeric(128))
     private var width = 64
     private var height = 64
 
