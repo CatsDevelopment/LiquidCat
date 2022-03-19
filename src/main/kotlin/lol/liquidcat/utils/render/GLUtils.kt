@@ -24,6 +24,9 @@ import kotlin.math.sin
 
 object GLUtils {
 
+    /**
+     * Read [Information](https://en.wikipedia.org/wiki/Delta_timing)
+     */
     @JvmField
     var deltaTime = 0
 
@@ -151,15 +154,15 @@ object GLUtils {
         val x3 = x2 - radius
         val y3 = y2 - radius
 
-        drawCircle(x3, y3, radius, width, Color(color), 0, 90)
-        drawCircle(x1, y3, radius, width, Color(color), 90, 180)
-        drawCircle(x1, y1, radius, width, Color(color), 180, 270)
-        drawCircle(x3, y1, radius, width, Color(color), 270, 360)
-
         drawLine(x1, y1 - radius, x3, y1 - radius, width, color)
         drawLine(x1, y3 + radius, x3, y3 + radius, width, color)
         drawLine(x1 - radius, y1, x1 - radius, y3, width, color)
         drawLine(x3 + radius, y1, x3 + radius, y3, width, color)
+
+        drawCircle(x3, y3, radius, width, Color(color), 0, 90)
+        drawCircle(x1, y3, radius, width, Color(color), 90, 180)
+        drawCircle(x1, y1, radius, width, Color(color), 180, 270)
+        drawCircle(x3, y1, radius, width, Color(color), 270, 360)
     }
 
     /**
@@ -230,6 +233,16 @@ object GLUtils {
         glEnable(GL_TEXTURE_2D)
     }
 
+    /**
+     * Creates a Scissor box
+     *
+     * [Documentation](https://www.khronos.org/registry/OpenGL-Refpages/es2.0/xhtml/glScissor.xml)
+     *
+     * @param x Start X position
+     * @param y Start Y position
+     * @param x2 End X position
+     * @param y2 End Y position
+     */
     @JvmStatic
     fun makeScissorBox(x: Float, y: Float, x2: Float, y2: Float) {
         val scaledResolution = ScaledResolution(mc)
@@ -243,6 +256,15 @@ object GLUtils {
         )
     }
 
+    /**
+     * Draws an image
+     *
+     * @param image Image location
+     * @param x X position
+     * @param y Y position
+     * @param width Image width
+     * @param height Image height
+     */
     @JvmStatic
     fun drawImage(image: ResourceLocation, x: Int, y: Int, width: Int, height: Int) {
         glDisable(GL_DEPTH_TEST)
@@ -259,6 +281,15 @@ object GLUtils {
         glDisable(GL_BLEND)
     }
 
+    /**
+     * Draws a normal line
+     *
+     * @param x Start X position
+     * @param y Start Y position
+     * @param x2 End X position
+     * @param y2 End Y position
+     * @param width Line width
+     */
     fun drawLine(x: Double, y: Double, x2: Double, y2: Double, width: Float) {
         glDisable(GL_TEXTURE_2D)
         glLineWidth(width)
@@ -271,26 +302,31 @@ object GLUtils {
         glEnable(GL_TEXTURE_2D)
     }
 
-    fun drawLine(x: Float, y: Float, x2: Float, y2: Float, width: Float, color: Int) {
+    /**
+     * Draws a smooth line with color
+     *
+     * @param x Start X position
+     * @param y Start Y position
+     * @param x2 End X position
+     * @param y2 End Y position
+     * @param width Line width
+     * @param color Line color
+     */
+    private fun drawLine(x: Float, y: Float, x2: Float, y2: Float, width: Float, color: Int) {
         glEnable(GL_BLEND)
-        glDisable(GL_TEXTURE_2D)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_LINE_SMOOTH)
-        glLineWidth(width)
         glColor(color)
 
-        glBegin(GL_LINES)
-
-        glVertex2f(x, y)
-        glVertex2f(x2, y2)
-
-        glEnd()
+        drawLine(x.toDouble(), y.toDouble(), x2.toDouble(), y2.toDouble(), width)
 
         glDisable(GL_BLEND)
-        glEnable(GL_TEXTURE_2D)
         glDisable(GL_LINE_SMOOTH)
     }
 
+    /**
+     * draws a cuboid outline around [boundingBox]
+     */
     fun drawOutlinedBB(boundingBox: AxisAlignedBB) {
         glBegin(GL_LINE_STRIP)
 
@@ -316,6 +352,9 @@ object GLUtils {
         glEnd()
     }
 
+    /**
+     * draws a filled cuboid around [boundingBox]
+     */
     fun drawFilledBB(boundingBox: AxisAlignedBB) {
         glBegin(GL_QUADS)
 
@@ -376,10 +415,19 @@ object GLUtils {
         glEnd()
     }
 
+    /**
+     * Interpolates position into position for rendering
+     *
+     * @param old Previous position
+     * @param current Current position
+     */
     private fun interpolate(old: Double, current: Double): Double {
         return old + (current - old) * mc.timer.renderPartialTicks.toDouble()
     }
 
+    /**
+     * Interpolates [entity] position into position for rendering
+     */
     private fun interpolate(entity: Entity): Vector3d {
         val x = interpolate(entity.lastTickPosX, entity.posX) - mc.renderManager.viewerPosX
         val y = interpolate(entity.lastTickPosY, entity.posY) - mc.renderManager.viewerPosY
@@ -388,6 +436,9 @@ object GLUtils {
         return Vector3d(x, y, z)
     }
 
+    /**
+     * Interpolates [entity] BoundingBox into AxisAlignedBB with position for rendering
+     */
     fun interpolateEntityBB(entity: Entity): AxisAlignedBB {
         val position = interpolate(entity)
 
