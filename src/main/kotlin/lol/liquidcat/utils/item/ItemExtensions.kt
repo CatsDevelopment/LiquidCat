@@ -138,7 +138,7 @@ val BLOCK_BLACKLIST = listOf(
 fun findAutoBlockBlock(): Int {
     val blockSlot = findHotbarSlot { it?.item is ItemBlock }
 
-    val block = (mc.thePlayer.inventoryContainer.getSlot(blockSlot) as ItemBlock).block
+    val block = (mc.thePlayer.inventoryContainer.getSlot(blockSlot).stack?.item as ItemBlock).block
 
     return if (block.isFullBlock && !BLOCK_BLACKLIST.contains(block))
         blockSlot

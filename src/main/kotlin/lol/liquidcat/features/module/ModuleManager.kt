@@ -42,6 +42,7 @@ class ModuleManager : Listenable {
                 AutoLeave::class.java,
                 AutoPot::class.java,
                 AutoSoup::class.java,
+                Disabler::class.java,
                 AutoWeapon::class.java,
                 BowAimbot::class.java,
                 Criticals::class.java,
