@@ -39,53 +39,51 @@ import java.awt.Color
 
 class Scaffold : Module("Scaffold", "Automatically places blocks beneath your feet.", ModuleCategory.WORLD) {
 
-    val mode = ListValue("Mode", arrayOf("Normal", "Rewinside", "Expand"), "Normal")
+    val mode by ListValue("Mode", arrayOf("Normal", "Rewinside", "Expand"), "Normal")
 
-    private val maxDelayValue: IntValue = object : IntValue("MaxDelay", 0, 0..1000) {
+    private val maxDelay: Int by object : IntValue("MaxDelay", 0, 0..1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val i = minDelayValue.get()
+            val i = minDelay
 
             if (i > newValue) set(i)
         }
     }
 
-    private val minDelayValue: IntValue = object : IntValue("MinDelay", 0, 0..1000) {
+    private val minDelay: Int by object : IntValue("MinDelay", 0, 0..1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val i = maxDelayValue.get()
+            val i = maxDelay
 
             if (i < newValue) set(i)
         }
     }
-    private val placeableDelay = BoolValue("PlaceableDelay", false)
+    private val placeableDelay by BoolValue("PlaceableDelay", false)
+    private val autoBlock by BoolValue("AutoBlock", true)
+    private val stayAutoBlock by BoolValue("StayAutoBlock", false)
+    val sprint by BoolValue("Sprint", true)
+    private val swing by BoolValue("Swing", true)
+    private val search by BoolValue("Search", true)
+    private val down by BoolValue("Down", true)
+    private val placeMode by ListValue("PlaceTiming", arrayOf("Pre", "Post"), "Post")
 
-    private val autoBlockValue = BoolValue("AutoBlock", true)
-    private val stayAutoBlock = BoolValue("StayAutoBlock", false)
+    private val eagle by BoolValue("Eagle", false)
+    private val eagleSilent by BoolValue("EagleSilent", false)
+    private val blocksToEagle by IntValue("BlocksToEagle", 0, 0..10)
 
-    val sprintValue = BoolValue("Sprint", true)
-    private val swingValue = BoolValue("Swing", true)
-    private val searchValue = BoolValue("Search", true)
-    private val downValue = BoolValue("Down", true)
-    private val placeModeValue = ListValue("PlaceTiming", arrayOf("Pre", "Post"), "Post")
+    private val expandLength by IntValue("ExpandLength", 5, 1..6)
 
-    private val eagleValue = BoolValue("Eagle", false)
-    private val eagleSilentValue = BoolValue("EagleSilent", false)
-    private val blocksToEagleValue = IntValue("BlocksToEagle", 0, 0..10)
+    private val rotations by BoolValue("Rotations", true)
+    private val keepLength by IntValue("KeepRotationLength", 0, 0..20)
+    private val keepRotation by BoolValue("KeepRotation", false)
 
-    private val expandLengthValue = IntValue("ExpandLength", 5, 1..6)
+    private val timer by FloatValue("Timer", 1f, 0.1f..10f)
+    private val speedModifier by FloatValue("SpeedModifier", 1f, 0f..2f)
 
-    private val rotationsValue = BoolValue("Rotations", true)
-    private val keepLengthValue = IntValue("KeepRotationLength", 0, 0..20)
-    private val keepRotationValue = BoolValue("KeepRotation", false)
+    private val sameY by BoolValue("SameY", false)
+    private val safeWalk by BoolValue("SafeWalk", true)
+    private val airSafe by BoolValue("AirSafe", false)
 
-    private val timerValue = FloatValue("Timer", 1f, 0.1f..10f)
-    private val speedModifierValue = FloatValue("SpeedModifier", 1f, 0f..2f)
-
-    private val sameYValue = BoolValue("SameY", false)
-    private val safeWalkValue = BoolValue("SafeWalk", true)
-    private val airSafeValue = BoolValue("AirSafe", false)
-
-    private val counterDisplayValue = BoolValue("Counter", true)
-    private val markValue = BoolValue("Mark", false)
+    private val counterDisplay by BoolValue("Counter", true)
+    private val mark by BoolValue("Mark", false)
 
     private var targetPlace: PlaceInfo? = null
     private var launchY = 0
@@ -105,16 +103,16 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        mc.timer.timerSpeed = timerValue.get()
-        shouldGoDown = downValue.get() && GameSettings.isKeyDown(mc.gameSettings.keyBindSneak) && blocksAmount > 1
+        mc.timer.timerSpeed = timer
+        shouldGoDown = down && GameSettings.isKeyDown(mc.gameSettings.keyBindSneak) && blocksAmount > 1
         if (shouldGoDown) mc.gameSettings.keyBindSneak.pressed = false
         if (mc.thePlayer.onGround) {
 
             // Eagle
-            if (eagleValue.get() && !shouldGoDown) {
-                if (placedBlocksWithoutEagle >= blocksToEagleValue.get()) {
+            if (eagle && !shouldGoDown) {
+                if (placedBlocksWithoutEagle >= blocksToEagle) {
                     val shouldEagle = BlockPos(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ).down().getBlock() == Blocks.air
-                    if (eagleSilentValue.get()) {
+                    if (eagleSilent) {
                         if (eagleSneaking != shouldEagle) {
                             sendPacket(
                                 C0BPacketEntityAction(
@@ -146,25 +144,25 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         val eventState = event.eventState
 
         // Lock Rotation
-        if (rotationsValue.get() && keepRotationValue.get() && lockRotation != null) RotationUtils.setTargetRotation(
+        if (rotations && keepRotation && lockRotation != null) RotationUtils.setTargetRotation(
             lockRotation
         )
 
         // Place block
-        if (placeModeValue.get().equals(eventState.stateName, ignoreCase = true)) place()
+        if (placeMode.equals(eventState.stateName, ignoreCase = true)) place()
 
         // Update and search for new block
         if (eventState == EventState.PRE) update()
 
         // Reset placeable delay
-        if (targetPlace == null && placeableDelay.get()) delayTimer.reset()
+        if (targetPlace == null && placeableDelay) delayTimer.reset()
     }
 
     private fun update() {
-        if (if (autoBlockValue.get()) findAutoBlockBlock() == -1 else mc.thePlayer.heldItem == null ||
+        if (if (autoBlock) findAutoBlockBlock() == -1 else mc.thePlayer.heldItem == null ||
                     mc.thePlayer.heldItem.item !is ItemBlock
         ) return
-        findBlock(mode.get().equals("expand", ignoreCase = true))
+        findBlock(mode.equals("expand", ignoreCase = true))
     }
 
     /**
@@ -182,7 +180,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
         ) else BlockPos(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ).down()
         if (!expand && (!blockPosition.isReplaceable() || search(blockPosition, !shouldGoDown))) return
         if (expand) {
-            for (i in 0 until expandLengthValue.get()) {
+            for (i in 0 until expandLength) {
                 if (search(
                         blockPosition.add(
                             if (mc.thePlayer.horizontalFacing == EnumFacing.WEST) -i else if (mc.thePlayer.horizontalFacing == EnumFacing.EAST) i else 0,
@@ -192,7 +190,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
                     )
                 ) return
             }
-        } else if (searchValue.get()) {
+        } else if (search) {
             for (x in -1..1) for (z in -1..1) if (search(blockPosition.add(x, 0, z), !shouldGoDown)) return
         }
     }
@@ -202,14 +200,14 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
      */
     private fun place() {
         if (targetPlace == null) {
-            if (placeableDelay.get()) delayTimer.reset()
+            if (placeableDelay) delayTimer.reset()
             return
         }
-        if (!delayTimer.hasTimePassed(delay) || sameYValue.get() && launchY - 1 != targetPlace!!.vec3.yCoord.toInt()) return
+        if (!delayTimer.hasTimePassed(delay) || sameY && launchY - 1 != targetPlace!!.vec3.yCoord.toInt()) return
         var blockSlot = -1
         var itemStack = mc.thePlayer.heldItem
         if (mc.thePlayer.heldItem == null || mc.thePlayer.heldItem.item !is ItemBlock) {
-            if (!autoBlockValue.get()) return
+            if (!autoBlock) return
             blockSlot = findAutoBlockBlock()
             if (blockSlot == -1) return
             sendPacket(C09PacketHeldItemChange(blockSlot - 36))
@@ -221,15 +219,15 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             )
         ) {
             delayTimer.reset()
-            delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+            delay = TimeUtils.randomDelay(minDelay, maxDelay)
             if (mc.thePlayer.onGround) {
-                val modifier = speedModifierValue.get()
+                val modifier = speedModifier
                 mc.thePlayer.motionX *= modifier.toDouble()
                 mc.thePlayer.motionZ *= modifier.toDouble()
             }
-            if (swingValue.get()) mc.thePlayer.swingItem() else sendPacket(C0APacketAnimation())
+            if (swing) mc.thePlayer.swingItem() else sendPacket(C0APacketAnimation())
         }
-        if (!stayAutoBlock.get() && blockSlot >= 0) sendPacket(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
+        if (!stayAutoBlock && blockSlot >= 0) sendPacket(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
 
         // Reset
         targetPlace = null
@@ -264,8 +262,8 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
      */
     @EventTarget
     fun onMove(event: MoveEvent) {
-        if (!safeWalkValue.get() || shouldGoDown) return
-        if (airSafeValue.get() || mc.thePlayer.onGround) event.isSafeWalk = true
+        if (!safeWalk || shouldGoDown) return
+        if (airSafe || mc.thePlayer.onGround) event.isSafeWalk = true
     }
 
     /**
@@ -275,7 +273,7 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
      */
     @EventTarget
     fun onRender2D(event: Render2DEvent?) {
-        if (counterDisplayValue.get()) {
+        if (counterDisplay) {
             GlStateManager.pushMatrix()
             val info = "Blocks: §7$blocksAmount"
             val scaledResolution = ScaledResolution(mc)
@@ -306,8 +304,8 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
      */
     @EventTarget
     fun onRender3D(event: Render3DEvent?) {
-        if (!markValue.get()) return
-        for (i in 0 until if (mode.get().equals("Expand", ignoreCase = true)) expandLengthValue.get() + 1 else 2) {
+        if (!mark) return
+        for (i in 0 until if (mode.equals("Expand", ignoreCase = true)) expandLength + 1 else 2) {
             val blockPos = BlockPos(
                 mc.thePlayer.posX + if (mc.thePlayer.horizontalFacing == EnumFacing.WEST) -i else if (mc.thePlayer.horizontalFacing == EnumFacing.EAST) i else 0,
                 mc.thePlayer.posY - (if (mc.thePlayer.posY == mc.thePlayer.posY.toInt() + 0.5) 0.0 else 1.0) - if (shouldGoDown) 1.0 else 0.0,
@@ -389,8 +387,8 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             }
         }
         if (placeRotation == null) return false
-        if (rotationsValue.get()) {
-            RotationUtils.setTargetRotation(placeRotation.rotation, keepLengthValue.get())
+        if (rotations) {
+            RotationUtils.setTargetRotation(placeRotation.rotation, keepLength)
             lockRotation = placeRotation.rotation
         }
         targetPlace = placeRotation.placeInfo
@@ -410,5 +408,5 @@ class Scaffold : Module("Scaffold", "Automatically places blocks beneath your fe
             return amount
         }
     override val tag: String
-        get() = mode.get()
+        get() = mode
 }

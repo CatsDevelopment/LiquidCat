@@ -27,26 +27,25 @@ import java.awt.Color
 
 class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, etc. through walls.", ModuleCategory.RENDER) {
 
-    private val modeValue = ListValue(
+    private val mode by ListValue(
         "Mode",
         arrayOf("Box", "Outline", "ShaderOutline", "ShaderGlow", "WireFrame"),
         "Outline"
     )
 
-    private val redValue = IntValue("Red", 255, 0..255)
-    private val greenValue = IntValue("Green", 255, 0..255)
-    private val blueValue = IntValue("Blue", 255, 0..255)
+    private val red by IntValue("Red", 255, 0..255)
+    private val green by IntValue("Green", 255, 0..255)
+    private val blue by IntValue("Blue", 255, 0..255)
 
-    private val outlineWidth = FloatValue("Outline-Width", 3f, 0.5f..5f)
-    private val wireframeWidth = FloatValue("WireFrame-Width", 2f, 0.5f..5f)
+    private val outlineWidth by FloatValue("Outline-Width", 3f, 0.5f..5f)
+    private val wireframeWidth by FloatValue("WireFrame-Width", 2f, 0.5f..5f)
 
-    private val shaderOutlineRadius = FloatValue("ShaderOutline-Radius", 1.35f, 1f..2f)
-    private val shaderGlowRadius = FloatValue("ShaderGlow-Radius", 2.3f, 2f..3f)
+    private val shaderOutlineRadius by FloatValue("ShaderOutline-Radius", 1.35f, 1f..2f)
+    private val shaderGlowRadius by FloatValue("ShaderGlow-Radius", 2.3f, 2f..3f)
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
         try {
-            val mode = modeValue.get()
             if (mode == "Outline") {
                 disableFastRender()
                 OutlineUtils.checkSetupFBO()
@@ -67,7 +66,7 @@ class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, e
 
                         "Outline" -> {
                             GLUtils.glColor(getColor())
-                            OutlineUtils.renderOne(outlineWidth.get())
+                            OutlineUtils.renderOne(outlineWidth)
                             TileEntityRendererDispatcher.instance.renderTileEntity(tileEntity, event.partialTicks, -1)
                             OutlineUtils.renderTwo()
                             TileEntityRendererDispatcher.instance.renderTileEntity(tileEntity, event.partialTicks, -1)
@@ -91,7 +90,7 @@ class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, e
                             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
                             TileEntityRendererDispatcher.instance.renderTileEntity(tileEntity, event.partialTicks, -1)
                             GLUtils.glColor(getColor())
-                            GL11.glLineWidth(wireframeWidth.get())
+                            GL11.glLineWidth(wireframeWidth)
                             TileEntityRendererDispatcher.instance.renderTileEntity(tileEntity, event.partialTicks, -1)
                             GL11.glPopAttrib()
                             GL11.glPopMatrix()
@@ -107,7 +106,6 @@ class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, e
 
     @EventTarget
     fun onRender2D(event: Render2DEvent) {
-        val mode = modeValue.get()
         val shader = when(mode) {
             "ShaderOutline" -> OutlineShader
             "ShaderGlow" -> GlowShader
@@ -133,8 +131,8 @@ class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, e
         }
 
         val radius = when(mode) {
-            "ShaderOutline" -> shaderOutlineRadius.get()
-            "ShaderGlow" -> shaderGlowRadius.get()
+            "ShaderOutline" -> shaderOutlineRadius
+            "ShaderGlow" -> shaderGlowRadius
 
             else -> 1f
         }
@@ -142,5 +140,5 @@ class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, e
         shader.stopDraw(getColor(), radius, 1f)
     }
 
-    private fun getColor() = Color(redValue.get(), greenValue.get(), blueValue.get())
+    private fun getColor() = Color(red, green, blue)
 }

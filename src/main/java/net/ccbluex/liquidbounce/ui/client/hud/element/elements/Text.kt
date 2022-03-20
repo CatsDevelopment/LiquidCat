@@ -50,9 +50,9 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F,
         fun defaultClient(): Text {
             val text = Text(x = 2.0, y = 2.0, scale = 2F)
 
-            text.displayString.set("%clientName%")
-            text.shadow.set(true)
-            text.fontValue.set(Fonts.font40)
+            text.displayString = "%clientName%"
+            text.shadow = true
+            text.font = Fonts.font40
             text.setColor(Color(0, 111, 255))
 
             return text
@@ -60,13 +60,13 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F,
 
     }
 
-    private val displayString = TextValue("DisplayText", "")
-    private val redValue = IntValue("Red", 255, 0..255)
-    private val greenValue = IntValue("Green", 255, 0..255)
-    private val blueValue = IntValue("Blue", 255, 0..255)
-    private val rainbow = BoolValue("Rainbow", false)
-    private val shadow = BoolValue("Shadow", true)
-    private var fontValue = FontValue("Font", Fonts.font40)
+    private var displayString by TextValue("DisplayText", "")
+    private var red by IntValue("Red", 255, 0..255)
+    private var green by IntValue("Green", 255, 0..255)
+    private var blue by IntValue("Blue", 255, 0..255)
+    private val rainbow by BoolValue("Rainbow", false)
+    private var shadow by BoolValue("Shadow", true)
+    private var font by FontValue("Font", Fonts.font40)
 
     private var editMode = false
     private var editTicks = 0
@@ -76,10 +76,10 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F,
 
     private val display: String
         get() {
-            val textContent = if (displayString.get().isEmpty() && !editMode)
+            val textContent = if (displayString.isEmpty() && !editMode)
                 "Text Element"
             else
-                displayString.get()
+                displayString
 
 
             return multiReplace(textContent)
@@ -149,16 +149,16 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F,
      * Draw element
      */
     override fun drawElement(): Border? {
-        val color = Color(redValue.get(), greenValue.get(), blueValue.get()).rgb
+        val color = Color(red, green, blue).rgb
 
-        val fontRenderer = fontValue.get()
+        val fontRenderer = font
 
-        fontRenderer.drawString(displayText, 0F, 0F, if (rainbow.get())
-            ColorUtils.rainbow(400000000L).rgb else color, shadow.get())
+        fontRenderer.drawString(displayText, 0F, 0F, if (rainbow)
+            ColorUtils.rainbow(400000000L).rgb else color, shadow)
 
         if (editMode && mc.currentScreen is GuiHudDesigner && editTicks <= 40)
             fontRenderer.drawString("_", fontRenderer.getStringWidth(displayText) + 2F,
-                    0F, if (rainbow.get()) ColorUtils.rainbow(400000000L).rgb else color, shadow.get())
+                    0F, if (rainbow) ColorUtils.rainbow(400000000L).rgb else color, shadow)
 
         if (editMode && mc.currentScreen !is GuiHudDesigner) {
             editMode = false
@@ -177,7 +177,7 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F,
         editTicks += 5
         if (editTicks > 80) editTicks = 0
 
-        displayText = if (editMode) displayString.get() else display
+        displayText = if (editMode) displayString else display
     }
 
     override fun handleMouseClick(x: Double, y: Double, mouseButton: Int) {
@@ -194,24 +194,24 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F,
     override fun handleKey(c: Char, keyCode: Int) {
         if (editMode && mc.currentScreen is GuiHudDesigner) {
             if (keyCode == Keyboard.KEY_BACK) {
-                if (displayString.get().isNotEmpty())
-                    displayString.set(displayString.get().substring(0, displayString.get().length - 1))
+                if (displayString.isNotEmpty())
+                    displayString = displayString.substring(0, displayString.length - 1)
 
                 updateElement()
                 return
             }
 
             if (ChatAllowedCharacters.isAllowedCharacter(c) || c == '§')
-                displayString.set(displayString.get() + c)
+                displayString += c
 
             updateElement()
         }
     }
 
     fun setColor(c: Color): Text {
-        redValue.set(c.red)
-        greenValue.set(c.green)
-        blueValue.set(c.blue)
+        red = c.red
+        green = c.green
+        blue = c.blue
         return this
     }
 

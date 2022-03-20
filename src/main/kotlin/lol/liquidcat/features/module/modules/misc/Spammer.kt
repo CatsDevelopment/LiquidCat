@@ -22,44 +22,44 @@ import kotlin.random.Random
 
 class Spammer : Module("Spammer", "Spams the chat with a given message.", ModuleCategory.MISC) {
 
-    private val maxDelayValue: IntValue = object : IntValue("MaxDelay", 1000, 0..5000) {
+    private val maxDelay: Int by object : IntValue("MaxDelay", 1000, 0..5000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val minDelayValueObject = minDelayValue.get()
+            val minDelayValueObject = minDelay
 
             if (minDelayValueObject > newValue) set(minDelayValueObject)
 
-            delay = TimeUtils.randomDelay(minDelayValue.get(), get())
+            delay = TimeUtils.randomDelay(minDelay, get())
         }
     }
 
-    private val minDelayValue: IntValue = object : IntValue("MinDelay", 500, 0..5000) {
+    private val minDelay: Int by object : IntValue("MinDelay", 500, 0..5000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val maxDelayValueObject = maxDelayValue.get()
+            val maxDelayValueObject = maxDelay
 
             if (maxDelayValueObject < newValue) set(maxDelayValueObject)
 
-            delay = TimeUtils.randomDelay(get(), maxDelayValue.get())
+            delay = TimeUtils.randomDelay(get(), maxDelay)
         }
     }
 
-    private val messageValue = TextValue("Message", "${LiquidCat.CLIENT_NAME} Client / https://discord.gg/asCkVB9Gj3")
-    private val customValue = BoolValue("Custom", false)
+    private val message by TextValue("Message", "${LiquidCat.CLIENT_NAME} Client / https://discord.gg/asCkVB9Gj3")
+    private val custom by BoolValue("Custom", false)
 
-    private var delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+    private var delay = TimeUtils.randomDelay(minDelay, maxDelay)
     private val delayTimer = MSTimer()
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (delayTimer.hasTimePassed(delay)) {
             mc.thePlayer.sendChatMessage(
-                if (customValue.get())
-                    replace(messageValue.get())
+                if (custom)
+                    replace(message)
                 else
-                    "${messageValue.get()} [${RandomStringUtils.randomAlphanumeric(5 + Random.nextInt(5))}]"
+                    "${message} [${RandomStringUtils.randomAlphanumeric(5 + Random.nextInt(5))}]"
             )
 
             delayTimer.reset()
-            delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+            delay = TimeUtils.randomDelay(minDelay, maxDelay)
         }
     }
 

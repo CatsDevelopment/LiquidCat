@@ -19,23 +19,23 @@ import kotlin.math.sin
 
 class Spider : Module("Spider", "Allows you to climb up walls like a spider.", ModuleCategory.MOVEMENT) {
 
-    private val modeValue = ListValue("Mode", arrayOf("Simple", "Clip"), "Simple")
-    private val motionValue = FloatValue("Motion", 0f, 0f..1f)
+    private val mode by ListValue("Mode", arrayOf("Simple", "Clip"), "Simple")
+    private val motion by FloatValue("Motion", 0f, 0f..1f)
 
     private var glitch = false
 
     @EventTarget
     fun onMove(event: MoveEvent) {
-        if (modeValue.get() == "Simple")
+        if (mode == "Simple")
             if (mc.thePlayer.isCollidedHorizontally && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava) {
-                event.y = motionValue.get().toDouble()
+                event.y = motion.toDouble()
                 mc.thePlayer.motionY = 0.0
             }
     }
 
     @EventTarget
     fun onUpdate(event: MotionEvent) {
-        if (event.eventState == EventState.POST && modeValue.get() == "Clip") {
+        if (event.eventState == EventState.POST && mode == "Clip") {
             if (mc.thePlayer.motionY < 0) glitch = true
             if (mc.thePlayer.isCollidedHorizontally && mc.thePlayer.onGround) mc.thePlayer.jump()
         }
@@ -60,7 +60,7 @@ class Spider : Module("Spider", "Allows you to climb up walls like a spider.", M
     fun onBlockBB(event: BlockBBEvent) {
         mc.thePlayer ?: return
 
-        if (modeValue.get() == "Clip")
+        if (mode == "Clip")
             if (event.block is BlockAir && event.y < mc.thePlayer.posY && mc.thePlayer.isCollidedHorizontally && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava)
                 event.boundingBox = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0)
                     .offset(mc.thePlayer.posX, (mc.thePlayer.posY.toInt() - 1).toDouble(), mc.thePlayer.posZ)

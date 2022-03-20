@@ -27,16 +27,14 @@ import java.awt.Color
 
 class CivBreak : Module("CivBreak", "Allows you to break blocks instantly.", ModuleCategory.WORLD) {
 
+    private val range by FloatValue("Range", 5f, 1f..6f)
+    private val rotations by BoolValue("Rotations", true)
+    private val visualSwing by BoolValue("VisualSwing", true)
+    private val airReset by BoolValue("Air-Reset", true)
+    private val rangeReset by BoolValue("Range-Reset", true)
+    
     private var blockPos: BlockPos? = null
     private var enumFacing: EnumFacing? = null
-
-    private val range = FloatValue("Range", 5f, 1f..6f)
-    private val rotationsValue = BoolValue("Rotations", true)
-    private val visualSwingValue = BoolValue("VisualSwing", true)
-
-    private val airResetValue = BoolValue("Air-Reset", true)
-    private val rangeResetValue = BoolValue("Range-Reset", true)
-
 
     @EventTarget
     fun onBlockClick(event: ClickBlockEvent) {
@@ -55,21 +53,21 @@ class CivBreak : Module("CivBreak", "Allows you to break blocks instantly.", Mod
     fun onUpdate(event: MotionEvent) {
         val pos = blockPos ?: return
 
-        if (airResetValue.get() && pos.getBlock() is BlockAir ||
-                rangeResetValue.get() && pos.getCenterDistance() > range.get()) {
+        if (airReset && pos.getBlock() is BlockAir ||
+                rangeReset && pos.getCenterDistance() > range) {
             blockPos = null
             return
         }
 
-        if (pos.getBlock() is BlockAir || pos.getCenterDistance() > range.get())
+        if (pos.getBlock() is BlockAir || pos.getCenterDistance() > range)
             return
 
         when (event.eventState) {
-            EventState.PRE -> if (rotationsValue.get())
+            EventState.PRE -> if (rotations)
                 RotationUtils.setTargetRotation((RotationUtils.faceBlock(pos) ?: return).rotation)
 
             EventState.POST -> {
-                if (visualSwingValue.get())
+                if (visualSwing)
                     mc.thePlayer.swingItem()
                 else
                     sendPacket(C0APacketAnimation())

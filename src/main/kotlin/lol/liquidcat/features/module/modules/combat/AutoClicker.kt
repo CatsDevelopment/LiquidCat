@@ -16,48 +16,48 @@ import net.minecraft.client.settings.KeyBinding
 
 class AutoClicker : Module("AutoClicker", "Constantly clicks when holding down a mouse button.", ModuleCategory.COMBAT) {
 
-    private val rightValue = BoolValue("Right", true)
-    private val leftValue = BoolValue("Left", true)
+    private val right by BoolValue("Right", true)
+    private val left by BoolValue("Left", true)
 
-    private val maxCPSValue: IntValue = object : IntValue("MaxCPS", 8, 1..20) {
+    private val maxCPS: Int by object : IntValue("MaxCPS", 8, 1..20) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val minCPS = minCPSValue.get()
+            val minCPS = minCPS
 
             if (minCPS > newValue) set(minCPS)
         }
     }
 
-    private val minCPSValue: IntValue = object : IntValue("MinCPS", 5, 1..20) {
+    private val minCPS: Int by object : IntValue("MinCPS", 5, 1..20) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val maxCPS = maxCPSValue.get()
+            val maxCPS = maxCPS
 
             if (maxCPS < newValue) set(maxCPS)
         }
     }
 
-    private var rightDelay = TimeUtils.randomClickDelay(minCPSValue.get(), maxCPSValue.get())
+    private var rightDelay = TimeUtils.randomClickDelay(minCPS, maxCPS)
     private var rightLastSwing = 0L
 
-    private var leftDelay = TimeUtils.randomClickDelay(minCPSValue.get(), maxCPSValue.get())
+    private var leftDelay = TimeUtils.randomClickDelay(minCPS, maxCPS)
     private var leftLastSwing = 0L
 
     @EventTarget
     fun onRender(event: Render3DEvent) {
 
         // Left click
-        if (leftValue.get() && mc.gameSettings.keyBindAttack.isKeyDown && System.currentTimeMillis() - leftLastSwing >= leftDelay) {
+        if (left && mc.gameSettings.keyBindAttack.isKeyDown && System.currentTimeMillis() - leftLastSwing >= leftDelay) {
             KeyBinding.onTick(mc.gameSettings.keyBindAttack.keyCode)
 
             leftLastSwing = System.currentTimeMillis()
-            leftDelay = TimeUtils.randomClickDelay(minCPSValue.get(), maxCPSValue.get())
+            leftDelay = TimeUtils.randomClickDelay(minCPS, maxCPS)
         }
 
         // Right click
-        if (rightValue.get() && mc.gameSettings.keyBindUseItem.isKeyDown && !mc.thePlayer.isUsingItem && System.currentTimeMillis() - rightLastSwing >= rightDelay) {
+        if (right && mc.gameSettings.keyBindUseItem.isKeyDown && !mc.thePlayer.isUsingItem && System.currentTimeMillis() - rightLastSwing >= rightDelay) {
             KeyBinding.onTick(mc.gameSettings.keyBindUseItem.keyCode)
 
             rightLastSwing = System.currentTimeMillis()
-            rightDelay = TimeUtils.randomClickDelay(minCPSValue.get(), maxCPSValue.get())
+            rightDelay = TimeUtils.randomClickDelay(minCPS, maxCPS)
         }
     }
 }

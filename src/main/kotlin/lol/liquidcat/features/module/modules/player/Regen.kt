@@ -17,21 +17,21 @@ import net.minecraft.potion.Potion
 
 class Regen : Module("Regen", "Regenerates your health much faster.", ModuleCategory.PLAYER) {
 
-    private val healthValue = IntValue("Health", 18, 0..20)
-    private val speedValue = IntValue("Speed", 10, 1..100)
-    private val noAirValue = BoolValue("NoAir", false)
-    private val potionEffectValue = BoolValue("PotionEffect", false)
+    private val health by IntValue("Health", 18, 0..20)
+    private val speed by IntValue("Speed", 10, 1..100)
+    private val noAir by BoolValue("NoAir", false)
+    private val potionEffect by BoolValue("PotionEffect", false)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if ((noAirValue.get() && !mc.thePlayer.onGround) || mc.thePlayer.capabilities.isCreativeMode)
+        if ((noAir && !mc.thePlayer.onGround) || mc.thePlayer.capabilities.isCreativeMode)
             return
 
-        if (mc.thePlayer.isEntityAlive && mc.thePlayer.health < healthValue.get()) {
-            if (potionEffectValue.get() && !mc.thePlayer.isPotionActive(Potion.regeneration))
+        if (mc.thePlayer.isEntityAlive && mc.thePlayer.health < health) {
+            if (potionEffect && !mc.thePlayer.isPotionActive(Potion.regeneration))
                 return
 
-            repeat(speedValue.get()) {
+            repeat(speed) {
                 sendPacket(C03PacketPlayer(mc.thePlayer.onGround))
             }
         }

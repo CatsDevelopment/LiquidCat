@@ -14,11 +14,10 @@ import lol.liquidcat.utils.block.collideBlock
 import lol.liquidcat.utils.block.down
 import lol.liquidcat.value.FloatValue
 import net.minecraft.block.BlockLiquid
-import net.minecraft.util.AxisAlignedBB
 
 class ReverseStep : Module("ReverseStep", "Allows you to step down blocks faster.", ModuleCategory.MOVEMENT) {
 
-    private val motionValue = FloatValue("Motion", 1f, 0.21f..1f)
+    private val motion by FloatValue("Motion", 1f, 0.21f..1f)
 
     private var jumped = false
 
@@ -30,7 +29,7 @@ class ReverseStep : Module("ReverseStep", "Allows you to step down blocks faster
         if (collideBlock(mc.thePlayer.entityBoundingBox) { it is BlockLiquid } || collideBlock(mc.thePlayer.entityBoundingBox.down(0.01)) { it is BlockLiquid }) return
 
         if (!mc.gameSettings.keyBindJump.isKeyDown && !mc.thePlayer.onGround && !mc.thePlayer.movementInput.jump && mc.thePlayer.motionY <= 0.0 && mc.thePlayer.fallDistance <= 1f && !jumped) mc.thePlayer.motionY =
-            (-motionValue.get()).toDouble()
+            (-motion).toDouble()
     }
 
     @EventTarget

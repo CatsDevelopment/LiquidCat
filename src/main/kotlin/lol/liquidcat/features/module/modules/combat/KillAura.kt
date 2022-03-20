@@ -54,101 +54,101 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
      */
 
     // CPS - Attack speed
-    private val maxCPS: IntValue = object : IntValue("MaxCPS", 8, 1..20) {
+    private val maxCPS: Int by object : IntValue("MaxCPS", 8, 1..20) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val i = minCPS.get()
+            val i = minCPS
             if (i > newValue) set(i)
 
-            attackDelay = TimeUtils.randomClickDelay(minCPS.get(), this.get())
+            attackDelay = TimeUtils.randomClickDelay(minCPS, this.get())
         }
     }
 
-    private val minCPS: IntValue = object : IntValue("MinCPS", 5, 1..20) {
+    private val minCPS: Int by object : IntValue("MinCPS", 5, 1..20) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val i = maxCPS.get()
+            val i = maxCPS
             if (i < newValue) set(i)
 
-            attackDelay = TimeUtils.randomClickDelay(this.get(), maxCPS.get())
+            attackDelay = TimeUtils.randomClickDelay(this.get(), maxCPS)
         }
     }
 
-    private val hurtTimeValue = IntValue("HurtTime", 10, 0..10)
+    private val hurtTime by IntValue("HurtTime", 10, 0..10)
 
     // Range
-    private val rangeValue = FloatValue("Range", 3.7f, 1f..8f)
-    private val throughWallsRangeValue = FloatValue("ThroughWallsRange", 3f, 0f..8f)
-    private val rangeSprintReducementValue = FloatValue("RangeSprintReducement", 0f, 0f..0.4f)
+    private val range by FloatValue("Range", 3.7f, 1f..8f)
+    private val throughWallsRange by FloatValue("ThroughWallsRange", 3f, 0f..8f)
+    private val rangeSprintReducement by FloatValue("RangeSprintReducement", 0f, 0f..0.4f)
 
     // Modes
-    private val priorityValue = ListValue("Priority", arrayOf("Health", "Distance", "Direction", "LivingTime"), "Distance")
-    private val targetModeValue = ListValue("TargetMode", arrayOf("Single", "Switch", "Multi"), "Switch")
+    private val priority by ListValue("Priority", arrayOf("Health", "Distance", "Direction", "LivingTime"), "Distance")
+    private val targetMode by ListValue("TargetMode", arrayOf("Single", "Switch", "Multi"), "Switch")
 
     // Bypass
-    private val swingValue = BoolValue("Swing", true)
-    private val keepSprintValue = BoolValue("KeepSprint", true)
+    private val swing by BoolValue("Swing", true)
+    private val keepSprint by BoolValue("KeepSprint", true)
 
     // AutoBlock
-    private val autoBlockValue = BoolValue("AutoBlock", false)
-    private val interactAutoBlockValue = BoolValue("InteractAutoBlock", true)
-    private val delayedBlockValue = BoolValue("DelayedBlock", true)
-    private val blockRate = IntValue("BlockRate", 100, 1..100)
+    private val autoBlock by BoolValue("AutoBlock", false)
+    private val interactAutoBlock by BoolValue("InteractAutoBlock", true)
+    private val delayedBlock by BoolValue("DelayedBlock", true)
+    private val blockRate by IntValue("BlockRate", 100, 1..100)
 
     // Raycast
-    private val raycastValue = BoolValue("RayCast", true)
-    private val raycastIgnoredValue = BoolValue("RayCastIgnored", false)
-    private val livingRaycastValue = BoolValue("LivingRayCast", true)
+    private val raycast by BoolValue("RayCast", true)
+    private val raycastIgnored by BoolValue("RayCastIgnored", false)
+    private val livingRaycast by BoolValue("LivingRayCast", true)
 
     // Bypass
-    private val aacValue = BoolValue("AAC", false)
+    private val aac by BoolValue("AAC", false)
 
     // Turn Speed
-    private val maxTurnSpeed: FloatValue = object : FloatValue("MaxTurnSpeed", 180f, 0f..180f) {
+    private val maxTurnSpeed: Float by object : FloatValue("MaxTurnSpeed", 180f, 0f..180f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
-            val v = minTurnSpeed.get()
+            val v = minTurnSpeed
             if (v > newValue) set(v)
         }
     }
 
-    private val minTurnSpeed: FloatValue = object : FloatValue("MinTurnSpeed", 180f, 0f..180f) {
+    private val minTurnSpeed: Float by object : FloatValue("MinTurnSpeed", 180f, 0f..180f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
-            val v = maxTurnSpeed.get()
+            val v = maxTurnSpeed
             if (v < newValue) set(v)
         }
     }
 
-    private val silentRotationValue = BoolValue("SilentRotation", true)
-    private val rotationStrafeValue = ListValue("Strafe", arrayOf("Off", "Strict", "Silent"), "Off")
-    private val randomCenterValue = BoolValue("RandomCenter", true)
-    private val outborderValue = BoolValue("Outborder", false)
-    private val fovValue = FloatValue("FOV", 180f, 0f..180f)
+    private val silentRotation by BoolValue("SilentRotation", true)
+    private val rotationStrafe by ListValue("Strafe", arrayOf("Off", "Strict", "Silent"), "Off")
+    private val randomCenter by BoolValue("RandomCenter", true)
+    private val outborder by BoolValue("Outborder", false)
+    private val fov by FloatValue("FOV", 180f, 0f..180f)
 
     // Predict
-    private val predictValue = BoolValue("Predict", true)
+    private val predict by BoolValue("Predict", true)
 
-    private val maxPredictSize: FloatValue = object : FloatValue("MaxPredictSize", 1f, 0.1f..5f) {
+    private val maxPredictSize: Float by object : FloatValue("MaxPredictSize", 1f, 0.1f..5f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
-            val v = minPredictSize.get()
+            val v = minPredictSize
             if (v > newValue) set(v)
         }
     }
 
-    private val minPredictSize: FloatValue = object : FloatValue("MinPredictSize", 1f, 0.1f..5f) {
+    private val minPredictSize: Float by object : FloatValue("MinPredictSize", 1f, 0.1f..5f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
-            val v = maxPredictSize.get()
+            val v = maxPredictSize
             if (v < newValue) set(v)
         }
     }
 
     // Bypass
-    private val failRateValue = FloatValue("FailRate", 0f, 0f..100f)
-    private val fakeSwingValue = BoolValue("FakeSwing", true)
-    private val noInventoryAttackValue = BoolValue("NoInvAttack", false)
-    private val noInventoryDelayValue = IntValue("NoInvDelay", 200, 0..500)
-    private val limitedMultiTargetsValue = IntValue("LimitedMultiTargets", 0, 0..50)
+    private val failRate by FloatValue("FailRate", 0f, 0f..100f)
+    private val fakeSwing by BoolValue("FakeSwing", true)
+    private val noInventoryAttack by BoolValue("NoInvAttack", false)
+    private val noInventoryDelay by IntValue("NoInvDelay", 200, 0..500)
+    private val limitedMultiTargets by IntValue("LimitedMultiTargets", 0, 0..50)
 
     // Visuals
-    private val markValue = BoolValue("Mark", true)
-    private val fakeSharpValue = BoolValue("FakeSharp", true)
+    private val mark by BoolValue("Mark", true)
+    private val fakeSharp by BoolValue("FakeSharp", true)
 
     /**
      * MODULE
@@ -208,13 +208,13 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
             updateHitable()
 
             // AutoBlock
-            if (autoBlockValue.get() && delayedBlockValue.get() && canBlock)
+            if (autoBlock && delayedBlock && canBlock)
                 startBlocking(currentTarget!!, hitable)
 
             return
         }
 
-        if (rotationStrafeValue.get().equals("Off", true))
+        if (rotationStrafe.equals("Off", true))
             update()
     }
 
@@ -223,13 +223,13 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
      */
     @EventTarget
     fun onStrafe(event: StrafeEvent) {
-        if (rotationStrafeValue.get().equals("Off", true))
+        if (rotationStrafe.equals("Off", true))
             return
 
         update()
 
         if (currentTarget != null && RotationUtils.targetRotation != null) {
-            when (rotationStrafeValue.get().toLowerCase()) {
+            when (rotationStrafe.toLowerCase()) {
                 "strict" -> {
                     val (yaw) = RotationUtils.targetRotation ?: return
                     var strafe = event.strafe
@@ -267,8 +267,8 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
     }
 
     fun update() {
-        if (cancelRun || (noInventoryAttackValue.get() && (mc.currentScreen is GuiContainer ||
-                        System.currentTimeMillis() - containerOpen < noInventoryDelayValue.get())))
+        if (cancelRun || (noInventoryAttack && (mc.currentScreen is GuiContainer ||
+                        System.currentTimeMillis() - containerOpen < noInventoryDelay)))
             return
 
         // Update target
@@ -282,7 +282,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
         // Target
         currentTarget = target
 
-        if (!targetModeValue.get().equals("Switch", ignoreCase = true) && isEnemy(currentTarget))
+        if (!targetMode.equals("Switch", ignoreCase = true) && isEnemy(currentTarget))
             target = currentTarget
     }
 
@@ -299,8 +299,8 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
             return
         }
 
-        if (noInventoryAttackValue.get() && (mc.currentScreen is GuiContainer ||
-                        System.currentTimeMillis() - containerOpen < noInventoryDelayValue.get())) {
+        if (noInventoryAttack && (mc.currentScreen is GuiContainer ||
+                        System.currentTimeMillis() - containerOpen < noInventoryDelay)) {
             target = null
             currentTarget = null
             hitable = false
@@ -329,8 +329,8 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
             return
         }
 
-        if (noInventoryAttackValue.get() && (mc.currentScreen is GuiContainer ||
-                        System.currentTimeMillis() - containerOpen < noInventoryDelayValue.get())) {
+        if (noInventoryAttack && (mc.currentScreen is GuiContainer ||
+                        System.currentTimeMillis() - containerOpen < noInventoryDelay)) {
             target = null
             currentTarget = null
             hitable = false
@@ -340,14 +340,14 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
 
         target ?: return
 
-        if (markValue.get() && !targetModeValue.get().equals("Multi", ignoreCase = true))
+        if (mark && !targetMode.equals("Multi", ignoreCase = true))
             GLUtils.drawPlatform(target!!, if (hitable) Color(37, 126, 255, 70) else Color(255, 0, 0, 70))
 
         if (currentTarget != null && attackTimer.hasTimePassed(attackDelay) &&
-                currentTarget!!.hurtTime <= hurtTimeValue.get()) {
+                currentTarget!!.hurtTime <= hurtTime) {
             clicks++
             attackTimer.reset()
-            attackDelay = TimeUtils.randomClickDelay(minCPS.get(), maxCPS.get())
+            attackDelay = TimeUtils.randomClickDelay(minCPS, maxCPS)
         }
     }
 
@@ -372,10 +372,10 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
         currentTarget ?: return
 
         // Settings
-        val failRate = failRateValue.get()
-        val swing = swingValue.get()
-        val multi = targetModeValue.get().equals("Multi", ignoreCase = true)
-        val openInventory = aacValue.get() && mc.currentScreen is GuiInventory
+        val failRate = failRate
+        val swing = swing
+        val multi = targetMode.equals("Multi", ignoreCase = true)
+        val openInventory = aac && mc.currentScreen is GuiInventory
         val failHit = failRate > 0 && Random().nextInt(100) <= failRate
 
         // Close inventory when open
@@ -384,7 +384,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
 
         // Check is not hitable or check failrate
         if (!hitable || failHit) {
-            if (swing && (fakeSwingValue.get() || failHit))
+            if (swing && (fakeSwing || failHit))
                 mc.thePlayer.swingItem()
         } else {
             // Attack
@@ -401,13 +401,13 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
 
                         targets += 1
 
-                        if (limitedMultiTargetsValue.get() != 0 && limitedMultiTargetsValue.get() <= targets)
+                        if (limitedMultiTargets != 0 && limitedMultiTargets <= targets)
                             break
                     }
                 }
             }
 
-            prevTargetEntities.add(if (aacValue.get()) target!!.entityId else currentTarget!!.entityId)
+            prevTargetEntities.add(if (aac) target!!.entityId else currentTarget!!.entityId)
 
             if (target == currentTarget)
                 target = null
@@ -426,9 +426,9 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
         target = null
 
         // Settings
-        val hurtTime = hurtTimeValue.get()
-        val fov = fovValue.get()
-        val switchMode = targetModeValue.get().equals("Switch", ignoreCase = true)
+        val hurtTime = hurtTime
+        val fov = fov
+        val switchMode = targetMode.equals("Switch", ignoreCase = true)
 
         // Find possible targets
         val targets = mutableListOf<EntityLivingBase>()
@@ -455,7 +455,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
         }
 
         // Sort targets by priority
-        when (priorityValue.get().toLowerCase()) {
+        when (priority.toLowerCase()) {
             "distance" -> targets.sortBy { mc.thePlayer.getDistanceToEntityBox(it) } // Sort by distance
             "health" -> targets.sortBy { it.health } // Sort by health
             "direction" -> targets.sortBy { RotationUtils.getRotationDifference(it) } // Sort by FOV
@@ -514,11 +514,11 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
         LiquidCat.eventManager.callEvent(AttackEvent(entity))
 
         // Attack target
-        if (swingValue.get())
+        if (swing)
             mc.thePlayer.swingItem()
         sendPacket(C02PacketUseEntity(entity, C02PacketUseEntity.Action.ATTACK))
 
-        if (keepSprintValue.get()) {
+        if (keepSprint) {
             // Critical Effect
             if (mc.thePlayer.fallDistance > 0F && !mc.thePlayer.onGround && !mc.thePlayer.isOnLadder &&
                     !mc.thePlayer.isInWater && !mc.thePlayer.isPotionActive(Potion.blindness) && !mc.thePlayer.isRiding)
@@ -537,23 +537,23 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
 
         for (i in 0..2) {
             // Critical Effect
-            if (mc.thePlayer.fallDistance > 0F && !mc.thePlayer.onGround && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWater && !mc.thePlayer.isPotionActive(Potion.blindness) && mc.thePlayer.ridingEntity == null || criticals.state && criticals.delayTimer.hasTimePassed(criticals.delayValue.get().toLong()) && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava && !mc.thePlayer.isInWeb)
+            if (mc.thePlayer.fallDistance > 0F && !mc.thePlayer.onGround && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWater && !mc.thePlayer.isPotionActive(Potion.blindness) && mc.thePlayer.ridingEntity == null || criticals.state && criticals.delayTimer.hasTimePassed(criticals.delay.toLong()) && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava && !mc.thePlayer.isInWeb)
                 mc.thePlayer.onCriticalHit(target)
 
             // Enchant Effect
-            if (EnchantmentHelper.getModifierForCreature(mc.thePlayer.heldItem, target!!.creatureAttribute) > 0.0f || fakeSharpValue.get())
+            if (EnchantmentHelper.getModifierForCreature(mc.thePlayer.heldItem, target!!.creatureAttribute) > 0.0f || fakeSharp)
                 mc.thePlayer.onEnchantmentCritical(target)
         }
 
         // Start blocking after attack
-        if (mc.thePlayer.isBlocking || (autoBlockValue.get() && canBlock)) {
-            if (!(blockRate.get() > 0 && Random().nextInt(100) <= blockRate.get()))
+        if (mc.thePlayer.isBlocking || (autoBlock && canBlock)) {
+            if (!(blockRate > 0 && Random().nextInt(100) <= blockRate))
                 return
 
-            if (delayedBlockValue.get())
+            if (delayedBlock)
                 return
 
-            startBlocking(entity, interactAutoBlockValue.get())
+            startBlocking(entity, interactAutoBlock)
         }
     }
 
@@ -561,31 +561,31 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
      * Update killaura rotations to enemy
      */
     private fun updateRotations(entity: Entity): Boolean {
-        if(maxTurnSpeed.get() <= 0F)
+        if(maxTurnSpeed <= 0F)
             return true
 
         var boundingBox = entity.entityBoundingBox
 
-        if (predictValue.get())
+        if (predict)
             boundingBox = boundingBox.offset(
-                    (entity.posX - entity.prevPosX) * RandomUtils.nextFloat(minPredictSize.get(), maxPredictSize.get()),
-                    (entity.posY - entity.prevPosY) * RandomUtils.nextFloat(minPredictSize.get(), maxPredictSize.get()),
-                    (entity.posZ - entity.prevPosZ) * RandomUtils.nextFloat(minPredictSize.get(), maxPredictSize.get())
+                    (entity.posX - entity.prevPosX) * RandomUtils.nextFloat(minPredictSize, maxPredictSize),
+                    (entity.posY - entity.prevPosY) * RandomUtils.nextFloat(minPredictSize, maxPredictSize),
+                    (entity.posZ - entity.prevPosZ) * RandomUtils.nextFloat(minPredictSize, maxPredictSize)
             )
 
         val (_, rotation) = RotationUtils.searchCenter(
                 boundingBox,
-                outborderValue.get() && !attackTimer.hasTimePassed(attackDelay / 2),
-                randomCenterValue.get(),
-                predictValue.get(),
-                mc.thePlayer.getDistanceToEntityBox(entity) < throughWallsRangeValue.get()
+                outborder && !attackTimer.hasTimePassed(attackDelay / 2),
+                randomCenter,
+                predict,
+                mc.thePlayer.getDistanceToEntityBox(entity) < throughWallsRange
         ) ?: return false
 
         val limitedRotation = RotationUtils.limitAngleChange(RotationUtils.serverRotation, rotation,
-                (Math.random() * (maxTurnSpeed.get() - minTurnSpeed.get()) + minTurnSpeed.get()).toFloat())
+                (Math.random() * (maxTurnSpeed - minTurnSpeed) + minTurnSpeed).toFloat())
 
-        if (silentRotationValue.get())
-            RotationUtils.setTargetRotation(limitedRotation, if (aacValue.get()) 15 else 0)
+        if (silentRotation)
+            RotationUtils.setTargetRotation(limitedRotation, if (aac) 15 else 0)
         else
             limitedRotation.toPlayer(mc.thePlayer)
 
@@ -597,24 +597,24 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
      */
     private fun updateHitable() {
         // Disable hitable check if turn speed is zero
-        if(maxTurnSpeed.get() <= 0F) {
+        if(maxTurnSpeed <= 0F) {
             hitable = true
             return
         }
 
         val reach = min(maxRange.toDouble(), mc.thePlayer.getDistanceToEntityBox(target!!)) + 1
 
-        if (raycastValue.get()) {
+        if (raycast) {
             val raycastedEntity = RaycastUtils.raycastEntity(reach) {
-                (!livingRaycastValue.get() || it is EntityLivingBase && it !is EntityArmorStand) &&
-                        (isEnemy(it) || raycastIgnoredValue.get() || aacValue.get() && mc.theWorld.getEntitiesWithinAABBExcludingEntity(it, it.entityBoundingBox).isNotEmpty())
+                (!livingRaycast || it is EntityLivingBase && it !is EntityArmorStand) &&
+                        (isEnemy(it) || raycastIgnored || aac && mc.theWorld.getEntitiesWithinAABBExcludingEntity(it, it.entityBoundingBox).isNotEmpty())
             }
 
-            if (raycastValue.get() && raycastedEntity is EntityLivingBase
+            if (raycast && raycastedEntity is EntityLivingBase
                     && (LiquidCat.moduleManager[NoFriends::class.java]!!.state || !EntityUtils.isFriend(raycastedEntity)))
                 currentTarget = raycastedEntity
 
-            hitable = if(maxTurnSpeed.get() > 0F) currentTarget == raycastedEntity else true
+            hitable = if(maxTurnSpeed > 0F) currentTarget == raycastedEntity else true
         } else
             hitable = RotationUtils.isFaced(currentTarget, reach)
     }
@@ -654,7 +654,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
      * Check if [entity] is alive
      */
     private fun isAlive(entity: EntityLivingBase) = entity.isEntityAlive && entity.health > 0 ||
-            aacValue.get() && entity.hurtTime > 5
+            aac && entity.hurtTime > 5
 
 
     /**
@@ -667,14 +667,14 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
      * Range
      */
     private val maxRange: Float
-        get() = max(rangeValue.get(), throughWallsRangeValue.get())
+        get() = max(range, throughWallsRange)
 
     private fun getRange(entity: Entity) =
-            (if (mc.thePlayer.getDistanceToEntityBox(entity) >= throughWallsRangeValue.get()) rangeValue.get() else throughWallsRangeValue.get()) - if (mc.thePlayer.isSprinting) rangeSprintReducementValue.get() else 0F
+            (if (mc.thePlayer.getDistanceToEntityBox(entity) >= throughWallsRange) range else throughWallsRange) - if (mc.thePlayer.isSprinting) rangeSprintReducement else 0F
 
     /**
      * HUD Tag
      */
     override val tag: String?
-        get() = targetModeValue.get()
+        get() = targetMode
 }

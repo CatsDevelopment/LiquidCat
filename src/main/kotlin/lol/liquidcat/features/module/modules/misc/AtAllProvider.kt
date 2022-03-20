@@ -19,26 +19,26 @@ import java.util.concurrent.LinkedBlockingQueue
 
 class AtAllProvider : Module("AtAllProvider", "Automatically mentions everyone on the server when using '@a' in your message.", ModuleCategory.MISC) {
 
-    private val maxDelayValue: IntValue = object : IntValue("MaxDelay", 1000, 0..20000) {
+    private val maxDelay: Int by object : IntValue("MaxDelay", 1000, 0..20000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val i = minDelayValue.get()
+            val i = minDelay
             if (i > newValue) set(i)
         }
     }
 
-    private val minDelayValue: IntValue = object : IntValue("MinDelay", 500, 0..20000) {
+    private val minDelay: Int by object : IntValue("MinDelay", 500, 0..20000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val i = maxDelayValue.get()
+            val i = maxDelay
             if (i < newValue) set(i)
         }
     }
 
-    private val retryValue = BoolValue("Retry", false)
+    private val retry by BoolValue("Retry", false)
 
     private val sendQueue = LinkedBlockingQueue<String>()
     private val retryQueue: MutableList<String> = ArrayList()
     private val msTimer = MSTimer()
-    private var delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+    private var delay = TimeUtils.randomDelay(minDelay, maxDelay)
 
     override fun onDisable() {
         synchronized(sendQueue) { sendQueue.clear() }
@@ -52,11 +52,11 @@ class AtAllProvider : Module("AtAllProvider", "Automatically mentions everyone o
         try {
             synchronized(sendQueue) {
                 if (sendQueue.isEmpty()) {
-                    if (!retryValue.get() || retryQueue.isEmpty()) return else sendQueue.addAll(retryQueue)
+                    if (!retry || retryQueue.isEmpty()) return else sendQueue.addAll(retryQueue)
                 }
                 mc.thePlayer.sendChatMessage(sendQueue.take())
                 msTimer.reset()
-                delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+                delay = TimeUtils.randomDelay(minDelay, maxDelay)
             }
         } catch (e: InterruptedException) {
             e.printStackTrace()
@@ -74,7 +74,7 @@ class AtAllProvider : Module("AtAllProvider", "Automatically mentions everyone o
                         if (playerName == mc.thePlayer.name) continue
                         sendQueue.add(message.replace("@a", playerName))
                     }
-                    if (retryValue.get()) {
+                    if (retry) {
                         synchronized(retryQueue) {
                             retryQueue.clear()
                             retryQueue.addAll(listOf(*sendQueue.toTypedArray()))

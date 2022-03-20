@@ -10,7 +10,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 
 class Chams : Module("Chams", "Allows you to see targets through blocks.", ModuleCategory.RENDER) {
-    val targetsValue = BoolValue("Targets", true)
-    val chestsValue = BoolValue("Chests", true)
-    val itemsValue = BoolValue("Items", true)
+    val targets by BoolValue("Targets", true)
+    val chests by BoolValue("Chests", true)
+    val items by BoolValue("Items", true)
 }

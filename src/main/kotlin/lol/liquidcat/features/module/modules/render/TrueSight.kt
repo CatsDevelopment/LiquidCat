@@ -10,6 +10,6 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 
 class TrueSight : Module("TrueSight", "Allows you to see invisible entities and barriers.", ModuleCategory.RENDER) {
-    val barriersValue = BoolValue("Barriers", true)
-    val entitiesValue = BoolValue("Entities", true)
+    val barriers by BoolValue("Barriers", true)
+    val entities by BoolValue("Entities", true)
 }

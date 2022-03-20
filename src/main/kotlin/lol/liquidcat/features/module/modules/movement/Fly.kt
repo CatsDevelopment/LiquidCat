@@ -17,11 +17,11 @@ import lol.liquidcat.value.ListValue
 
 class Fly : Module("Fly", "Allows you to fly in survival mode.", ModuleCategory.MOVEMENT) {
 
-    private val modeValue = ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
-    private val speedValue = FloatValue("Speed", 2f, 0f..5f)
+    private val mode by ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
+    private val speed by FloatValue("Speed", 2f, 0f..5f)
 
     override val tag: String
-        get() = modeValue.get()
+        get() = mode
 
     override fun onDisable() {
         mc.thePlayer.motionX = 0.0
@@ -31,10 +31,9 @@ class Fly : Module("Fly", "Allows you to fly in survival mode.", ModuleCategory.
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        println(mc.framebuffer.framebufferTexture)
-        when (modeValue.get()) {
+        when (mode) {
             "Vanilla" -> {
-                val vanillaSpeed = speedValue.get().toDouble()
+                val vanillaSpeed = speed.toDouble()
 
                 mc.thePlayer.capabilities.isFlying = false
 

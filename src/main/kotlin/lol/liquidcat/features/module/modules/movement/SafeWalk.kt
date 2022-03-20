@@ -13,10 +13,10 @@ import lol.liquidcat.value.BoolValue
 
 class SafeWalk : Module("SafeWalk", "Prevents you from falling down as if you were sneaking.", ModuleCategory.MOVEMENT) {
 
-    private val airSafeValue = BoolValue("AirSafe", false)
+    private val airSafe by BoolValue("AirSafe", false)
 
     @EventTarget
     fun onMove(event: MoveEvent) {
-        if (airSafeValue.get() || mc.thePlayer.onGround) event.isSafeWalk = true
+        if (airSafe || mc.thePlayer.onGround) event.isSafeWalk = true
     }
 }

@@ -17,25 +17,24 @@ import lol.liquidcat.value.ListValue
 import net.minecraft.block.BlockLiquid
 import net.minecraft.block.material.Material
 import net.minecraft.network.play.client.C03PacketPlayer
-import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
 
 //TODO Rewrite and add more modes
 
 class LiquidWalk : Module("LiquidWalk", "Allows you to walk on water.", ModuleCategory.MOVEMENT) {
 
-    val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP", "Dolphin"), "NCP")
-    private val noJumpValue = BoolValue("NoJump", false)
+    val mode by ListValue("Mode", arrayOf("Vanilla", "NCP", "Dolphin"), "NCP")
+    private val noJump by BoolValue("NoJump", false)
 
     private var nextTick = false
 
     override val tag: String
-        get() = modeValue.get()
+        get() = mode
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (!mc.thePlayer.isSneaking)
-            when (modeValue.get()) {
+            when (mode) {
                 "NCP", "Vanilla" -> if (collideBlock(mc.thePlayer.entityBoundingBox) { it is BlockLiquid }
                     && mc.thePlayer.isInsideOfMaterial(Material.air) && !mc.thePlayer.isSneaking)
                     mc.thePlayer.motionY = 0.08
@@ -49,14 +48,14 @@ class LiquidWalk : Module("LiquidWalk", "Allows you to walk on water.", ModuleCa
         if (mc.thePlayer == null || mc.thePlayer.entityBoundingBox == null) return
 
         if (event.block is BlockLiquid && !collideBlock(mc.thePlayer.entityBoundingBox) { it is BlockLiquid } && !mc.thePlayer.isSneaking)
-            when (modeValue.get()) {
+            when (mode) {
                 "NCP", "Vanilla" -> event.boundingBox = AxisAlignedBB(event.x, event.y, event.z)
             }
     }
 
     @EventTarget
     fun onPacket(event: PacketEvent) {
-        if (mc.thePlayer == null || modeValue.get() != "NCP") return
+        if (mc.thePlayer == null || mode != "NCP") return
 
         val aabb = mc.thePlayer.entityBoundingBox.down(0.01)
 
@@ -70,7 +69,7 @@ class LiquidWalk : Module("LiquidWalk", "Allows you to walk on water.", ModuleCa
 
     @EventTarget
     fun onJump(event: JumpEvent) {
-        if (noJumpValue.get() && BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 0.01, mc.thePlayer.posZ).getBlock() is BlockLiquid)
+        if (noJump && BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 0.01, mc.thePlayer.posZ).getBlock() is BlockLiquid)
             event.cancelEvent()
     }
 }

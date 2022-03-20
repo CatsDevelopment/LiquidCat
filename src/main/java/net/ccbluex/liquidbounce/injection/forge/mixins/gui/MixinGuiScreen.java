@@ -61,7 +61,7 @@ public abstract class MixinGuiScreen {
     private void drawWorldBackground(final CallbackInfo callbackInfo) {
         final HUD hud = (HUD) LiquidCat.moduleManager.getModule(HUD.class);
 
-        if(hud.getInventoryParticle().get() && mc.thePlayer != null) {
+        if(hud.getInventoryParticle() && mc.thePlayer != null) {
             final ScaledResolution scaledResolution = new ScaledResolution(mc);
             final int width = scaledResolution.getScaledWidth();
             final int height = scaledResolution.getScaledHeight();

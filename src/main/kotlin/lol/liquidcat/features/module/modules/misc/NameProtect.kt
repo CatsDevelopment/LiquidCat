@@ -17,9 +17,9 @@ import net.ccbluex.liquidbounce.utils.render.ColorUtils.translateAlternateColorC
 
 class NameProtect : Module("NameProtect", "Changes playernames clientside.", ModuleCategory.MISC) {
 
-    private val fakeNameValue = TextValue("FakeName", "&cMe")
-    val allPlayersValue = BoolValue("AllPlayers", false)
-    val skinProtectValue = BoolValue("SkinProtect", true)
+    private val fakeName by TextValue("FakeName", "&cMe")
+    val allPlayers by BoolValue("AllPlayers", false)
+    val skinProtect by BoolValue("SkinProtect", true)
 
     @EventTarget(ignoreCondition = true)
     fun onText(event: TextEvent) {
@@ -31,8 +31,8 @@ class NameProtect : Module("NameProtect", "Changes playernames clientside.", Mod
         )
         if (!state) return
         event.text =
-            StringUtils.replace(event.text, mc.thePlayer.name, translateAlternateColorCodes(fakeNameValue.get()) + "§f")
-        if (allPlayersValue.get()) for (playerInfo in mc.netHandler.playerInfoMap) event.text =
+            StringUtils.replace(event.text, mc.thePlayer.name, translateAlternateColorCodes(fakeName) + "§f")
+        if (allPlayers) for (playerInfo in mc.netHandler.playerInfoMap) event.text =
             StringUtils.replace(event.text, playerInfo.gameProfile.name, "Protected User")
     }
 }

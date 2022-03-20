@@ -16,10 +16,10 @@ import net.minecraft.util.ResourceLocation
 
 class HUD : Module("HUD", "Toggles visibility of the HUD.", ModuleCategory.RENDER, array = false) {
 
-    val blackHotbarValue = BoolValue("BlackHotbar", true)
-    val inventoryParticle = BoolValue("InventoryParticle", false)
-    private val blurValue = BoolValue("Blur", false)
-    val fontChatValue = BoolValue("FontChat", false)
+    val blackHotbar by BoolValue("BlackHotbar", true)
+    val inventoryParticle by BoolValue("InventoryParticle", false)
+    private val blur by BoolValue("Blur", false)
+    val fontChat by BoolValue("FontChat", false)
 
     @EventTarget
     fun onRender2D(event: Render2DEvent) {
@@ -43,7 +43,7 @@ class HUD : Module("HUD", "Toggles visibility of the HUD.", ModuleCategory.RENDE
 
         val shaderName = "${LiquidCat.CLIENT_NAME.toLowerCase()}/blur.json"
 
-        if (blurValue.get() && !mc.entityRenderer.isShaderActive && event.guiScreen != null && !(event.guiScreen is GuiChat || event.guiScreen is GuiHudDesigner))
+        if (blur && !mc.entityRenderer.isShaderActive && event.guiScreen != null && !(event.guiScreen is GuiChat || event.guiScreen is GuiHudDesigner))
             mc.entityRenderer.loadShader(ResourceLocation(shaderName))
         else if (mc.entityRenderer.shaderGroup != null && mc.entityRenderer.shaderGroup.shaderGroupName.contains(shaderName))
             mc.entityRenderer.stopUseShader()

@@ -25,12 +25,12 @@ import java.awt.Color
 
 class BowAimbot : Module("BowAimbot", "Automatically aims at players when using a bow.", ModuleCategory.COMBAT) {
 
-    private val silentValue = BoolValue("Silent", true)
-    private val predictValue = BoolValue("Predict", true)
-    private val throughWallsValue = BoolValue("ThroughWalls", false)
-    private val predictSizeValue = FloatValue("PredictSize", 2F, 0.1f..5f)
-    private val priorityValue = ListValue("Priority", arrayOf("Health", "Distance", "Direction"), "Direction")
-    private val markValue = BoolValue("Mark", true)
+    private val silent by BoolValue("Silent", true)
+    private val predict by BoolValue("Predict", true)
+    private val throughWalls by BoolValue("ThroughWalls", false)
+    private val predictSize by FloatValue("PredictSize", 2F, 0.1f..5f)
+    private val priority by ListValue("Priority", arrayOf("Health", "Distance", "Direction"), "Direction")
+    private val mark by BoolValue("Mark", true)
 
     private var target: Entity? = null
 
@@ -43,16 +43,16 @@ class BowAimbot : Module("BowAimbot", "Automatically aims at players when using 
         target = null
 
         if (mc.thePlayer.itemInUse?.item is ItemBow) {
-            val entity = getTarget(throughWallsValue.get(), priorityValue.get()) ?: return
+            val entity = getTarget(throughWalls, priority) ?: return
 
             target = entity
-            RotationUtils.faceBow(target, silentValue.get(), predictValue.get(), predictSizeValue.get())
+            RotationUtils.faceBow(target, silent, predict, predictSize)
         }
     }
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        if (target != null && !priorityValue.get().equals("Multi", ignoreCase = true) && markValue.get())
+        if (target != null && !priority.equals("Multi", ignoreCase = true) && mark)
             GLUtils.drawPlatform(target!!, Color(37, 126, 255, 70))
     }
 

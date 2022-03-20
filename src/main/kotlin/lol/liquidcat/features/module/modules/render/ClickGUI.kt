@@ -25,20 +25,19 @@ import java.awt.Color
 
 object ClickGUI : Module("ClickGUI", "Opens the ClickGUI.", ModuleCategory.RENDER, Keyboard.KEY_RSHIFT, canEnable = false) {
 
-    private val styleValue: ListValue =
-        object : ListValue("Style", arrayOf("LiquidBounce", "Null", "Slowly"), "Slowly") {
-            override fun onChanged(oldValue: String, newValue: String) {
-                updateStyle()
-            }
+    private val style: String by object : ListValue("Style", arrayOf("LiquidBounce", "Null", "Slowly"), "Slowly") {
+        override fun onChanged(oldValue: String, newValue: String) {
+            updateStyle()
         }
+    }
 
-    private val colorRedValue = IntValue("R", 0, 0..255)
-    private val colorGreenValue = IntValue("G", 160, 0..255)
-    private val colorBlueValue = IntValue("B", 255, 0..255)
-    private val colorRainbow = BoolValue("Rainbow", false)
+    private val red by IntValue("R", 0, 0..255)
+    private val green by IntValue("G", 160, 0..255)
+    private val blue by IntValue("B", 255, 0..255)
+    private val rainbow by BoolValue("Rainbow", false)
 
-    val scaleValue = FloatValue("Scale", 1f, 0.7f..2f)
-    val maxElementsValue = IntValue("MaxElements", 15, 1..20)
+    val scale by FloatValue("Scale", 1f, 0.7f..2f)
+    val maxElements by IntValue("MaxElements", 15, 1..20)
 
     override fun onEnable() {
         updateStyle()
@@ -46,7 +45,7 @@ object ClickGUI : Module("ClickGUI", "Opens the ClickGUI.", ModuleCategory.RENDE
     }
 
     private fun updateStyle() {
-        when (styleValue.get().toLowerCase()) {
+        when (style.toLowerCase()) {
             "liquidbounce" -> LiquidCat.clickGui.style = LiquidBounceStyle()
             "null" -> LiquidCat.clickGui.style = NullStyle()
             "slowly" -> LiquidCat.clickGui.style = SlowlyStyle()
@@ -63,10 +62,10 @@ object ClickGUI : Module("ClickGUI", "Opens the ClickGUI.", ModuleCategory.RENDE
 
     @JvmStatic
     fun generateColor(): Color {
-        return if (colorRainbow.get()) rainbow() else Color(
-            colorRedValue.get(),
-            colorGreenValue.get(),
-            colorBlueValue.get()
+        return if (rainbow) rainbow() else Color(
+            red,
+            green,
+            blue
         )
     }
 }

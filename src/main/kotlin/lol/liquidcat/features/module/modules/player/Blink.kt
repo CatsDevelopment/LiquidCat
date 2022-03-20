@@ -30,8 +30,8 @@ import java.util.concurrent.LinkedBlockingQueue
 
 class Blink : Module("Blink", "Suspends all movement packets.", ModuleCategory.PLAYER) {
 
-    private val pulseValue = BoolValue("Pulse", false)
-    private val pulseDelayValue = IntValue("PulseDelay", 1000, 500..5000)
+    private val pulse by BoolValue("Pulse", false)
+    private val pulseDelay by IntValue("PulseDelay", 1000, 500..5000)
 
     private val packets = LinkedBlockingQueue<Packet<*>>()
     private var fakePlayer: EntityOtherPlayerMP? = null
@@ -45,7 +45,7 @@ class Blink : Module("Blink", "Suspends all movement packets.", ModuleCategory.P
     override fun onEnable() {
         if (mc.thePlayer == null) return
 
-        if (!pulseValue.get()) {
+        if (!pulse) {
             fakePlayer = EntityOtherPlayerMP(mc.theWorld, mc.thePlayer.gameProfile)
             fakePlayer!!.clonePlayer(mc.thePlayer, true)
             fakePlayer!!.copyLocationAndAnglesFrom(mc.thePlayer)
@@ -104,7 +104,7 @@ class Blink : Module("Blink", "Suspends all movement packets.", ModuleCategory.P
                 )
             )
         }
-        if (pulseValue.get() && pulseTimer.hasTimePassed(pulseDelayValue.get().toLong())) {
+        if (pulse && pulseTimer.hasTimePassed(pulseDelay.toLong())) {
             blink()
             pulseTimer.reset()
         }
@@ -113,8 +113,8 @@ class Blink : Module("Blink", "Suspends all movement packets.", ModuleCategory.P
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
         val breadcrumbs = LiquidCat.moduleManager.getModule(Breadcrumbs::class.java) as Breadcrumbs
-        val color = if (breadcrumbs.colorRainbow.get()) rainbow() else Color(
-            breadcrumbs.colorRedValue.get(), breadcrumbs.colorGreenValue.get(), breadcrumbs.colorBlueValue.get()
+        val color = if (breadcrumbs.rainbow) rainbow() else Color(
+            breadcrumbs.red, breadcrumbs.green, breadcrumbs.blue
         )
         synchronized(positions) {
             GL11.glPushMatrix()

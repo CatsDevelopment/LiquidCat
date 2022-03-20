@@ -27,11 +27,11 @@ import kotlin.math.atan
 @ElementInfo(name = "Model")
 class Model(x: Double = 40.0, y: Double = 100.0) : Element(x, y) {
 
-    private val yawMode = ListValue("Yaw", arrayOf("Player", "Animation", "Custom"), "Animation")
-    private val customYaw = FloatValue("CustomYaw", 0f, -180f..180f)
+    private val yawMode by ListValue("Yaw", arrayOf("Player", "Animation", "Custom"), "Animation")
+    private val customYaw by FloatValue("CustomYaw", 0f, -180f..180f)
 
-    private val pitchMode = ListValue("Pitch", arrayOf("Player", "Custom"), "Player")
-    private val customPitch = FloatValue("CustomPitch", 0f, -90f..90f)
+    private val pitchMode by ListValue("Pitch", arrayOf("Player", "Custom"), "Player")
+    private val customPitch by FloatValue("CustomPitch", 0f, -90f..90f)
 
     private var rotate = 0F
     private var rotateDirection = false
@@ -40,7 +40,7 @@ class Model(x: Double = 40.0, y: Double = 100.0) : Element(x, y) {
      * Draw element
      */
     override fun drawElement(): Border {
-        val yaw = when (yawMode.get().toLowerCase()) {
+        val yaw = when (yawMode.toLowerCase()) {
             "player" -> mc.thePlayer.rotationYaw
             "animation" -> {
                 val delta = GLUtils.deltaTime
@@ -63,13 +63,13 @@ class Model(x: Double = 40.0, y: Double = 100.0) : Element(x, y) {
 
                 rotate
             }
-            "custom" -> customYaw.get()
+            "custom" -> customYaw
             else -> 0F
         }
 
-        var pitch = when (pitchMode.get().toLowerCase()) {
+        var pitch = when (pitchMode.toLowerCase()) {
             "player" -> mc.thePlayer.rotationPitch
-            "custom" -> customPitch.get()
+            "custom" -> customPitch
             else -> 0F
         }
 

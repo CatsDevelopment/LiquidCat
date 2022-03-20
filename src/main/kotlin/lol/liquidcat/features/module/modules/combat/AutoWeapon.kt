@@ -22,8 +22,8 @@ import net.minecraft.network.play.client.C09PacketHeldItemChange
 
 class AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon in your hotbar.", ModuleCategory.COMBAT) {
 
-    private val silentValue = BoolValue("SpoofItem", false)
-    private val ticksValue = IntValue("SpoofTicks", 10, 1..20)
+    private val silent by BoolValue("SpoofItem", false)
+    private val ticks by IntValue("SpoofTicks", 10, 1..20)
     private var attackEnemy = false
 
     private var spoofedSlot = 0
@@ -48,9 +48,9 @@ class AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon i
                 return
 
             // Switch to best weapon
-            if (silentValue.get()) {
+            if (silent) {
                 sendPacket(C09PacketHeldItemChange(slot))
-                spoofedSlot = ticksValue.get()
+                spoofedSlot = ticks
             } else {
                 mc.thePlayer.inventory.currentItem = slot
                 mc.playerController.updateController()

@@ -23,7 +23,7 @@ import org.lwjgl.opengl.GL11
 class Armor(x: Double = -8.0, y: Double = 57.0, scale: Float = 1F,
             side: Side = Side(Side.Horizontal.MIDDLE, Side.Vertical.DOWN)) : Element(x, y, scale, side) {
 
-    private val modeValue = ListValue("Alignment", arrayOf("Horizontal", "Vertical"), "Horizontal")
+    private val mode by ListValue("Alignment", arrayOf("Horizontal", "Vertical"), "Horizontal")
 
     /**
      * Draw element
@@ -37,8 +37,6 @@ class Armor(x: Double = -8.0, y: Double = 57.0, scale: Float = 1F,
 
             var x = 1
             var y = if (isInsideWater) 10 else 0
-
-            val mode = modeValue.get()
 
             for (index in 3 downTo 0) {
                 val stack = mc.thePlayer.inventory.armorInventory[index] ?: continue
@@ -58,7 +56,7 @@ class Armor(x: Double = -8.0, y: Double = 57.0, scale: Float = 1F,
             GL11.glPopMatrix()
         }
 
-        return if (modeValue.get().equals("Horizontal", true))
+        return if (mode.equals("Horizontal", true))
             Border(0F, 0F, 72F, 17F)
         else
             Border(0F, 0F, 18F, 72F)

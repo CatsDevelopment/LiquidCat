@@ -18,13 +18,13 @@ import kotlin.random.Random
 
 class AutoLeave : Module("AutoLeave", "Automatically makes you leave the server whenever your health is low.", ModuleCategory.COMBAT) {
 
-    private val healthValue = FloatValue("Health", 8f, 0f..20f)
-    private val modeValue = ListValue("Mode", arrayOf("Quit", "InvalidPacket", "SelfHurt", "IllegalChat"), "Quit")
+    private val health by FloatValue("Health", 8f, 0f..20f)
+    private val mode by ListValue("Mode", arrayOf("Quit", "InvalidPacket", "SelfHurt", "IllegalChat"), "Quit")
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if (mc.thePlayer.health <= healthValue.get() && !mc.thePlayer.capabilities.isCreativeMode && !mc.isIntegratedServerRunning) {
-            when (modeValue.get()) {
+        if (mc.thePlayer.health <= health && !mc.thePlayer.capabilities.isCreativeMode && !mc.isIntegratedServerRunning) {
+            when (mode) {
                 "Quit" -> mc.theWorld.sendQuittingDisconnectingPacket()
                 "InvalidPacket" -> sendPacket(C04PacketPlayerPosition(Double.NaN, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, !mc.thePlayer.onGround))
                 "Selfhurt" -> sendPacket(C02PacketUseEntity(mc.thePlayer, C02PacketUseEntity.Action.ATTACK))

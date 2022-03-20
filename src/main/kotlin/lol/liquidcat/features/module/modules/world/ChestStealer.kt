@@ -24,39 +24,39 @@ import net.minecraft.util.ResourceLocation
 
 class ChestStealer : Module("ChestStealer", "Automatically steals all items from a chest.", ModuleCategory.WORLD) {
 
-    private val random = BoolValue("TakeRandomized", false)
-    private val title = BoolValue("CheckTitle", true)
-    private val close = BoolValue("AutoClose", true)
+    private val random by BoolValue("TakeRandomized", false)
+    private val title by BoolValue("CheckTitle", true)
+    private val close by BoolValue("AutoClose", true)
 
-    private val maxDelayValue: IntValue = object : IntValue("MaximumDelay", 250, 0..500) {
+    private val maxDelay: Int by object : IntValue("MaximumDelay", 250, 0..500) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val i = minDelayValue.get()
+            val i = minDelay
 
             if (i > newValue) set(i)
 
-            nextDelay = TimeUtils.randomDelay(minDelayValue.get(), get())
+            nextDelay = TimeUtils.randomDelay(minDelay, get())
         }
     }
 
-    private val minDelayValue: IntValue = object : IntValue("MinimumDelay", 100, 0..500) {
+    private val minDelay: Int by object : IntValue("MinimumDelay", 100, 0..500) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val i = maxDelayValue.get()
+            val i = maxDelay
 
             if (i < newValue) set(i)
 
-            nextDelay = TimeUtils.randomDelay(get(), maxDelayValue.get())
+            nextDelay = TimeUtils.randomDelay(get(), maxDelay)
         }
     }
 
     private val delayTimer = MSTimer()
-    private var nextDelay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+    private var nextDelay = TimeUtils.randomDelay(minDelay, maxDelay)
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
         val screen = mc.currentScreen
 
         if (screen is GuiChest) {
-            if (title.get() && !screen.lowerChestInventory.name.contains(ItemStack(Item.itemRegistry.getObject(ResourceLocation("minecraft:chest"))).displayName))
+            if (title && !screen.lowerChestInventory.name.contains(ItemStack(Item.itemRegistry.getObject(ResourceLocation("minecraft:chest"))).displayName))
                 return
 
             if (!delayTimer.hasTimePassed(nextDelay))
@@ -71,8 +71,8 @@ class ChestStealer : Module("ChestStealer", "Automatically steals all items from
                     if (slot.hasStack) slots.add(slot)
                 }
 
-                move(screen, if (random.get()) slots.random() else slots.first())
-            } else if (close.get())
+                move(screen, if (random) slots.random() else slots.first())
+            } else if (close)
                 mc.thePlayer.closeScreen()
         }
     }
@@ -80,7 +80,7 @@ class ChestStealer : Module("ChestStealer", "Automatically steals all items from
     private fun move(screen: GuiChest, slot: Slot) {
         screen.handleMouseClick(slot, slot.slotNumber, 0, 1)
         delayTimer.reset()
-        nextDelay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+        nextDelay = TimeUtils.randomDelay(minDelay, maxDelay)
     }
 
     private fun isEmpty(chest: GuiChest): Boolean {

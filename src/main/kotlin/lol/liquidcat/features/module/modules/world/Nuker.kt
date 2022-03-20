@@ -39,27 +39,18 @@ import kotlin.math.roundToInt
 
 class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WORLD) {
 
-    /**
-     * OPTIONS
-     */
-
-    private val radiusValue = FloatValue("Radius", 5.2f, 1F..6f)
-    private val throughWallsValue = BoolValue("ThroughWalls", false)
-    private val priorityValue = ListValue("Priority", arrayOf("Distance", "Hardness"), "Distance")
-    private val rotationsValue = BoolValue("Rotations", true)
-    private val layerValue = BoolValue("Layer", false)
-    private val hitDelayValue = IntValue("HitDelay", 4, 0..20)
-    private val nukeValue = IntValue("Nuke", 1, 1..20)
-    private val nukeDelay = IntValue("NukeDelay", 1, 1..20)
-
-    /**
-     * VALUES
-     */
+    private val radius by FloatValue("Radius", 5.2f, 1F..6f)
+    private val throughWalls by BoolValue("ThroughWalls", false)
+    private val priority by ListValue("Priority", arrayOf("Distance", "Hardness"), "Distance")
+    private val rotations by BoolValue("Rotations", true)
+    private val layer by BoolValue("Layer", false)
+    private val hitDelay by IntValue("HitDelay", 4, 0..20)
+    private val nukeValue by IntValue("Nuke", 1, 1..20)
+    private val nukeDelay by IntValue("NukeDelay", 1, 1..20)
 
     private val attackedBlocks = arrayListOf<BlockPos>()
     private var currentBlock: BlockPos? = null
     private var blockHitDelay = 0
-
     private var nukeTimer = TickTimer()
     private var nuke = 0
 
@@ -73,7 +64,7 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
 
         // Reset bps
         nukeTimer.update()
-        if (nukeTimer.hasTimePassed(nukeDelay.get())) {
+        if (nukeTimer.hasTimePassed(nukeDelay)) {
             nuke = 0
             nukeTimer.reset()
         }
@@ -84,14 +75,14 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
         if (mc.playerController.isNotCreative) {
             // Default nuker
 
-            val validBlocks = searchBlocks(radiusValue.get().roundToInt() + 1)
+            val validBlocks = searchBlocks(radius.roundToInt() + 1)
                     .filter { (pos, block) ->
-                        if (pos.getCenterDistance() <= radiusValue.get() && validBlock(block)) {
-                            if (layerValue.get() && pos.y < mc.thePlayer.posY) { // Layer: Break all blocks above you
+                        if (pos.getCenterDistance() <= radius && validBlock(block)) {
+                            if (layer && pos.y < mc.thePlayer.posY) { // Layer: Break all blocks above you
                                 return@filter false
                             }
 
-                            if (!throughWallsValue.get()) { // ThroughWalls: Just break blocks in your sight
+                            if (!throughWalls) { // ThroughWalls: Just break blocks in your sight
                                 // Raytrace player eyes to block position (through walls check)
                                 val eyesPos = Vec3(mc.thePlayer.posX, mc.thePlayer.entityBoundingBox.minY +
                                         mc.thePlayer.getEyeHeight(), mc.thePlayer.posZ)
@@ -106,7 +97,7 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
                     }.toMutableMap()
 
             do{
-                val (blockPos, block) = when(priorityValue.get()) {
+                val (blockPos, block) = when(priority) {
                     "Distance" -> validBlocks.minBy { (pos, block) ->
                         val distance = pos.getCenterDistance()
                         val safePos = BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1, mc.thePlayer.posZ)
@@ -133,7 +124,7 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
                     currentDamage = 0F
 
                 // Change head rotations to next block
-                if (rotationsValue.get()) {
+                if (rotations) {
                     val rotation = RotationUtils.faceBlock(blockPos) ?: return // In case of a mistake. Prevent flag.
                     RotationUtils.setTargetRotation(rotation.rotation)
                 }
@@ -157,7 +148,7 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
                         currentDamage = 0F
                         mc.thePlayer.swingItem()
                         mc.playerController.onPlayerDestroyBlock(blockPos, EnumFacing.DOWN)
-                        blockHitDelay = hitDelayValue.get()
+                        blockHitDelay = hitDelay
                         validBlocks -= blockPos
                         nuke++
                         continue // Next break
@@ -173,11 +164,11 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
                 if (currentDamage >= 1F) {
                     sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, blockPos, EnumFacing.DOWN))
                     mc.playerController.onPlayerDestroyBlock(blockPos, EnumFacing.DOWN)
-                    blockHitDelay = hitDelayValue.get()
+                    blockHitDelay = hitDelay
                     currentDamage = 0F
                 }
                 return // Break out
-            } while (nuke < nukeValue.get())
+            } while (nuke < nukeValue)
         } else {
             // Fast creative mode nuker (CreativeStorm option)
 
@@ -186,14 +177,14 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
                 return
 
             // Serach for new blocks to break
-            searchBlocks(radiusValue.get().roundToInt() + 1)
+            searchBlocks(radius.roundToInt() + 1)
                     .filter { (pos, block) ->
-                        if (pos.getCenterDistance() <= radiusValue.get() && validBlock(block)) {
-                            if (layerValue.get() && pos.y < mc.thePlayer.posY) { // Layer: Break all blocks above you
+                        if (pos.getCenterDistance() <= radius && validBlock(block)) {
+                            if (layer && pos.y < mc.thePlayer.posY) { // Layer: Break all blocks above you
                                 return@filter false
                             }
 
-                            if (!throughWallsValue.get()) { // ThroughWalls: Just break blocks in your sight
+                            if (!throughWalls) { // ThroughWalls: Just break blocks in your sight
                                 // Raytrace player eyes to block position (through walls check)
                                 val eyesPos = Vec3(mc.thePlayer.posX, mc.thePlayer.entityBoundingBox.minY +
                                         mc.thePlayer.getEyeHeight(), mc.thePlayer.posZ)
@@ -221,7 +212,7 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
         // Safe block
-        if (!layerValue.get()) {
+        if (!layer) {
             val safePos = BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1, mc.thePlayer.posZ)
             val safeBlock = safePos.getBlock()
             if (safeBlock != null && validBlock(safeBlock))

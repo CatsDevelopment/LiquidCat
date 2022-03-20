@@ -16,14 +16,14 @@ import lol.liquidcat.value.IntValue
 
 class AutoBow : Module("AutoBow", "Automatically shoots an arrow whenever your bow is fully loaded.", ModuleCategory.COMBAT) {
 
-    private val delayValue = IntValue("Delay", 20, 3..20)
-    private val waitForBowAimbot = BoolValue("WaitForBowAimbot", true)
+    private val delay by IntValue("Delay", 20, 3..20)
+    private val waitForBowAimbot by BoolValue("WaitForBowAimbot", true)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         val bowAimbot = LiquidCat.moduleManager[BowAimbot::class.java] as BowAimbot
 
-        if (mc.thePlayer.aiming && mc.thePlayer.itemInUseDuration > delayValue.get() && (!waitForBowAimbot.get() || !bowAimbot.state || bowAimbot.hasTarget()))
+        if (mc.thePlayer.aiming && mc.thePlayer.itemInUseDuration > delay && (!waitForBowAimbot || !bowAimbot.state || bowAimbot.hasTarget()))
             mc.playerController.onStoppedUsingItem(mc.thePlayer)
     }
 }

@@ -205,7 +205,7 @@ public class ClickGui extends GuiScreen {
         // Enable DisplayList optimization
         AWTFontRenderer.Companion.setAssumeNonVolatile(true);
 
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScaleValue().get();
+        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScale();
 
         mouseX /= scale;
         mouseY /= scale;
@@ -254,7 +254,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScaleValue().get();
+        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScale();
 
         mouseX /= scale;
         mouseY /= scale;
@@ -283,7 +283,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScaleValue().get();
+        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScale();
 
         mouseX /= scale;
         mouseY /= scale;

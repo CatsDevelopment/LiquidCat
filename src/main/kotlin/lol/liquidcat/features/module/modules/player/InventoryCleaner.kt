@@ -35,39 +35,39 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
      * OPTIONS
      */
 
-    private val maxDelayValue: IntValue = object : IntValue("MaxDelay", 600, 0..1000) {
+    private val maxDelay: Int by object : IntValue("MaxDelay", 600, 0..1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val minCPS = minDelayValue.get()
+            val minCPS = minDelay
             if (minCPS > newValue) set(minCPS)
         }
     }
 
-    private val minDelayValue: IntValue = object : IntValue("MinDelay", 400, 0..1000) {
+    private val minDelay: Int by object : IntValue("MinDelay", 400, 0..1000) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val maxDelay = maxDelayValue.get()
+            val maxDelay = maxDelay
             if (maxDelay < newValue) set(maxDelay)
         }
     }
 
-    private val invOpenValue = BoolValue("InvOpen", false)
-    private val simulateInventory = BoolValue("SimulateInventory", true)
-    private val noMoveValue = BoolValue("NoMove", false)
-    private val ignoreVehiclesValue = BoolValue("IgnoreVehicles", false)
-    private val hotbarValue = BoolValue("Hotbar", true)
-    private val randomSlotValue = BoolValue("RandomSlot", false)
-    private val sortValue = BoolValue("Sort", true)
-    private val itemDelayValue = IntValue("ItemDelay", 0, 0..5000)
+    private val invOpen by BoolValue("InvOpen", false)
+    private val simulateInv by BoolValue("SimulateInventory", true)
+    private val noMove by BoolValue("NoMove", false)
+    private val ignoreVehicles by BoolValue("IgnoreVehicles", false)
+    private val hotbar by BoolValue("Hotbar", true)
+    private val randomSlot by BoolValue("RandomSlot", false)
+    private val sort by BoolValue("Sort", true)
+    private val itemDelay by IntValue("ItemDelay", 0, 0..5000)
 
     private val items = arrayOf("None", "Ignore", "Sword", "Bow", "Pickaxe", "Axe", "Food", "Block", "Water", "Gapple", "Pearl")
-    private val sortSlot1Value = ListValue("SortSlot-1", items, "Sword")
-    private val sortSlot2Value = ListValue("SortSlot-2", items, "Bow")
-    private val sortSlot3Value = ListValue("SortSlot-3", items, "Pickaxe")
-    private val sortSlot4Value = ListValue("SortSlot-4", items, "Axe")
-    private val sortSlot5Value = ListValue("SortSlot-5", items, "None")
-    private val sortSlot6Value = ListValue("SortSlot-6", items, "None")
-    private val sortSlot7Value = ListValue("SortSlot-7", items, "Food")
-    private val sortSlot8Value = ListValue("SortSlot-8", items, "Block")
-    private val sortSlot9Value = ListValue("SortSlot-9", items, "Block")
+    private val sortSlot1 by ListValue("SortSlot-1", items, "Sword")
+    private val sortSlot2 by ListValue("SortSlot-2", items, "Bow")
+    private val sortSlot3 by ListValue("SortSlot-3", items, "Pickaxe")
+    private val sortSlot4 by ListValue("SortSlot-4", items, "Axe")
+    private val sortSlot5 by ListValue("SortSlot-5", items, "None")
+    private val sortSlot6 by ListValue("SortSlot-6", items, "None")
+    private val sortSlot7 by ListValue("SortSlot-7", items, "Food")
+    private val sortSlot8 by ListValue("SortSlot-8", items, "Block")
+    private val sortSlot9 by ListValue("SortSlot-9", items, "Block")
 
     /**
      * VALUES
@@ -78,28 +78,28 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (!ClickHandler.CLICK_TIMER.hasTimePassed(delay) ||
-                mc.currentScreen !is GuiInventory && invOpenValue.get() ||
-                noMoveValue.get() && mc.thePlayer.moving ||
+                mc.currentScreen !is GuiInventory && invOpen ||
+                noMove && mc.thePlayer.moving ||
                 mc.thePlayer.openContainer != null && mc.thePlayer.openContainer.windowId != 0)
             return
 
-        if (sortValue.get())
+        if (sort)
             sortHotbar()
 
         while (ClickHandler.CLICK_TIMER.hasTimePassed(delay)) {
-            val garbageItems = items(9, if (hotbarValue.get()) 45 else 36)
+            val garbageItems = items(9, if (hotbar) 45 else 36)
                     .filter { !isUseful(it.value, it.key) }
                     .keys
                     .toMutableList()
 
             // Shuffle items
-            if (randomSlotValue.get())
+            if (randomSlot)
                 garbageItems.shuffle()
 
             val garbageItem = garbageItems.firstOrNull() ?: break
 
             // Drop all useless items
-            val openInventory = mc.currentScreen !is GuiInventory && simulateInventory.get()
+            val openInventory = mc.currentScreen !is GuiInventory && simulateInv
 
             if (openInventory)
                 sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
@@ -109,7 +109,7 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
             if (openInventory)
                 sendPacket(C0DPacketCloseWindow())
 
-            delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+            delay = TimeUtils.randomDelay(minDelay, maxDelay)
         }
     }
 
@@ -172,7 +172,7 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
                     item is ItemBlock && !itemStack.unlocalizedName.contains("flower") ||
                     item is ItemBed || itemStack.unlocalizedName == "item.diamond" || itemStack.unlocalizedName == "item.ingotIron" ||
                     item is ItemPotion || item is ItemEnderPearl || item is ItemEnchantedBook || item is ItemBucket || itemStack.unlocalizedName == "item.stick" || 
-                    ignoreVehiclesValue.get() && (item is ItemBoat || item is ItemMinecart)
+                    ignoreVehicles && (item is ItemBoat || item is ItemMinecart)
         } catch (ex: Exception) {
             LiquidCat.logger.error("(InventoryCleaner) Failed to check item: ${itemStack.unlocalizedName}.", ex)
 
@@ -192,7 +192,7 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
             val bestItem = findBetterItem(index, mc.thePlayer.inventory.getStackInSlot(index)) ?: continue
 
             if (bestItem != index) {
-                val openInventory = mc.currentScreen !is GuiInventory && simulateInventory.get()
+                val openInventory = mc.currentScreen !is GuiInventory && simulateInv
 
                 if (openInventory)
                     sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
@@ -203,7 +203,7 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
                 if (openInventory)
                     sendPacket(C0DPacketCloseWindow())
 
-                delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+                delay = TimeUtils.randomDelay(minDelay, maxDelay)
                 break
             }
         }
@@ -350,7 +350,7 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
             if (i in 36..44 && type(i).equals("Ignore", ignoreCase = true))
                 continue
 
-            if (System.currentTimeMillis() - (itemStack as IItemStack).itemDelay >= itemDelayValue.get())
+            if (System.currentTimeMillis() - (itemStack as IItemStack).itemDelay >= itemDelay)
                 items[i] = itemStack
         }
 
@@ -361,15 +361,15 @@ class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away u
      * Get type of [targetSlot]
      */
     private fun type(targetSlot: Int) = when (targetSlot) {
-        0 -> sortSlot1Value.get()
-        1 -> sortSlot2Value.get()
-        2 -> sortSlot3Value.get()
-        3 -> sortSlot4Value.get()
-        4 -> sortSlot5Value.get()
-        5 -> sortSlot6Value.get()
-        6 -> sortSlot7Value.get()
-        7 -> sortSlot8Value.get()
-        8 -> sortSlot9Value.get()
+        0 -> sortSlot1
+        1 -> sortSlot2
+        2 -> sortSlot3
+        3 -> sortSlot4
+        4 -> sortSlot5
+        5 -> sortSlot6
+        6 -> sortSlot7
+        7 -> sortSlot8
+        8 -> sortSlot9
         else -> ""
     }
 }

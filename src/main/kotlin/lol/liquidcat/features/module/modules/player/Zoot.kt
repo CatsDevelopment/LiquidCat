@@ -16,16 +16,16 @@ import net.minecraft.potion.Potion
 
 class Zoot : Module("Zoot", "Removes all bad potion effects/fire.", ModuleCategory.PLAYER) {
 
-    private val badEffectsValue = BoolValue("BadEffects", true)
-    private val fireValue = BoolValue("Fire", true)
-    private val noAirValue = BoolValue("NoAir", false)
+    private val badEffects by BoolValue("BadEffects", true)
+    private val fire by BoolValue("Fire", true)
+    private val noAir by BoolValue("NoAir", false)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if ((noAirValue.get() && !mc.thePlayer.onGround) || mc.thePlayer.capabilities.isCreativeMode)
+        if ((noAir && !mc.thePlayer.onGround) || mc.thePlayer.capabilities.isCreativeMode)
             return
 
-        if (badEffectsValue.get()) {
+        if (badEffects) {
             val effect = mc.thePlayer.activePotionEffects
                 .filter { Potion.potionTypes[it.potionID].isBadEffect }
                 .maxBy { it.duration }
@@ -37,7 +37,7 @@ class Zoot : Module("Zoot", "Removes all bad potion effects/fire.", ModuleCatego
         }
 
 
-        if (fireValue.get() && mc.thePlayer.isBurning)
+        if (fire && mc.thePlayer.isBurning)
             repeat(9) {
                 sendPacket(C03PacketPlayer(mc.thePlayer.onGround))
             }

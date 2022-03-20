@@ -82,7 +82,7 @@ public abstract class MixinBlock {
     private void isCollidable(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
         final GhostHand ghostHand = (GhostHand) LiquidCat.moduleManager.getModule(GhostHand.class);
 
-        if (ghostHand.getState() && !(ghostHand.getBlockValue().get() == Block.getIdFromBlock((Block) (Object) this)))
+        if (ghostHand.getState() && !(ghostHand.getBlock() == Block.getIdFromBlock((Block) (Object) this)))
             callbackInfoReturnable.setReturnValue(false);
     }
 
@@ -99,17 +99,17 @@ public abstract class MixinBlock {
         // NoSlowBreak
         final NoSlowBreak noSlowBreak = (NoSlowBreak) LiquidCat.moduleManager.getModule(NoSlowBreak.class);
         if (noSlowBreak.getState()) {
-            if (noSlowBreak.getWaterValue().get() && playerIn.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(playerIn)) {
+            if (noSlowBreak.getWater() && playerIn.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(playerIn)) {
                 f *= 5.0F;
             }
 
-            if (noSlowBreak.getAirValue().get() && !playerIn.onGround) {
+            if (noSlowBreak.getAir() && !playerIn.onGround) {
                 f *= 5.0F;
             }
         } else if (playerIn.onGround) {
             final NoFall noFall = (NoFall) LiquidCat.moduleManager.getModule(NoFall.class);
 
-            if (noFall.getState() && noFall.getModeValue().get().equals("NoGround")) {
+            if (noFall.getState() && noFall.getMode().equals("NoGround")) {
                 f /= 5F;
             }
         }

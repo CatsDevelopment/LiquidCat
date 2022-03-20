@@ -12,8 +12,8 @@ import net.minecraft.entity.player.EntityPlayer
 
 object Teams : Module("Teams", "Prevents Killaura from attacking team mates.", ModuleCategory.MISC) {
 
-    private val scoreboard = BoolValue("ScoreboardTeam", true)
-    private val color = BoolValue("Color", true)
+    private val scoreboard by BoolValue("ScoreboardTeam", true)
+    private val color by BoolValue("Color", true)
 
     /**
      * Check if [entity] is in your own team using scoreboard, name color or team prefix
@@ -21,7 +21,7 @@ object Teams : Module("Teams", "Prevents Killaura from attacking team mates.", M
     fun isInYourTeam(entity: EntityPlayer): Boolean {
         if (!state) return false
 
-        if (color.get()) {
+        if (color) {
             val eName = entity.displayName?.unformattedText
             val pName = mc.thePlayer.displayName?.unformattedText
 
@@ -30,7 +30,7 @@ object Teams : Module("Teams", "Prevents Killaura from attacking team mates.", M
             }
         }
 
-        if (scoreboard.get()) {
+        if (scoreboard) {
             val eTeam = entity.team
             val pTeam = mc.thePlayer.team
 

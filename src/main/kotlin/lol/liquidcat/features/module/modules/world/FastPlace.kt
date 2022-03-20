@@ -10,5 +10,5 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.IntValue
 
 class FastPlace : Module("FastPlace", "Allows you to place blocks faster.", ModuleCategory.WORLD) {
-    val speedValue = IntValue("Speed", 0, 0..4)
+    val speed by IntValue("Speed", 0, 0..4)
 }

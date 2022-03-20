@@ -21,14 +21,14 @@ import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
 class Step : Module("Step", "Allows you to step up blocks.", ModuleCategory.MOVEMENT) {
 
-    private val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP", "Matrix"), "NCP")
-    private val heightValue = FloatValue("Height", 1f, 0.6f..10f)
-    private val timerValue = FloatValue("Timer", 0.3f, 0.1f..1.0f)
+    private val mode by ListValue("Mode", arrayOf("Vanilla", "NCP", "Matrix"), "NCP")
+    private val height by FloatValue("Height", 1f, 0.6f..10f)
+    private val timer by FloatValue("Timer", 0.3f, 0.1f..1.0f)
 
     private var usedTimer = false
 
     override val tag: String
-        get() = modeValue.get()
+        get() = mode
 
     override fun onDisable() {
         if (usedTimer) {
@@ -39,8 +39,8 @@ class Step : Module("Step", "Allows you to step up blocks.", ModuleCategory.MOVE
 
     @EventTarget
     fun onStep(event: StepEvent) {
-        when (modeValue.get()) {
-            "Vanilla" -> event.stepHeight = heightValue.get()
+        when (mode) {
+            "Vanilla" -> event.stepHeight = height
 
             else -> if (!mc.thePlayer.isInWeb && mc.thePlayer.onGround) event.stepHeight = 1F
         }
@@ -55,9 +55,9 @@ class Step : Module("Step", "Allows you to step up blocks.", ModuleCategory.MOVE
         val stepHeight = mc.thePlayer.entityBoundingBox.minY - y
 
         if (stepHeight > 0.6) {
-            mc.timer.timerSpeed = timerValue.get()
+            mc.timer.timerSpeed = timer
 
-            when (modeValue.get()) {
+            when (mode) {
                 "NCP" -> {
                     sendPacket(C04PacketPlayerPosition(x, y + 0.41999998688698 * stepHeight, z, false))
                     sendPacket(C04PacketPlayerPosition(x, y + 0.7531999805212 * stepHeight, z, false))

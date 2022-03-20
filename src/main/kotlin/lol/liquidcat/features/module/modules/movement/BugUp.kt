@@ -34,10 +34,10 @@ import kotlin.math.max
 //TODO Rewrite and convert to AntiVoid module
 
 class BugUp : Module("BugUp", "Automatically setbacks you after falling a certain distance.", ModuleCategory.MOVEMENT) {
-    private val modeValue = ListValue("Mode", arrayOf("TeleportBack", "FlyFlag", "OnGroundSpoof"), "FlyFlag")
-    private val maxFallDistance = IntValue("MaxFallDistance", 10, 2..255)
-    private val maxDistanceWithoutGround = FloatValue("MaxDistanceToSetback", 2.5f, 1f..30f)
-    private val indicator = BoolValue("Indicator", true)
+    private val mode by ListValue("Mode", arrayOf("TeleportBack", "FlyFlag", "OnGroundSpoof"), "FlyFlag")
+    private val maxFallDistance by IntValue("MaxFallDistance", 10, 2..255)
+    private val maxDistanceWithoutGround by FloatValue("MaxDistanceToSetback", 2.5f, 1f..30f)
+    private val indicator by BoolValue("Indicator", true)
 
     private var detectedLocation: BlockPos? = null
     private var lastFound = 0F
@@ -77,13 +77,11 @@ class BugUp : Module("BugUp", "Automatically setbacks you after falling a certai
             detectedLocation = fallingPlayer.findCollision(60)
 
             if (detectedLocation != null && abs(mc.thePlayer.posY - detectedLocation!!.y) +
-                    mc.thePlayer.fallDistance <= maxFallDistance.get()) {
+                    mc.thePlayer.fallDistance <= maxFallDistance) {
                 lastFound = mc.thePlayer.fallDistance
             }
 
-            if (mc.thePlayer.fallDistance - lastFound > maxDistanceWithoutGround.get()) {
-                val mode = modeValue.get()
-
+            if (mc.thePlayer.fallDistance - lastFound > maxDistanceWithoutGround) {
                 when (mode.toLowerCase()) {
                     "teleportback" -> {
                         mc.thePlayer.setPositionAndUpdate(prevX, prevY, prevZ)
@@ -102,7 +100,7 @@ class BugUp : Module("BugUp", "Automatically setbacks you after falling a certai
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        if (detectedLocation == null || !indicator.get() ||
+        if (detectedLocation == null || !indicator ||
                 mc.thePlayer.fallDistance + (mc.thePlayer.posY - (detectedLocation!!.y + 1)) < 3)
             return
 

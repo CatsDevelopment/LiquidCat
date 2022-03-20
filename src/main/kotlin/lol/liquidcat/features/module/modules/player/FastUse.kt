@@ -17,11 +17,11 @@ import net.minecraft.network.play.client.C03PacketPlayer
 
 class FastUse : Module("FastUse", "Allows you to use items faster.", ModuleCategory.PLAYER) {
 
-    private val delayValue = IntValue("Delay", 16, 1..32)
+    private val delay by IntValue("Delay", 16, 1..32)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if ((mc.thePlayer.eating || mc.thePlayer.drinking) && mc.thePlayer.itemInUseDuration >= delayValue.get()) {
+        if ((mc.thePlayer.eating || mc.thePlayer.drinking) && mc.thePlayer.itemInUseDuration >= delay) {
             repeat(33 - mc.thePlayer.itemInUseDuration) {
                 sendPacket(C03PacketPlayer(mc.thePlayer.onGround))
             }

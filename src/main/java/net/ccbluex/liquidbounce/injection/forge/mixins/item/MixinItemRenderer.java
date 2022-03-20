@@ -142,7 +142,7 @@ public abstract class MixinItemRenderer {
     private void renderFireInFirstPerson(final CallbackInfo callbackInfo) {
         final AntiBlind antiBlind = (AntiBlind) LiquidCat.moduleManager.getModule(AntiBlind.class);
 
-        if(antiBlind.getState() && antiBlind.getFireEffect().get())
+        if(antiBlind.getState() && antiBlind.getFire())
             callbackInfo.cancel();
     }
 }

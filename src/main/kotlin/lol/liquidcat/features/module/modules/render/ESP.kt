@@ -28,29 +28,28 @@ import java.awt.Color
 
 class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCategory.RENDER) {
 
-    val modeValue = ListValue(
+    val mode by ListValue(
         "Mode",
         arrayOf("Box", "WireFrame", "2D", "Outline", "ShaderOutline", "ShaderGlow"),
         "Box"
     )
 
-    private val redValue = IntValue("Red", 255, 0..255)
-    private val greenValue = IntValue("Green", 255, 0..255)
-    private val blueValue = IntValue("Blue", 255, 0..255)
-    private val rainbowValue = BoolValue("Rainbow", false)
+    private val red by IntValue("Red", 255, 0..255)
+    private val green by IntValue("Green", 255, 0..255)
+    private val blue by IntValue("Blue", 255, 0..255)
+    private val rainbow by BoolValue("Rainbow", false)
 
-    val outlineWidth = FloatValue("Outline-Width", 3f, 0.5f..5f)
-    val wireframeWidth = FloatValue("WireFrame-Width", 2f, 0.5f..5f)
+    val outlineWidth by FloatValue("Outline-Width", 3f, 0.5f..5f)
+    val wireframeWidth by FloatValue("WireFrame-Width", 2f, 0.5f..5f)
 
-    private val shaderOutlineRadius = FloatValue("ShaderOutline-Radius", 1.35f, 1f..2f)
-    private val shaderGlowRadius = FloatValue("ShaderGlow-Radius", 2.3f, 2f..3f)
+    private val shaderOutlineRadius by FloatValue("ShaderOutline-Radius", 1.35f, 1f..2f)
+    private val shaderGlowRadius by FloatValue("ShaderGlow-Radius", 2.3f, 2f..3f)
 
     override val tag: String
-        get() = modeValue.get()
+        get() = mode
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        val mode = modeValue.get()
         val mvMatrix = WorldToScreen.getMatrix(GL11.GL_MODELVIEW_MATRIX)
         val projectionMatrix = WorldToScreen.getMatrix(GL11.GL_PROJECTION_MATRIX)
         val real2d = mode == "2D"
@@ -144,8 +143,6 @@ class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCate
 
     @EventTarget
     fun onRender2D(event: Render2DEvent) {
-        val mode = modeValue.get()
-
         val shader = when(mode) {
             "ShaderOutline" -> OutlineShader
             "ShaderGlow" -> GlowShader
@@ -167,8 +164,8 @@ class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCate
         renderNameTags = true
 
         val radius = when(mode) {
-            "ShaderOutline" -> shaderOutlineRadius.get()
-            "ShaderGlow" -> shaderGlowRadius.get()
+            "ShaderOutline" -> shaderOutlineRadius
+            "ShaderGlow" -> shaderGlowRadius
 
             else -> 1f
         }
@@ -177,11 +174,7 @@ class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCate
     }
 
     fun getColor(): Color {
-        return if (rainbowValue.get()) rainbow() else Color(
-            redValue.get(),
-            greenValue.get(),
-            blueValue.get()
-        )
+        return if (rainbow) rainbow() else Color(red, green, blue)
     }
 
     companion object {

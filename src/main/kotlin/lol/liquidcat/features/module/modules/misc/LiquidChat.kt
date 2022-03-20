@@ -37,7 +37,7 @@ class LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBou
         array = false
     }
 
-    private val jwtValue = object : BoolValue("JWT", false) {
+    private var jwt by object : BoolValue("JWT", false) {
         override fun onChanged(oldValue: Boolean, newValue: Boolean) {
             if(state) {
                 state = false
@@ -144,7 +144,7 @@ class LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBou
                 }
                 is ClientNewJWTPacket -> {
                     jwtToken = packet.token
-                    jwtValue.set(true)
+                    this@LiquidChat.jwt = true
 
                     state = false
                     state = true
@@ -225,7 +225,7 @@ class LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBou
                         args[1].equals("set", true) -> {
                             if(args.size > 2) {
                                 jwtToken = StringUtils.toCompleteString(args, 2)
-                                jwtValue.set(true)
+                                jwt = true
 
                                 if(state) {
                                     state = false
@@ -315,7 +315,7 @@ class LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBou
     private fun connect() {
         if(client.isConnected() || (loginThread != null && loginThread!!.isAlive)) return
 
-        if(jwtValue.get() && jwtToken.isEmpty()) {
+        if(jwt && jwtToken.isEmpty()) {
             msg("§7[§a§lChat§7] §cError: §7No token provided!")
             state = false
             return
@@ -327,7 +327,7 @@ class LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBou
             try {
                 client.connect()
 
-                if(jwtValue.get())
+                if(jwt)
                     client.loginJWT(jwtToken)
                 else if(UserUtils.isValidToken(mc.session.token))
                     client.loginMojang()

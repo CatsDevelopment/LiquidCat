@@ -21,7 +21,7 @@ import net.minecraft.util.EnumFacing
 
 class FastBow : Module("FastBow", "Turns your bow into a machine gun.", ModuleCategory.COMBAT) {
 
-    private val packetsValue = IntValue("Packets", 20, 3..20)
+    private val packets by IntValue("Packets", 20, 3..20)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
@@ -38,7 +38,7 @@ class FastBow : Module("FastBow", "Turns your bow into a machine gun.", ModuleCa
             else
                 mc.thePlayer.rotationPitch
 
-            repeat(packetsValue.get()) {
+            repeat(packets) {
                 sendPacket(C05PacketPlayerLook(yaw, pitch, mc.thePlayer.onGround))
             }
 

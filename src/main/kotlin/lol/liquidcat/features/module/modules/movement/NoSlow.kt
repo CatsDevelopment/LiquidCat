@@ -27,20 +27,20 @@ import net.minecraft.util.EnumFacing
 
 class NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and using items.", ModuleCategory.MOVEMENT) {
 
-    private val modeValue = ListValue("Mode", arrayOf("Vanilla", "NCP"), "Vanilla")
-    private val forwardMultiplier = FloatValue("ForwardMultiplier", 1f, 0.2f..1f)
-    private val strafeMultiplier = FloatValue("StrafeMultiplier", 1f, 0.2f..1f)
-    val soulsand = BoolValue("Soulsand", true)
-    val web = BoolValue("Web", true)
+    private val mode by ListValue("Mode", arrayOf("Vanilla", "NCP"), "Vanilla")
+    private val forwardMultiplier by FloatValue("ForwardMultiplier", 1f, 0.2f..1f)
+    private val strafeMultiplier by FloatValue("StrafeMultiplier", 1f, 0.2f..1f)
+    val soulsand by BoolValue("Soulsand", true)
+    val web by BoolValue("Web", true)
 
     override val tag: String
-        get() = modeValue.get()
+        get() = mode
 
     @EventTarget
     fun onMotion(event: MotionEvent) {
         val killAura = LiquidCat.moduleManager[KillAura::class.java] as KillAura
 
-        if (modeValue.get() == "NCP")
+        if (mode == "NCP")
             if (mc.thePlayer.moving && (mc.thePlayer.isBlocking || killAura.blockingStatus))
                 when (event.eventState) {
                     EventState.PRE -> sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
@@ -50,7 +50,7 @@ class NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and
 
     @EventTarget
     fun onSlowDown(event: SlowDownEvent) {
-        event.forward = forwardMultiplier.get()
-        event.strafe = strafeMultiplier.get()
+        event.forward = forwardMultiplier
+        event.strafe = strafeMultiplier
     }
 }

@@ -10,7 +10,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 
 class AntiBlind : Module("AntiBlind", "Cancels blindness effects.", ModuleCategory.RENDER) {
-    val confusionEffect = BoolValue("Confusion", true)
-    val pumpkinEffect = BoolValue("Pumpkin", true)
-    val fireEffect = BoolValue("Fire", false)
+    val confusion by BoolValue("Confusion", true)
+    val pumpkin by BoolValue("Pumpkin", true)
+    val fire by BoolValue("Fire", false)
 }

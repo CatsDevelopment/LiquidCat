@@ -20,9 +20,9 @@ import java.awt.Color
 
 class NameTags : Module("NameTags", "Changes the scale of the nametags so you can always read them.", ModuleCategory.RENDER) {
 
-    private val redValue = IntValue("Red", 255, 0..255)
-    private val greenValue = IntValue("Green", 150, 0..255)
-    private val blueValue = IntValue("Blue", 150, 0..255)
+    private val red by IntValue("Red", 255, 0..255)
+    private val green by IntValue("Green", 150, 0..255)
+    private val blue by IntValue("Blue", 150, 0..255)
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
@@ -73,7 +73,7 @@ class NameTags : Module("NameTags", "Changes the scale of the nametags so you ca
             20f,
             startX + (entity.health.coerceAtMost(entity.maxHealth) / entity.maxHealth) * xDiff,
             Fonts.displayRegular50.FONT_HEIGHT + 8f,
-            Color(redValue.get(), greenValue.get(), blueValue.get(), 200).rgb
+            Color(red, green, blue, 200).rgb
         )
 
         Fonts.displayRegular50.drawString(upText, -width, 0, Color.WHITE.rgb)

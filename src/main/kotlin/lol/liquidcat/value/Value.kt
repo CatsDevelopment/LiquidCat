@@ -12,6 +12,9 @@ import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.gui.FontRenderer
 import java.util.*
+import kotlin.reflect.KProperty
+
+// TODO: Add color value, Add range value
 
 abstract class Value<T>(val name: String, protected var value: T) {
     fun get() = value
@@ -30,6 +33,10 @@ abstract class Value<T>(val name: String, protected var value: T) {
             LiquidCat.logger.error("[ValueSystem ($name)]: ${e.javaClass.name} (${e.message}) [$oldValue >> $newValue]")
         }
     }
+
+    operator fun getValue(ref: Any?, property: KProperty<*>) = get()
+
+    operator fun setValue(ref: Any?, property: KProperty<*>, value: T) = set(value)
 
     open fun changeValue(value: T) {
         this.value = value

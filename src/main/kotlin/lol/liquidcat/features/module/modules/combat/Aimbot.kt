@@ -22,13 +22,13 @@ import kotlin.random.Random
 
 class Aimbot : Module("Aimbot", "Automatically faces selected entities around you.", ModuleCategory.COMBAT) {
 
-    private val rangeValue = FloatValue("Range", 4.4f, 1f..8f)
-    private val turnSpeedValue = FloatValue("TurnSpeed", 2f, 1f..180f)
-    private val fovValue = FloatValue("FOV", 180f, 1f..180f)
-    private val centerValue = BoolValue("Center", false)
-    private val lockValue = BoolValue("Lock", true)
-    private val onClickValue = BoolValue("OnClick", false)
-    private val jitterValue = BoolValue("Jitter", false)
+    private val range by FloatValue("Range", 4.4f, 1f..8f)
+    private val turnSpeed by FloatValue("TurnSpeed", 2f, 1f..180f)
+    private val fov by FloatValue("FOV", 180f, 1f..180f)
+    private val center by BoolValue("Center", false)
+    private val lock by BoolValue("Lock", true)
+    private val onClick by BoolValue("OnClick", false)
+    private val jitter by BoolValue("Jitter", false)
 
     private val clickTimer = MSTimer()
 
@@ -37,33 +37,32 @@ class Aimbot : Module("Aimbot", "Automatically faces selected entities around yo
         if (mc.gameSettings.keyBindAttack.isKeyDown)
             clickTimer.reset()
 
-        if (onClickValue.get() && clickTimer.hasTimePassed(500L))
+        if (onClick && clickTimer.hasTimePassed(500L))
             return
 
-        val range = rangeValue.get()
         val entity = mc.theWorld.loadedEntityList
                 .filter {
                     EntityUtils.isSelected(it, true) && mc.thePlayer.canEntityBeSeen(it) &&
-                            mc.thePlayer.getDistanceToEntityBox(it) <= range && RotationUtils.getRotationDifference(it) <= fovValue.get()
+                            mc.thePlayer.getDistanceToEntityBox(it) <= range && RotationUtils.getRotationDifference(it) <= fov
                 }
                 .minBy { RotationUtils.getRotationDifference(it) } ?: return
 
-        if (!lockValue.get() && RotationUtils.isFaced(entity, range.toDouble()))
+        if (!lock && RotationUtils.isFaced(entity, range.toDouble()))
             return
 
         val rotation = RotationUtils.limitAngleChange(
                 Rotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch),
-                if (centerValue.get())
+                if (center)
                     RotationUtils.toRotation(RotationUtils.getCenter(entity.entityBoundingBox), true)
                 else
                     RotationUtils.searchCenter(entity.entityBoundingBox, false, false, true,
                             false).rotation,
-                (turnSpeedValue.get() + Math.random()).toFloat()
+                (turnSpeed + Math.random()).toFloat()
         )
 
         rotation.toPlayer(mc.thePlayer)
 
-        if (jitterValue.get()) {
+        if (jitter) {
             val yaw = Random.nextBoolean()
             val pitch = Random.nextBoolean()
             val yawNegative = Random.nextBoolean()

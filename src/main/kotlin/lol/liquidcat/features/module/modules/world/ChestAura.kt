@@ -34,12 +34,12 @@ import net.minecraft.util.Vec3
 
 object ChestAura : Module("ChestAura", "Automatically opens chests around you.", ModuleCategory.WORLD) {
 
-    private val rangeValue = FloatValue("Range", 5F, 1f..6f)
-    private val delayValue = IntValue("Delay", 100, 50..200)
-    private val throughWallsValue = BoolValue("ThroughWalls", true)
-    private val visualSwing = BoolValue("VisualSwing", true)
-    private val chestValue = BlockValue("Chest", Block.getIdFromBlock(Blocks.chest))
-    private val rotationsValue = BoolValue("Rotations", true)
+    private val range by FloatValue("Range", 5F, 1f..6f)
+    private val delay by IntValue("Delay", 100, 50..200)
+    private val throughWalls by BoolValue("ThroughWalls", true)
+    private val visualSwing by BoolValue("VisualSwing", true)
+    private val chest by BlockValue("Chest", Block.getIdFromBlock(Blocks.chest))
+    private val rotations by BoolValue("Rotations", true)
 
     private var currentBlock: BlockPos? = null
     private val timer = MSTimer()
@@ -59,18 +59,18 @@ object ChestAura : Module("ChestAura", "Automatically opens chests around you.",
             EventState.PRE -> {
                 if (mc.currentScreen is GuiContainer) timer.reset()
 
-                val radius = rangeValue.get() + 1
+                val radius = range + 1
 
                 val eyesPos = Vec3(mc.thePlayer.posX, mc.thePlayer.entityBoundingBox.minY + mc.thePlayer.getEyeHeight(),
                         mc.thePlayer.posZ)
 
                 currentBlock = searchBlocks(radius.toInt())
                         .filter {
-                            Block.getIdFromBlock(it.value) == chestValue.get() && !clickedBlocks.contains(it.key)
-                                    && it.key.getCenterDistance() < rangeValue.get()
+                            Block.getIdFromBlock(it.value) == chest && !clickedBlocks.contains(it.key)
+                                    && it.key.getCenterDistance() < range
                         }
                         .filter {
-                            if (throughWallsValue.get())
+                            if (throughWalls)
                                 return@filter true
 
                             val blockPos = it.key
@@ -81,15 +81,15 @@ object ChestAura : Module("ChestAura", "Automatically opens chests around you.",
                         }
                         .minBy { it.key.getCenterDistance() }?.key
 
-                if (rotationsValue.get())
+                if (rotations)
                     RotationUtils.setTargetRotation((RotationUtils.faceBlock(currentBlock ?: return)
                             ?: return).rotation)
             }
 
-            EventState.POST -> if (currentBlock != null && timer.hasTimePassed(delayValue.get().toLong())) {
+            EventState.POST -> if (currentBlock != null && timer.hasTimePassed(delay.toLong())) {
                 if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, mc.thePlayer.heldItem, currentBlock,
                                 EnumFacing.DOWN, currentBlock!!.getVec())) {
-                    if (visualSwing.get())
+                    if (visualSwing)
                         mc.thePlayer.swingItem()
                     else
                         sendPacket(C0APacketAnimation())

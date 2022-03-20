@@ -182,7 +182,7 @@ public abstract class MixinMinecraft {
         final FastPlace fastPlace = (FastPlace) LiquidCat.moduleManager.getModule(FastPlace.class);
 
         if (fastPlace.getState())
-            rightClickDelayTimer = fastPlace.getSpeedValue().get();
+            rightClickDelayTimer = fastPlace.getSpeed();
     }
 
     @Inject(method = "loadWorld(Lnet/minecraft/client/multiplayer/WorldClient;Ljava/lang/String;)V", at = @At("HEAD"))

@@ -43,7 +43,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
     private <T extends EntityLivingBase> void injectChamsPre(T entity, double x, double y, double z, float entityYaw, float partialTicks, CallbackInfo callbackInfo) {
         final Chams chams = (Chams) LiquidCat.moduleManager.getModule(Chams.class);
 
-        if (chams.getState() && chams.getTargetsValue().get() && EntityUtils.isSelected(entity, false)) {
+        if (chams.getState() && chams.getTargets() && EntityUtils.isSelected(entity, false)) {
             GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);
             GL11.glPolygonOffset(1.0F, -1000000F);
         }
@@ -53,7 +53,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
     private <T extends EntityLivingBase> void injectChamsPost(T entity, double x, double y, double z, float entityYaw, float partialTicks, CallbackInfo callbackInfo) {
         final Chams chams = (Chams) LiquidCat.moduleManager.getModule(Chams.class);
 
-        if (chams.getState() && chams.getTargetsValue().get() && EntityUtils.isSelected(entity, false)) {
+        if (chams.getState() && chams.getTargets() && EntityUtils.isSelected(entity, false)) {
             GL11.glPolygonOffset(1.0F, 1000000F);
             GL11.glDisable(GL11.GL_POLYGON_OFFSET_FILL);
         }
@@ -72,7 +72,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
     protected <T extends EntityLivingBase> void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float scaleFactor) {
         boolean visible = !entitylivingbaseIn.isInvisible();
         final TrueSight trueSight = (TrueSight) LiquidCat.moduleManager.getModule(TrueSight.class);
-        boolean semiVisible = !visible && (!entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) || (trueSight.getState() && trueSight.getEntitiesValue().get()));
+        boolean semiVisible = !visible && (!entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) || (trueSight.getState() && trueSight.getEntities()));
 
         if(visible || semiVisible) {
             if(!this.bindEntityTexture(entitylivingbaseIn))
@@ -96,7 +96,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                 float gamma = mc.gameSettings.gammaSetting;
                 mc.gameSettings.gammaSetting = 100000F;
 
-                switch(esp.getModeValue().get().toLowerCase()) {
+                switch(esp.getMode().toLowerCase()) {
                     case "wireframe":
                         GL11.glPushMatrix();
                         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
@@ -108,7 +108,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                         GL11.glEnable(GL11.GL_BLEND);
                         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                         GLUtils.glColor(esp.getColor());
-                        GL11.glLineWidth(esp.getWireframeWidth().get());
+                        GL11.glLineWidth(esp.getWireframeWidth());
                         this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
                         GL11.glPopAttrib();
                         GL11.glPopMatrix();
@@ -119,7 +119,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
 
                         final Color color = esp.getColor();
                         OutlineUtils.setColor(color);
-                        OutlineUtils.renderOne(esp.getOutlineWidth().get());
+                        OutlineUtils.renderOne(esp.getOutlineWidth());
                         this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
                         OutlineUtils.setColor(color);
                         OutlineUtils.renderTwo();

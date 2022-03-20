@@ -13,16 +13,16 @@ import lol.liquidcat.value.ListValue
 
 class Speed : Module("Speed", "Makes you faster.", ModuleCategory.MOVEMENT) {
 
-    private val modeValue = ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
-    private val speedValue = FloatValue("Speed", 1f, 1f..10f)
+    private val mode by ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
+    private val speed by FloatValue("Speed", 1f, 1f..10f)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        when (modeValue.get()) {
+        when (mode) {
             "Vanilla" -> {
                 if (mc.thePlayer.onGround && mc.thePlayer.moving) mc.thePlayer.jump()
 
-                mc.thePlayer.strafe(speedValue.get().toDouble())
+                mc.thePlayer.strafe(speed.toDouble())
             }
         }
     }

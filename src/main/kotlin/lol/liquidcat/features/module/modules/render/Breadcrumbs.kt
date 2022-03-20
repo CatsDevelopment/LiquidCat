@@ -20,20 +20,16 @@ import java.util.*
 
 class Breadcrumbs : Module("Breadcrumbs", "Leaves a trail behind you.", ModuleCategory.RENDER) {
 
-    val colorRedValue = IntValue("R", 255, 0..255)
-    val colorGreenValue = IntValue("G", 179, 0..255)
-    val colorBlueValue = IntValue("B", 72, 0..255)
-    val colorRainbow = BoolValue("Rainbow", false)
+    val red by IntValue("R", 255, 0..255)
+    val green by IntValue("G", 179, 0..255)
+    val blue by IntValue("B", 72, 0..255)
+    val rainbow by BoolValue("Rainbow", false)
 
     private val positions = LinkedList<DoubleArray>()
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        val color = if (colorRainbow.get()) rainbow() else Color(
-            colorRedValue.get(),
-            colorGreenValue.get(),
-            colorBlueValue.get()
-        )
+        val color = if (rainbow) rainbow() else Color(red, green, blue)
 
         synchronized(positions) {
             GL11.glPushMatrix()

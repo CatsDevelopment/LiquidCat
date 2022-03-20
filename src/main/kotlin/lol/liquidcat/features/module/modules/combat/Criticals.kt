@@ -18,23 +18,23 @@ import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
 class Criticals : Module("Criticals", "Automatically deals critical hits.", ModuleCategory.COMBAT) {
 
-    val modeValue = ListValue("Mode", arrayOf("NCP", "Lowest", "Phase", "Visual"), "NCP")
-    val delayValue = IntValue("Delay", 0, 0..500)
+    val mode by ListValue("Mode", arrayOf("NCP", "Lowest", "Phase", "Visual"), "NCP")
+    val delay by IntValue("Delay", 0, 0..500)
 
     val delayTimer = MSTimer()
 
     override val tag: String
-        get() = modeValue.get()
+        get() = mode
 
     @EventTarget
     fun onAttack(event: AttackEvent) {
         if (event.targetEntity is EntityLivingBase) {
-            if (delayTimer.hasTimePassed(delayValue.get().toLong()) && mc.thePlayer.onGround && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWeb && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava && !mc.thePlayer.isRiding && !mc.gameSettings.keyBindJump.isKeyDown) {
+            if (delayTimer.hasTimePassed(delay.toLong()) && mc.thePlayer.onGround && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWeb && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava && !mc.thePlayer.isRiding && !mc.gameSettings.keyBindJump.isKeyDown) {
                 val x = mc.thePlayer.posX
                 val y = mc.thePlayer.posY
                 val z = mc.thePlayer.posZ
 
-                when (modeValue.get()) {
+                when (mode) {
                     "NCP" -> {
                         sendPacket(C04PacketPlayerPosition(x, y + 0.06251000240445849, z, false))
                         sendPacket(C04PacketPlayerPosition(x, y, z, false))

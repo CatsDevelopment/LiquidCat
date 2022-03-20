@@ -43,7 +43,7 @@ public abstract class MixinGuiInGame {
     private void renderTooltip(ScaledResolution sr, float partialTicks, CallbackInfo callbackInfo) {
         final HUD hud = (HUD) LiquidCat.moduleManager.getModule(HUD.class);
 
-        if(Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer && hud.getState() && hud.getBlackHotbarValue().get()) {
+        if(Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer && hud.getState() && hud.getBlackHotbar()) {
             EntityPlayer entityPlayer = (EntityPlayer) Minecraft.getMinecraft().getRenderViewEntity();
 
             int middleScreen = sr.getScaledWidth() / 2;
@@ -85,7 +85,7 @@ public abstract class MixinGuiInGame {
     private void renderPumpkinOverlay(final CallbackInfo callbackInfo) {
         final AntiBlind antiBlind = (AntiBlind) LiquidCat.moduleManager.getModule(AntiBlind.class);
 
-        if(antiBlind.getState() && antiBlind.getPumpkinEffect().get())
+        if(antiBlind.getState() && antiBlind.getPumpkin())
             callbackInfo.cancel();
     }
 }

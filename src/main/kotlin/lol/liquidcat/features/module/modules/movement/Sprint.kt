@@ -19,23 +19,23 @@ import net.minecraft.potion.Potion
 
 class Sprint : Module("Sprint", "Automatically sprints all the time.", ModuleCategory.MOVEMENT) {
 
-    val allDirectionsValue = BoolValue("AllDirections", true)
-    private val blindnessValue = BoolValue("Blindness", true)
-    val foodValue = BoolValue("Food", true)
-    val checkServerSide = BoolValue("CheckServerSide", false)
-    val checkServerSideGround = BoolValue("CheckServerSideOnlyGround", false)
+    val allDirections by BoolValue("AllDirections", true)
+    private val blindness by BoolValue("Blindness", true)
+    val food by BoolValue("Food", true)
+    val checkServerSide by BoolValue("CheckServerSide", false)
+    val checkServerSideGround by BoolValue("CheckServerSideOnlyGround", false)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if (!mc.thePlayer.moving || mc.thePlayer.isSneaking || blindnessValue.get() && mc.thePlayer.isPotionActive(Potion.blindness) ||
-            foodValue.get() && !(mc.thePlayer.foodStats.foodLevel > 6.0f || mc.thePlayer.capabilities.allowFlying) ||
-            (checkServerSide.get() && (mc.thePlayer.onGround || !checkServerSideGround.get()) &&
-                    !allDirectionsValue.get() && RotationUtils.targetRotation != null &&
+        if (!mc.thePlayer.moving || mc.thePlayer.isSneaking || blindness && mc.thePlayer.isPotionActive(Potion.blindness) ||
+            food && !(mc.thePlayer.foodStats.foodLevel > 6.0f || mc.thePlayer.capabilities.allowFlying) ||
+            (checkServerSide && (mc.thePlayer.onGround || !checkServerSideGround) &&
+                    !allDirections && RotationUtils.targetRotation != null &&
                     RotationUtils.getRotationDifference(Rotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch)) > 30)) {
             mc.thePlayer.isSprinting = false
             return
         }
-        if (allDirectionsValue.get() || mc.thePlayer.movementInput.moveForward >= 0.8f)
+        if (allDirections || mc.thePlayer.movementInput.moveForward >= 0.8f)
             mc.thePlayer.isSprinting = true
     }
 }

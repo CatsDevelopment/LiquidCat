@@ -47,7 +47,7 @@ public abstract class MixinAbstractClientPlayer extends MixinEntityPlayer {
         final FOV fovModule = (FOV) LiquidCat.moduleManager.getModule(FOV.class);
 
         if(fovModule.getState()) {
-            float newFOV = fovModule.getFovValue().get();
+            float newFOV = fovModule.getFov();
 
             if(!this.isUsingItem()) {
                 callbackInfoReturnable.setReturnValue(newFOV);
@@ -71,8 +71,8 @@ public abstract class MixinAbstractClientPlayer extends MixinEntityPlayer {
     private void getSkin(CallbackInfoReturnable<ResourceLocation> callbackInfoReturnable) {
         final NameProtect nameProtect = (NameProtect) LiquidCat.moduleManager.getModule(NameProtect.class);
 
-        if(nameProtect.getState() && nameProtect.getSkinProtectValue().get()) {
-            if (!nameProtect.getAllPlayersValue().get() && !Objects.equals(getGameProfile().getName(), Minecraft.getMinecraft().thePlayer.getGameProfile().getName()))
+        if(nameProtect.getState() && nameProtect.getSkinProtect()) {
+            if (!nameProtect.getAllPlayers() && !Objects.equals(getGameProfile().getName(), Minecraft.getMinecraft().thePlayer.getGameProfile().getName()))
                 return;
 
             callbackInfoReturnable.setReturnValue(DefaultPlayerSkin.getDefaultSkin(getUniqueID()));

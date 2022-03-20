@@ -176,7 +176,7 @@ public abstract class MixinEntityRenderer {
             final Reach reach = (Reach) LiquidCat.moduleManager.getModule(Reach.class);
 
             double d0 = reach.getState() ? reach.getMaxRange() : (double) this.mc.playerController.getBlockReachDistance();
-            this.mc.objectMouseOver = entity.rayTrace(reach.getState() ? reach.getBuildReachValue().get() : d0, p_getMouseOver_1_);
+            this.mc.objectMouseOver = entity.rayTrace(reach.getState() ? reach.getBuildReach() : d0, p_getMouseOver_1_);
             double d1 = d0;
             Vec3 vec3 = entity.getPositionEyes(p_getMouseOver_1_);
             boolean flag = false;
@@ -192,7 +192,7 @@ public abstract class MixinEntityRenderer {
             }
 
             if(reach.getState()) {
-                d1 = reach.getCombatReachValue().get();
+                d1 = reach.getCombatReach();
 
                 final MovingObjectPosition movingObjectPosition = entity.rayTrace(d1, p_getMouseOver_1_);
 
@@ -235,7 +235,7 @@ public abstract class MixinEntityRenderer {
                 }
             }
 
-            if (this.pointedEntity != null && flag && vec3.distanceTo(vec33) > (reach.getState() ? reach.getCombatReachValue().get() : 3.0D)) {
+            if (this.pointedEntity != null && flag && vec3.distanceTo(vec33) > (reach.getState() ? reach.getCombatReach() : 3.0D)) {
                 this.pointedEntity = null;
                 this.mc.objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec33, (EnumFacing) null, new BlockPos(vec33));
             }

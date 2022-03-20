@@ -26,12 +26,11 @@ public class MixinNetworkPlayerInfo {
     private void injectSkinProtect(CallbackInfoReturnable<ResourceLocation> cir) {
         NameProtect nameProtect = (NameProtect) LiquidCat.moduleManager.getModule(NameProtect.class);
 
-        if (nameProtect.getState() && nameProtect.getSkinProtectValue().get()) {
-            if (nameProtect.getAllPlayersValue().get() || Objects.equals(gameProfile.getId(), Minecraft.getMinecraft().getSession().getProfile().getId())) {
+        if (nameProtect.getState() && nameProtect.getSkinProtect()) {
+            if (nameProtect.getAllPlayers() || Objects.equals(gameProfile.getId(), Minecraft.getMinecraft().getSession().getProfile().getId())) {
                 cir.setReturnValue(DefaultPlayerSkin.getDefaultSkin(this.gameProfile.getId()));
                 cir.cancel();
             }
         }
-
     }
 }

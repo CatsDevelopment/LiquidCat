@@ -21,10 +21,10 @@ import java.awt.Color
 
 class BlockOverlay : Module("BlockOverlay", "Allows you to change the design of the block overlay.", ModuleCategory.RENDER) {
 
-    private val colorRedValue = IntValue("R", 68, 0..255)
-    private val colorGreenValue = IntValue("G", 117, 0..255)
-    private val colorBlueValue = IntValue("B", 255, 0..255)
-    private val colorRainbow = BoolValue("Rainbow", false)
+    private val red by IntValue("R", 68, 0..255)
+    private val green by IntValue("G", 117, 0..255)
+    private val blue by IntValue("B", 255, 0..255)
+    private val rainbow by BoolValue("Rainbow", false)
 
     private val currentBlock: BlockPos?
         get() {
@@ -40,8 +40,7 @@ class BlockOverlay : Module("BlockOverlay", "Allows you to change the design of 
         val blockPos = currentBlock ?: return
         val block = mc.theWorld.getBlockState(blockPos).block ?: return
         val partialTicks = event.partialTicks
-        val color = if (colorRainbow.get()) rainbow(0.4F) else Color(colorRedValue.get(),
-                colorGreenValue.get(), colorBlueValue.get(), (0.4F * 255).toInt())
+        val color = if (rainbow) rainbow(0.4F) else Color(red, green, blue, (0.4F * 255).toInt())
 
         GlStateManager.enableBlend()
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)

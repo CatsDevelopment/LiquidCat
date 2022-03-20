@@ -24,7 +24,7 @@ import org.lwjgl.util.glu.GLU
 import java.awt.Color
 
 class Projectiles : Module("Projectiles", "Allows you to see where arrows will land.", ModuleCategory.RENDER) {
-    private val dynamicBowPower = BoolValue("DynamicBowPower", true)
+    private val dynamicBowPower by BoolValue("DynamicBowPower", true)
     
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
@@ -40,7 +40,7 @@ class Projectiles : Module("Projectiles", "Allows you to see where arrows will l
         
         // Check items
         if (item is ItemBow) {
-            if (dynamicBowPower.get() && !mc.thePlayer.isUsingItem)
+            if (dynamicBowPower && !mc.thePlayer.isUsingItem)
                 return
 
             isBow = true
@@ -48,7 +48,7 @@ class Projectiles : Module("Projectiles", "Allows you to see where arrows will l
             size = 0.3F
 
             // Calculate power of bow
-            var power = (if (dynamicBowPower.get()) mc.thePlayer.itemInUseDuration else item.getMaxItemUseDuration(ItemStack(item))) / 20f
+            var power = (if (dynamicBowPower) mc.thePlayer.itemInUseDuration else item.getMaxItemUseDuration(ItemStack(item))) / 20f
             power = (power * power + power * 2F) / 3F
             if (power < 0.1F)
                 return

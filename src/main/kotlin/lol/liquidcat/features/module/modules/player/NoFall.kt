@@ -17,10 +17,10 @@ import net.minecraft.network.play.client.C03PacketPlayer
 
 class NoFall : Module("NoFall", "Prevents you from taking fall damage.", ModuleCategory.PLAYER) {
 
-    val modeValue = ListValue("Mode", arrayOf("Spoof", "NoGround"), "Spoof")
+    val mode by ListValue("Mode", arrayOf("Spoof", "NoGround"), "Spoof")
 
     override val tag: String
-        get() = modeValue.get()
+        get() = mode
 
     @EventTarget
     fun onPacket(event: PacketEvent) {
@@ -29,11 +29,11 @@ class NoFall : Module("NoFall", "Prevents you from taking fall damage.", ModuleC
 
         if (packet is C03PacketPlayer)
             when {
-                modeValue.get() == "Spoof" && player.fallDistance > player.minFallDistance -> {
+                mode == "Spoof" && player.fallDistance > player.minFallDistance -> {
                     packet.onGround = true
                     player.fallDistance = 0.0f
                 }
-                modeValue.get() == "NoGround" -> packet.onGround = false
+                mode == "NoGround" -> packet.onGround = false
             }
     }
 }

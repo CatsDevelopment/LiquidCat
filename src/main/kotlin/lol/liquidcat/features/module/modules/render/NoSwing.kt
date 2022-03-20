@@ -10,5 +10,5 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 
 class NoSwing : Module("NoSwing", "Disabled swing effect when hitting an entity/mining a block.", ModuleCategory.RENDER) {
-    val serverSideValue = BoolValue("ServerSide", true)
+    val serverSide by BoolValue("ServerSide", true)
 }

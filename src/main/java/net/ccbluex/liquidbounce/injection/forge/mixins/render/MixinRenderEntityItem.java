@@ -21,7 +21,7 @@ public class MixinRenderEntityItem {
     private void injectChamsPre(CallbackInfo callbackInfo) {
         final Chams chams = (Chams) LiquidCat.moduleManager.getModule(Chams.class);
 
-        if (chams.getState() && chams.getItemsValue().get()) {
+        if (chams.getState() && chams.getItems()) {
             GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);
             GL11.glPolygonOffset(1.0F, -1000000F);
         }
@@ -31,7 +31,7 @@ public class MixinRenderEntityItem {
     private void injectChamsPost(CallbackInfo callbackInfo) {
         final Chams chams = (Chams) LiquidCat.moduleManager.getModule(Chams.class);
 
-        if (chams.getState() && chams.getItemsValue().get()) {
+        if (chams.getState() && chams.getItems()) {
             GL11.glPolygonOffset(1.0F, 1000000F);
             GL11.glDisable(GL11.GL_POLYGON_OFFSET_FILL);
         }

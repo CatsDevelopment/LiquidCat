@@ -17,16 +17,16 @@ import net.minecraft.entity.player.EntityPlayer
 
 object AntiBot : Module("AntiBot", "Prevents KillAura from attacking AntiCheat bots.", ModuleCategory.MISC) {
 
-    private val invalidName = BoolValue("InvalidName", true)
-    private val invalidPitch = BoolValue("InvalidPitch", true)
-    private val health = BoolValue("Health", true)
-    private val livingTime = BoolValue("LivingTime", false)
-    private val livingTimeTicks = IntValue("LivingTimeTicks", 40, 1..200)
-    private val entityId = BoolValue("EntityID", true)
+    private val invalidName by BoolValue("InvalidName", true)
+    private val invalidPitch by BoolValue("InvalidPitch", true)
+    private val health by BoolValue("Health", true)
+    private val livingTime by BoolValue("LivingTime", false)
+    private val livingTimeTicks by IntValue("LivingTimeTicks", 40, 1..200)
+    private val entityId by BoolValue("EntityID", true)
 
-    private val ping = BoolValue("Ping", false)
-    private val duplicateInWorld = BoolValue("DuplicateInWorld", false)
-    private val duplicateInTab = BoolValue("DuplicateInTab", true)
+    private val ping by BoolValue("Ping", false)
+    private val duplicateInWorld by BoolValue("DuplicateInWorld", false)
+    private val duplicateInTab by BoolValue("DuplicateInTab", true)
 
     fun isBot(entity: EntityLivingBase): Boolean {
         if (entity !is EntityPlayer)
@@ -35,31 +35,31 @@ object AntiBot : Module("AntiBot", "Prevents KillAura from attacking AntiCheat b
         if (!state)
             return false
 
-        if (invalidName.get() && (!entity.name.contains(Regex("^[a-zA-Z0-9_]+$")) || entity.name.length !in 3..16))
+        if (invalidName && (!entity.name.contains(Regex("^[a-zA-Z0-9_]+$")) || entity.name.length !in 3..16))
             return true
 
-        if (health.get() && (entity.health > entity.maxHealth || entity.health.isNaN()))
+        if (health && (entity.health > entity.maxHealth || entity.health.isNaN()))
             return true
 
-        if (invalidPitch.get() && (entity.rotationPitch > 90f || entity.rotationPitch < -90f))
+        if (invalidPitch && (entity.rotationPitch > 90f || entity.rotationPitch < -90f))
             return true
 
-        if (livingTime.get() && entity.ticksExisted < livingTimeTicks.get())
+        if (livingTime && entity.ticksExisted < livingTimeTicks)
             return true
 
-        if (entityId.get() && (entity.entityId >= 1000000000 || entity.entityId <= -1))
+        if (entityId && (entity.entityId >= 1000000000 || entity.entityId <= -1))
             return true
 
-        if (ping.get() && entity.ping == 0)
+        if (ping && entity.ping == 0)
             return true
 
-        if (duplicateInWorld.get()) {
+        if (duplicateInWorld) {
             if (mc.theWorld.loadedEntityList
                     .count { ent -> ent is EntityPlayer && entity.gameProfile.name == ent.gameProfile.name } > 1
             ) return true
         }
 
-        if (duplicateInTab.get()) {
+        if (duplicateInTab) {
             if (mc.netHandler.playerInfoMap
                     .count { plr -> entity.gameProfile.name == plr.gameProfile.name } > 1
             ) return true

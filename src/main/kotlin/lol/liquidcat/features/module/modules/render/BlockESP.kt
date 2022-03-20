@@ -25,25 +25,25 @@ import java.awt.Color
 
 class BlockESP : Module("BlockESP", "Allows you to see a selected block through walls.", ModuleCategory.RENDER) {
 
-    private val blockValue = BlockValue("Block", 168)
-    private val radiusValue = IntValue("Radius", 40, 5..120)
-    private val colorRedValue = IntValue("R", 255, 0..255)
-    private val colorGreenValue = IntValue("G", 179, 0..255)
-    private val colorBlueValue = IntValue("B", 72, 0..255)
-    private val colorRainbow = BoolValue("Rainbow", false)
+    private val block by BlockValue("Block", 168)
+    private val radius by IntValue("Radius", 40, 5..120)
+    private val red by IntValue("R", 255, 0..255)
+    private val green by IntValue("G", 179, 0..255)
+    private val blue by IntValue("B", 72, 0..255)
+    private val rainbow by BoolValue("Rainbow", false)
 
     private val searchTimer = MSTimer()
     private val posList: MutableList<BlockPos> = ArrayList()
     private var thread: Thread? = null
 
     override val tag: String
-        get() = getBlockName(blockValue.get())
+        get() = getBlockName(block)
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (searchTimer.hasTimePassed(1000L) && (thread == null || !thread!!.isAlive)) {
-            val radius = radiusValue.get()
-            val selectedBlock = Block.getBlockById(blockValue.get())
+            val radius = radius
+            val selectedBlock = Block.getBlockById(block)
 
             if (selectedBlock == null || selectedBlock == Blocks.air) return
 
@@ -78,11 +78,7 @@ class BlockESP : Module("BlockESP", "Allows you to see a selected block through 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
         synchronized(posList) {
-            val color = if (colorRainbow.get()) rainbow() else Color(
-                colorRedValue.get(),
-                colorGreenValue.get(),
-                colorBlueValue.get()
-            )
+            val color = if (rainbow) rainbow() else Color(red, green, blue)
 
             for (blockPos in posList) {
                 drawBlockBox(blockPos, color, false, true)

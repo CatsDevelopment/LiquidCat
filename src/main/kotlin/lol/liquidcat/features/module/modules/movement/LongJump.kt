@@ -18,7 +18,7 @@ import lol.liquidcat.value.FloatValue
 
 class LongJump : Module("LongJump", "Allows you to jump further.", ModuleCategory.MOVEMENT) {
 
-    private val boostValue = FloatValue("Boost", 5f, 1.01f..10f)
+    private val boost by FloatValue("Boost", 5f, 1.01f..10f)
 
     private var jumpTicks = 0
 
@@ -27,7 +27,7 @@ class LongJump : Module("LongJump", "Allows you to jump further.", ModuleCategor
 
         if (mc.thePlayer.onGround && mc.thePlayer.moving) {
             mc.thePlayer.jump()
-            mc.thePlayer.strafe(mc.thePlayer.speed * boostValue.get().toDouble())
+            mc.thePlayer.strafe(mc.thePlayer.speed * boost.toDouble())
         }
     }
 

@@ -31,23 +31,23 @@ import java.util.stream.IntStream
 
 class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in your inventory.", ModuleCategory.COMBAT) {
 
-    private val maxDelayValue: IntValue = object : IntValue("MaxDelay", 200, 0..400) {
+    private val maxDelay: Int by object : IntValue("MaxDelay", 200, 0..400) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val minDelay = minDelayValue.get()
+            val minDelay = minDelay
             if (minDelay > newValue) set(minDelay)
         }
     }
-    private val minDelayValue: IntValue = object : IntValue("MinDelay", 100, 0..400) {
+    private val minDelay: Int by object : IntValue("MinDelay", 100, 0..400) {
         override fun onChanged(oldValue: Int, newValue: Int) {
-            val maxDelay = maxDelayValue.get()
+            val maxDelay = maxDelay
             if (maxDelay < newValue) set(maxDelay)
         }
     }
-    private val invOpenValue = BoolValue("InvOpen", false)
-    private val simulateInventory = BoolValue("SimulateInventory", true)
-    private val noMoveValue = BoolValue("NoMove", false)
-    private val itemDelayValue = IntValue("ItemDelay", 0, 0..5000)
-    private val hotbarValue = BoolValue("Hotbar", true)
+    private val invOpen by BoolValue("InvOpen", false)
+    private val simulateInv by BoolValue("SimulateInventory", true)
+    private val noMove by BoolValue("NoMove", false)
+    private val itemDelay by IntValue("ItemDelay", 0, 0..5000)
+    private val hotbar by BoolValue("Hotbar", true)
 
     private var delay: Long = 0
 
@@ -58,7 +58,7 @@ class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in yo
         // Find best armor
         val armorPieces = IntStream.range(0, 36)
             .filter { i: Int -> val itemStack = mc.thePlayer.inventory.getStackInSlot(i)
-                (itemStack != null && itemStack.item is ItemArmor && (i < 9 || System.currentTimeMillis() - (itemStack as Any as IItemStack).itemDelay >= itemDelayValue.get()))
+                (itemStack != null && itemStack.item is ItemArmor && (i < 9 || System.currentTimeMillis() - (itemStack as Any as IItemStack).itemDelay >= itemDelay))
             }
             .mapToObj { i: Int -> ArmorPiece(mc.thePlayer.inventory.getStackInSlot(i), i) }
             .collect(Collectors.groupingBy(ArmorPiece::armorType))
@@ -91,19 +91,19 @@ class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in yo
      * @return True if it is unable to move the item
      */
     private fun move(item: Int, isArmorSlot: Boolean): Boolean {
-        if (!isArmorSlot && item < 9 && hotbarValue.get() && mc.currentScreen !is GuiInventory) {
+        if (!isArmorSlot && item < 9 && hotbar && mc.currentScreen !is GuiInventory) {
             sendPacket(C09PacketHeldItemChange(item))
             sendPacket(C08PacketPlayerBlockPlacement(mc.thePlayer.inventoryContainer.getSlot(item).stack))
             sendPacket(C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem))
-            delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+            delay = TimeUtils.randomDelay(minDelay, maxDelay)
             return true
-        } else if (!(noMoveValue.get() && mc.thePlayer.moving) && (!invOpenValue.get() || mc.currentScreen is GuiInventory) && item != -1) {
-            val openInventory = simulateInventory.get() && mc.currentScreen !is GuiInventory
+        } else if (!(noMove && mc.thePlayer.moving) && (!invOpen || mc.currentScreen is GuiInventory) && item != -1) {
+            val openInventory = simulateInv && mc.currentScreen !is GuiInventory
 
             if (openInventory) sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))
 
             mc.playerController.windowClick(mc.thePlayer.inventoryContainer.windowId, if (isArmorSlot) item else if (item < 9) item + 36 else item, 0, 1, mc.thePlayer)
-            delay = TimeUtils.randomDelay(minDelayValue.get(), maxDelayValue.get())
+            delay = TimeUtils.randomDelay(minDelay, maxDelay)
             if (openInventory) sendPacket(C0DPacketCloseWindow())
             return true
         }

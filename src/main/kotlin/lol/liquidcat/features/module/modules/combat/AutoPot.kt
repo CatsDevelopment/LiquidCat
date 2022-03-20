@@ -34,24 +34,22 @@ import org.apache.commons.lang3.RandomUtils
 
 class AutoPot : Module("AutoPot", "Automatically throws healing potions.", ModuleCategory.COMBAT) {
 
-    private val healthValue = FloatValue("Health", 15f, 1f..20f)
-    private val delayValue = IntValue("Delay", 500, 500..1000)
-
-    private val openInventoryValue = BoolValue("OpenInv", false)
-    private val simulateInventory = BoolValue("SimulateInventory", true)
-
-    private val groundDistanceValue = FloatValue("GroundDistance", 2f, 0f..5f)
-    private val modeValue = ListValue("Mode", arrayOf("Normal", "Jump", "Port"), "Normal")
+    private val health by FloatValue("Health", 15f, 1f..20f)
+    private val delay by IntValue("Delay", 500, 500..1000)
+    private val openInv by BoolValue("OpenInv", false)
+    private val simulateInv by BoolValue("SimulateInventory", true)
+    private val groundDistance by FloatValue("GroundDistance", 2f, 0f..5f)
+    private val mode by ListValue("Mode", arrayOf("Normal", "Jump", "Port"), "Normal")
 
     private val msTimer = MSTimer()
     private var potion = -1
 
     override val tag: String
-        get() = healthValue.get().toString()
+        get() = health.toString()
 
     @EventTarget
     fun onMotion(motionEvent: MotionEvent) {
-        if (!msTimer.hasTimePassed(delayValue.get().toLong()) || mc.playerController.isInCreativeMode)
+        if (!msTimer.hasTimePassed(delay.toLong()) || mc.playerController.isInCreativeMode)
             return
 
         when (motionEvent.eventState) {
@@ -59,9 +57,9 @@ class AutoPot : Module("AutoPot", "Automatically throws healing potions.", Modul
                 // Hotbar Potion
                 val potionInHotbar = findPotion(36, 45)
 
-                if (mc.thePlayer.health <= healthValue.get() && potionInHotbar != -1) {
+                if (mc.thePlayer.health <= health && potionInHotbar != -1) {
                     if (mc.thePlayer.onGround) {
-                        when (modeValue.get().toLowerCase()) {
+                        when (mode.toLowerCase()) {
                             "jump" -> mc.thePlayer.jump()
                             "port" -> mc.thePlayer.moveEntity(0.0, 0.42, 0.0)
                         }
@@ -82,7 +80,7 @@ class AutoPot : Module("AutoPot", "Automatically throws healing potions.", Modul
 
                     val collisionBlock = fallingPlayer.findCollision(20)
 
-                    if (mc.thePlayer.posY - (collisionBlock?.y ?: 0) >= groundDistanceValue.get())
+                    if (mc.thePlayer.posY - (collisionBlock?.y ?: 0) >= groundDistance)
                         return
 
                     potion = potionInHotbar
@@ -97,10 +95,10 @@ class AutoPot : Module("AutoPot", "Automatically throws healing potions.", Modul
                 // Inventory Potion -> Hotbar Potion
                 val potionInInventory = findPotion(9, 36)
                 if (potionInInventory != -1 && !isHotbarFull()) {
-                    if (openInventoryValue.get() && mc.currentScreen !is GuiInventory)
+                    if (openInv && mc.currentScreen !is GuiInventory)
                         return
 
-                    val openInventory = mc.currentScreen !is GuiInventory && simulateInventory.get()
+                    val openInventory = mc.currentScreen !is GuiInventory && simulateInv
 
                     if (openInventory)
                         sendPacket(C16PacketClientStatus(C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT))

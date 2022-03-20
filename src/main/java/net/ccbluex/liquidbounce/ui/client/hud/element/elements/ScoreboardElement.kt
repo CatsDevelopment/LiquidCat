@@ -36,24 +36,24 @@ import java.awt.Color
 class ScoreboardElement(x: Double = 5.0, y: Double = 0.0, scale: Float = 1F,
                         side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.MIDDLE)) : Element(x, y, scale, side) {
 
-    private val textRedValue = IntValue("Text-R", 255, 0..255)
-    private val textGreenValue = IntValue("Text-G", 255, 0..255)
-    private val textBlueValue = IntValue("Text-B", 255, 0..255)
+    private val textRed by IntValue("Text-R", 255, 0..255)
+    private val textGreen by IntValue("Text-G", 255, 0..255)
+    private val textBlue by IntValue("Text-B", 255, 0..255)
 
-    private val backgroundColorRedValue = IntValue("Background-R", 0, 0..255)
-    private val backgroundColorGreenValue = IntValue("Background-G", 0, 0..255)
-    private val backgroundColorBlueValue = IntValue("Background-B", 0, 0..255)
-    private val backgroundColorAlphaValue = IntValue("Background-Alpha", 95, 0..255)
+    private val bgRed by IntValue("Background-R", 0, 0..255)
+    private val bgGreen by IntValue("Background-G", 0, 0..255)
+    private val bgBlur by IntValue("Background-B", 0, 0..255)
+    private val bgAlpha by IntValue("Background-Alpha", 95, 0..255)
 
-    private val rectValue = BoolValue("Rect", false)
-    private val rectColorModeValue = ListValue("Rect-Color", arrayOf("Custom", "Rainbow"), "Custom")
-    private val rectColorRedValue = IntValue("Rect-R", 0, 0..255)
-    private val rectColorGreenValue = IntValue("Rect-G", 111, 0..255)
-    private val rectColorBlueValue = IntValue("Rect-B", 255, 0..255)
-    private val rectColorBlueAlpha = IntValue("Rect-Alpha", 255, 0..255)
+    private val rect by BoolValue("Rect", false)
+    private val rectColorMode by ListValue("Rect-Color", arrayOf("Custom", "Rainbow"), "Custom")
+    private val rectRed by IntValue("Rect-R", 0, 0..255)
+    private val rectGreen by IntValue("Rect-G", 111, 0..255)
+    private val rectBlue by IntValue("Rect-B", 255, 0..255)
+    private val rectAlpha by IntValue("Rect-Alpha", 255, 0..255)
 
-    private val shadowValue = BoolValue("Shadow", false)
-    private val fontValue = FontValue("Font", Fonts.minecraftFont)
+    private val shadow by BoolValue("Shadow", false)
+    private val font by FontValue("Font", Fonts.minecraftFont)
 
     /**
      * Draw element
@@ -62,13 +62,10 @@ class ScoreboardElement(x: Double = 5.0, y: Double = 0.0, scale: Float = 1F,
         if (NoScoreboard.state)
             return null
 
-        val fontRenderer = fontValue.get()
         val textColor = textColor().rgb
         val backColor = backgroundColor().rgb
 
-        val rectColorMode = rectColorModeValue.get()
-        val rectCustomColor = Color(rectColorRedValue.get(), rectColorGreenValue.get(), rectColorBlueValue.get(),
-                rectColorBlueAlpha.get()).rgb
+        val rectColor = Color(rectRed, rectGreen, rectBlue, rectAlpha).rgb
 
         val worldScoreboard: Scoreboard = mc.theWorld.scoreboard
         var currObjective: ScoreObjective? = null
@@ -94,20 +91,20 @@ class ScoreboardElement(x: Double = 5.0, y: Double = 0.0, scale: Float = 1F,
         else
             scores
 
-        var maxWidth = fontRenderer.getStringWidth(objective.displayName)
+        var maxWidth = font.getStringWidth(objective.displayName)
 
         for (score in scoreCollection) {
             val scorePlayerTeam = scoreboard.getPlayersTeam(score.playerName)
             val width = "${ScorePlayerTeam.formatPlayerName(scorePlayerTeam, score.playerName)}: ${EnumChatFormatting.RED}${score.scorePoints}"
-            maxWidth = maxWidth.coerceAtLeast(fontRenderer.getStringWidth(width))
+            maxWidth = maxWidth.coerceAtLeast(font.getStringWidth(width))
         }
 
-        val maxHeight = scoreCollection.size * fontRenderer.FONT_HEIGHT
-        val l1 = -maxWidth - 3 - if (rectValue.get()) 3 else 0
+        val maxHeight = scoreCollection.size * font.FONT_HEIGHT
+        val l1 = -maxWidth - 3 - if (rect) 3 else 0
 
 
 
-        Gui.drawRect(l1 - 2, -2, 5, maxHeight + fontRenderer.FONT_HEIGHT, backColor)
+        Gui.drawRect(l1 - 2, -2, 5, maxHeight + font.FONT_HEIGHT, backColor)
 
         scoreCollection.forEachIndexed { index, score ->
             val team = scoreboard.getPlayersTeam(score.playerName)
@@ -115,40 +112,37 @@ class ScoreboardElement(x: Double = 5.0, y: Double = 0.0, scale: Float = 1F,
             val name = ScorePlayerTeam.formatPlayerName(team, score.playerName)
             val scorePoints = "${EnumChatFormatting.RED}${score.scorePoints}"
 
-            val width = 5 - if (rectValue.get()) 4 else 0
-            val height = maxHeight - index * fontRenderer.FONT_HEIGHT
+            val width = 5 - if (rect) 4 else 0
+            val height = maxHeight - index * font.FONT_HEIGHT
 
             GlStateManager.resetColor()
 
-            fontRenderer.drawString(name, l1.toFloat(), height.toFloat(), textColor, shadowValue.get())
-            fontRenderer.drawString(scorePoints, (width - fontRenderer.getStringWidth(scorePoints)).toFloat(), height.toFloat(), textColor, shadowValue.get())
+            font.drawString(name, l1.toFloat(), height.toFloat(), textColor, shadow)
+            font.drawString(scorePoints, (width - font.getStringWidth(scorePoints)).toFloat(), height.toFloat(), textColor, shadow)
 
             if (index == scoreCollection.size - 1) {
                 val displayName = objective.displayName
 
                 GlStateManager.resetColor()
 
-                fontRenderer.drawString(displayName, (l1 + maxWidth / 2 - fontRenderer.getStringWidth(displayName) / 2).toFloat(), (height -
-                        fontRenderer.FONT_HEIGHT).toFloat(), textColor, shadowValue.get())
+                font.drawString(displayName, (l1 + maxWidth / 2 - font.getStringWidth(displayName) / 2).toFloat(), (height -
+                        font.FONT_HEIGHT).toFloat(), textColor, shadow)
             }
 
-            if (rectValue.get()) {
+            if (rect) {
                 val rectColor = when {
                     rectColorMode.equals("Rainbow", ignoreCase = true) -> ColorUtils.rainbow(400000000L * index).rgb
-                    else -> rectCustomColor
+                    else -> rectColor
                 }
 
-                GLUtils.drawRect(2F, if (index == scoreCollection.size - 1) -2F else height.toFloat(), 5F, if (index == 0) fontRenderer.FONT_HEIGHT.toFloat() else height.toFloat() + fontRenderer.FONT_HEIGHT * 2F, rectColor)
+                GLUtils.drawRect(2F, if (index == scoreCollection.size - 1) -2F else height.toFloat(), 5F, if (index == 0) font.FONT_HEIGHT.toFloat() else height.toFloat() + font.FONT_HEIGHT * 2F, rectColor)
             }
         }
 
-        return Border(-maxWidth.toFloat() - 5 - if (rectValue.get()) 3 else 0, -2F, 5F, maxHeight.toFloat() + fontRenderer.FONT_HEIGHT)
+        return Border(-maxWidth.toFloat() - 5 - if (rect) 3 else 0, -2F, 5F, maxHeight.toFloat() + font.FONT_HEIGHT)
     }
 
-    private fun backgroundColor() = Color(backgroundColorRedValue.get(), backgroundColorGreenValue.get(),
-            backgroundColorBlueValue.get(), backgroundColorAlphaValue.get())
+    private fun backgroundColor() = Color(bgRed, bgGreen, bgBlur, bgAlpha)
 
-    private fun textColor() = Color(textRedValue.get(), textGreenValue.get(),
-            textBlueValue.get())
-
+    private fun textColor() = Color(textRed, textGreen, textBlue)
 }

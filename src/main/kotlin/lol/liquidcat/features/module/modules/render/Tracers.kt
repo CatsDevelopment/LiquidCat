@@ -21,17 +21,17 @@ import java.awt.Color
 
 class Tracers : Module("Tracers", "Draws a line to targets around you.", ModuleCategory.RENDER) {
 
-    private val redValue = IntValue("Red", 255, 0..255)
-    private val greenValue = IntValue("Green", 255, 0..255)
-    private val blueValue = IntValue("Blue", 255, 0..255)
-    private val thicknessValue = FloatValue("Thickness", 2f, 1f..5f)
+    private val red by IntValue("Red", 255, 0..255)
+    private val green by IntValue("Green", 255, 0..255)
+    private val blue by IntValue("Blue", 255, 0..255)
+    private val thickness by FloatValue("Thickness", 2f, 1f..5f)
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
         GL11.glEnable(GL11.GL_BLEND)
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
         GL11.glEnable(GL11.GL_LINE_SMOOTH)
-        GL11.glLineWidth(thicknessValue.get())
+        GL11.glLineWidth(thickness)
         GL11.glDisable(GL11.GL_TEXTURE_2D)
         GL11.glShadeModel(GL11.GL_SMOOTH)
         GL11.glDisable(GL11.GL_DEPTH_TEST)
@@ -42,7 +42,7 @@ class Tracers : Module("Tracers", "Draws a line to targets around you.", ModuleC
 
         for (entity in mc.theWorld.loadedEntityList) {
             if (EntityUtils.isSelected(entity, false))
-                drawTraces(entity, Color(redValue.get(), greenValue.get(), blueValue.get(), 100))
+                drawTraces(entity, Color(red, green, blue, 100))
         }
 
         GL11.glEnd()
@@ -72,7 +72,7 @@ class Tracers : Module("Tracers", "Draws a line to targets around you.", ModuleC
         GLUtils.glColor(color)
         GL11.glVertex3d(eyeVector.xCoord, eyeVector.yCoord + mc.thePlayer.eyeHeight, eyeVector.zCoord)
 
-        GLUtils.glColor(Color(redValue.get(), greenValue.get(), blueValue.get(), 0))
+        GLUtils.glColor(Color(red, green, blue, 0))
         GL11.glVertex3d(x, y + entity.height / 2, z)
     }
 }

@@ -17,7 +17,7 @@ import net.minecraft.potion.PotionEffect
 
 class Fullbright : Module("Fullbright", "Brightens up the world around you.", ModuleCategory.RENDER) {
 
-    private val modeValue = ListValue("Mode", arrayOf("Gamma", "NightVision"), "Gamma")
+    private val mode by ListValue("Mode", arrayOf("Gamma", "NightVision"), "Gamma")
     private var prevGamma = -1f
 
     override fun onEnable() {
@@ -36,7 +36,7 @@ class Fullbright : Module("Fullbright", "Brightens up the world around you.", Mo
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (state || LiquidCat.moduleManager.getModule(XRay::class.java)!!.state) {
-            when (modeValue.get().toLowerCase()) {
+            when (mode.toLowerCase()) {
                 "gamma" -> if (mc.gameSettings.gammaSetting <= 100f) mc.gameSettings.gammaSetting++
                 "nightvision" -> mc.thePlayer.addPotionEffect(PotionEffect(Potion.nightVision.id, 1337, 1))
             }

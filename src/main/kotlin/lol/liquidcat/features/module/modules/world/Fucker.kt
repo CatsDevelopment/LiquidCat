@@ -35,25 +35,16 @@ import java.awt.Color
 
 object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  IDNuker)", ModuleCategory.WORLD) {
 
-    /**
-     * SETTINGS
-     */
-
-    private val blockValue = BlockValue("Block", 26)
-    private val throughWallsValue = ListValue("ThroughWalls", arrayOf("None", "Raycast", "Around"), "None")
-    private val rangeValue = FloatValue("Range", 5f, 1f..7f)
-    private val actionValue = ListValue("Action", arrayOf("Destroy", "Use"), "Destroy")
-    private val instantValue = BoolValue("Instant", false)
-    private val switchValue = IntValue("SwitchDelay", 250, 0..1000)
-    private val swingValue = BoolValue("Swing", true)
-    private val rotationsValue = BoolValue("Rotations", true)
-    private val surroundingsValue = BoolValue("Surroundings", true)
-    private val noHitValue = BoolValue("NoHit", false)
-
-
-    /**
-     * VALUES
-     */
+    private val block by BlockValue("Block", 26)
+    private val throughWalls by ListValue("ThroughWalls", arrayOf("None", "Raycast", "Around"), "None")
+    private val range by FloatValue("Range", 5f, 1f..7f)
+    private val action by ListValue("Action", arrayOf("Destroy", "Use"), "Destroy")
+    private val instant by BoolValue("Instant", false)
+    private val switch by IntValue("SwitchDelay", 250, 0..1000)
+    private val swing by BoolValue("Swing", true)
+    private val rotations by BoolValue("Rotations", true)
+    private val surroundings by BoolValue("Surroundings", true)
+    private val noHit by BoolValue("NoHit", false)
 
     private var pos: BlockPos? = null
     private var oldPos: BlockPos? = null
@@ -63,17 +54,17 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if (noHitValue.get()) {
+        if (noHit) {
             val killAura = LiquidCat.moduleManager.getModule(KillAura::class.java) as KillAura
 
             if (killAura.state && killAura.target != null)
                 return
         }
 
-        val targetId = blockValue.get()
+        val targetId = block
 
         if (pos == null || Block.getIdFromBlock(pos?.getBlock()) != targetId ||
-                pos!!.getCenterDistance() > rangeValue.get())
+                pos!!.getCenterDistance() > range)
             pos = find(targetId)
 
         // Reset current breaking when there is no target block
@@ -88,7 +79,7 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
         // Surroundings
         var surroundings = false
 
-        if (surroundingsValue.get()) {
+        if (this.surroundings) {
             val eyes = mc.thePlayer.getPositionEyes(1F)
             val blockPos = mc.theWorld.rayTraceBlocks(eyes, rotations.vec, false,
                     false, true).blockPos
@@ -111,7 +102,7 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
 
         oldPos = currentPos
 
-        if (!switchTimer.hasTimePassed(switchValue.get().toLong()))
+        if (!switchTimer.hasTimePassed(switch.toLong()))
             return
 
         // Block hit delay
@@ -121,24 +112,24 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
         }
 
         // Face block
-        if (rotationsValue.get())
+        if (this.rotations)
             RotationUtils.setTargetRotation(rotations.rotation)
 
         when {
             // Destory block
-            actionValue.get().equals("destroy", true) || surroundings -> {
+            action.equals("destroy", true) || surroundings -> {
                 // Auto Tool
                 val autoTool = LiquidCat.moduleManager[AutoTool::class.java] as AutoTool
                 if (autoTool.state)
                     autoTool.switchSlot(currentPos)
 
                 // Break block
-                if (instantValue.get()) {
+                if (instant) {
                     // CivBreak style block breaking
                     sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.START_DESTROY_BLOCK,
                             currentPos, EnumFacing.DOWN))
 
-                    if (swingValue.get())
+                    if (swing)
                         mc.thePlayer.swingItem()
 
                     sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK,
@@ -156,7 +147,7 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
 
                     if (mc.thePlayer.capabilities.isCreativeMode ||
                             block.getPlayerRelativeBlockHardness(mc.thePlayer, mc.theWorld, pos) >= 1.0F) {
-                        if (swingValue.get())
+                        if (swing)
                             mc.thePlayer.swingItem()
                         mc.playerController.onPlayerDestroyBlock(pos, EnumFacing.DOWN)
 
@@ -166,7 +157,7 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
                     }
                 }
 
-                if (swingValue.get())
+                if (swing)
                     mc.thePlayer.swingItem()
 
                 currentDamage += block.getPlayerRelativeBlockHardness(mc.thePlayer, mc.theWorld, currentPos)
@@ -183,10 +174,10 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
             }
 
             // Use block
-            actionValue.get().equals("use", true) -> if (mc.playerController.onPlayerRightClick(
+            action.equals("use", true) -> if (mc.playerController.onPlayerRightClick(
                             mc.thePlayer, mc.theWorld, mc.thePlayer.heldItem, pos, EnumFacing.DOWN,
                             Vec3(currentPos.x.toDouble(), currentPos.y.toDouble(), currentPos.z.toDouble()))) {
-                if (swingValue.get())
+                if (swing)
                     mc.thePlayer.swingItem()
 
                 blockHitDelay = 4
@@ -204,10 +195,10 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
     /**
      * Find new target block by [targetID]
      */
-    private fun find(targetID: Int) = searchBlocks(rangeValue.get().toInt() + 1)
+    private fun find(targetID: Int) = searchBlocks(range.toInt() + 1)
             .filter {
-                Block.getIdFromBlock(it.value) == targetID && it.key.getCenterDistance() <= rangeValue.get()
-                        && (isHitable(it.key) || surroundingsValue.get())
+                Block.getIdFromBlock(it.value) == targetID && it.key.getCenterDistance() <= range
+                        && (isHitable(it.key) || surroundings)
             }
             .minBy { it.key.getCenterDistance() }?.key
 
@@ -215,7 +206,7 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
      * Check if block is hitable (or allowed to hit through walls)
      */
     private fun isHitable(blockPos: BlockPos): Boolean {
-        return when (throughWallsValue.get().toLowerCase()) {
+        return when (throughWalls.toLowerCase()) {
             "raycast" -> {
                 val eyesPos = Vec3(mc.thePlayer.posX, mc.thePlayer.entityBoundingBox.minY +
                         mc.thePlayer.getEyeHeight(), mc.thePlayer.posZ)
@@ -232,5 +223,5 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
     }
 
     override val tag: String
-        get() = getBlockName(blockValue.get())
+        get() = getBlockName(block)
 }
