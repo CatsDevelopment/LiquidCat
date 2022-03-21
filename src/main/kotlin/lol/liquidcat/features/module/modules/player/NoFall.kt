@@ -10,14 +10,15 @@ import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.minFallDistance
+import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.ListValue
 import net.minecraft.network.play.client.C03PacketPlayer
-
-//TODO Add more modes
+import kotlin.math.abs
 
 class NoFall : Module("NoFall", "Prevents you from taking fall damage.", ModuleCategory.PLAYER) {
 
-    val mode by ListValue("Mode", arrayOf("Spoof", "NoGround"), "Spoof")
+    val mode by ListValue("Mode", arrayOf("Spoof", "Damage", "NoGround"), "Spoof")
+    private val stableMotion by BoolValue("StableDamageMotion", false)
 
     override val tag: String
         get() = mode
@@ -31,9 +32,17 @@ class NoFall : Module("NoFall", "Prevents you from taking fall damage.", ModuleC
             when {
                 mode == "Spoof" && player.fallDistance > player.minFallDistance -> {
                     packet.onGround = true
-                    player.fallDistance = 0.0f
+                    player.fallDistance = 0f
                 }
                 mode == "NoGround" -> packet.onGround = false
+
+                mode == "Damage" -> {
+                    if (player.fallDistance > player.minFallDistance + 1 * abs(player.motionY)) {
+                        packet.onGround = true
+                        player.fallDistance = 0f
+                        if (stableMotion) mc.thePlayer.motionY = 0.0
+                    }
+                }
             }
     }
 }
