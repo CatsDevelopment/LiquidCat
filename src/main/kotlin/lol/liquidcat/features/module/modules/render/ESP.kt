@@ -30,9 +30,11 @@ class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCate
 
     val mode by ListValue(
         "Mode",
-        arrayOf("Box", "WireFrame", "2D", "Outline", "ShaderOutline", "ShaderGlow"),
+        arrayOf("ShaderOutline", "ShaderGlow", "Box", "WireFrame", "2D", "Outline"),
         "Box"
     )
+
+    private val shaderMode by ListValue("ShaderMode", arrayOf("Outline", "Box"), "Outline")
 
     private val red by IntValue("Red", 255, 0..255)
     private val green by IntValue("Green", 255, 0..255)
@@ -156,7 +158,10 @@ class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCate
         try {
             for (entity in mc.theWorld.loadedEntityList)
                 if (EntityUtils.isSelected(entity, false))
-                    mc.renderManager.renderEntityStatic(entity, mc.timer.renderPartialTicks, true)
+                    if (shaderMode == "Outline")
+                        mc.renderManager.renderEntityStatic(entity, mc.timer.renderPartialTicks, true)
+                    else
+                        GLUtils.drawFilledBB(GLUtils.interpolateEntityBB(entity))
         } catch (e: Exception) {
             LiquidCat.logger.error("An error occurred while rendering all entities for shader esp", e)
         }
