@@ -5,6 +5,7 @@
  */
 package lol.liquidcat.utils.render.shader.shaders
 
+import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.shader.FramebufferShader
 import org.lwjgl.opengl.GL20
 

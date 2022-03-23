@@ -5,6 +5,7 @@
  */
 package lol.liquidcat.utils.render.shader
 
+import lol.liquidcat.utils.mc
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderHelper

@@ -7,11 +7,10 @@ package lol.liquidcat.utils.render.shader
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.LiquidCat.logger
-import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import org.apache.commons.io.IOUtils
 import org.lwjgl.opengl.*
 
-abstract class Shader(fragmentShader: String) : MinecraftInstance() {
+abstract class Shader(fragmentShader: String) {
     private var program = 0
     private lateinit var uniformsMap: MutableMap<String, Int>
 
