@@ -37,6 +37,7 @@ class ModuleManager : Listenable {
         LiquidCat.logger.info("[ModuleManager] Loading modules...")
 
         registerModules(
+                FunnyHat::class.java,
                 AutoArmor::class.java,
                 AutoBow::class.java,
                 AutoLeave::class.java,

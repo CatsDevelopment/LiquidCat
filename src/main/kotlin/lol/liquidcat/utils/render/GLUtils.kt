@@ -428,7 +428,7 @@ object GLUtils {
     /**
      * Interpolates [entity] position into position for rendering
      */
-    private fun interpolate(entity: Entity): Vector3d {
+    fun interpolate(entity: Entity): Vector3d {
         val x = interpolate(entity.lastTickPosX, entity.posX) - mc.renderManager.viewerPosX
         val y = interpolate(entity.lastTickPosY, entity.posY) - mc.renderManager.viewerPosY
         val z = interpolate(entity.lastTickPosZ, entity.posZ) - mc.renderManager.viewerPosZ
