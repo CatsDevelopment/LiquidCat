@@ -78,7 +78,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
         val delta = GLUtils.deltaTime
 
         for (module in LiquidCat.moduleManager.modules) {
-            if (!module.array || (!module.state && module.slide == 0F)) continue
+            if (module.hide || (!module.state && module.slide == 0F)) continue
 
             var displayString = if (!tags)
                 module.name
@@ -249,7 +249,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
 
     override fun updateElement() {
         modules = LiquidCat.moduleManager.modules
-                .filter { it.array && it.slide > 0 }
+                .filter { !it.hide && it.slide > 0 }
                 .sortedBy { -font.getStringWidth(if (upperCase) (if (!tags) it.name else if (tagsArrayColor) it.colorlessTagName else it.tagName).toUpperCase() else if (!tags) it.name else if (tagsArrayColor) it.colorlessTagName else it.tagName) }
     }
 }

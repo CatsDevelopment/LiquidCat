@@ -30,11 +30,10 @@ import java.net.URISyntaxException
 import java.util.regex.Pattern
 import kotlin.concurrent.thread
 
-class LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBounce users.", ModuleCategory.MISC) {
+class LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBounce users.", ModuleCategory.MISC, hide = true) {
 
     init {
         state = true
-        array = false
     }
 
     private var jwt by object : BoolValue("JWT", false) {

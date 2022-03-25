@@ -11,7 +11,6 @@ import lol.liquidcat.value.Value
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.stripColor
 import net.minecraft.client.audio.PositionedSoundRecord
-import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.input.Keyboard
 
@@ -21,7 +20,7 @@ open class Module(
     var category: ModuleCategory,
     keyBind: Int = Keyboard.CHAR_NONE,
     val canEnable: Boolean = true,
-    array: Boolean = true
+    hide: Boolean = false
 ) : Listenable {
     var keyBind = keyBind
         set(value) {
@@ -29,7 +28,7 @@ open class Module(
 
             if (!LiquidCat.isStarting) LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.modulesConfig)
         }
-    var array = array
+    var hide = hide
         set(value) {
             field = value
 

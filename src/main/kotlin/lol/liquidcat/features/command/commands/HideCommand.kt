@@ -19,7 +19,7 @@ class HideCommand : Command("hide", emptyArray()) {
             when {
                 args[1].equals("list", true) -> {
                     chat("§c§lHidden")
-                    LiquidCat.moduleManager.modules.filter { !it.array }.forEach {
+                    LiquidCat.moduleManager.modules.filter { it.hide }.forEach {
                         msg("§6> §c${it.name}")
                     }
                     return
@@ -27,7 +27,7 @@ class HideCommand : Command("hide", emptyArray()) {
 
                 args[1].equals("clear", true) -> {
                     for (module in LiquidCat.moduleManager.modules)
-                        module.array = true
+                        module.hide = false
 
                     chat("Cleared hidden modules.")
                     return
@@ -43,10 +43,10 @@ class HideCommand : Command("hide", emptyArray()) {
                     }
 
                     // Find key by name and change
-                    module.array = !module.array
+                    module.hide = !module.hide
 
                     // Response to user
-                    chat("Module §a§l${module.name}§3 is now §a§l${if (module.array) "visible" else "invisible"}§3 on the array list.")
+                    chat("Module §a§l${module.name}§3 is now §a§l${if (module.hide) "invisible" else "visible"}§3 on the array list.")
                     playEdit()
                     return
                 }
