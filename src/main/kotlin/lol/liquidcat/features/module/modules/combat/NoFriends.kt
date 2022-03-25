@@ -8,4 +8,4 @@ package lol.liquidcat.features.module.modules.combat
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 
-class NoFriends : Module("NoFriends", "Allows you to attack friends.", ModuleCategory.COMBAT)
+object NoFriends : Module("NoFriends", "Allows you to attack friends.", ModuleCategory.COMBAT)

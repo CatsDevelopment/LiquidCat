@@ -16,7 +16,7 @@ import lol.liquidcat.value.ListValue
 import net.minecraft.network.play.server.S12PacketEntityVelocity
 import net.minecraft.network.play.server.S27PacketExplosion
 
-class Velocity : Module("Velocity", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT) {
+object Velocity : Module("Velocity", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT) {
 
     private val mode by ListValue("Mode", arrayOf("Normal", "Strafe"), "Normal")
     private val horizontal by FloatValue("Horizontal", 0f, 0f..1f)

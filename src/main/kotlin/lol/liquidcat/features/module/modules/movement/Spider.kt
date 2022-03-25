@@ -17,7 +17,7 @@ import net.minecraft.util.AxisAlignedBB
 import kotlin.math.cos
 import kotlin.math.sin
 
-class Spider : Module("Spider", "Allows you to climb up walls like a spider.", ModuleCategory.MOVEMENT) {
+object Spider : Module("Spider", "Allows you to climb up walls like a spider.", ModuleCategory.MOVEMENT) {
 
     private val mode by ListValue("Mode", arrayOf("Simple", "Clip"), "Simple")
     private val motion by FloatValue("Motion", 0f, 0f..1f)

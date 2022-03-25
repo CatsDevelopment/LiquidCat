@@ -30,7 +30,7 @@ import java.net.URISyntaxException
 import java.util.regex.Pattern
 import kotlin.concurrent.thread
 
-class LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBounce users.", ModuleCategory.MISC, hide = true) {
+object LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBounce users.", ModuleCategory.MISC, hide = true) {
 
     init {
         state = true
@@ -45,9 +45,7 @@ class LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBou
         }
     }
 
-    companion object {
-        var jwtToken = ""
-    }
+    var jwtToken = ""
 
     val client = object : Client() {
 

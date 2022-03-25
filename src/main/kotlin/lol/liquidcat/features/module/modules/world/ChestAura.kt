@@ -5,23 +5,22 @@
  */
 package lol.liquidcat.features.module.modules.world
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventState
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.MotionEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.modules.player.Blink
 import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.block.getVec
 import lol.liquidcat.utils.block.searchBlocks
+import lol.liquidcat.utils.sendPacket
+import lol.liquidcat.utils.timer.MSTimer
 import lol.liquidcat.value.BlockValue
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
-import lol.liquidcat.features.module.modules.player.Blink
-import lol.liquidcat.utils.sendPacket
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.block.Block
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.init.Blocks
@@ -52,7 +51,7 @@ object ChestAura : Module("ChestAura", "Automatically opens chests around you.",
 
     @EventTarget
     fun onMotion(event: MotionEvent) {
-        if (LiquidCat.moduleManager[Blink::class.java]!!.state)
+        if (Blink.state)
             return
 
         when (event.eventState) {

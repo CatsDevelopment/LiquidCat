@@ -18,7 +18,7 @@ import net.minecraft.entity.EntityLivingBase
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
 
-class NameTags : Module("NameTags", "Changes the scale of the nametags so you can always read them.", ModuleCategory.RENDER) {
+object NameTags : Module("NameTags", "Changes the scale of the nametags so you can always read them.", ModuleCategory.RENDER) {
 
     private val red by IntValue("Red", 255, 0..255)
     private val green by IntValue("Green", 150, 0..255)

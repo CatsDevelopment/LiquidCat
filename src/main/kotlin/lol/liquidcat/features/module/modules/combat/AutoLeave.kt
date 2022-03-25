@@ -16,7 +16,7 @@ import net.minecraft.network.play.client.C02PacketUseEntity
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 import kotlin.random.Random
 
-class AutoLeave : Module("AutoLeave", "Automatically makes you leave the server whenever your health is low.", ModuleCategory.COMBAT) {
+object AutoLeave : Module("AutoLeave", "Automatically makes you leave the server whenever your health is low.", ModuleCategory.COMBAT) {
 
     private val health by FloatValue("Health", 8f, 0f..20f)
     private val mode by ListValue("Mode", arrayOf("Quit", "InvalidPacket", "SelfHurt", "IllegalChat"), "Quit")

@@ -14,7 +14,7 @@ import lol.liquidcat.value.BoolValue
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.potion.Potion
 
-class Zoot : Module("Zoot", "Removes all bad potion effects/fire.", ModuleCategory.PLAYER) {
+object Zoot : Module("Zoot", "Removes all bad potion effects/fire.", ModuleCategory.PLAYER) {
 
     private val badEffects by BoolValue("BadEffects", true)
     private val fire by BoolValue("Fire", true)

@@ -19,7 +19,7 @@ import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
 import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 
-class FastBow : Module("FastBow", "Turns your bow into a machine gun.", ModuleCategory.COMBAT) {
+object FastBow : Module("FastBow", "Turns your bow into a machine gun.", ModuleCategory.COMBAT) {
 
     private val packets by IntValue("Packets", 20, 3..20)
 

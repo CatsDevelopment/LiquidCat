@@ -8,4 +8,4 @@ package lol.liquidcat.features.module.modules.world
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 
-class Liquids : Module("Liquids", "Allows you to interact with liquids.", ModuleCategory.WORLD)
+object Liquids : Module("Liquids", "Allows you to interact with liquids.", ModuleCategory.WORLD)

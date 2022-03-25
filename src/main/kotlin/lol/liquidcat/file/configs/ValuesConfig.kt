@@ -11,11 +11,12 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleManager
+import lol.liquidcat.features.module.modules.misc.LiquidChat.jwtToken
 import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.value.Value
-import lol.liquidcat.features.module.modules.misc.LiquidChat.Companion.jwtToken
 import net.ccbluex.liquidbounce.features.special.AntiForge
 import net.ccbluex.liquidbounce.features.special.AutoReconnect.delay
 import net.ccbluex.liquidbounce.features.special.BungeeCordSpoof
@@ -72,7 +73,7 @@ class ValuesConfig(file: File?) : FileConfig(file!!) {
                 if (jsonValue.has("Enabled")) enabled = jsonValue["Enabled"].asBoolean
                 if (jsonValue.has("Particles")) particles = jsonValue["Particles"].asBoolean
             } else {
-                val module = LiquidCat.moduleManager.getModule(key)
+                val module = ModuleManager.getModule(key)
                 if (module != null) {
                     val jsonModule = value as JsonObject
                     for (moduleValue in module.values) {
@@ -119,7 +120,7 @@ class ValuesConfig(file: File?) : FileConfig(file!!) {
         backgroundObject.addProperty("Enabled", enabled)
         backgroundObject.addProperty("Particles", particles)
         jsonObject.add("Background", backgroundObject)
-        LiquidCat.moduleManager.modules.stream().filter { module: Module -> !module.values.isEmpty() }
+        ModuleManager.modules.stream().filter { module: Module -> !module.values.isEmpty() }
             .forEach { module: Module ->
                 val jsonModule = JsonObject()
                 module.values.forEach(Consumer { value: Value<*> -> jsonModule.add(value.name, value.toJson()) })

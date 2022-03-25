@@ -5,7 +5,6 @@
  */
 package lol.liquidcat.features.module.modules.movement
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventState
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.MotionEvent
@@ -25,7 +24,7 @@ import net.minecraft.util.EnumFacing
 
 //TODO Add more modes
 
-class NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and using items.", ModuleCategory.MOVEMENT) {
+object NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and using items.", ModuleCategory.MOVEMENT) {
 
     private val mode by ListValue("Mode", arrayOf("Vanilla", "NCP"), "Vanilla")
     private val forwardMultiplier by FloatValue("ForwardMultiplier", 1f, 0.2f..1f)
@@ -38,10 +37,8 @@ class NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and
 
     @EventTarget
     fun onMotion(event: MotionEvent) {
-        val killAura = LiquidCat.moduleManager[KillAura::class.java] as KillAura
-
         if (mode == "NCP")
-            if (mc.thePlayer.moving && (mc.thePlayer.isBlocking || killAura.blockingStatus))
+            if (mc.thePlayer.moving && (mc.thePlayer.isBlocking || KillAura.blockingStatus))
                 when (event.eventState) {
                     EventState.PRE -> sendPacket(C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN))
                     EventState.POST -> sendPacket(C08PacketPlayerBlockPlacement(mc.thePlayer.inventory.getCurrentItem()))

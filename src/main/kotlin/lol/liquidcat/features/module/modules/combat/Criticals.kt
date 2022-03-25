@@ -16,7 +16,7 @@ import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
-class Criticals : Module("Criticals", "Automatically deals critical hits.", ModuleCategory.COMBAT) {
+object Criticals : Module("Criticals", "Automatically deals critical hits.", ModuleCategory.COMBAT) {
 
     val mode by ListValue("Mode", arrayOf("NCP", "Lowest", "Phase", "Visual"), "NCP")
     val delay by IntValue("Delay", 0, 0..500)

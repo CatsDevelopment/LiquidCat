@@ -55,9 +55,7 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (noHit) {
-            val killAura = LiquidCat.moduleManager.getModule(KillAura::class.java) as KillAura
-
-            if (killAura.state && killAura.target != null)
+            if (KillAura.state && KillAura.target != null)
                 return
         }
 
@@ -119,9 +117,7 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
             // Destory block
             action.equals("destroy", true) || surroundings -> {
                 // Auto Tool
-                val autoTool = LiquidCat.moduleManager[AutoTool::class.java] as AutoTool
-                if (autoTool.state)
-                    autoTool.switchSlot(currentPos)
+                if (AutoTool.state) AutoTool.switchSlot(currentPos)
 
                 // Break block
                 if (instant) {

@@ -33,7 +33,7 @@ import kotlin.math.max
 
 //TODO Rewrite and convert to AntiVoid module
 
-class BugUp : Module("BugUp", "Automatically setbacks you after falling a certain distance.", ModuleCategory.MOVEMENT) {
+object BugUp : Module("BugUp", "Automatically setbacks you after falling a certain distance.", ModuleCategory.MOVEMENT) {
     private val mode by ListValue("Mode", arrayOf("TeleportBack", "FlyFlag", "OnGroundSpoof"), "FlyFlag")
     private val maxFallDistance by IntValue("MaxFallDistance", 10, 2..255)
     private val maxDistanceWithoutGround by FloatValue("MaxDistanceToSetback", 2.5f, 1f..30f)

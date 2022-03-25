@@ -7,6 +7,7 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.module.ModuleManager
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import org.lwjgl.input.Keyboard
 
@@ -17,7 +18,7 @@ class BindCommand : Command("bind", emptyArray()) {
     override fun execute(args: Array<String>) {
         if (args.size > 2) {
             // Get module by name
-            val module = LiquidCat.moduleManager.getModule(args[1])
+            val module = ModuleManager.getModule(args[1])
 
             if (module == null) {
                 chat("Module §a§l" + args[1] + "§3 not found.")
@@ -43,7 +44,7 @@ class BindCommand : Command("bind", emptyArray()) {
         val moduleName = args[0]
 
         return when (args.size) {
-            1 -> LiquidCat.moduleManager.modules
+            1 -> ModuleManager.modules
                     .map { it.name }
                     .filter { it.startsWith(moduleName, true) }
                     .toList()

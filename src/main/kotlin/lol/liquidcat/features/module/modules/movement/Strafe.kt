@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.strafe
 
-class Strafe : Module("Strafe", "Allows you to freely move in mid air.", ModuleCategory.MOVEMENT) {
+object Strafe : Module("Strafe", "Allows you to freely move in mid air.", ModuleCategory.MOVEMENT) {
 
     @EventTarget
     fun onMotion(event: MotionEvent) {

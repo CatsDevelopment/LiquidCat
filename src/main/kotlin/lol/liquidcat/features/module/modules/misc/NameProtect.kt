@@ -15,7 +15,7 @@ import lol.liquidcat.value.TextValue
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.translateAlternateColorCodes
 
-class NameProtect : Module("NameProtect", "Changes playernames clientside.", ModuleCategory.MISC) {
+object NameProtect : Module("NameProtect", "Changes playernames clientside.", ModuleCategory.MISC) {
 
     private val fakeName by TextValue("FakeName", "&cMe")
     val allPlayers by BoolValue("AllPlayers", false)

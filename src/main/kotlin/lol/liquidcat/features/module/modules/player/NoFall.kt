@@ -15,7 +15,7 @@ import lol.liquidcat.value.ListValue
 import net.minecraft.network.play.client.C03PacketPlayer
 import kotlin.math.abs
 
-class NoFall : Module("NoFall", "Prevents you from taking fall damage.", ModuleCategory.PLAYER) {
+object NoFall : Module("NoFall", "Prevents you from taking fall damage.", ModuleCategory.PLAYER) {
 
     val mode by ListValue("Mode", arrayOf("Spoof", "Damage", "NoGround"), "Spoof")
     private val stableMotion by BoolValue("StableDamageMotion", false)

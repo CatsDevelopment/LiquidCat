@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 
-class SafeWalk : Module("SafeWalk", "Prevents you from falling down as if you were sneaking.", ModuleCategory.MOVEMENT) {
+object SafeWalk : Module("SafeWalk", "Prevents you from falling down as if you were sneaking.", ModuleCategory.MOVEMENT) {
 
     private val airSafe by BoolValue("AirSafe", false)
 

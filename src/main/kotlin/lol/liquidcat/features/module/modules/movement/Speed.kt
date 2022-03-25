@@ -11,7 +11,7 @@ import lol.liquidcat.value.ListValue
 
 //TODO Add more modes
 
-class Speed : Module("Speed", "Makes you faster.", ModuleCategory.MOVEMENT) {
+object Speed : Module("Speed", "Makes you faster.", ModuleCategory.MOVEMENT) {
 
     private val mode by ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
     private val speed by FloatValue("Speed", 1f, 1f..10f)

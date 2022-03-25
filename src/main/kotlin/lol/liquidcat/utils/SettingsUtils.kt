@@ -7,6 +7,7 @@ package lol.liquidcat.utils
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.features.module.modules.misc.Spammer
 import lol.liquidcat.value.*
 import lol.liquidcat.features.module.modules.misc.NameProtect
@@ -97,7 +98,7 @@ object SettingsUtils {
                     val moduleName = args[0]
                     val valueName = args[1]
                     val value = args[2]
-                    val module = LiquidCat.moduleManager.getModule(moduleName)
+                    val module = ModuleManager.getModule(moduleName)
 
                     if (module == null) {
                         msg("§7[§3§lAutoSettings§7] §cModule §a§l$moduleName§c was not found!")
@@ -154,7 +155,7 @@ object SettingsUtils {
     fun generateScript(values: Boolean, binds: Boolean, states: Boolean): String {
         val stringBuilder = StringBuilder()
 
-        LiquidCat.moduleManager.modules.filter {
+        ModuleManager.modules.filter {
             it.category !== ModuleCategory.RENDER && it !is NameProtect && it !is Spammer
         }.forEach {
             if (values)

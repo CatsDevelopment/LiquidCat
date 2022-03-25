@@ -8,6 +8,7 @@ package net.ccbluex.liquidbounce.ui.client.clickgui;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleManager;
 import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.features.module.modules.render.ClickGUI;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;
@@ -49,7 +50,7 @@ public class ClickGui extends GuiScreen {
 
                 @Override
                 public void setupItems() {
-                    for (Module module : LiquidCat.moduleManager.getModules())
+                    for (Module module : ModuleManager.INSTANCE.getModules())
                         if (module.getCategory() == category)
                             getElements().add(new ModuleElement(module));
                 }
@@ -205,7 +206,7 @@ public class ClickGui extends GuiScreen {
         // Enable DisplayList optimization
         AWTFontRenderer.Companion.setAssumeNonVolatile(true);
 
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScale();
+        final double scale = ClickGUI.INSTANCE.getScale();
 
         mouseX /= scale;
         mouseY /= scale;
@@ -254,7 +255,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScale();
+        final double scale = ClickGUI.INSTANCE.getScale();
 
         mouseX /= scale;
         mouseY /= scale;
@@ -283,7 +284,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
-        final double scale = ((ClickGUI) Objects.requireNonNull(LiquidCat.moduleManager.getModule(ClickGUI.class))).getScale();
+        final double scale = ClickGUI.INSTANCE.getScale();
 
         mouseX /= scale;
         mouseY /= scale;

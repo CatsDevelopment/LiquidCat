@@ -15,7 +15,7 @@ import lol.liquidcat.utils.block.down
 import lol.liquidcat.value.FloatValue
 import net.minecraft.block.BlockLiquid
 
-class ReverseStep : Module("ReverseStep", "Allows you to step down blocks faster.", ModuleCategory.MOVEMENT) {
+object ReverseStep : Module("ReverseStep", "Allows you to step down blocks faster.", ModuleCategory.MOVEMENT) {
 
     private val motion by FloatValue("Motion", 1f, 0.21f..1f)
 

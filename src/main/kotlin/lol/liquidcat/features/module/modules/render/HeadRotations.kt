@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.utils.RotationUtils
 
-class HeadRotations : Module("HeadRotations", "Allows you to see server-sided head rotations.", ModuleCategory.RENDER) {
+object HeadRotations : Module("HeadRotations", "Allows you to see server-sided head rotations.", ModuleCategory.RENDER) {
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {

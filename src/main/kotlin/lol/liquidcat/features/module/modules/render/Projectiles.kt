@@ -23,7 +23,7 @@ import org.lwjgl.util.glu.Cylinder
 import org.lwjgl.util.glu.GLU
 import java.awt.Color
 
-class Projectiles : Module("Projectiles", "Allows you to see where arrows will land.", ModuleCategory.RENDER) {
+object Projectiles : Module("Projectiles", "Allows you to see where arrows will land.", ModuleCategory.RENDER) {
     private val dynamicBowPower by BoolValue("DynamicBowPower", true)
     
     @EventTarget

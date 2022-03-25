@@ -6,14 +6,13 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
 import co.uk.hexeption.utils.OutlineUtils;
-import lol.liquidcat.LiquidCat;
-import lol.liquidcat.features.module.modules.render.ESP;
-import lol.liquidcat.utils.ClientUtils;
-import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.features.module.modules.render.Chams;
+import lol.liquidcat.features.module.modules.render.ESP;
 import lol.liquidcat.features.module.modules.render.NameTags;
 import lol.liquidcat.features.module.modules.render.TrueSight;
+import lol.liquidcat.utils.ClientUtils;
 import lol.liquidcat.utils.entity.EntityUtils;
+import lol.liquidcat.utils.render.GLUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -41,7 +40,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
 
     @Inject(method = "doRender", at = @At("HEAD"))
     private <T extends EntityLivingBase> void injectChamsPre(T entity, double x, double y, double z, float entityYaw, float partialTicks, CallbackInfo callbackInfo) {
-        final Chams chams = (Chams) LiquidCat.moduleManager.getModule(Chams.class);
+        final Chams chams = Chams.INSTANCE;
 
         if (chams.getState() && chams.getTargets() && EntityUtils.isSelected(entity, false)) {
             GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);
@@ -51,7 +50,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
 
     @Inject(method = "doRender", at = @At("RETURN"))
     private <T extends EntityLivingBase> void injectChamsPost(T entity, double x, double y, double z, float entityYaw, float partialTicks, CallbackInfo callbackInfo) {
-        final Chams chams = (Chams) LiquidCat.moduleManager.getModule(Chams.class);
+        final Chams chams = Chams.INSTANCE;
 
         if (chams.getState() && chams.getTargets() && EntityUtils.isSelected(entity, false)) {
             GL11.glPolygonOffset(1.0F, 1000000F);
@@ -61,7 +60,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
 
     @Inject(method = "canRenderName", at = @At("HEAD"), cancellable = true)
     private <T extends EntityLivingBase> void canRenderName(T entity, CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
-        if (!ESP.renderNameTags || (LiquidCat.moduleManager.getModule(NameTags.class).getState() && EntityUtils.isSelected(entity, false)))
+        if (!ESP.renderNameTags || (NameTags.INSTANCE.getState() && EntityUtils.isSelected(entity, false)))
             callbackInfoReturnable.setReturnValue(false);
     }
 
@@ -71,7 +70,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
     @Overwrite
     protected <T extends EntityLivingBase> void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float scaleFactor) {
         boolean visible = !entitylivingbaseIn.isInvisible();
-        final TrueSight trueSight = (TrueSight) LiquidCat.moduleManager.getModule(TrueSight.class);
+        final TrueSight trueSight = TrueSight.INSTANCE;
         boolean semiVisible = !visible && (!entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) || (trueSight.getState() && trueSight.getEntities()));
 
         if(visible || semiVisible) {
@@ -87,7 +86,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                 GlStateManager.alphaFunc(516, 0.003921569F);
             }
 
-            final ESP esp = (ESP) LiquidCat.moduleManager.getModule(ESP.class);
+            final ESP esp = ESP.INSTANCE;
             if(esp.getState() && EntityUtils.isSelected(entitylivingbaseIn, false)) {
                 Minecraft mc = Minecraft.getMinecraft();
                 boolean fancyGraphics = mc.gameSettings.fancyGraphics;

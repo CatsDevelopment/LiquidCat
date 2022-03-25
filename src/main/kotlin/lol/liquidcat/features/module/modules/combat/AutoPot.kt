@@ -32,7 +32,7 @@ import org.apache.commons.lang3.RandomUtils
 
 //TODO Rewrite
 
-class AutoPot : Module("AutoPot", "Automatically throws healing potions.", ModuleCategory.COMBAT) {
+object AutoPot : Module("AutoPot", "Automatically throws healing potions.", ModuleCategory.COMBAT) {
 
     private val health by FloatValue("Health", 15f, 1f..20f)
     private val delay by IntValue("Delay", 500, 500..1000)

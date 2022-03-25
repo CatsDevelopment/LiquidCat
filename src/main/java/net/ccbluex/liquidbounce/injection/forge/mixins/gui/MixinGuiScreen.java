@@ -54,14 +54,11 @@ public abstract class MixinGuiScreen {
     @Shadow
     public abstract void handleComponentHover(IChatComponent component, int x, int y);
 
-    @Shadow
-    protected abstract void drawHoveringText(List<String> textLines, int x, int y);
-
     @Inject(method = "drawWorldBackground", at = @At("HEAD"))
     private void drawWorldBackground(final CallbackInfo callbackInfo) {
-        final HUD hud = (HUD) LiquidCat.moduleManager.getModule(HUD.class);
+        final HUD hud = HUD.INSTANCE;
 
-        if(hud.getInventoryParticle() && mc.thePlayer != null) {
+        if (hud.getInventoryParticle() && mc.thePlayer != null) {
             final ScaledResolution scaledResolution = new ScaledResolution(mc);
             final int width = scaledResolution.getScaledWidth();
             final int height = scaledResolution.getScaledHeight();
@@ -77,7 +74,7 @@ public abstract class MixinGuiScreen {
         GlStateManager.disableLighting();
         GlStateManager.disableFog();
 
-        if(GuiBackground.Companion.getEnabled()) {
+        if (GuiBackground.Companion.getEnabled()) {
             if (LiquidCat.INSTANCE.getBackground() == null) {
                 BackgroundShader.INSTANCE.startShader();
 
@@ -91,7 +88,7 @@ public abstract class MixinGuiScreen {
                 instance.draw();
 
                 BackgroundShader.INSTANCE.stopShader();
-            }else{
+            } else {
                 final ScaledResolution scaledResolution = new ScaledResolution(mc);
                 final int width = scaledResolution.getScaledWidth();
                 final int height = scaledResolution.getScaledHeight();
@@ -109,7 +106,7 @@ public abstract class MixinGuiScreen {
 
     @Inject(method = "drawBackground", at = @At("RETURN"))
     private void drawParticles(final CallbackInfo callbackInfo) {
-        if(GuiBackground.Companion.getParticles())
+        if (GuiBackground.Companion.getParticles())
             ParticleUtils.drawParticles(Mouse.getX() * width / mc.displayWidth, height - Mouse.getY() * height / mc.displayHeight - 1);
     }
 

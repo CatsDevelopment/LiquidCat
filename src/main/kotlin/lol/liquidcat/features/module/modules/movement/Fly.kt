@@ -15,7 +15,7 @@ import lol.liquidcat.value.ListValue
 
 //TODO Add more modes
 
-class Fly : Module("Fly", "Allows you to fly in survival mode.", ModuleCategory.MOVEMENT) {
+object Fly : Module("Fly", "Allows you to fly in survival mode.", ModuleCategory.MOVEMENT) {
 
     private val mode by ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
     private val speed by FloatValue("Speed", 2f, 0f..5f)

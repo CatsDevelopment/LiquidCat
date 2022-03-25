@@ -15,7 +15,7 @@ import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.IntValue
 import net.minecraft.network.play.client.C03PacketPlayer
 
-class FastUse : Module("FastUse", "Allows you to use items faster.", ModuleCategory.PLAYER) {
+object FastUse : Module("FastUse", "Allows you to use items faster.", ModuleCategory.PLAYER) {
 
     private val delay by IntValue("Delay", 16, 1..32)
 

@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(World.class)
 public abstract class MixinWorld {
+
     @Shadow
     public abstract IBlockState getBlockState(BlockPos pos);
 }

@@ -8,6 +8,7 @@ package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
@@ -73,7 +74,7 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
         for (category in ModuleCategory.values()) {
             val tab = Tab(category.displayName)
 
-            LiquidCat.moduleManager.modules
+            ModuleManager.modules
                     .filter { module: Module -> category == module.category }
                     .forEach { e: Module -> tab.modules.add(e) }
 

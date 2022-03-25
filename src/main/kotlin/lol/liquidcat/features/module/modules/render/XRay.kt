@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 
-class XRay : Module("XRay", "Allows you to see ores through walls.", ModuleCategory.RENDER) {
+object XRay : Module("XRay", "Allows you to see ores through walls.", ModuleCategory.RENDER) {
 
     val xrayBlocks = mutableListOf<Block>(
             Blocks.coal_ore,

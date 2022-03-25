@@ -16,7 +16,7 @@ import lol.liquidcat.value.FloatValue
 
 //TODO Add modes
 
-class LongJump : Module("LongJump", "Allows you to jump further.", ModuleCategory.MOVEMENT) {
+object LongJump : Module("LongJump", "Allows you to jump further.", ModuleCategory.MOVEMENT) {
 
     private val boost by FloatValue("Boost", 5f, 1.01f..10f)
 

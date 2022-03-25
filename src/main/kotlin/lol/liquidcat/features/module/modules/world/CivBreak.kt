@@ -25,7 +25,7 @@ import java.awt.Color
 
 //TODO Rewrite
 
-class CivBreak : Module("CivBreak", "Allows you to break blocks instantly.", ModuleCategory.WORLD) {
+object CivBreak : Module("CivBreak", "Allows you to break blocks instantly.", ModuleCategory.WORLD) {
 
     private val range by FloatValue("Range", 5f, 1f..6f)
     private val rotations by BoolValue("Rotations", true)

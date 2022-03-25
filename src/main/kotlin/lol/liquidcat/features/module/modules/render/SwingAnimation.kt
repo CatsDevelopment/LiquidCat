@@ -8,4 +8,4 @@ package lol.liquidcat.features.module.modules.render
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 
-class SwingAnimation : Module("SwingAnimation", "Changes swing animation.", ModuleCategory.RENDER)
+object SwingAnimation : Module("SwingAnimation", "Changes swing animation.", ModuleCategory.RENDER)

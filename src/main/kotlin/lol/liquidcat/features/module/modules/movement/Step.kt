@@ -19,7 +19,7 @@ import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
 // TODO Make more height for NCP
 
-class Step : Module("Step", "Allows you to step up blocks.", ModuleCategory.MOVEMENT) {
+object Step : Module("Step", "Allows you to step up blocks.", ModuleCategory.MOVEMENT) {
 
     private val mode by ListValue("Mode", arrayOf("Vanilla", "NCP", "Matrix"), "NCP")
     private val height by FloatValue("Height", 1f, 0.6f..10f)

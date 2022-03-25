@@ -26,7 +26,7 @@ import net.minecraft.util.EnumFacing
 
 //TODO Rewrite
 
-class AutoSoup : Module("AutoSoup", "Makes you automatically eat soup whenever your health is low.", ModuleCategory.COMBAT) {
+object AutoSoup : Module("AutoSoup", "Makes you automatically eat soup whenever your health is low.", ModuleCategory.COMBAT) {
 
     private val health by FloatValue("Health", 15f, 0f..20f)
     private val delay by IntValue("Delay", 150, 0..500)

@@ -9,7 +9,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 
-class NoSlowBreak : Module("NoSlowBreak", "Automatically adjusts breaking speed when using modules that influence it.", ModuleCategory.WORLD) {
+object NoSlowBreak : Module("NoSlowBreak", "Automatically adjusts breaking speed when using modules that influence it.", ModuleCategory.WORLD) {
     val air by BoolValue("Air", true)
     val water by BoolValue("Water", false)
 }

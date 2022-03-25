@@ -29,7 +29,7 @@ import java.util.stream.IntStream
 
 //TODO Rewrite
 
-class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in your inventory.", ModuleCategory.COMBAT) {
+object AutoArmor : Module("AutoArmor", "Automatically equips the best armor in your inventory.", ModuleCategory.COMBAT) {
 
     private val maxDelay: Int by object : IntValue("MaxDelay", 200, 0..400) {
         override fun onChanged(oldValue: Int, newValue: Int) {
@@ -50,6 +50,7 @@ class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in yo
     private val hotbar by BoolValue("Hotbar", true)
 
     private var delay: Long = 0
+    val ARMOR_COMPARATOR = ArmorComparator()
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
@@ -108,9 +109,5 @@ class AutoArmor : Module("AutoArmor", "Automatically equips the best armor in yo
             return true
         }
         return false
-    }
-
-    companion object {
-        val ARMOR_COMPARATOR = ArmorComparator()
     }
 }

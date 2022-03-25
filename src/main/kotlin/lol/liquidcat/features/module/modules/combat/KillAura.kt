@@ -47,7 +47,7 @@ import kotlin.math.min
 
 //TODO Rewrite
 
-class KillAura : Module("KillAura", "Automatically attacks targets around you.", ModuleCategory.COMBAT) {
+object KillAura : Module("KillAura", "Automatically attacks targets around you.", ModuleCategory.COMBAT) {
 
     /**
      * OPTIONS
@@ -486,7 +486,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
                 if (entity.isSpectator || AntiBot.isBot(entity))
                     return false
 
-                if (EntityUtils.isFriend(entity) && !LiquidCat.moduleManager[NoFriends::class.java]!!.state)
+                if (EntityUtils.isFriend(entity) && !NoFriends.state)
                     return false
 
                 return !Teams.isInYourTeam(entity)
@@ -532,12 +532,9 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
                 mc.thePlayer.attackTargetEntityWithCurrentItem(entity)
         }
 
-        // Extra critical effects
-        val criticals = LiquidCat.moduleManager[Criticals::class.java] as Criticals
-
         for (i in 0..2) {
             // Critical Effect
-            if (mc.thePlayer.fallDistance > 0F && !mc.thePlayer.onGround && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWater && !mc.thePlayer.isPotionActive(Potion.blindness) && mc.thePlayer.ridingEntity == null || criticals.state && criticals.delayTimer.hasTimePassed(criticals.delay.toLong()) && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava && !mc.thePlayer.isInWeb)
+            if (mc.thePlayer.fallDistance > 0F && !mc.thePlayer.onGround && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWater && !mc.thePlayer.isPotionActive(Potion.blindness) && mc.thePlayer.ridingEntity == null || Criticals.state && Criticals.delayTimer.hasTimePassed(Criticals.delay.toLong()) && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava && !mc.thePlayer.isInWeb)
                 mc.thePlayer.onCriticalHit(target)
 
             // Enchant Effect
@@ -610,8 +607,7 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
                         (isEnemy(it) || raycastIgnored || aac && mc.theWorld.getEntitiesWithinAABBExcludingEntity(it, it.entityBoundingBox).isNotEmpty())
             }
 
-            if (raycast && raycastedEntity is EntityLivingBase
-                    && (LiquidCat.moduleManager[NoFriends::class.java]!!.state || !EntityUtils.isFriend(raycastedEntity)))
+            if (raycast && raycastedEntity is EntityLivingBase && (NoFriends.state || !EntityUtils.isFriend(raycastedEntity)))
                 currentTarget = raycastedEntity
 
             hitable = if(maxTurnSpeed > 0F) currentTarget == raycastedEntity else true
@@ -647,14 +643,12 @@ class KillAura : Module("KillAura", "Automatically attacks targets around you.",
      * Check if run should be cancelled
      */
     private val cancelRun: Boolean
-        get() = mc.thePlayer.isSpectator || !isAlive(mc.thePlayer)
-                || LiquidCat.moduleManager[Blink::class.java]!!.state || LiquidCat.moduleManager[FreeCam::class.java]!!.state
+        get() = mc.thePlayer.isSpectator || !isAlive(mc.thePlayer) || Blink.state || FreeCam.state
 
     /**
      * Check if [entity] is alive
      */
-    private fun isAlive(entity: EntityLivingBase) = entity.isEntityAlive && entity.health > 0 ||
-            aac && entity.hurtTime > 5
+    private fun isAlive(entity: EntityLivingBase) = entity.isEntityAlive && entity.health > 0 || aac && entity.hurtTime > 5
 
 
     /**

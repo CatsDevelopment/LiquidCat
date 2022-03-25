@@ -44,17 +44,17 @@ public abstract class MixinAbstractClientPlayer extends MixinEntityPlayer {
 
     @Inject(method = "getFovModifier", at = @At("HEAD"), cancellable = true)
     private void getFovModifier(CallbackInfoReturnable<Float> callbackInfoReturnable) {
-        final FOV fovModule = (FOV) LiquidCat.moduleManager.getModule(FOV.class);
+        final FOV fovModule = FOV.INSTANCE;
 
-        if(fovModule.getState()) {
+        if (fovModule.getState()) {
             float newFOV = fovModule.getFov();
 
-            if(!this.isUsingItem()) {
+            if (!this.isUsingItem()) {
                 callbackInfoReturnable.setReturnValue(newFOV);
                 return;
             }
 
-            if(this.getItemInUse().getItem() != Items.bow) {
+            if (this.getItemInUse().getItem() != Items.bow) {
                 callbackInfoReturnable.setReturnValue(newFOV);
                 return;
             }
@@ -69,9 +69,9 @@ public abstract class MixinAbstractClientPlayer extends MixinEntityPlayer {
 
     @Inject(method = "getLocationSkin()Lnet/minecraft/util/ResourceLocation;", at = @At("HEAD"), cancellable = true)
     private void getSkin(CallbackInfoReturnable<ResourceLocation> callbackInfoReturnable) {
-        final NameProtect nameProtect = (NameProtect) LiquidCat.moduleManager.getModule(NameProtect.class);
+        final NameProtect nameProtect = NameProtect.INSTANCE;
 
-        if(nameProtect.getState() && nameProtect.getSkinProtect()) {
+        if (nameProtect.getState() && nameProtect.getSkinProtect()) {
             if (!nameProtect.getAllPlayers() && !Objects.equals(getGameProfile().getName(), Minecraft.getMinecraft().thePlayer.getGameProfile().getName()))
                 return;
 

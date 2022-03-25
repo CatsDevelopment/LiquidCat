@@ -19,7 +19,7 @@ import net.minecraft.util.Vec3
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-class Tracers : Module("Tracers", "Draws a line to targets around you.", ModuleCategory.RENDER) {
+object Tracers : Module("Tracers", "Draws a line to targets around you.", ModuleCategory.RENDER) {
 
     private val red by IntValue("Red", 255, 0..255)
     private val green by IntValue("Green", 255, 0..255)

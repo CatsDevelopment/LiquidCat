@@ -14,7 +14,7 @@ import lol.liquidcat.value.IntValue
 import lol.liquidcat.utils.timer.TimeUtils
 import net.minecraft.client.settings.KeyBinding
 
-class AutoClicker : Module("AutoClicker", "Constantly clicks when holding down a mouse button.", ModuleCategory.COMBAT) {
+object AutoClicker : Module("AutoClicker", "Constantly clicks when holding down a mouse button.", ModuleCategory.COMBAT) {
 
     private val right by BoolValue("Right", true)
     private val left by BoolValue("Left", true)

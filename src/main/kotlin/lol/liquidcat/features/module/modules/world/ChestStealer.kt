@@ -22,7 +22,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 
-class ChestStealer : Module("ChestStealer", "Automatically steals all items from a chest.", ModuleCategory.WORLD) {
+object ChestStealer : Module("ChestStealer", "Automatically steals all items from a chest.", ModuleCategory.WORLD) {
 
     private val random by BoolValue("TakeRandomized", false)
     private val title by BoolValue("CheckTitle", true)
@@ -84,12 +84,10 @@ class ChestStealer : Module("ChestStealer", "Automatically steals all items from
     }
 
     private fun isEmpty(chest: GuiChest): Boolean {
-        val inventoryCleaner = LiquidCat.moduleManager[InventoryCleaner::class.java] as InventoryCleaner
-
         for (i in 0 until chest.inventoryRows * 9) {
             val slot = chest.inventorySlots.getSlot(i)
 
-            if (slot.hasStack || (inventoryCleaner.state && inventoryCleaner.isUseful(slot.stack, -1)))
+            if (slot.hasStack || (InventoryCleaner.state && InventoryCleaner.isUseful(slot.stack, -1)))
                 return false
         }
 

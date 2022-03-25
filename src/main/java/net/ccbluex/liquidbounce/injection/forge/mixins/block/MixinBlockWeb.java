@@ -1,6 +1,5 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.block;
 
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.movement.NoSlow;
 import net.minecraft.block.BlockWeb;
 import net.minecraftforge.fml.relauncher.Side;
@@ -16,8 +15,9 @@ public class MixinBlockWeb {
 
     @Inject(method = "onEntityCollidedWithBlock", at = @At("HEAD"), cancellable = true)
     private void onEntityCollidedWithBlock(CallbackInfo callbackInfo) {
-        final NoSlow noSlow = (NoSlow) LiquidCat.moduleManager.getModule(NoSlow.class);
+        final NoSlow noSlow = NoSlow.INSTANCE;
 
-        if (noSlow.getState() && noSlow.getWeb()) callbackInfo.cancel();
+        if (noSlow.getState() && noSlow.getWeb())
+            callbackInfo.cancel();
     }
 }

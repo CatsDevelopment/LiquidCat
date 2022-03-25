@@ -8,13 +8,14 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.features.module.ModuleManager
 
 class PanicCommand : Command("panic", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */
     override fun execute(args: Array<String>) {
-        var modules = LiquidCat.moduleManager.modules.filter { it.state }
+        var modules = ModuleManager.modules.filter { it.state }
         val msg: String
 
         if (args.size > 1 && args[1].isNotEmpty()) {

@@ -5,7 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.render.Chams;
 import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
 import org.lwjgl.opengl.GL11;
@@ -19,7 +18,7 @@ public class MixinTileEntityChestRenderer {
 
     @Inject(method = "renderTileEntityAt", at = @At("HEAD"))
     private void injectChamsPre(CallbackInfo callbackInfo) {
-        final Chams chams = (Chams) LiquidCat.moduleManager.getModule(Chams.class);
+        final Chams chams = Chams.INSTANCE;
 
         if (chams.getState() && chams.getChests()) {
             GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);
@@ -29,7 +28,7 @@ public class MixinTileEntityChestRenderer {
 
     @Inject(method = "renderTileEntityAt", at = @At("RETURN"))
     private void injectChamsPost(CallbackInfo callbackInfo) {
-        final Chams chams = (Chams) LiquidCat.moduleManager.getModule(Chams.class);
+        final Chams chams = Chams.INSTANCE;
 
         if (chams.getState() && chams.getChests()) {
             GL11.glPolygonOffset(1.0F, 1000000F);

@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Render.class)
 public abstract class MixinRender {
+
     @Shadow
     protected abstract <T extends Entity> boolean bindEntityTexture(T entity);
 

@@ -7,6 +7,7 @@ package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
@@ -77,7 +78,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
         // Slide animation - update every render
         val delta = GLUtils.deltaTime
 
-        for (module in LiquidCat.moduleManager.modules) {
+        for (module in ModuleManager.modules) {
             if (module.hide || (!module.state && module.slide == 0F)) continue
 
             var displayString = if (!tags)
@@ -248,7 +249,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
     }
 
     override fun updateElement() {
-        modules = LiquidCat.moduleManager.modules
+        modules = ModuleManager.modules
                 .filter { !it.hide && it.slide > 0 }
                 .sortedBy { -font.getStringWidth(if (upperCase) (if (!tags) it.name else if (tagsArrayColor) it.colorlessTagName else it.tagName).toUpperCase() else if (!tags) it.name else if (tagsArrayColor) it.colorlessTagName else it.tagName) }
     }

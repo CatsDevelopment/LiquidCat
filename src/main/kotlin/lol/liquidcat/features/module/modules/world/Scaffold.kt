@@ -37,7 +37,7 @@ import net.minecraft.network.play.client.C0BPacketEntityAction
 import net.minecraft.util.*
 import java.awt.Color
 
-class Scaffold : Module("Scaffold", "Automatically places blocks beneath your feet.", ModuleCategory.WORLD) {
+object Scaffold : Module("Scaffold", "Automatically places blocks beneath your feet.", ModuleCategory.WORLD) {
 
     val mode by ListValue("Mode", arrayOf("Normal", "Rewinside", "Expand"), "Normal")
 

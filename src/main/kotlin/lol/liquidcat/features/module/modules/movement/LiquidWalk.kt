@@ -21,7 +21,7 @@ import net.minecraft.util.BlockPos
 
 //TODO Rewrite and add more modes
 
-class LiquidWalk : Module("LiquidWalk", "Allows you to walk on water.", ModuleCategory.MOVEMENT) {
+object LiquidWalk : Module("LiquidWalk", "Allows you to walk on water.", ModuleCategory.MOVEMENT) {
 
     val mode by ListValue("Mode", arrayOf("Vanilla", "NCP", "Dolphin"), "NCP")
     private val noJump by BoolValue("NoJump", false)

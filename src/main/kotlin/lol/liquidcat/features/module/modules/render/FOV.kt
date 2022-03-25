@@ -9,6 +9,6 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.FloatValue
 
-class FOV : Module("FOV", "Disables FOV changes caused by speed effect, etc.", ModuleCategory.RENDER) {
+object FOV : Module("FOV", "Disables FOV changes caused by speed effect, etc.", ModuleCategory.RENDER) {
     val fov by FloatValue("FOV", 1f, 0f..1.5f)
 }

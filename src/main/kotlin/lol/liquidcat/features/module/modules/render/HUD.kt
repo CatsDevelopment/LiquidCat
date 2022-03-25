@@ -14,7 +14,7 @@ import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.minecraft.client.gui.GuiChat
 import net.minecraft.util.ResourceLocation
 
-class HUD : Module("HUD", "Toggles visibility of the HUD.", ModuleCategory.RENDER, hide = true) {
+object HUD : Module("HUD", "Toggles visibility of the HUD.", ModuleCategory.RENDER, hide = true) {
 
     val blackHotbar by BoolValue("BlackHotbar", true)
     val inventoryParticle by BoolValue("InventoryParticle", false)

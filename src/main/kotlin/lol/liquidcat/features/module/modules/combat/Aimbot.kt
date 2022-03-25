@@ -20,7 +20,7 @@ import kotlin.random.Random
 
 //TODO Rewrite?
 
-class Aimbot : Module("Aimbot", "Automatically faces selected entities around you.", ModuleCategory.COMBAT) {
+object Aimbot : Module("Aimbot", "Automatically faces selected entities around you.", ModuleCategory.COMBAT) {
 
     private val range by FloatValue("Range", 4.4f, 1f..8f)
     private val turnSpeed by FloatValue("TurnSpeed", 2f, 1f..180f)

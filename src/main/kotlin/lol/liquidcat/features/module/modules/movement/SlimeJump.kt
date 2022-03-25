@@ -14,7 +14,7 @@ import lol.liquidcat.value.FloatValue
 import net.minecraft.block.BlockSlime
 import net.minecraft.util.BlockPos
 
-class SlimeJump : Module("SlimeJump", "Allows you to to jump higher on slime blocks.", ModuleCategory.MOVEMENT) {
+object SlimeJump : Module("SlimeJump", "Allows you to to jump higher on slime blocks.", ModuleCategory.MOVEMENT) {
 
     private val height by FloatValue("Height", 2f, 1.01f..5f)
 

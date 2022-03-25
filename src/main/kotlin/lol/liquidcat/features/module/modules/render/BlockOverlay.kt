@@ -19,7 +19,7 @@ import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-class BlockOverlay : Module("BlockOverlay", "Allows you to change the design of the block overlay.", ModuleCategory.RENDER) {
+object BlockOverlay : Module("BlockOverlay", "Allows you to change the design of the block overlay.", ModuleCategory.RENDER) {
 
     private val red by IntValue("R", 68, 0..255)
     private val green by IntValue("G", 117, 0..255)

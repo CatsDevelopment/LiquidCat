@@ -24,7 +24,7 @@ public class MixinNetworkPlayerInfo {
 
     @Inject(method = "getLocationSkin", cancellable = true, at = @At("HEAD"))
     private void injectSkinProtect(CallbackInfoReturnable<ResourceLocation> cir) {
-        NameProtect nameProtect = (NameProtect) LiquidCat.moduleManager.getModule(NameProtect.class);
+        NameProtect nameProtect = NameProtect.INSTANCE;
 
         if (nameProtect.getState() && nameProtect.getSkinProtect()) {
             if (nameProtect.getAllPlayers() || Objects.equals(gameProfile.getId(), Minecraft.getMinecraft().getSession().getProfile().getId())) {

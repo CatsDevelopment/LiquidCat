@@ -137,8 +137,7 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
         try {
             LiquidCat.eventManager.callEvent(new MotionEvent(EventState.PRE));
 
-            //final Sneak sneak = (Sneak) LiquidCat.moduleManager.getModule(Sneak.class);
-            final boolean fakeSprint = LiquidCat.moduleManager.getModule(AntiHunger.class).getState();// || (sneak.getState() && (!MovementUtils.isMoving() || !sneak.stopMoveValue) && sneak.modeValue.equalsIgnoreCase("MineSecure"));
+            final boolean fakeSprint = AntiHunger.INSTANCE.getState();
 
             boolean sprinting = this.isSprinting() && !fakeSprint;
 
@@ -168,7 +167,7 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
                 float lastReportedYaw = RotationUtils.serverRotation.getYaw();
                 float lastReportedPitch = RotationUtils.serverRotation.getPitch();
 
-                final Derp derp = (Derp) LiquidCat.moduleManager.getModule(Derp.class);
+                final Derp derp = Derp.INSTANCE;
                 if (derp.getState()) {
                     float[] rot = derp.getRotation();
                     yaw = rot[0];
@@ -226,7 +225,7 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
 
     @Inject(method = "swingItem", at = @At("HEAD"), cancellable = true)
     private void swingItem(CallbackInfo callbackInfo) {
-        final NoSwing noSwing = (NoSwing) LiquidCat.moduleManager.getModule(NoSwing.class);
+        final NoSwing noSwing = NoSwing.INSTANCE;
 
         if (noSwing.getState()) {
             callbackInfo.cancel();
@@ -268,8 +267,7 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
         this.prevTimeInPortal = this.timeInPortal;
 
         if (this.inPortal) {
-            if (this.mc.currentScreen != null && !this.mc.currentScreen.doesGuiPauseGame()
-                    && !LiquidCat.moduleManager.getModule(PortalMenu.class).getState()) {
+            if (this.mc.currentScreen != null && !this.mc.currentScreen.doesGuiPauseGame() && !PortalMenu.INSTANCE.getState()) {
                 this.mc.displayGuiScreen(null);
             }
 
@@ -310,8 +308,8 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
         boolean flag2 = this.movementInput.moveForward >= f;
         this.movementInput.updatePlayerMoveState();
 
-        final NoSlow noSlow = (NoSlow) LiquidCat.moduleManager.getModule(NoSlow.class);
-        final KillAura killAura = (KillAura) LiquidCat.moduleManager.getModule(KillAura.class);
+        final NoSlow noSlow = NoSlow.INSTANCE;
+        final KillAura killAura = KillAura.INSTANCE;
 
         if (getHeldItem() != null && (this.isUsingItem() || (getHeldItem().getItem() instanceof ItemSword && killAura.getBlockingStatus())) && !this.isRiding()) {
             final SlowDownEvent slowDownEvent = new SlowDownEvent(0.2F, 0.2F);
@@ -326,7 +324,7 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
         this.pushOutOfBlocks(this.posX + (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ - (double) this.width * 0.35D);
         this.pushOutOfBlocks(this.posX + (double) this.width * 0.35D, this.getEntityBoundingBox().minY + 0.5D, this.posZ + (double) this.width * 0.35D);
 
-        final Sprint sprint = (Sprint) LiquidCat.moduleManager.getModule(Sprint.class);
+        final Sprint sprint = Sprint.INSTANCE;
 
         boolean flag3 = !sprint.getFood() || (float) this.getFoodStats().getFoodLevel() > 6.0F || this.capabilities.allowFlying;
 
@@ -342,7 +340,7 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
             this.setSprinting(true);
         }
 
-        final Scaffold scaffold = (Scaffold) LiquidCat.moduleManager.getModule(Scaffold.class);
+        final Scaffold scaffold = Scaffold.INSTANCE;
         if ((scaffold.getState() && !scaffold.getSprint()) || (sprint.getState() && sprint.getCheckServerSide() && (onGround || !sprint.getCheckServerSideGround()) && !sprint.getAllDirections() && RotationUtils.targetRotation != null && RotationUtils.getRotationDifference(new Rotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch)) > 30))
             this.setSprinting(false);
 

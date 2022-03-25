@@ -16,7 +16,7 @@ import net.minecraft.network.play.server.S48PacketResourcePackSend
 import java.net.URI
 import java.net.URISyntaxException
 
-class ResourcePackSpoof : Module("ResourcePackSpoof","Prevents servers from forcing you to download their resource pack.", ModuleCategory.MISC) {
+object ResourcePackSpoof : Module("ResourcePackSpoof","Prevents servers from forcing you to download their resource pack.", ModuleCategory.MISC) {
 
     @EventTarget
     fun onPacket(event: PacketEvent) {

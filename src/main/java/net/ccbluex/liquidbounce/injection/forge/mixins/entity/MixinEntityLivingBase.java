@@ -94,13 +94,13 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
 
     @Inject(method = "onLivingUpdate", at = @At("HEAD"))
     private void headLiving(CallbackInfo callbackInfo) {
-        if (LiquidCat.moduleManager.getModule(NoJumpDelay.class).getState())
+        if (NoJumpDelay.INSTANCE.getState())
             jumpTicks = 0;
     }
 
     @Inject(method = "onLivingUpdate", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/EntityLivingBase;isJumping:Z", ordinal = 1))
     private void onJumpSection(CallbackInfo callbackInfo) {
-        if (LiquidCat.moduleManager.getModule(AirJump.class).getState() && isJumping && this.jumpTicks == 0) {
+        if (AirJump.INSTANCE.getState() && isJumping && this.jumpTicks == 0) {
             this.jump();
             this.jumpTicks = 10;
         }
@@ -108,15 +108,15 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
 
     @Inject(method = "getLook", at = @At("HEAD"), cancellable = true)
     private void getLook(CallbackInfoReturnable<Vec3> callbackInfoReturnable) {
-        if(((EntityLivingBase) (Object) this) instanceof EntityPlayerSP)
+        if (((EntityLivingBase) (Object) this) instanceof EntityPlayerSP)
             callbackInfoReturnable.setReturnValue(getVectorForRotation(this.rotationPitch, this.rotationYaw));
     }
 
     @Inject(method = "isPotionActive(Lnet/minecraft/potion/Potion;)Z", at = @At("HEAD"), cancellable = true)
     private void isPotionActive(Potion p_isPotionActive_1_, final CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
-        final AntiBlind antiBlind = (AntiBlind) LiquidCat.moduleManager.getModule(AntiBlind.class);
+        final AntiBlind antiBlind = AntiBlind.INSTANCE;
 
-        if((p_isPotionActive_1_ == Potion.confusion || p_isPotionActive_1_ == Potion.blindness) && antiBlind.getState() && antiBlind.getConfusion())
+        if ((p_isPotionActive_1_ == Potion.confusion || p_isPotionActive_1_ == Potion.blindness) && antiBlind.getState() && antiBlind.getConfusion())
             callbackInfoReturnable.setReturnValue(false);
     }
 }

@@ -13,7 +13,7 @@ import lol.liquidcat.utils.block.getBlock
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.init.Blocks
 
-class AutoBreak : Module("AutoBreak", "Automatically breaks the block you are looking at.", ModuleCategory.WORLD) {
+object AutoBreak : Module("AutoBreak", "Automatically breaks the block you are looking at.", ModuleCategory.WORLD) {
 
     override fun onDisable() {
         if (!GameSettings.isKeyDown(mc.gameSettings.keyBindAttack))

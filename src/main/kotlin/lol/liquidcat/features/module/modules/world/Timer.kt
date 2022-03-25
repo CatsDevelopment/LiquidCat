@@ -13,7 +13,7 @@ import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 
-class Timer : Module("Timer", "Changes the speed of the entire game.", ModuleCategory.WORLD) {
+object Timer : Module("Timer", "Changes the speed of the entire game.", ModuleCategory.WORLD) {
 
     private val speed by FloatValue("Speed", 2f, 0.1f..10f)
     private val onMove by BoolValue("OnMove", true)

@@ -10,6 +10,7 @@ import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
 import java.io.*
@@ -24,7 +25,7 @@ class ModulesConfig(file: File?) : FileConfig(file!!) {
         val entryIterator: Iterator<Map.Entry<String, JsonElement>> = jsonElement.asJsonObject.entrySet().iterator()
         while (entryIterator.hasNext()) {
             val (key, value) = entryIterator.next()
-            val module = LiquidCat.moduleManager.getModule(key)
+            val module = ModuleManager.getModule(key)
             if (module != null) {
                 val jsonModule = value as JsonObject
                 module.state = jsonModule["State"].asBoolean
@@ -40,7 +41,7 @@ class ModulesConfig(file: File?) : FileConfig(file!!) {
      */
     override fun saveConfig() {
         val jsonObject = JsonObject()
-        for (module in LiquidCat.moduleManager.modules) {
+        for (module in ModuleManager.modules) {
             val jsonMod = JsonObject()
             jsonMod.addProperty("State", module.state)
             jsonMod.addProperty("KeyBind", module.keyBind)

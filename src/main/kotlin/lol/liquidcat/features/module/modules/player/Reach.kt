@@ -9,7 +9,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.FloatValue
 
-class Reach : Module("Reach", "Increases your reach.", ModuleCategory.PLAYER) {
+object Reach : Module("Reach", "Increases your reach.", ModuleCategory.PLAYER) {
 
     val combatReach by FloatValue("CombatReach", 3.5f, 3f..7f)
     val buildReach by FloatValue("BuildReach", 5f, 4.5f..7f)

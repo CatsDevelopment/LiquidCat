@@ -12,6 +12,7 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.modules.player.AutoTool
+import lol.liquidcat.features.module.modules.player.Blink
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.block.searchBlocks
@@ -37,7 +38,7 @@ import kotlin.math.roundToInt
 
 //TODO Rewrite
 
-class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WORLD) {
+object Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WORLD) {
 
     private val radius by FloatValue("Radius", 5.2f, 1F..6f)
     private val throughWalls by BoolValue("ThroughWalls", false)
@@ -49,6 +50,7 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
     private val nukeDelay by IntValue("NukeDelay", 1, 1..20)
 
     private val attackedBlocks = arrayListOf<BlockPos>()
+    var currentDamage = 0f
     private var currentBlock: BlockPos? = null
     private var blockHitDelay = 0
     private var nukeTimer = TickTimer()
@@ -57,7 +59,7 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         // Block hit delay
-        if (blockHitDelay > 0 && !LiquidCat.moduleManager[FastBreak::class.java]!!.state) {
+        if (blockHitDelay > 0 && !Blink.state) {
             blockHitDelay--
             return
         }
@@ -134,9 +136,8 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
                 attackedBlocks.add(blockPos)
 
                 // Call auto tool
-                val autoTool = LiquidCat.moduleManager.getModule(AutoTool::class.java) as AutoTool
-                if (autoTool.state)
-                    autoTool.switchSlot(blockPos)
+                if (AutoTool.state)
+                    AutoTool.switchSlot(blockPos)
 
                 // Start block breaking
                 if (currentDamage == 0F) {
@@ -228,8 +229,4 @@ class Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.WO
      * Check if [block] is a valid block to break
      */
     private fun validBlock(block: Block) = block !is BlockAir && block !is BlockLiquid && block != Blocks.bedrock
-
-    companion object {
-        var currentDamage = 0F
-    }
 }

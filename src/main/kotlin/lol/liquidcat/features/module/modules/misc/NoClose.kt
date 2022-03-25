@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import net.minecraft.network.play.server.S2EPacketCloseWindow
 
-class NoClose : Module("NoClose", "Prevents the server from closing your inventory.", ModuleCategory.MISC) {
+object NoClose : Module("NoClose", "Prevents the server from closing your inventory.", ModuleCategory.MISC) {
 
     @EventTarget
     fun onPacket(event: PacketEvent) {

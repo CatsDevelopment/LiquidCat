@@ -8,4 +8,4 @@ package lol.liquidcat.features.module.modules.movement
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 
-class NoJumpDelay : Module("NoJumpDelay", "Removes delay between jumps.", ModuleCategory.MOVEMENT)
+object NoJumpDelay : Module("NoJumpDelay", "Removes delay between jumps.", ModuleCategory.MOVEMENT)

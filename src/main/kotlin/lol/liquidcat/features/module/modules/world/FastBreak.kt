@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.FloatValue
 
-class FastBreak : Module("FastBreak", "Allows you to break blocks faster.", ModuleCategory.WORLD) {
+object FastBreak : Module("FastBreak", "Allows you to break blocks faster.", ModuleCategory.WORLD) {
 
     private val damage by FloatValue("BreakDamage", 0.8f, 0.1f..1f)
 

@@ -83,10 +83,10 @@ public abstract class MixinMinecraft {
 
     @Inject(method = "run", at = @At("HEAD"))
     private void init(CallbackInfo callbackInfo) {
-        if(displayWidth < 1067)
+        if (displayWidth < 1067)
             displayWidth = 1067;
 
-        if(displayHeight < 622)
+        if (displayHeight < 622)
             displayHeight = 622;
     }
 
@@ -102,7 +102,7 @@ public abstract class MixinMinecraft {
 
     @Inject(method = "displayGuiScreen", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;currentScreen:Lnet/minecraft/client/gui/GuiScreen;", shift = At.Shift.AFTER))
     private void displayGuiScreen(CallbackInfo callbackInfo) {
-        if(currentScreen instanceof net.minecraft.client.gui.GuiMainMenu || (currentScreen != null && currentScreen.getClass().getName().startsWith("net.labymod") && currentScreen.getClass().getSimpleName().equals("ModGuiMainMenu"))) {
+        if (currentScreen instanceof net.minecraft.client.gui.GuiMainMenu || (currentScreen != null && currentScreen.getClass().getName().startsWith("net.labymod") && currentScreen.getClass().getSimpleName().equals("ModGuiMainMenu"))) {
             currentScreen = new GuiMainMenu();
 
             ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
@@ -135,22 +135,22 @@ public abstract class MixinMinecraft {
 
     @Inject(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V", shift = At.Shift.AFTER))
     private void onKey(CallbackInfo callbackInfo) {
-        if(Keyboard.getEventKeyState() && currentScreen == null)
+        if (Keyboard.getEventKeyState() && currentScreen == null)
             LiquidCat.eventManager.callEvent(new KeyEvent(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey()));
     }
 
     @Inject(method = "sendClickBlockToController", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/MovingObjectPosition;getBlockPos()Lnet/minecraft/util/BlockPos;"))
     private void onClickBlock(CallbackInfo callbackInfo) {
-        if(this.leftClickCounter == 0 && theWorld.getBlockState(objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air) {
+        if (this.leftClickCounter == 0 && theWorld.getBlockState(objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air) {
             LiquidCat.eventManager.callEvent(new ClickBlockEvent(objectMouseOver.getBlockPos(), this.objectMouseOver.sideHit));
         }
     }
 
     @Inject(method = "setWindowIcon", at = @At("HEAD"), cancellable = true)
     private void setWindowIcon(CallbackInfo callbackInfo) {
-        if(Util.getOSType() != Util.EnumOS.OSX) {
+        if (Util.getOSType() != Util.EnumOS.OSX) {
             final ByteBuffer[] liquidBounceFavicon = IconUtils.getFavicon();
-            if(liquidBounceFavicon != null) {
+            if (liquidBounceFavicon != null) {
                 Display.setIcon(liquidBounceFavicon);
                 callbackInfo.cancel();
             }
@@ -166,7 +166,7 @@ public abstract class MixinMinecraft {
     private void clickMouse(CallbackInfo callbackInfo) {
         CPSCounter.registerClick(CPSCounter.MouseButton.LEFT);
 
-        if (LiquidCat.moduleManager.getModule(AutoClicker.class).getState())
+        if (AutoClicker.INSTANCE.getState())
             leftClickCounter = 0;
     }
 
@@ -179,7 +179,7 @@ public abstract class MixinMinecraft {
     private void rightClickMouse(final CallbackInfo callbackInfo) {
         CPSCounter.registerClick(CPSCounter.MouseButton.RIGHT);
 
-        final FastPlace fastPlace = (FastPlace) LiquidCat.moduleManager.getModule(FastPlace.class);
+        final FastPlace fastPlace = FastPlace.INSTANCE;
 
         if (fastPlace.getState())
             rightClickDelayTimer = fastPlace.getSpeed();
@@ -198,7 +198,7 @@ public abstract class MixinMinecraft {
         if(!leftClick)
             this.leftClickCounter = 0;
 
-        if (this.leftClickCounter <= 0 && (!this.thePlayer.isUsingItem() || LiquidCat.moduleManager.getModule(MultiActions.class).getState())) {
+        if (this.leftClickCounter <= 0 && (!this.thePlayer.isUsingItem() || MultiActions.INSTANCE.getState())) {
             if(leftClick && this.objectMouseOver != null && this.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 BlockPos blockPos = this.objectMouseOver.getBlockPos();
 
@@ -210,7 +210,7 @@ public abstract class MixinMinecraft {
                     this.effectRenderer.addBlockHitEffects(blockPos, this.objectMouseOver.sideHit);
                     this.thePlayer.swingItem();
                 }
-            } else if (!LiquidCat.moduleManager.getModule(AbortBreaking.class).getState()) {
+            } else if (!AbortBreaking.INSTANCE.getState()) {
                 this.playerController.resetBlockRemoving();
             }
         }

@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import net.minecraft.client.settings.GameSettings
 
-class AutoWalk : Module("AutoWalk", "Automatically makes you walk.", ModuleCategory.MOVEMENT) {
+object AutoWalk : Module("AutoWalk", "Automatically makes you walk.", ModuleCategory.MOVEMENT) {
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {

@@ -35,15 +35,15 @@ public abstract class MixinGuiInGame {
 
     @Inject(method = "renderScoreboard", at = @At("HEAD"), cancellable = true)
     private void renderScoreboard(CallbackInfo callbackInfo) {
-        if (LiquidCat.moduleManager.getModule(HUD.class).getState() || NoScoreboard.INSTANCE.getState())
+        if (HUD.INSTANCE.getState() || NoScoreboard.INSTANCE.getState())
             callbackInfo.cancel();
     }
 
     @Inject(method = "renderTooltip", at = @At("HEAD"), cancellable = true)
     private void renderTooltip(ScaledResolution sr, float partialTicks, CallbackInfo callbackInfo) {
-        final HUD hud = (HUD) LiquidCat.moduleManager.getModule(HUD.class);
+        final HUD hud = HUD.INSTANCE;
 
-        if(Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer && hud.getState() && hud.getBlackHotbar()) {
+        if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer && hud.getState() && hud.getBlackHotbar()) {
             EntityPlayer entityPlayer = (EntityPlayer) Minecraft.getMinecraft().getRenderViewEntity();
 
             int middleScreen = sr.getScaledWidth() / 2;
@@ -83,9 +83,9 @@ public abstract class MixinGuiInGame {
 
     @Inject(method = "renderPumpkinOverlay", at = @At("HEAD"), cancellable = true)
     private void renderPumpkinOverlay(final CallbackInfo callbackInfo) {
-        final AntiBlind antiBlind = (AntiBlind) LiquidCat.moduleManager.getModule(AntiBlind.class);
+        final AntiBlind antiBlind = AntiBlind.INSTANCE;
 
-        if(antiBlind.getState() && antiBlind.getPumpkin())
+        if (antiBlind.getState() && antiBlind.getPumpkin())
             callbackInfo.cancel();
     }
 }

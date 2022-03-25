@@ -15,7 +15,7 @@ import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.entity.player.EnumPlayerModelParts
 import kotlin.random.Random
 
-class SkinDerp : Module("SkinDerp", "Makes your skin blink (Requires multi-layer skin).", ModuleCategory.FUN) {
+object SkinDerp : Module("SkinDerp", "Makes your skin blink (Requires multi-layer skin).", ModuleCategory.FUN) {
 
     private val hat by BoolValue("Hat", true)
     private val jacket by BoolValue("Jacket", true)

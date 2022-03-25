@@ -8,4 +8,4 @@ package lol.liquidcat.features.module.modules.render
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 
-class CameraClip : Module("CameraClip", "Allows you to see through walls in third person view.", ModuleCategory.RENDER)
+object CameraClip : Module("CameraClip", "Allows you to see through walls in third person view.", ModuleCategory.RENDER)

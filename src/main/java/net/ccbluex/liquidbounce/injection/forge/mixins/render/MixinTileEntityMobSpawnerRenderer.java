@@ -18,5 +18,4 @@ public class MixinTileEntityMobSpawnerRenderer {
         if (entity == null || entity instanceof EntityPainting)
             ci.cancel();
     }
-
 }

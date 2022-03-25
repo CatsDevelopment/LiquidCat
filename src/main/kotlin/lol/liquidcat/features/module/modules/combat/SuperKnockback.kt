@@ -13,7 +13,7 @@ import lol.liquidcat.utils.sendPacket
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C0BPacketEntityAction
 
-class SuperKnockback : Module("SuperKnockback", "Increases knockback dealt to other entities.", ModuleCategory.COMBAT) {
+object SuperKnockback : Module("SuperKnockback", "Increases knockback dealt to other entities.", ModuleCategory.COMBAT) {
 
     @EventTarget
     fun onAttack(event: AttackEvent) {

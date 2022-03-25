@@ -19,7 +19,7 @@ import net.minecraft.network.play.client.C0BPacketEntityAction
 
 //TODO Rewrite?
 
-class FreeCam : Module("FreeCam", "Allows you to move out of your body.", ModuleCategory.RENDER) {
+object FreeCam : Module("FreeCam", "Allows you to move out of your body.", ModuleCategory.RENDER) {
 
     private val speed by FloatValue("Speed", 0.8f, 0.1f..2f)
     private val fly by BoolValue("Fly", true)

@@ -42,7 +42,6 @@ object LiquidCat {
     val logger: Logger = LogManager.getLogger(CLIENT_NAME)
 
     // Managers
-    lateinit var moduleManager: ModuleManager
     lateinit var commandManager: CommandManager
     lateinit var eventManager: EventManager
     lateinit var fileManager: FileManager
@@ -86,9 +85,7 @@ object LiquidCat {
         // Load client fonts
         Fonts.loadFonts()
 
-        // Setup module manager and register modules
-        moduleManager = ModuleManager()
-        moduleManager.registerModules()
+        ModuleManager.registerModules()
 
         // Remapper
         try {

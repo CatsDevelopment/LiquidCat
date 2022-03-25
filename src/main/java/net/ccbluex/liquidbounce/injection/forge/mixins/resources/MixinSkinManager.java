@@ -23,7 +23,7 @@ public class MixinSkinManager {
         if (gameProfile == null)
             return;
         
-        NameProtect nameProtect = (NameProtect) LiquidCat.moduleManager.getModule(NameProtect.class);
+        NameProtect nameProtect = NameProtect.INSTANCE;
 
         if (nameProtect.getState() && nameProtect.getSkinProtect()) {
             if (nameProtect.getAllPlayers() || Objects.equals(gameProfile.getId(), Minecraft.getMinecraft().getSession().getProfile().getId())) {

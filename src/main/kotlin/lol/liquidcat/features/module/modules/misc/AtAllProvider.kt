@@ -17,7 +17,7 @@ import lol.liquidcat.utils.timer.TimeUtils
 import net.minecraft.network.play.client.C01PacketChatMessage
 import java.util.concurrent.LinkedBlockingQueue
 
-class AtAllProvider : Module("AtAllProvider", "Automatically mentions everyone on the server when using '@a' in your message.", ModuleCategory.MISC) {
+object AtAllProvider : Module("AtAllProvider", "Automatically mentions everyone on the server when using '@a' in your message.", ModuleCategory.MISC) {
 
     private val maxDelay: Int by object : IntValue("MaxDelay", 1000, 0..20000) {
         override fun onChanged(oldValue: Int, newValue: Int) {

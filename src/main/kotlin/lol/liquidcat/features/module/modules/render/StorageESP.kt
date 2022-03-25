@@ -25,7 +25,7 @@ import net.minecraft.tileentity.TileEntityChest
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-class StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, etc. through walls.", ModuleCategory.RENDER) {
+object StorageESP : Module("StorageESP", "Allows you to see chests, dispensers, etc. through walls.", ModuleCategory.RENDER) {
 
     private val mode by ListValue(
         "Mode",

@@ -28,7 +28,7 @@ import java.awt.Color
 import java.util.*
 import java.util.concurrent.LinkedBlockingQueue
 
-class Blink : Module("Blink", "Suspends all movement packets.", ModuleCategory.PLAYER) {
+object Blink : Module("Blink", "Suspends all movement packets.", ModuleCategory.PLAYER) {
 
     private val pulse by BoolValue("Pulse", false)
     private val pulseDelay by IntValue("PulseDelay", 1000, 500..5000)
@@ -112,9 +112,8 @@ class Blink : Module("Blink", "Suspends all movement packets.", ModuleCategory.P
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        val breadcrumbs = LiquidCat.moduleManager.getModule(Breadcrumbs::class.java) as Breadcrumbs
-        val color = if (breadcrumbs.rainbow) rainbow() else Color(
-            breadcrumbs.red, breadcrumbs.green, breadcrumbs.blue
+        val color = if (Breadcrumbs.rainbow) rainbow() else Color(
+            Breadcrumbs.red, Breadcrumbs.green, Breadcrumbs.blue
         )
         synchronized(positions) {
             GL11.glPushMatrix()

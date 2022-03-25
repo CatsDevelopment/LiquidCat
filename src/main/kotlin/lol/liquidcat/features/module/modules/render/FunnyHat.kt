@@ -19,7 +19,7 @@ import kotlin.math.sin
 
 // TODO: Add rainbow, neon effects (shaders)
 
-class FunnyHat : Module("FunnyHat", "funny china hat", ModuleCategory.RENDER) {
+object FunnyHat : Module("FunnyHat", "funny china hat", ModuleCategory.RENDER) {
 
     private val radius by FloatValue("Radius", 0.6f, 0.5f..2f)
     private val height by FloatValue("Height", 0.3f, 0.1f..1f)

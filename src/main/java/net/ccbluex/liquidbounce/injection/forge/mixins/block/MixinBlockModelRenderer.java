@@ -5,7 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.block;
 
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.render.XRay;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.BlockModelRenderer;
@@ -23,7 +22,7 @@ public class MixinBlockModelRenderer {
 
     @Inject(method = "renderModelAmbientOcclusion", at = @At("HEAD"), cancellable = true)
     private void renderModelAmbientOcclusion(IBlockAccess blockAccessIn, IBakedModel modelIn, Block blockIn, BlockPos blockPosIn, WorldRenderer worldRendererIn, boolean checkSide, final CallbackInfoReturnable<Boolean> booleanCallbackInfoReturnable) {
-        final XRay xray = (XRay) LiquidCat.moduleManager.getModule(XRay.class);
+        final XRay xray = XRay.INSTANCE;
 
         if (xray.getState() && !xray.getXrayBlocks().contains(blockIn))
             booleanCallbackInfoReturnable.setReturnValue(false);
@@ -31,7 +30,7 @@ public class MixinBlockModelRenderer {
 
     @Inject(method = "renderModelStandard", at = @At("HEAD"), cancellable = true)
     private void renderModelStandard(IBlockAccess blockAccessIn, IBakedModel modelIn, Block blockIn, BlockPos blockPosIn, WorldRenderer worldRendererIn, boolean checkSides, final CallbackInfoReturnable<Boolean> booleanCallbackInfoReturnable) {
-        final XRay xray = (XRay) LiquidCat.moduleManager.getModule(XRay.class);
+        final XRay xray = XRay.INSTANCE;
 
         if (xray.getState() && !xray.getXrayBlocks().contains(blockIn))
             booleanCallbackInfoReturnable.setReturnValue(false);

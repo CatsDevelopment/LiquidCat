@@ -12,7 +12,7 @@ import lol.liquidcat.value.FloatValue
 
 //TODO Rewrite and add more options
 
-class Derp : Module("Derp", "Makes it look like you were derping around.", ModuleCategory.FUN) {
+object Derp : Module("Derp", "Makes it look like you were derping around.", ModuleCategory.FUN) {
 
     private val headless by BoolValue("Headless", false)
     private val spinny by BoolValue("Spinny", false)

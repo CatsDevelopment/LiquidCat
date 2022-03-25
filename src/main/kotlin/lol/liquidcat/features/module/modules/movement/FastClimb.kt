@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.FloatValue
 
-class FastClimb : Module("FastClimb", "Allows you to climb up ladders and vines faster.", ModuleCategory.MOVEMENT) {
+object FastClimb : Module("FastClimb", "Allows you to climb up ladders and vines faster.", ModuleCategory.MOVEMENT) {
 
     private val speed by FloatValue("Speed", 0.2872f, 0.01f..5f)
 

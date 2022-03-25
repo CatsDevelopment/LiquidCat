@@ -10,6 +10,7 @@ import com.jagrosh.discordipc.IPCListener
 import com.jagrosh.discordipc.entities.RichPresence
 import com.jagrosh.discordipc.entities.pipe.PipeStatus
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.module.ModuleManager
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import org.json.JSONObject
 import java.time.OffsetDateTime
@@ -89,7 +90,7 @@ class ClientRichPresence : MinecraftInstance() {
 
             // Set display infos
             builder.setDetails("Server: ${if (mc.isIntegratedServerRunning || serverData == null) "Singleplayer" else serverData.serverIP}")
-            builder.setState("Enabled ${LiquidCat.moduleManager.modules.count { it.state }} of ${LiquidCat.moduleManager.modules.size} modules")
+            builder.setState("Enabled ${ModuleManager.modules.count { it.state }} of ${ModuleManager.modules.size} modules")
         }
 
         // Check ipc client is connected and send rpc

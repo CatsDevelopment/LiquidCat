@@ -29,7 +29,7 @@ import net.minecraft.item.*
 import net.minecraft.network.play.client.C0DPacketCloseWindow
 import net.minecraft.network.play.client.C16PacketClientStatus
 
-class InventoryCleaner : Module("InventoryCleaner", "Automatically throws away useless items.", ModuleCategory.PLAYER) {
+object InventoryCleaner : Module("InventoryCleaner", "Automatically throws away useless items.", ModuleCategory.PLAYER) {
 
     /**
      * OPTIONS

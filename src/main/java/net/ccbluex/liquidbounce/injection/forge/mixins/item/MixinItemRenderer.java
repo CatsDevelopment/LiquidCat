@@ -96,10 +96,10 @@ public abstract class MixinItemRenderer {
         GlStateManager.enableRescaleNormal();
         GlStateManager.pushMatrix();
 
-        if(this.itemToRender != null) {
-            final KillAura killAura = (KillAura) LiquidCat.moduleManager.getModule(KillAura.class);
+        if (this.itemToRender != null) {
+            final KillAura killAura = KillAura.INSTANCE;
 
-            if(this.itemToRender.getItem() instanceof net.minecraft.item.ItemMap) {
+            if (this.itemToRender.getItem() instanceof net.minecraft.item.ItemMap) {
                 this.renderItemMap(abstractclientplayer, f2, f, f1);
             } else if (abstractclientplayer.getItemInUseCount() > 0 || (itemToRender.getItem() instanceof ItemSword && killAura.getBlockingStatus())) {
                 EnumAction enumaction = killAura.getBlockingStatus() ? EnumAction.BLOCK : this.itemToRender.getItemUseAction();
@@ -122,14 +122,14 @@ public abstract class MixinItemRenderer {
                         this.transformFirstPersonItem(f, f1);
                         this.doBowTransformations(partialTicks, abstractclientplayer);
                 }
-            }else{
-                if (!LiquidCat.moduleManager.getModule(SwingAnimation.class).getState())
+            } else {
+                if (!SwingAnimation.INSTANCE.getState())
                     this.doItemUsedTransformations(f1);
                 this.transformFirstPersonItem(f, f1);
             }
 
             this.renderItem(abstractclientplayer, this.itemToRender, ItemCameraTransforms.TransformType.FIRST_PERSON);
-        }else if(!abstractclientplayer.isInvisible()) {
+        } else if (!abstractclientplayer.isInvisible()) {
             this.renderPlayerArm(abstractclientplayer, f, f1);
         }
 
@@ -140,9 +140,9 @@ public abstract class MixinItemRenderer {
 
     @Inject(method = "renderFireInFirstPerson", at = @At("HEAD"), cancellable = true)
     private void renderFireInFirstPerson(final CallbackInfo callbackInfo) {
-        final AntiBlind antiBlind = (AntiBlind) LiquidCat.moduleManager.getModule(AntiBlind.class);
+        final AntiBlind antiBlind = AntiBlind.INSTANCE;
 
-        if(antiBlind.getState() && antiBlind.getFire())
+        if (antiBlind.getState() && antiBlind.getFire())
             callbackInfo.cancel();
     }
 }

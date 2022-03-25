@@ -20,7 +20,7 @@ import kotlin.random.Random
 
 //TODO Add more options
 
-class Spammer : Module("Spammer", "Spams the chat with a given message.", ModuleCategory.MISC) {
+object Spammer : Module("Spammer", "Spams the chat with a given message.", ModuleCategory.MISC) {
 
     private val maxDelay: Int by object : IntValue("MaxDelay", 1000, 0..5000) {
         override fun onChanged(oldValue: Int, newValue: Int) {

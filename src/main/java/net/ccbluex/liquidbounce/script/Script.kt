@@ -10,6 +10,7 @@ import jdk.nashorn.api.scripting.JSObject
 import jdk.nashorn.api.scripting.ScriptUtils
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.Module
+import lol.liquidcat.features.module.ModuleManager
 import net.ccbluex.liquidbounce.script.api.*
 import net.ccbluex.liquidbounce.script.api.global.Chat
 import net.ccbluex.liquidbounce.script.api.global.Setting
@@ -40,7 +41,7 @@ class Script(val scriptFile: File) : MinecraftInstance() {
 
         // Global instances
         scriptEngine.put("mc", mc)
-        scriptEngine.put("moduleManager", LiquidCat.moduleManager)
+        scriptEngine.put("moduleManager", ModuleManager)
         scriptEngine.put("commandManager", LiquidCat.commandManager)
         scriptEngine.put("scriptManager", LiquidCat.scriptManager)
 
@@ -79,7 +80,7 @@ class Script(val scriptFile: File) : MinecraftInstance() {
     @Suppress("unused")
     fun registerModule(moduleObject: JSObject, callback: JSObject) {
         val module = ScriptModule(moduleObject)
-        LiquidCat.moduleManager.registerModule(module)
+        ModuleManager.registerModule(module)
         registeredModules += module
         callback.call(moduleObject, module)
     }
@@ -142,7 +143,7 @@ class Script(val scriptFile: File) : MinecraftInstance() {
     fun onDisable() {
         if (!state) return
 
-        registeredModules.forEach { LiquidCat.moduleManager.unregisterModule(it) }
+        registeredModules.forEach { ModuleManager.unregisterModule(it) }
         registeredCommands.forEach { LiquidCat.commandManager.unregisterCommand(it) }
 
         callEvent("disable")

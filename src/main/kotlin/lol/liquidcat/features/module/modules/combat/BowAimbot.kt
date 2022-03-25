@@ -23,7 +23,7 @@ import java.awt.Color
 
 //TODO Rewrite
 
-class BowAimbot : Module("BowAimbot", "Automatically aims at players when using a bow.", ModuleCategory.COMBAT) {
+object BowAimbot : Module("BowAimbot", "Automatically aims at players when using a bow.", ModuleCategory.COMBAT) {
 
     private val silent by BoolValue("Silent", true)
     private val predict by BoolValue("Predict", true)

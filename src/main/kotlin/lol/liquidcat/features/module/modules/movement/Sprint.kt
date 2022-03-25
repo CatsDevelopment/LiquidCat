@@ -17,7 +17,7 @@ import net.minecraft.potion.Potion
 
 //TODO Rewrite
 
-class Sprint : Module("Sprint", "Automatically sprints all the time.", ModuleCategory.MOVEMENT) {
+object Sprint : Module("Sprint", "Automatically sprints all the time.", ModuleCategory.MOVEMENT) {
 
     val allDirections by BoolValue("AllDirections", true)
     private val blindness by BoolValue("Blindness", true)

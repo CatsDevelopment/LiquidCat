@@ -72,15 +72,15 @@ public abstract class MixinBlock {
 
     @Inject(method = "shouldSideBeRendered", at = @At("HEAD"), cancellable = true)
     private void shouldSideBeRendered(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
-        final XRay xray = (XRay) LiquidCat.moduleManager.getModule(XRay.class);
+        final XRay xray = XRay.INSTANCE;
 
-        if(xray.getState())
+        if (xray.getState())
             callbackInfoReturnable.setReturnValue(xray.getXrayBlocks().contains(this));
     }
 
     @Inject(method = "isCollidable", at = @At("HEAD"), cancellable = true)
     private void isCollidable(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
-        final GhostHand ghostHand = (GhostHand) LiquidCat.moduleManager.getModule(GhostHand.class);
+        final GhostHand ghostHand = GhostHand.INSTANCE;
 
         if (ghostHand.getState() && !(ghostHand.getBlock() == Block.getIdFromBlock((Block) (Object) this)))
             callbackInfoReturnable.setReturnValue(false);
@@ -88,7 +88,7 @@ public abstract class MixinBlock {
 
     @Inject(method = "getAmbientOcclusionLightValue", at = @At("HEAD"), cancellable = true)
     private void getAmbientOcclusionLightValue(final CallbackInfoReturnable<Float> floatCallbackInfoReturnable) {
-        if (LiquidCat.moduleManager.getModule(XRay.class).getState())
+        if (XRay.INSTANCE.getState())
             floatCallbackInfoReturnable.setReturnValue(1F);
     }
 
@@ -97,7 +97,7 @@ public abstract class MixinBlock {
         float f = callbackInfo.getReturnValue();
 
         // NoSlowBreak
-        final NoSlowBreak noSlowBreak = (NoSlowBreak) LiquidCat.moduleManager.getModule(NoSlowBreak.class);
+        final NoSlowBreak noSlowBreak = NoSlowBreak.INSTANCE;
         if (noSlowBreak.getState()) {
             if (noSlowBreak.getWater() && playerIn.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(playerIn)) {
                 f *= 5.0F;
@@ -107,7 +107,7 @@ public abstract class MixinBlock {
                 f *= 5.0F;
             }
         } else if (playerIn.onGround) {
-            final NoFall noFall = (NoFall) LiquidCat.moduleManager.getModule(NoFall.class);
+            final NoFall noFall = NoFall.INSTANCE;
 
             if (noFall.getState() && noFall.getMode().equals("NoGround")) {
                 f /= 5F;

@@ -26,7 +26,7 @@ import org.lwjgl.opengl.GL11
 import org.lwjgl.util.vector.Vector3f
 import java.awt.Color
 
-class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCategory.RENDER) {
+object ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCategory.RENDER) {
 
     val mode by ListValue(
         "Mode",
@@ -182,9 +182,6 @@ class ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCate
         return if (rainbow) rainbow() else Color(red, green, blue)
     }
 
-    companion object {
-
-        @JvmField
-        var renderNameTags = true
-    }
+    @JvmField
+    var renderNameTags = true
 }

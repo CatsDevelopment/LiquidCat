@@ -68,25 +68,23 @@ public abstract class MixinEntityRenderer {
 
     @Inject(method = "hurtCameraEffect", at = @At("HEAD"), cancellable = true)
     private void injectHurtCameraEffect(CallbackInfo callbackInfo) {
-        final NoHurtCam noHurtCam = (NoHurtCam) LiquidCat.moduleManager.getModule(NoHurtCam.class);
+        final NoHurtCam noHurtCam = NoHurtCam.INSTANCE;
 
-        if (noHurtCam.getState()) {
+        if (noHurtCam.getState())
             callbackInfo.cancel();
-        }
     }
 
     @Inject(method = "setupViewBobbing", at = @At("HEAD"), cancellable = true)
     private void setupViewBobbing(CallbackInfo callbackInfo) {
-        final NoBob noBob = (NoBob) LiquidCat.moduleManager.getModule(NoBob.class);
+        final NoBob noBob = NoBob.INSTANCE;
 
-        if (noBob.getState()) {
+        if (noBob.getState())
             callbackInfo.cancel();
-        }
     }
 
     @Inject(method = "orientCamera", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Vec3;distanceTo(Lnet/minecraft/util/Vec3;)D"), cancellable = true)
     private void cameraClip(float partialTicks, CallbackInfo callbackInfo) {
-        if (LiquidCat.moduleManager.getModule(CameraClip.class).getState()) {
+        if (CameraClip.INSTANCE.getState()) {
             callbackInfo.cancel();
 
             Entity entity = this.mc.getRenderViewEntity();
@@ -155,12 +153,14 @@ public abstract class MixinEntityRenderer {
 
     @Inject(method = "setupCameraTransform", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/EntityRenderer;setupViewBobbing(F)V", shift = At.Shift.BEFORE))
     private void setupCameraViewBobbingBefore(final CallbackInfo callbackInfo) {
-        if (LiquidCat.moduleManager.getModule(Tracers.class).getState()) GL11.glPushMatrix();
+        if (Tracers.INSTANCE.getState())
+            GL11.glPushMatrix();
     }
 
     @Inject(method = "setupCameraTransform", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/EntityRenderer;setupViewBobbing(F)V", shift = At.Shift.AFTER))
     private void setupCameraViewBobbingAfter(final CallbackInfo callbackInfo) {
-        if (LiquidCat.moduleManager.getModule(Tracers.class).getState()) GL11.glPopMatrix();
+        if (Tracers.INSTANCE.getState())
+            GL11.glPopMatrix();
     }
 
     /**
@@ -173,7 +173,7 @@ public abstract class MixinEntityRenderer {
             this.mc.mcProfiler.startSection("pick");
             this.mc.pointedEntity = null;
 
-            final Reach reach = (Reach) LiquidCat.moduleManager.getModule(Reach.class);
+            final Reach reach = Reach.INSTANCE;
 
             double d0 = reach.getState() ? reach.getMaxRange() : (double) this.mc.playerController.getBlockReachDistance();
             this.mc.objectMouseOver = entity.rayTrace(reach.getState() ? reach.getBuildReach() : d0, p_getMouseOver_1_);

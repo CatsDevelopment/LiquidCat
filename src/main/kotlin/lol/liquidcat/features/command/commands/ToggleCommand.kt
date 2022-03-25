@@ -7,6 +7,7 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.module.ModuleManager
 
 class ToggleCommand : Command("toggle", arrayOf("t")) {
     /**
@@ -14,7 +15,7 @@ class ToggleCommand : Command("toggle", arrayOf("t")) {
      */
     override fun execute(args: Array<String>) {
         if (args.size > 1) {
-            val module = LiquidCat.moduleManager.getModule(args[1])
+            val module = ModuleManager.getModule(args[1])
 
             if (module == null) {
                 chat("Module '${args[1]}' not found.")
@@ -47,7 +48,7 @@ class ToggleCommand : Command("toggle", arrayOf("t")) {
         val moduleName = args[0]
 
         return when (args.size) {
-            1 -> LiquidCat.moduleManager.modules
+            1 -> ModuleManager.modules
                     .map { it.name }
                     .filter { it.startsWith(moduleName, true) }
                     .toList()

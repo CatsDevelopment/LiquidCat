@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.FloatValue
 
-class HighJump : Module("HighJump", "Allows you to jump higher.", ModuleCategory.MOVEMENT) {
+object HighJump : Module("HighJump", "Allows you to jump higher.", ModuleCategory.MOVEMENT) {
 
     private val height by FloatValue("Height", 2f, 1.01f..5f)
 

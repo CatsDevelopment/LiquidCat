@@ -15,7 +15,7 @@ import lol.liquidcat.value.IntValue
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.potion.Potion
 
-class Regen : Module("Regen", "Regenerates your health much faster.", ModuleCategory.PLAYER) {
+object Regen : Module("Regen", "Regenerates your health much faster.", ModuleCategory.PLAYER) {
 
     private val health by IntValue("Health", 18, 0..20)
     private val speed by IntValue("Speed", 10, 1..100)

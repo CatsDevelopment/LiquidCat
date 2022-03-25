@@ -8,6 +8,7 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.command.CommandManager
+import lol.liquidcat.features.module.ModuleManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
 import org.apache.commons.io.IOUtils
@@ -117,8 +118,8 @@ class ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                         LiquidCat.isStarting = true
                         LiquidCat.scriptManager.disableScripts()
                         LiquidCat.scriptManager.unloadScripts()
-                        for(module in LiquidCat.moduleManager.modules)
-                            LiquidCat.moduleManager.generateCommand(module)
+                        for(module in ModuleManager.modules)
+                            ModuleManager.generateCommand(module)
                         LiquidCat.scriptManager.loadScripts()
                         LiquidCat.scriptManager.enableScripts()
                         LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.modulesConfig)

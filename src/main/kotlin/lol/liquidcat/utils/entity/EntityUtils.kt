@@ -44,7 +44,7 @@ object EntityUtils {
                 if (targetPlayer && entity is EntityPlayer) {
                     if (canAttackCheck) {
                         if (AntiBot.isBot(entity)) return false
-                        if (isFriend(entity) && !LiquidCat.moduleManager.getModule(NoFriends::class.java)!!.state) return false
+                        if (isFriend(entity) && !NoFriends.state) return false
                         if (entity.isSpectator) return false
                         return !Teams.isInYourTeam(entity)
                     }

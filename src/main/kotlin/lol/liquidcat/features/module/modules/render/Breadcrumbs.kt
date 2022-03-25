@@ -18,7 +18,7 @@ import org.lwjgl.opengl.GL11
 import java.awt.Color
 import java.util.*
 
-class Breadcrumbs : Module("Breadcrumbs", "Leaves a trail behind you.", ModuleCategory.RENDER) {
+object Breadcrumbs : Module("Breadcrumbs", "Leaves a trail behind you.", ModuleCategory.RENDER) {
 
     val red by IntValue("R", 255, 0..255)
     val green by IntValue("G", 179, 0..255)
