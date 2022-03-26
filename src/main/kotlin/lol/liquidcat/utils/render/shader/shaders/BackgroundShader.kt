@@ -8,7 +8,6 @@ package lol.liquidcat.utils.render.shader.shaders
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.shader.Shader
-import net.minecraft.client.gui.ScaledResolution
 import org.lwjgl.opengl.GL20
 
 object BackgroundShader : Shader("background.frag") {
@@ -20,15 +19,9 @@ object BackgroundShader : Shader("background.frag") {
     }
 
     override fun updateUniforms() {
-        val scaledResolution = ScaledResolution(mc)
-        val resolutionID = getUniform("iResolution")
-        if (resolutionID > -1) GL20.glUniform2f(
-            resolutionID,
-            scaledResolution.scaledWidth.toFloat() * 2,
-            scaledResolution.scaledHeight.toFloat() * 2
-        )
-        val timeID = getUniform("iTime")
-        if (timeID > -1) GL20.glUniform1f(timeID, time)
-        time += 0.005f * GLUtils.deltaTime
+        GL20.glUniform2f(getUniform("iResolution"), mc.displayWidth.toFloat(), mc.displayHeight.toFloat())
+        GL20.glUniform1f(getUniform("iTime"), time)
+
+        time += 0.001f * GLUtils.deltaTime
     }
 }
