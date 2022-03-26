@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
 import lol.liquidcat.LiquidCat;
+import lol.liquidcat.features.command.CommandManager;
 import lol.liquidcat.utils.render.GLUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiChat;
@@ -48,7 +49,7 @@ public abstract class MixinGuiChat extends MixinGuiScreen {
 
     @Inject(method = "keyTyped", at = @At("RETURN"))
     private void updateLength(CallbackInfo callbackInfo) {
-        if (inputField.getText().startsWith(String.valueOf(LiquidCat.commandManager.getPrefix())) && !inputField.getText().startsWith(LiquidCat.commandManager.getPrefix() + "lc"))
+        if (inputField.getText().startsWith(String.valueOf(CommandManager.INSTANCE.getPrefix())) && !inputField.getText().startsWith(CommandManager.INSTANCE.getPrefix() + "lc"))
             inputField.setMaxStringLength(10000);
         else
             inputField.setMaxStringLength(100);
@@ -81,10 +82,10 @@ public abstract class MixinGuiChat extends MixinGuiScreen {
      */
     @Inject(method = "sendAutocompleteRequest", at = @At("HEAD"), cancellable = true)
     private void handleClientCommandCompletion(String full, final String ignored, CallbackInfo callbackInfo) {
-        if (LiquidCat.commandManager.autoComplete(full)) {
+        if (CommandManager.INSTANCE.autoComplete(full)) {
             waitingOnAutocomplete = true;
 
-            String[] latestAutoComplete = LiquidCat.commandManager.getLatestAutoComplete();
+            String[] latestAutoComplete = CommandManager.INSTANCE.getLatestAutoComplete();
 
             if (full.toLowerCase().endsWith(latestAutoComplete[latestAutoComplete.length - 1].toLowerCase()))
                 return;

@@ -9,6 +9,7 @@ import jdk.internal.dynalink.beans.StaticClass
 import jdk.nashorn.api.scripting.JSObject
 import jdk.nashorn.api.scripting.ScriptUtils
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleManager
 import net.ccbluex.liquidbounce.script.api.*
@@ -42,7 +43,7 @@ class Script(val scriptFile: File) : MinecraftInstance() {
         // Global instances
         scriptEngine.put("mc", mc)
         scriptEngine.put("moduleManager", ModuleManager)
-        scriptEngine.put("commandManager", LiquidCat.commandManager)
+        scriptEngine.put("commandManager", CommandManager)
         scriptEngine.put("scriptManager", LiquidCat.scriptManager)
 
         // Global functions
@@ -94,7 +95,7 @@ class Script(val scriptFile: File) : MinecraftInstance() {
     @Suppress("unused")
     fun registerCommand(commandObject: JSObject, callback: JSObject) {
         val command = ScriptCommand(commandObject)
-        LiquidCat.commandManager.registerCommand(command)
+        CommandManager.registerCommand(command)
         registeredCommands += command
         callback.call(commandObject, command)
     }
@@ -144,7 +145,7 @@ class Script(val scriptFile: File) : MinecraftInstance() {
         if (!state) return
 
         registeredModules.forEach { ModuleManager.unregisterModule(it) }
-        registeredCommands.forEach { LiquidCat.commandManager.unregisterCommand(it) }
+        registeredCommands.forEach { CommandManager.unregisterCommand(it) }
 
         callEvent("disable")
         state = false

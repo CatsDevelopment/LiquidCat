@@ -12,7 +12,7 @@ import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.features.command.Command
 import net.minecraft.network.handshake.client.C00Handshake
 
-class ServerInfoCommand : Command("serverinfo", emptyArray()), Listenable {
+object ServerInfoCommand : Command("serverinfo", emptyArray()), Listenable {
     init {
         LiquidCat.eventManager.registerListener(this)
     }

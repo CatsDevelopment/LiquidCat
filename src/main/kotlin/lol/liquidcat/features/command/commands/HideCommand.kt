@@ -5,12 +5,11 @@
  */
 package lol.liquidcat.features.command.commands
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.utils.msg
 
-class HideCommand : Command("hide", emptyArray()) {
+object HideCommand : Command("hide", emptyArray()) {
 
     /**
      * Execute commands with provided [args]

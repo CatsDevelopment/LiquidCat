@@ -17,7 +17,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.zip.ZipFile
 
-class ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
+object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
     /**
      * Execute commands with provided [args]
      */
@@ -113,8 +113,6 @@ class ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
 
                 args[1].equals("reload", true) -> {
                     try {
-                        LiquidCat.commandManager = CommandManager()
-                        LiquidCat.commandManager.registerCommands()
                         LiquidCat.isStarting = true
                         LiquidCat.scriptManager.disableScripts()
                         LiquidCat.scriptManager.unloadScripts()

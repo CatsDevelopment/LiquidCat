@@ -8,7 +8,7 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.utils.entity.forward
 
-class HClipCommand : Command("hclip", emptyArray()) {
+object HClipCommand : Command("hclip", emptyArray()) {
 
     /**
      * Execute commands with provided [args]

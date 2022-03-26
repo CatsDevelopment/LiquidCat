@@ -3,6 +3,7 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
+
 package lol.liquidcat.features.command
 
 import lol.liquidcat.LiquidCat
@@ -10,11 +11,8 @@ import lol.liquidcat.features.command.commands.*
 import lol.liquidcat.features.command.shortcuts.Shortcut
 import lol.liquidcat.features.command.shortcuts.ShortcutParser
 import lol.liquidcat.utils.msg
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
-@SideOnly(Side.CLIENT)
-class CommandManager {
+object CommandManager {
     val commands = mutableListOf<Command>()
     var latestAutoComplete: Array<String> = emptyArray()
 
@@ -24,34 +22,46 @@ class CommandManager {
      * Register all default commands
      */
     fun registerCommands() {
-        registerCommand(BindCommand())
-        registerCommand(VClipCommand())
-        registerCommand(HClipCommand())
-        registerCommand(HelpCommand())
-        registerCommand(SayCommand())
-        registerCommand(FriendCommand())
-        registerCommand(AutoSettingsCommand())
-        registerCommand(LocalAutoSettingsCommand())
-        registerCommand(ServerInfoCommand())
-        registerCommand(ToggleCommand())
-        registerCommand(HurtCommand())
-        registerCommand(UsernameCommand())
-        registerCommand(TargetCommand())
-        registerCommand(TacoCommand())
-        registerCommand(BindsCommand())
-        registerCommand(HoloStandCommand())
-        registerCommand(PanicCommand())
-        registerCommand(PingCommand())
-        registerCommand(RenameCommand())
-        registerCommand(EnchantCommand())
-        registerCommand(ReloadCommand())
-        registerCommand(LoginCommand())
-        registerCommand(ScriptManagerCommand())
-        registerCommand(RemoteViewCommand())
-        registerCommand(PrefixCommand())
-        registerCommand(ShortcutCommand())
-        registerCommand(HideCommand())
+        arrayOf(
+            BindCommand,
+            VClipCommand,
+            HClipCommand,
+            HelpCommand,
+            SayCommand,
+            FriendCommand,
+            AutoSettingsCommand,
+            LocalAutoSettingsCommand,
+            ServerInfoCommand,
+            ToggleCommand,
+            HurtCommand,
+            UsernameCommand,
+            TargetCommand,
+            TacoCommand,
+            BindsCommand,
+            HoloStandCommand,
+            PanicCommand,
+            PingCommand,
+            RenameCommand,
+            EnchantCommand,
+            ReloadCommand,
+            LoginCommand,
+            ScriptManagerCommand,
+            RemoteViewCommand,
+            PrefixCommand,
+            ShortcutCommand,
+            HideCommand
+        ).forEach { registerCommand(it) }
     }
+
+    /**
+     * Register [command] by just adding it to the commands registry
+     */
+    fun registerCommand(command: Command) = commands.add(command)
+
+    /**
+     * Unregister [command] by just removing it from the commands registry
+     */
+    fun unregisterCommand(command: Command?) = commands.remove(command)
 
     /**
      * Execute command by given [input]
@@ -135,11 +145,6 @@ class CommandManager {
         }
     }
 
-    /**
-     * Register [command] by just adding it to the commands registry
-     */
-    fun registerCommand(command: Command) = commands.add(command)
-
     fun registerShortcut(name: String, script: String) {
         if (getCommand(name) == null) {
             registerCommand(Shortcut(name, ShortcutParser.parse(script).map {
@@ -163,9 +168,4 @@ class CommandManager {
 
         return removed
     }
-
-    /**
-     * Unregister [command] by just removing it from the commands registry
-     */
-    fun unregisterCommand(command: Command?) = commands.remove(command)
 }

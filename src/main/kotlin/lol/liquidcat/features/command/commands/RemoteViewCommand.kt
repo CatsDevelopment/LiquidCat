@@ -7,8 +7,9 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.command.CommandManager
 
-class RemoteViewCommand : Command("remoteview", arrayOf("rv")) {
+object RemoteViewCommand : Command("remoteview", arrayOf("rv")) {
     /**
      * Execute commands with provided [args]
      */
@@ -28,7 +29,7 @@ class RemoteViewCommand : Command("remoteview", arrayOf("rv")) {
             if (targetName == entity.name) {
                 mc.renderViewEntity = entity
                 chat("Now viewing perspective of §8${entity.name}§3.")
-                chat("Execute §8${LiquidCat.commandManager.prefix}remoteview §3again to go back to yours.")
+                chat("Execute §8${CommandManager.prefix}remoteview §3again to go back to yours.")
                 break
             }
         }

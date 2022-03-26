@@ -10,6 +10,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.KeyEvent
 import lol.liquidcat.event.Listenable
+import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.modules.`fun`.Derp
 import lol.liquidcat.features.module.modules.`fun`.SkinDerp
 import lol.liquidcat.features.module.modules.combat.*
@@ -186,7 +187,7 @@ object ModuleManager : Listenable {
         if (values.isEmpty())
             return
 
-        LiquidCat.commandManager.registerCommand(ModuleCommand(module, values))
+        CommandManager.registerCommand(ModuleCommand(module, values))
     }
 
     /**

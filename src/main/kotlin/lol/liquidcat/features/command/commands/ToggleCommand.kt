@@ -5,11 +5,10 @@
  */
 package lol.liquidcat.features.command.commands
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.module.ModuleManager
 
-class ToggleCommand : Command("toggle", arrayOf("t")) {
+object ToggleCommand : Command("toggle", arrayOf("t")) {
     /**
      * Execute commands with provided [args]
      */

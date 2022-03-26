@@ -12,20 +12,17 @@ import lol.liquidcat.features.module.ModuleManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.font.Fonts
 
-class ReloadCommand : Command("reload", arrayOf("configreload")) {
+object ReloadCommand : Command("reload", arrayOf("configreload")) {
     /**
      * Execute commands with provided [args]
      */
     override fun execute(args: Array<String>) {
         chat("Reloading...")
-        chat("§c§lReloading commands...")
-        LiquidCat.commandManager = CommandManager()
-        LiquidCat.commandManager.registerCommands()
         LiquidCat.isStarting = true
         LiquidCat.scriptManager.disableScripts()
         LiquidCat.scriptManager.unloadScripts()
 
-        for(module in ModuleManager.modules)
+        for (module in ModuleManager.modules)
             ModuleManager.generateCommand(module)
 
         chat("§c§lReloading scripts...")

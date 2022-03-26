@@ -16,7 +16,7 @@ import lol.liquidcat.utils.render.GLUtils
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.util.ResourceLocation
 
-class TacoCommand : Command("taco", emptyArray()), Listenable {
+object TacoCommand : Command("taco", emptyArray()), Listenable {
     private var toggle = false
     private var image = 0
     private var running = 0f

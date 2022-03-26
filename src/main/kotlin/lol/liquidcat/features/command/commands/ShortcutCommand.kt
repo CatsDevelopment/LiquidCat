@@ -7,9 +7,10 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.command.CommandManager
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 
-class ShortcutCommand: Command("shortcut", arrayOf()) {
+object ShortcutCommand: Command("shortcut", arrayOf()) {
     /**
      * Execute commands with provided [args]
      */
@@ -17,7 +18,7 @@ class ShortcutCommand: Command("shortcut", arrayOf()) {
         when {
             args.size > 3 && args[1].equals("add", true) -> {
                 try {
-                    LiquidCat.commandManager.registerShortcut(args[2],
+                    CommandManager.registerShortcut(args[2],
                             StringUtils.toCompleteString(args, 3))
 
                     chat("Successfully added shortcut.")
@@ -27,7 +28,7 @@ class ShortcutCommand: Command("shortcut", arrayOf()) {
             }
 
             args.size >= 3 && args[1].equals("remove", true) -> {
-                if (LiquidCat.commandManager.unregisterShortcut(args[2]))
+                if (CommandManager.unregisterShortcut(args[2]))
                     chat("Successfully removed shortcut.")
                 else
                     chat("Shortcut does not exist.")

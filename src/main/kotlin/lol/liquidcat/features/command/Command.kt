@@ -40,7 +40,7 @@ abstract class Command(val command: String, val alias: Array<String>) : Minecraf
     /**
      * Print [syntax] of command to chat
      */
-    protected fun chatSyntax(syntax: String) = msg("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3Syntax: §7${LiquidCat.commandManager.prefix}$syntax")
+    protected fun chatSyntax(syntax: String) = msg("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3Syntax: §7${CommandManager.prefix}$syntax")
 
     /**
      * Print [syntaxes] of command to chat
@@ -49,7 +49,7 @@ abstract class Command(val command: String, val alias: Array<String>) : Minecraf
         msg("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3Syntax:")
 
         for (syntax in syntaxes)
-            msg("§8> §7${LiquidCat.commandManager.prefix}$command ${syntax.toLowerCase()}")
+            msg("§8> §7${CommandManager.prefix}$command ${syntax.toLowerCase()}")
     }
 
     /**

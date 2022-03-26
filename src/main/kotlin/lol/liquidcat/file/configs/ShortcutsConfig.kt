@@ -10,6 +10,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.command.shortcuts.Shortcut
 import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
@@ -45,12 +46,12 @@ class ShortcutsConfig(file: File) : FileConfig(file) {
                 val commandName = scriptCommand.get("name")?.asString ?: continue
                 val arguments = scriptCommand.get("arguments")?.asJsonArray ?: continue
 
-                val command = LiquidCat.commandManager.getCommand(commandName) ?: continue
+                val command = CommandManager.getCommand(commandName) ?: continue
 
                 script.add(Pair(command, arguments.map { it.asString }.toTypedArray()))
             }
 
-            LiquidCat.commandManager.registerCommand(Shortcut(name, script))
+            CommandManager.registerCommand(Shortcut(name, script))
         }
     }
 
@@ -62,7 +63,7 @@ class ShortcutsConfig(file: File) : FileConfig(file) {
     override fun saveConfig() {
         val jsonArray = JsonArray()
 
-        for (command in LiquidCat.commandManager.commands) {
+        for (command in CommandManager.commands) {
             if (command !is Shortcut)
                 continue
 

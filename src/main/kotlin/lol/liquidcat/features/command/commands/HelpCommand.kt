@@ -8,9 +8,10 @@ package lol.liquidcat.features.command.commands
 import joptsimple.internal.Strings
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.utils.msg
 
-class HelpCommand : Command("help", emptyArray()) {
+object HelpCommand : Command("help", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */
@@ -31,7 +32,7 @@ class HelpCommand : Command("help", emptyArray()) {
             return
         }
 
-        val maxPageDouble = LiquidCat.commandManager.commands.size / 8.0
+        val maxPageDouble = CommandManager.commands.size / 8.0
         val maxPage = if (maxPageDouble > maxPageDouble.toInt())
             maxPageDouble.toInt() + 1
         else
@@ -45,16 +46,16 @@ class HelpCommand : Command("help", emptyArray()) {
         chat("§c§lHelp")
         msg("§7> Page: §8$page / $maxPage")
 
-        val commands = LiquidCat.commandManager.commands.sortedBy { it.command }
+        val commands = CommandManager.commands.sortedBy { it.command }
 
         var i = 8 * (page - 1)
         while (i < 8 * page && i < commands.size) {
             val command = commands[i]
 
-            msg("§6> §7${LiquidCat.commandManager.prefix}${command.command}${if (command.alias.isEmpty()) "" else " §7(§8" + Strings.join(command.alias, "§7, §8") + "§7)"}")
+            msg("§6> §7${CommandManager.prefix}${command.command}${if (command.alias.isEmpty()) "" else " §7(§8" + Strings.join(command.alias, "§7, §8") + "§7)"}")
             i++
         }
 
-        msg("§a------------\n§7> §c${LiquidCat.commandManager.prefix}help §8<§7§lpage§8>")
+        msg("§a------------\n§7> §c${CommandManager.prefix}help §8<§7§lpage§8>")
     }
 }

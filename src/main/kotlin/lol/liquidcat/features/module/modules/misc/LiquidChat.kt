@@ -12,6 +12,7 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.SessionEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.msg
@@ -164,7 +165,7 @@ object LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBo
     private val connectTimer = MSTimer()
 
     init {
-        LiquidCat.commandManager.registerCommand(object : Command("chat", arrayOf("lc", "irc")) {
+        CommandManager.registerCommand(object : Command("chat", arrayOf("lc", "irc")) {
 
             override fun execute(args: Array<String>) {
                 if(args.size > 1) {
@@ -187,7 +188,7 @@ object LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBo
 
         })
 
-        LiquidCat.commandManager.registerCommand(object : Command("pchat", arrayOf("privatechat", "lcpm")) {
+        CommandManager.registerCommand(object : Command("pchat", arrayOf("privatechat", "lcpm")) {
 
             override fun execute(args: Array<String>) {
                 if(args.size > 2) {
@@ -212,7 +213,7 @@ object LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBo
 
         })
 
-        LiquidCat.commandManager.registerCommand(object : Command("chattoken", emptyArray()) {
+        CommandManager.registerCommand(object : Command("chattoken", emptyArray()) {
 
             override fun execute(args: Array<String>) {
 
@@ -243,7 +244,7 @@ object LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBo
 
                         args[1].equals("copy", true) -> {
                             if (jwtToken.isEmpty()) {
-                                chat("§cError: §7No token set! Generate one first using '${LiquidCat.commandManager.prefix}chattoken generate'.")
+                                chat("§cError: §7No token set! Generate one first using '${CommandManager.prefix}chattoken generate'.")
                                 return
                             }
                             val stringSelection = StringSelection(jwtToken)
@@ -257,7 +258,7 @@ object LiquidChat : Module("LiquidChat", "Allows you to chat with other LiquidBo
 
         })
 
-        LiquidCat.commandManager.registerCommand(object : Command("chatadmin", emptyArray()) {
+        CommandManager.registerCommand(object : Command("chatadmin", emptyArray()) {
 
             override fun execute(args: Array<String>) {
                 if (!state) {

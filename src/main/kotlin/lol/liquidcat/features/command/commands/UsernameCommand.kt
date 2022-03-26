@@ -9,7 +9,7 @@ import lol.liquidcat.features.command.Command
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
 
-class UsernameCommand : Command("username", emptyArray()) {
+object UsernameCommand : Command("username", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

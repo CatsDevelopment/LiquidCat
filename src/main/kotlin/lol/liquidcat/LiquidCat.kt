@@ -42,7 +42,6 @@ object LiquidCat {
     val logger: Logger = LogManager.getLogger(CLIENT_NAME)
 
     // Managers
-    lateinit var commandManager: CommandManager
     lateinit var eventManager: EventManager
     lateinit var fileManager: FileManager
     lateinit var scriptManager: ScriptManager
@@ -79,13 +78,11 @@ object LiquidCat {
         eventManager.registerListener(DonatorCape())
         eventManager.registerListener(ClickHandler)
 
-        // Create command manager
-        commandManager = CommandManager()
-
         // Load client fonts
         Fonts.loadFonts()
 
         ModuleManager.registerModules()
+        CommandManager.registerCommands()
 
         // Remapper
         try {
@@ -98,9 +95,6 @@ object LiquidCat {
         } catch (throwable: Throwable) {
             logger.error("Failed to load scripts.", throwable)
         }
-
-        // Register commands
-        commandManager.registerCommands()
 
         // Load configs
         fileManager.loadConfigs(

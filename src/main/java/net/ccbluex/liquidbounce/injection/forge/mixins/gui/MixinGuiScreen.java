@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
 import lol.liquidcat.LiquidCat;
+import lol.liquidcat.features.command.CommandManager;
 import lol.liquidcat.features.module.modules.render.HUD;
 import net.ccbluex.liquidbounce.ui.client.GuiBackground;
 import net.ccbluex.liquidbounce.utils.render.ParticleUtils;
@@ -112,10 +113,10 @@ public abstract class MixinGuiScreen {
 
     @Inject(method = "sendChatMessage(Ljava/lang/String;Z)V", at = @At("HEAD"), cancellable = true)
     private void messageSend(String msg, boolean addToChat, final CallbackInfo callbackInfo) {
-        if (msg.startsWith(String.valueOf(LiquidCat.commandManager.getPrefix())) && addToChat) {
+        if (msg.startsWith(String.valueOf(CommandManager.INSTANCE.getPrefix())) && addToChat) {
             this.mc.ingameGUI.getChatGUI().addToSentMessages(msg);
 
-            LiquidCat.commandManager.executeCommands(msg);
+            CommandManager.INSTANCE.executeCommands(msg);
             callbackInfo.cancel();
         }
     }

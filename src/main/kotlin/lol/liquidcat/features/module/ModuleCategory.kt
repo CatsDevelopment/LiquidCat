@@ -7,7 +7,11 @@ package lol.liquidcat.features.module
 
 enum class ModuleCategory(val displayName: String) {
 
+    /**
+     * Category for modules related to combat
+     */
     COMBAT("Combat"),
+
     PLAYER("Player"),
     MOVEMENT("Movement"),
     RENDER("Render"),

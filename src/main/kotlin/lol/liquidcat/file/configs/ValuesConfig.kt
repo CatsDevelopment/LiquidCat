@@ -10,6 +10,7 @@ import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.features.module.modules.misc.LiquidChat.jwtToken
@@ -40,7 +41,7 @@ class ValuesConfig(file: File?) : FileConfig(file!!) {
         while (iterator.hasNext()) {
             val (key, value) = iterator.next()
             if (key.equals("CommandPrefix", ignoreCase = true)) {
-                LiquidCat.commandManager.prefix = value.asCharacter
+                CommandManager.prefix = value.asCharacter
             } else if (key.equals("targets", ignoreCase = true)) {
                 val jsonValue = value as JsonObject
                 if (jsonValue.has("TargetPlayer")) EntityUtils.targetPlayer = jsonValue["TargetPlayer"].asBoolean
@@ -90,7 +91,7 @@ class ValuesConfig(file: File?) : FileConfig(file!!) {
      */
     override fun saveConfig() {
         val jsonObject = JsonObject()
-        jsonObject.addProperty("CommandPrefix", LiquidCat.commandManager.prefix)
+        jsonObject.addProperty("CommandPrefix", CommandManager.prefix)
         val jsonTargets = JsonObject()
         jsonTargets.addProperty("TargetPlayer", EntityUtils.targetPlayer)
         jsonTargets.addProperty("TargetMobs", EntityUtils.targetMobs)

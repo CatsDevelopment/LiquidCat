@@ -10,7 +10,7 @@ import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import lol.liquidcat.utils.ServerUtils
 import net.ccbluex.liquidbounce.utils.login.MinecraftAccount
 
-class LoginCommand : Command("login", emptyArray()) {
+object LoginCommand : Command("login", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

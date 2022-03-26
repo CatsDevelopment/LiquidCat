@@ -9,7 +9,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 
-class FriendCommand : Command("friend", arrayOf("friends")) {
+object FriendCommand : Command("friend", arrayOf("friends")) {
     /**
      * Execute commands with provided [args]
      */

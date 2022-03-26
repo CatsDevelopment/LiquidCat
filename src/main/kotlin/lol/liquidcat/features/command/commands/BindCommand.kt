@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.ModuleManager
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import org.lwjgl.input.Keyboard
 
-class BindCommand : Command("bind", emptyArray()) {
+object BindCommand : Command("bind", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

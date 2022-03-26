@@ -7,6 +7,7 @@ package lol.liquidcat.features.module.modules.render
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import net.minecraft.block.Block
@@ -52,7 +53,7 @@ object XRay : Module("XRay", "Allows you to see ores through walls.", ModuleCate
     )
 
     init {
-        LiquidCat.commandManager.registerCommand(object : Command("xray", emptyArray()) {
+        CommandManager.registerCommand(object : Command("xray", emptyArray()) {
 
             override fun execute(args: Array<String>) {
                 if (args.size > 1) {

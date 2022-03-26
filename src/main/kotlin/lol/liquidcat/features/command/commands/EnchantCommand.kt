@@ -8,7 +8,7 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.features.command.Command
 import net.minecraft.enchantment.Enchantment
 
-class EnchantCommand : Command("enchant", emptyArray()) {
+object EnchantCommand : Command("enchant", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

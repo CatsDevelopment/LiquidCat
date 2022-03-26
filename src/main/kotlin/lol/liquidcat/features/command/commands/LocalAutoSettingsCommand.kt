@@ -13,7 +13,7 @@ import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import java.io.File
 import java.io.IOException
 
-class LocalAutoSettingsCommand : Command("localautosettings", arrayOf("localsetting", "localsettings", "localconfig")) {
+object LocalAutoSettingsCommand : Command("localautosettings", arrayOf("localsetting", "localsettings", "localconfig")) {
     /**
      * Execute commands with provided [args]
      */

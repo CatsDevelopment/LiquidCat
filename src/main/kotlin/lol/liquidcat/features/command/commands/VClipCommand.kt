@@ -7,7 +7,7 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.features.command.Command
 
-class VClipCommand : Command("vclip", emptyArray()) {
+object VClipCommand : Command("vclip", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

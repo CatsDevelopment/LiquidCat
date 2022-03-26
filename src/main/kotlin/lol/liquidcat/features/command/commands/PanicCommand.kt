@@ -5,12 +5,11 @@
  */
 package lol.liquidcat.features.command.commands
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleManager
 
-class PanicCommand : Command("panic", emptyArray()) {
+object PanicCommand : Command("panic", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */

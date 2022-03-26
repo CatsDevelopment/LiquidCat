@@ -10,7 +10,7 @@ import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.utils.msg
 import org.lwjgl.input.Keyboard
 
-class BindsCommand : Command("binds", emptyArray()) {
+object BindsCommand : Command("binds", emptyArray()) {
     /**
      * Execute commands with provided [args]
      */
