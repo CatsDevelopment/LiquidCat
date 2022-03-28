@@ -9,7 +9,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleManager
@@ -21,8 +20,6 @@ import lol.liquidcat.value.Value
 import net.ccbluex.liquidbounce.features.special.AntiForge
 import net.ccbluex.liquidbounce.features.special.AutoReconnect.delay
 import net.ccbluex.liquidbounce.features.special.BungeeCordSpoof
-import net.ccbluex.liquidbounce.ui.client.GuiBackground.Companion.enabled
-import net.ccbluex.liquidbounce.ui.client.GuiBackground.Companion.particles
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDonatorCape.Companion.capeEnabled
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDonatorCape.Companion.transferCode
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAltening.Companion.apiKey
@@ -69,10 +66,6 @@ class ValuesConfig(file: File?) : FileConfig(file!!) {
                 val jsonValue = value as JsonObject
                 if (jsonValue.has("TransferCode")) transferCode = jsonValue["TransferCode"].asString
                 if (jsonValue.has("CapeEnabled")) capeEnabled = jsonValue["CapeEnabled"].asBoolean
-            } else if (key.equals("Background", ignoreCase = true)) {
-                val jsonValue = value as JsonObject
-                if (jsonValue.has("Enabled")) enabled = jsonValue["Enabled"].asBoolean
-                if (jsonValue.has("Particles")) particles = jsonValue["Particles"].asBoolean
             } else {
                 val module = ModuleManager.getModule(key)
                 if (module != null) {
@@ -117,10 +110,6 @@ class ValuesConfig(file: File?) : FileConfig(file!!) {
         capeObject.addProperty("TransferCode", transferCode)
         capeObject.addProperty("CapeEnabled", capeEnabled)
         jsonObject.add("DonatorCape", capeObject)
-        val backgroundObject = JsonObject()
-        backgroundObject.addProperty("Enabled", enabled)
-        backgroundObject.addProperty("Particles", particles)
-        jsonObject.add("Background", backgroundObject)
         ModuleManager.modules.stream().filter { module: Module -> !module.values.isEmpty() }
             .forEach { module: Module ->
                 val jsonModule = JsonObject()

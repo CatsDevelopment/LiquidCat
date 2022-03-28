@@ -5,14 +5,15 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.command.CommandManager;
 import lol.liquidcat.features.module.modules.render.HUD;
-import net.ccbluex.liquidbounce.ui.client.GuiBackground;
-import net.ccbluex.liquidbounce.utils.render.ParticleUtils;
 import lol.liquidcat.utils.render.shader.shaders.BackgroundShader;
+import net.ccbluex.liquidbounce.utils.render.ParticleUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -75,40 +76,20 @@ public abstract class MixinGuiScreen {
         GlStateManager.disableLighting();
         GlStateManager.disableFog();
 
-        if (GuiBackground.Companion.getEnabled()) {
-            if (LiquidCat.INSTANCE.getBackground() == null) {
-                BackgroundShader.INSTANCE.startShader();
+        BackgroundShader.INSTANCE.startShader();
 
-                final Tessellator instance = Tessellator.getInstance();
-                final WorldRenderer worldRenderer = instance.getWorldRenderer();
-                worldRenderer.begin(7, DefaultVertexFormats.POSITION);
-                worldRenderer.pos(0, height, 0.0D).endVertex();
-                worldRenderer.pos(width, height, 0.0D).endVertex();
-                worldRenderer.pos(width, 0, 0.0D).endVertex();
-                worldRenderer.pos(0, 0, 0.0D).endVertex();
-                instance.draw();
+        final Tessellator instance = Tessellator.getInstance();
+        final WorldRenderer worldRenderer = instance.getWorldRenderer();
+        worldRenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(0, height, 0.0D).endVertex();
+        worldRenderer.pos(width, height, 0.0D).endVertex();
+        worldRenderer.pos(width, 0, 0.0D).endVertex();
+        worldRenderer.pos(0, 0, 0.0D).endVertex();
+        instance.draw();
 
-                BackgroundShader.INSTANCE.stopShader();
-            } else {
-                final ScaledResolution scaledResolution = new ScaledResolution(mc);
-                final int width = scaledResolution.getScaledWidth();
-                final int height = scaledResolution.getScaledHeight();
+        BackgroundShader.INSTANCE.stopShader();
 
-                mc.getTextureManager().bindTexture(LiquidCat.INSTANCE.getBackground());
-                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                Gui.drawScaledCustomSizeModalRect(0, 0, 0.0F, 0.0F, width, height, width, height, width, height);
-            }
-
-            if (GuiBackground.Companion.getParticles())
-                ParticleUtils.drawParticles(Mouse.getX() * width / mc.displayWidth, height - Mouse.getY() * height / mc.displayHeight - 1);
-            callbackInfo.cancel();
-        }
-    }
-
-    @Inject(method = "drawBackground", at = @At("RETURN"))
-    private void drawParticles(final CallbackInfo callbackInfo) {
-        if (GuiBackground.Companion.getParticles())
-            ParticleUtils.drawParticles(Mouse.getX() * width / mc.displayWidth, height - Mouse.getY() * height / mc.displayHeight - 1);
+        callbackInfo.cancel();
     }
 
     @Inject(method = "sendChatMessage(Ljava/lang/String;Z)V", at = @At("HEAD"), cancellable = true)

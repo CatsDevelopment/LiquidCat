@@ -23,6 +23,9 @@ import lol.liquidcat.features.module.modules.world.*
 
 object ModuleManager : Listenable {
 
+    /**
+     * List with all registered modules
+     */
     val modules = mutableListOf<Module>()
 
     init {
@@ -30,7 +33,7 @@ object ModuleManager : Listenable {
     }
 
     /**
-     * Register all modules
+     * Registers all modules
      */
     fun registerModules() {
         LiquidCat.logger.info("[ModuleManager] Loading modules...")
@@ -148,19 +151,24 @@ object ModuleManager : Listenable {
             ClickGUI,
             Teams
         ).apply {
+
+            // Registers each module
             forEach { registerModule(it) }
+
+            // Sorts modules alphabetically
             sortBy { it.name }
         }
 
         LiquidCat.logger.info("[ModuleManager] Loaded ${modules.size} modules.")
     }
-    /**
-     * Get module by [moduleName]
-     */
-    fun getModule(moduleName: String?) = modules.find { it.name.equals(moduleName, true) }
 
     /**
-     * Register [module]
+     * Searches and returns the module by its [name]
+     */
+    fun getModule(name: String?) = modules.find { it.name.equals(name, true) }
+
+    /**
+     * Registers [module]
      */
     fun registerModule(module: Module) {
         modules.add(module)
@@ -170,14 +178,13 @@ object ModuleManager : Listenable {
     }
 
     /**
-     * Unregister [module]
+     * Unregisters [module]
      */
     fun unregisterModule(module: Module) {
         modules.remove(module)
         LiquidCat.eventManager.unregisterListener(module)
     }
 
-    // TODO: Replace with something better? i think
     /**
      * Generate command for [module]
      */

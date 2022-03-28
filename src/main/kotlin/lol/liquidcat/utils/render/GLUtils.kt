@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
 import net.minecraft.util.ResourceLocation
+import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
 import javax.vecmath.Vector3d
@@ -269,16 +270,20 @@ object GLUtils {
     fun drawImage(image: ResourceLocation, x: Int, y: Int, width: Int, height: Int) {
         glDisable(GL_DEPTH_TEST)
         glDepthMask(false)
-        glEnable(GL_BLEND)
-        OpenGlHelper.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO)
-        glColor4f(1.0f, 1.0f, 1.0f, 1.0f)
+        GlStateManager.enableTexture2D()
+        GlStateManager.enableBlend()
+        GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        GlStateManager.enableAlpha()
+        GlStateManager.alphaFunc(GL_GREATER, 0f)
 
         mc.textureManager.bindTexture(image)
         Gui.drawModalRectWithCustomSizedTexture(x, y, 0f, 0f, width, height, width.toFloat(), height.toFloat())
 
         glEnable(GL_DEPTH_TEST)
         glDepthMask(true)
-        glDisable(GL_BLEND)
+        GlStateManager.disableTexture2D()
+        GlStateManager.disableBlend()
+        GlStateManager.disableAlpha()
     }
 
     /**

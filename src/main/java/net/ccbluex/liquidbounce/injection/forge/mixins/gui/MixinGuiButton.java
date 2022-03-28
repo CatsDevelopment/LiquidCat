@@ -23,7 +23,6 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.awt.*;
 
-
 @Mixin(GuiButton.class)
 @SideOnly(Side.CLIENT)
 public abstract class MixinGuiButton extends Gui {
