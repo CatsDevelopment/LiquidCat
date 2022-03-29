@@ -7,6 +7,7 @@ package net.ccbluex.liquidbounce.ui.font;
 
 import com.google.gson.*;
 import lol.liquidcat.LiquidCat;
+import lol.liquidcat.file.FileManager;
 import net.ccbluex.liquidbounce.utils.misc.HttpUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -74,7 +75,7 @@ public class Fonts {
         try {
             CUSTOM_FONT_RENDERERS.clear();
 
-            final File fontsFile = new File(LiquidCat.fileManager.fontsDir, "fonts.json");
+            final File fontsFile = new File(FileManager.INSTANCE.getFontsDir(), "fonts.json");
 
             if(fontsFile.exists()) {
                 final JsonElement jsonElement = new JsonParser().parse(new BufferedReader(new FileReader(fontsFile)));
@@ -108,13 +109,13 @@ public class Fonts {
 
     private static void downloadFonts() {
         try {
-            final File outputFile = new File(LiquidCat.fileManager.fontsDir, "roboto.zip");
+            final File outputFile = new File(FileManager.INSTANCE.getFontsDir(), "roboto.zip");
 
             if(!outputFile.exists()) {
                 LiquidCat.INSTANCE.getLogger().info("Downloading fonts...");
                 HttpUtils.download(LiquidCat.CLIENT_CLOUD + "/fonts/Roboto.zip", outputFile);
                 LiquidCat.INSTANCE.getLogger().info("Extract fonts...");
-                extractZip(outputFile.getPath(), LiquidCat.fileManager.fontsDir.getPath());
+                extractZip(outputFile.getPath(), FileManager.INSTANCE.getFontsDir().getPath());
             }
         }catch(IOException e) {
             e.printStackTrace();
@@ -211,7 +212,7 @@ public class Fonts {
 
     private static Font getFont(final String fontName, final int size) {
         try {
-            final InputStream inputStream = new FileInputStream(new File(LiquidCat.fileManager.fontsDir, fontName));
+            final InputStream inputStream = new FileInputStream(new File(FileManager.INSTANCE.getFontsDir(), fontName));
             Font awtClientFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             awtClientFont = awtClientFont.deriveFont(Font.PLAIN, size);
             inputStream.close();

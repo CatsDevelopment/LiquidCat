@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.ui.client.hud.designer
 
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.file.FileManager
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.minecraft.client.gui.GuiScreen
 import org.lwjgl.input.Keyboard
@@ -82,7 +83,7 @@ class GuiHudDesigner : GuiScreen() {
 
     override fun onGuiClosed() {
         Keyboard.enableRepeatEvents(false)
-        LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.hudConfig)
+        FileManager.saveConfig(FileManager.hudConfig)
 
         super.onGuiClosed()
     }

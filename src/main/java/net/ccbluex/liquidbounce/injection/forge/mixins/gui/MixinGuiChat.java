@@ -7,6 +7,8 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.command.CommandManager;
+import lol.liquidcat.file.FileManager;
+import lol.liquidcat.friend.FriendManager;
 import lol.liquidcat.utils.render.GLUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiChat;
@@ -71,7 +73,7 @@ public abstract class MixinGuiChat extends MixinGuiScreen {
     @Inject(method = "autocompletePlayerNames", at = @At("HEAD"))
     private void prioritizeClientFriends(final CallbackInfo callbackInfo) {
         foundPlayerNames.sort(
-                Comparator.comparing(s -> !LiquidCat.fileManager.friendsConfig.isFriend(s)));
+                Comparator.comparing(s -> !FriendManager.INSTANCE.isFriend(s)));
     }
 
     /**

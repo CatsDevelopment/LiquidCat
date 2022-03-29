@@ -5,17 +5,16 @@
  */
 package lol.liquidcat.features.module.modules.world
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.modules.player.InventoryCleaner
 import lol.liquidcat.utils.item.isInventoryFull
-import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.IntValue
 import lol.liquidcat.utils.timer.MSTimer
 import lol.liquidcat.utils.timer.TimeUtils
+import lol.liquidcat.value.BoolValue
+import lol.liquidcat.value.IntValue
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.Slot
 import net.minecraft.item.Item

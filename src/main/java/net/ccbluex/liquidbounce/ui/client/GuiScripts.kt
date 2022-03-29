@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.ui.client
 
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.file.FileManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
@@ -60,7 +61,7 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                     LiquidCat.scriptManager.importScript(file)
 
                     LiquidCat.clickGui = ClickGui()
-                    LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.clickGuiConfig)
+                    FileManager.loadConfig(FileManager.clickGuiConfig)
                     return
                 } else if (fileName.endsWith(".zip")) {
                     val zipFile = ZipFile(file)
@@ -91,8 +92,8 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                     scriptFiles.forEach { scriptFile -> LiquidCat.scriptManager.loadScript(scriptFile) }
 
                     LiquidCat.clickGui = ClickGui()
-                    LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.clickGuiConfig)
-                    LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.hudConfig)
+                    FileManager.loadConfig(FileManager.clickGuiConfig)
+                    FileManager.loadConfig(FileManager.hudConfig)
                     return
                 }
 
@@ -109,8 +110,8 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                     LiquidCat.scriptManager.deleteScript(script)
 
                     LiquidCat.clickGui = ClickGui()
-                    LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.clickGuiConfig)
-                    LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.hudConfig)
+                    FileManager.loadConfig(FileManager.clickGuiConfig)
+                    FileManager.loadConfig(FileManager.hudConfig)
                 }
             } catch (t: Throwable) {
                 LiquidCat.logger.error("Something went wrong while deleting a script.", t)

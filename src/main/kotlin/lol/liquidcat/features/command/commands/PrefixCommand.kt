@@ -8,6 +8,7 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.command.CommandManager
+import lol.liquidcat.file.FileManager
 
 object PrefixCommand : Command("prefix", emptyArray()) {
     /**
@@ -27,7 +28,7 @@ object PrefixCommand : Command("prefix", emptyArray()) {
         }
 
         CommandManager.prefix = prefix.single()
-        LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.valuesConfig)
+        FileManager.saveConfig(FileManager.valuesConfig)
 
         chat("Successfully changed command prefix to '§8$prefix§3'")
     }

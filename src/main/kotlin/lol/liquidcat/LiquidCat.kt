@@ -43,7 +43,6 @@ object LiquidCat {
 
     // Managers
     lateinit var eventManager: EventManager
-    lateinit var fileManager: FileManager
     lateinit var scriptManager: ScriptManager
 
     // HUD & ClickGUI
@@ -64,9 +63,6 @@ object LiquidCat {
         isStarting = true
 
         logger.info("Launching $CLIENT_NAME $CLIENT_VERSION, by $CLIENT_CREATOR")
-
-        // Create file manager
-        fileManager = FileManager()
 
         // Crate event manager
         eventManager = EventManager()
@@ -96,14 +92,11 @@ object LiquidCat {
             logger.error("Failed to load scripts.", throwable)
         }
 
-        // Load configs
-        fileManager.loadConfigs(
-            fileManager.modulesConfig, fileManager.valuesConfig, fileManager.accountsConfig,
-                fileManager.friendsConfig, fileManager.xrayConfig, fileManager.shortcutsConfig)
-
-        // ClickGUI
         clickGui = ClickGui()
-        fileManager.loadConfig(fileManager.clickGuiConfig)
+        hud = createDefault()
+
+        // Load configs
+        FileManager.loadConfigs()
 
         // Register capes service
         try {
@@ -119,10 +112,6 @@ object LiquidCat {
         } catch (throwable: Throwable) {
             logger.error("Failed to setup Discord RPC.", throwable)
         }
-
-        // Set HUD
-        hud = createDefault()
-        fileManager.loadConfig(fileManager.hudConfig)
 
         // Disable optifine fastrender
         disableFastRender()
@@ -144,7 +133,7 @@ object LiquidCat {
         eventManager.callEvent(ClientShutdownEvent())
 
         // Save all available configs
-        fileManager.saveAllConfigs()
+        FileManager.saveConfigs()
 
         // Shutdown discord rpc
         clientRichPresence.shutdown()

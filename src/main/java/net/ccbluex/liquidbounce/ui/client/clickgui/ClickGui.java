@@ -9,6 +9,7 @@ import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleManager;
+import lol.liquidcat.file.FileManager;
 import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.features.module.modules.render.ClickGUI;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;
@@ -329,7 +330,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.clickGuiConfig);
+        FileManager.INSTANCE.saveConfig(FileManager.INSTANCE.getClickGuiConfig(), false);
     }
 
     @Override

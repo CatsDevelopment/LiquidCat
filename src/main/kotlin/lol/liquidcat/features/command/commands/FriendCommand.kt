@@ -5,8 +5,9 @@
  */
 package lol.liquidcat.features.command.commands
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.file.FileManager
+import lol.liquidcat.friend.FriendManager
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 
 object FriendCommand : Command("friend", arrayOf("friends")) {
@@ -15,7 +16,7 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
      */
     override fun execute(args: Array<String>) {
         if (args.size > 1) {
-            val friendsConfig = LiquidCat.fileManager.friendsConfig
+            val friendsConfig = FileManager.friendsConfig
 
             when {
                 args[1].equals("add", ignoreCase = true) -> {
@@ -27,8 +28,8 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
                             return
                         }
 
-                        if (if (args.size > 3) friendsConfig.addFriend(name, StringUtils.toCompleteString(args, 3)) else friendsConfig.addFriend(name)) {
-                            LiquidCat.fileManager.saveConfig(friendsConfig)
+                        if (if (args.size > 3) FriendManager.addFriend(name, StringUtils.toCompleteString(args, 3)) else FriendManager.addFriend(name)) {
+                            FileManager.saveConfig(friendsConfig)
                             chat("§a§l$name§3 was added to your friend list.")
                             playEdit()
                         } else
@@ -43,8 +44,8 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
                     if (args.size > 2) {
                         val name = args[2]
 
-                        if (friendsConfig.removeFriend(name)) {
-                            LiquidCat.fileManager.saveConfig(friendsConfig)
+                        if (FriendManager.removeFriend(name)) {
+                            FileManager.saveConfig(friendsConfig)
                             chat("§a§l$name§3 was removed from your friend list.")
                             playEdit()
                         } else
@@ -56,9 +57,9 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
                 }
 
                 args[1].equals("clear", ignoreCase = true) -> {
-                    val friends = friendsConfig.friends.size
-                    friendsConfig.clearFriends()
-                    LiquidCat.fileManager.saveConfig(friendsConfig)
+                    val friends = FriendManager.friends.size
+                    FriendManager.clearFriends()
+                    FileManager.saveConfig(friendsConfig)
                     chat("Removed $friends friend(s).")
                     return
                 }
@@ -66,10 +67,10 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
                 args[1].equals("list", ignoreCase = true) -> {
                     chat("Your Friends:")
 
-                    for (friend in friendsConfig.friends)
-                        chat("§7> §a§l${friend.playerName} §c(§7§l${friend.alias}§c)")
+                    for (friend in FriendManager.friends)
+                        chat("§7> §a§l${friend.name} §c(§7§l${friend.alias}§c)")
 
-                    chat("You have §c${friendsConfig.friends.size}§3 friends.")
+                    chat("You have §c${FriendManager.friends.size}§3 friends.")
                     return
                 }
             }
@@ -91,8 +92,8 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
                             .filter { it.startsWith(args[1], true) }
                     }
                     "remove" -> {
-                        return LiquidCat.fileManager.friendsConfig.friends
-                                .map { it.playerName }
+                        return FriendManager.friends
+                                .map { it.name }
                                 .filter { it.startsWith(args[1], true) }
                     }
                 }

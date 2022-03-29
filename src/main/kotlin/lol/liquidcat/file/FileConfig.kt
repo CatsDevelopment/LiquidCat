@@ -23,14 +23,10 @@ abstract class FileConfig(val file: File) {
     /**
      * Create config
      */
-    fun createConfig() {
-        file.createNewFile()
-    }
+    fun createConfig() = file.createNewFile()
 
     /**
      * @return config file exist
      */
-    fun hasConfig(): Boolean {
-        return file.exists()
-    }
+    fun hasConfig() = file.exists()
 }

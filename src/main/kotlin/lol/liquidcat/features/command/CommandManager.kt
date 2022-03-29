@@ -6,10 +6,10 @@
 
 package lol.liquidcat.features.command
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.commands.*
 import lol.liquidcat.features.command.shortcuts.Shortcut
 import lol.liquidcat.features.command.shortcuts.ShortcutParser
+import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.msg
 
 object CommandManager {
@@ -153,7 +153,7 @@ object CommandManager {
                 Pair(command, it.toTypedArray())
             }))
 
-            LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.shortcutsConfig)
+            FileManager.saveConfig(FileManager.shortcutsConfig)
         } else {
             throw IllegalArgumentException("Command already exists!")
         }
@@ -164,7 +164,7 @@ object CommandManager {
             it is Shortcut && it.command.equals(name, ignoreCase = true)
         }
 
-        LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.shortcutsConfig)
+        FileManager.saveConfig(FileManager.shortcutsConfig)
 
         return removed
     }

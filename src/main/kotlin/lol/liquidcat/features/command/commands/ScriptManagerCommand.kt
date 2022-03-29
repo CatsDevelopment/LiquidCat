@@ -9,6 +9,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.ModuleManager
+import lol.liquidcat.file.FileManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
 import org.apache.commons.io.IOUtils
@@ -33,7 +34,7 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                             LiquidCat.scriptManager.importScript(file)
 
                             LiquidCat.clickGui = ClickGui()
-                            LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.clickGuiConfig)
+                            FileManager.loadConfig(FileManager.clickGuiConfig)
 
                             chat("Successfully imported script.")
                             return
@@ -66,8 +67,8 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                             scriptFiles.forEach { scriptFile -> LiquidCat.scriptManager.loadScript(scriptFile) }
 
                             LiquidCat.clickGui = ClickGui()
-                            LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.clickGuiConfig)
-                            LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.hudConfig)
+                            FileManager.loadConfig(FileManager.clickGuiConfig)
+                            FileManager.loadConfig(FileManager.hudConfig)
 
                             chat("Successfully imported script.")
                             return
@@ -100,8 +101,8 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                         LiquidCat.scriptManager.deleteScript(script)
 
                         LiquidCat.clickGui = ClickGui()
-                        LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.clickGuiConfig)
-                        LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.hudConfig)
+                        FileManager.loadConfig(FileManager.clickGuiConfig)
+                        FileManager.loadConfig(FileManager.hudConfig)
                         chat("Successfully deleted script.")
                     } catch (numberFormat: NumberFormatException) {
                         chatSyntaxError()
@@ -120,11 +121,11 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                             ModuleManager.generateCommand(module)
                         LiquidCat.scriptManager.loadScripts()
                         LiquidCat.scriptManager.enableScripts()
-                        LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.modulesConfig)
+                        FileManager.loadConfig(FileManager.modulesConfig)
                         LiquidCat.isStarting = false
-                        LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.valuesConfig)
+                        FileManager.loadConfig(FileManager.valuesConfig)
                         LiquidCat.clickGui = ClickGui()
-                        LiquidCat.fileManager.loadConfig(LiquidCat.fileManager.clickGuiConfig)
+                        FileManager.loadConfig(FileManager.clickGuiConfig)
                         chat("Successfully reloaded all scripts.")
                     } catch (t: Throwable) {
                         LiquidCat.logger.error("Something went wrong while reloading all scripts.", t)

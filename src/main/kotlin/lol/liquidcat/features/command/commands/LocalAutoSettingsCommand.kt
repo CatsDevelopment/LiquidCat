@@ -7,6 +7,7 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
+import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.SettingsUtils
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
@@ -22,7 +23,7 @@ object LocalAutoSettingsCommand : Command("localautosettings", arrayOf("localset
             when {
                 args[1].equals("load", ignoreCase = true) -> {
                     if (args.size > 2) {
-                        val scriptFile = File(LiquidCat.fileManager.settingsDir, args[2])
+                        val scriptFile = File(FileManager.settingsDir, args[2])
 
                         if (scriptFile.exists()) {
                             try {
@@ -50,7 +51,7 @@ object LocalAutoSettingsCommand : Command("localautosettings", arrayOf("localset
 
                 args[1].equals("save", ignoreCase = true) -> {
                     if (args.size > 2) {
-                        val scriptFile = File(LiquidCat.fileManager.settingsDir, args[2])
+                        val scriptFile = File(FileManager.settingsDir, args[2])
 
                         try {
                             if (scriptFile.exists())
@@ -85,7 +86,7 @@ object LocalAutoSettingsCommand : Command("localautosettings", arrayOf("localset
 
                 args[1].equals("delete", ignoreCase = true) -> {
                     if (args.size > 2) {
-                        val scriptFile = File(LiquidCat.fileManager.settingsDir, args[2])
+                        val scriptFile = File(FileManager.settingsDir, args[2])
 
                         if (scriptFile.exists()) {
                             scriptFile.delete()
@@ -136,5 +137,5 @@ object LocalAutoSettingsCommand : Command("localautosettings", arrayOf("localset
         }
     }
 
-    private fun getLocalSettings(): Array<File>? = LiquidCat.fileManager.settingsDir.listFiles()
+    private fun getLocalSettings(): Array<File>? = FileManager.settingsDir.listFiles()
 }

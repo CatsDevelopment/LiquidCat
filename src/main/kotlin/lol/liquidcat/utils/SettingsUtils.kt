@@ -11,6 +11,7 @@ import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.features.module.modules.misc.Spammer
 import lol.liquidcat.value.*
 import lol.liquidcat.features.module.modules.misc.NameProtect
+import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.entity.EntityUtils
 import net.ccbluex.liquidbounce.utils.misc.HttpUtils.get
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
@@ -146,7 +147,7 @@ object SettingsUtils {
             }
         }
 
-        LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.valuesConfig)
+        FileManager.saveConfig(FileManager.valuesConfig)
     }
 
     /**

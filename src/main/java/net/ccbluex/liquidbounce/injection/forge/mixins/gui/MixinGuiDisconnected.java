@@ -13,6 +13,7 @@ import com.thealtening.api.TheAltening;
 import com.thealtening.api.data.AccountData;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.SessionEvent;
+import lol.liquidcat.file.FileManager;
 import lol.liquidcat.utils.ServerUtils;
 import net.ccbluex.liquidbounce.features.special.AntiForge;
 import net.ccbluex.liquidbounce.features.special.AutoReconnect;
@@ -92,7 +93,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
                     }
                 }
 
-                final List<MinecraftAccount> accounts = LiquidCat.fileManager.accountsConfig.altManagerMinecraftAccounts;
+                final List<MinecraftAccount> accounts = FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts;
                 if (accounts.isEmpty()) break;
 
                 final MinecraftAccount minecraftAccount = accounts.get(new Random().nextInt(accounts.size()));
@@ -106,7 +107,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
             case 5:
                 AntiForge.enabled = !AntiForge.enabled;
                 forgeBypassButton.displayString = "Bypass AntiForge: " + (AntiForge.enabled ? "On" : "Off");
-                LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.valuesConfig);
+                FileManager.INSTANCE.saveConfig(FileManager.INSTANCE.getValuesConfig(), false);
                 break;
         }
     }

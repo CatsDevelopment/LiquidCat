@@ -16,62 +16,50 @@ import java.io.File
 import java.io.FileInputStream
 import javax.imageio.ImageIO
 
-class FileManager {
-    val dir: File = File(mc.mcDataDir, LiquidCat.CLIENT_NAME)
-    @JvmField
+object FileManager {
+    val dir = File(mc.mcDataDir, LiquidCat.CLIENT_NAME)
     val fontsDir = File(dir, "fonts")
     val settingsDir = File(dir, "settings")
-    val modulesConfig: FileConfig = ModulesConfig(File(dir, "modules.json"))
-    @JvmField
-    val valuesConfig: FileConfig = ValuesConfig(File(dir, "values.json"))
-    @JvmField
-    val clickGuiConfig: FileConfig = ClickGuiConfig(File(dir, "clickgui.json"))
-    @JvmField
-    val accountsConfig: AccountsConfig = AccountsConfig(File(dir, "accounts.json"))
-    @JvmField
-    val friendsConfig: FriendsConfig = FriendsConfig(File(dir, "friends.json"))
-    val xrayConfig: FileConfig = XRayConfig(File(dir, "xray-blocks.json"))
-    val hudConfig: FileConfig = HudConfig(File(dir, "hud.json"))
-    val shortcutsConfig: FileConfig = ShortcutsConfig(File(dir, "shortcuts.json"))
-    val backgroundFile = File(dir, "userbackground.png")
-    var firstStart = false
+
+    val modulesConfig = ModulesConfig(File(dir, "modules.json"))
+    val valuesConfig = ValuesConfig(File(dir, "values.json"))
+    val clickGuiConfig = ClickGuiConfig(File(dir, "clickgui.json"))
+    val accountsConfig = AccountsConfig(File(dir, "accounts.json"))
+    val friendsConfig = FriendsConfig(File(dir, "friends.json"))
+    val xrayConfig = XRayConfig(File(dir, "xray-blocks.json"))
+    val hudConfig = HudConfig(File(dir, "hud.json"))
+    val shortcutsConfig = ShortcutsConfig(File(dir, "shortcuts.json"))
+
+    val configs = arrayOf(
+        modulesConfig,
+        valuesConfig,
+        clickGuiConfig,
+        accountsConfig,
+        friendsConfig,
+        xrayConfig,
+        hudConfig,
+        shortcutsConfig
+    )
+
+    val PRETTY_GSON = GsonBuilder().setPrettyPrinting().create()
+
+    /**
+     * Load all configs in file manager
+     */
+    fun loadConfigs() = configs.forEach { loadConfig(it) }
+
+    /**
+     * Save all configs in file manager
+     */
+    fun saveConfigs() = configs.forEach { saveConfig(it) }
 
     /**
      * Setup folder
      */
     fun setupFolder() {
-        if (!dir.exists()) {
-            dir.mkdir()
-            firstStart = true
-        }
+        if (!dir.exists()) dir.mkdir()
         if (!fontsDir.exists()) fontsDir.mkdir()
         if (!settingsDir.exists()) settingsDir.mkdir()
-    }
-
-    /**
-     * Load all configs in file manager
-     */
-    fun loadAllConfigs() {
-        for (field in javaClass.declaredFields) {
-            if (field.type == FileConfig::class.java) {
-                try {
-                    if (!field.isAccessible) field.isAccessible = true
-                    val fileConfig = field[this] as FileConfig
-                    loadConfig(fileConfig)
-                } catch (e: IllegalAccessException) {
-                    LiquidCat.logger.error("Failed to load config file of field " + field.name + ".", e)
-                }
-            }
-        }
-    }
-
-    /**
-     * Load a list of configs
-     *
-     * @param configs list
-     */
-    fun loadConfigs(vararg configs: FileConfig) {
-        for (fileConfig in configs) loadConfig(fileConfig)
     }
 
     /**
@@ -94,50 +82,12 @@ class FileManager {
     }
 
     /**
-     * Save all configs in file manager
-     */
-    fun saveAllConfigs() {
-        for (field in javaClass.declaredFields) {
-            if (field.type == FileConfig::class.java) {
-                try {
-                    if (!field.isAccessible) field.isAccessible = true
-                    val fileConfig = field[this] as FileConfig
-                    saveConfig(fileConfig)
-                } catch (e: IllegalAccessException) {
-                    LiquidCat.logger.error(
-                        "[FileManager] Failed to save config file of field " +
-                                field.name + ".", e
-                    )
-                }
-            }
-        }
-    }
-
-    /**
-     * Save a list of configs
-     *
-     * @param configs list
-     */
-    fun saveConfigs(vararg configs: FileConfig) {
-        for (fileConfig in configs) saveConfig(fileConfig)
-    }
-
-    /**
-     * Save one config
-     *
-     * @param config to save
-     */
-    fun saveConfig(config: FileConfig) {
-        saveConfig(config, false)
-    }
-
-    /**
      * Save one config
      *
      * @param config         to save
      * @param ignoreStarting check starting
      */
-    private fun saveConfig(config: FileConfig, ignoreStarting: Boolean) {
+    fun saveConfig(config: FileConfig, ignoreStarting: Boolean = false) {
         if (!ignoreStarting && LiquidCat.isStarting) return
         try {
             if (!config.hasConfig()) config.createConfig()
@@ -152,31 +102,10 @@ class FileManager {
     }
 
     /**
-     * Load background for background
-     */
-    fun loadBackground() {
-        if (backgroundFile.exists()) {
-            try {
-                val bufferedImage: BufferedImage = ImageIO.read(FileInputStream(backgroundFile)) ?: return
-                LiquidCat.background = ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/background.png")
-                mc.textureManager.loadTexture(LiquidCat.background, DynamicTexture(bufferedImage))
-                LiquidCat.logger.info("[FileManager] Loaded background.")
-            } catch (e: Exception) {
-                LiquidCat.logger.error("[FileManager] Failed to load background.", e)
-            }
-        }
-    }
-
-    companion object {
-        val PRETTY_GSON = GsonBuilder().setPrettyPrinting().create()
-    }
-
-    /**
      * Constructor of file manager
      * Setup everything important
      */
     init {
         setupFolder()
-        loadBackground()
     }
 }

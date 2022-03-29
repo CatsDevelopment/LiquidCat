@@ -8,6 +8,7 @@ package lol.liquidcat.features.module
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.Listenable
+import lol.liquidcat.file.FileManager
 import lol.liquidcat.value.Value
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.stripColor
@@ -27,13 +28,13 @@ open class Module(
         set(value) {
             field = value
 
-            if (!LiquidCat.isStarting) LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.modulesConfig)
+            if (!LiquidCat.isStarting) FileManager.saveConfig(FileManager.modulesConfig)
         }
     var hide = hide
         set(value) {
             field = value
 
-            if (!LiquidCat.isStarting) LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.modulesConfig)
+            if (!LiquidCat.isStarting) FileManager.saveConfig(FileManager.modulesConfig)
         }
     var state = false
         set(value) {
@@ -56,7 +57,7 @@ open class Module(
                 field = false
             }
 
-            LiquidCat.fileManager.saveConfig(LiquidCat.fileManager.modulesConfig)
+            FileManager.saveConfig(FileManager.modulesConfig)
         }
     // HUD
     val hue = Math.random().toFloat()

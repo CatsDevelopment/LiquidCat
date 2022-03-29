@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.script.remapper
 
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.file.FileManager
 import net.ccbluex.liquidbounce.utils.misc.HttpUtils
 import java.io.File
 
@@ -17,7 +18,7 @@ import java.io.File
 object Remapper {
 
     private const val srgName = "stable_22"
-    private val srgFile = File(LiquidCat.fileManager.dir, "mcp-$srgName.srg")
+    private val srgFile = File(FileManager.dir, "mcp-$srgName.srg")
 
     private val fields : HashMap<String, HashMap<String, String>> = hashMapOf()
     private val methods : HashMap<String, HashMap<String, String>> = hashMapOf()
