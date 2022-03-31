@@ -16,10 +16,8 @@ import net.minecraft.block.Block
 import java.io.*
 
 class XRayConfig(file: File?) : FileConfig(file!!) {
-    /**
-     * Load config from file
-     */
-    override fun loadConfig() {
+
+    override fun load() {
         val jsonArray = JsonParser().parse(BufferedReader(FileReader(file))).asJsonArray
         XRay.xrayBlocks.clear()
         for (jsonElement in jsonArray) {
@@ -36,10 +34,7 @@ class XRayConfig(file: File?) : FileConfig(file!!) {
         }
     }
 
-    /**
-     * Save config to file
-     */
-    override fun saveConfig() {
+    override fun save() {
         val jsonArray = JsonArray()
         for (block in XRay.xrayBlocks) jsonArray.add(FileManager.PRETTY_GSON.toJsonTree(Block.getIdFromBlock(block)))
         val printWriter = PrintWriter(FileWriter(file))

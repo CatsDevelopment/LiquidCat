@@ -14,7 +14,7 @@ class ScriptManager {
 
     val scripts = mutableListOf<Script>()
 
-    val scriptsFolder = File(FileManager.dir, "scripts")
+    val scriptsFolder = File(FileManager.mainDir, "scripts")
     private val scriptFileExtension = ".js"
 
     /**

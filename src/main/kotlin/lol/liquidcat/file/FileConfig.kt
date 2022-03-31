@@ -11,22 +11,21 @@ abstract class FileConfig(val file: File) {
 
     /**
      * Load config from file
-     *
      */
-    abstract fun loadConfig()
+    abstract fun load()
 
     /**
      * Save config to file
      */
-    abstract fun saveConfig()
+    abstract fun save()
 
     /**
      * Create config
      */
-    fun createConfig() = file.createNewFile()
+    fun create() = file.createNewFile()
 
     /**
-     * @return config file exist
+     * Checks if a config file already exists
      */
-    fun hasConfig() = file.exists()
+    fun exists() = file.exists()
 }

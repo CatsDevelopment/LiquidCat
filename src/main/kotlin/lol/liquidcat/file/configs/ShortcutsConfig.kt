@@ -24,7 +24,7 @@ class ShortcutsConfig(file: File) : FileConfig(file) {
      *
      * @throws IOException
      */
-    override fun loadConfig() {
+    override fun load() {
         val jsonElement = JsonParser().parse(file.readText())
 
         if (jsonElement !is JsonArray)
@@ -60,7 +60,7 @@ class ShortcutsConfig(file: File) : FileConfig(file) {
      *
      * @throws IOException
      */
-    override fun saveConfig() {
+    override fun save() {
         val jsonArray = JsonArray()
 
         for (command in CommandManager.commands) {

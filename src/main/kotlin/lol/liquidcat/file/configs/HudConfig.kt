@@ -17,7 +17,7 @@ class HudConfig(file: File?) : FileConfig(file!!) {
     /**
      * Load config from file
      */
-    override fun loadConfig() {
+    override fun load() {
         LiquidCat.hud.clearElements()
         LiquidCat.hud = Config(FileUtils.readFileToString(file)).toHUD()
     }
@@ -25,7 +25,7 @@ class HudConfig(file: File?) : FileConfig(file!!) {
     /**
      * Save config to file
      */
-    override fun saveConfig() {
+    override fun save() {
         val printWriter = PrintWriter(FileWriter(file))
         printWriter.println(Config(LiquidCat.hud).toJson())
         printWriter.close()

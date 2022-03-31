@@ -9,17 +9,14 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
 import java.io.*
 
 class ModulesConfig(file: File?) : FileConfig(file!!) {
-    /**
-     * Load config from file
-     */
-    override fun loadConfig() {
+
+    override fun load() {
         val jsonElement = JsonParser().parse(BufferedReader(FileReader(file)))
         if (jsonElement is JsonNull) return
         val entryIterator: Iterator<Map.Entry<String, JsonElement>> = jsonElement.asJsonObject.entrySet().iterator()
@@ -35,11 +32,7 @@ class ModulesConfig(file: File?) : FileConfig(file!!) {
         }
     }
 
-    /**
-     * Save config to file
-     *
-     */
-    override fun saveConfig() {
+    override fun save() {
         val jsonObject = JsonObject()
         for (module in ModuleManager.modules) {
             val jsonMod = JsonObject()

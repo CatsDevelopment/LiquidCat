@@ -19,7 +19,7 @@ class AccountsConfig(file: File?) : FileConfig(file!!) {
     /**
      * Load config from file
      */
-    override fun loadConfig() {
+    override fun load() {
         val accountList = Gson().fromJson<List<*>>(BufferedReader(FileReader(file)), MutableList::class.java) ?: return
         altManagerMinecraftAccounts.clear()
 
@@ -46,7 +46,7 @@ class AccountsConfig(file: File?) : FileConfig(file!!) {
     /**
      * Save config to file
      */
-    override fun saveConfig() {
+    override fun save() {
         val accountList: MutableList<String> = ArrayList()
         altManagerMinecraftAccounts.forEach { accountList.add(it.name + ":" + (it.password ?: "") + ":" + (it.accountName ?: "")) }
         val printWriter = PrintWriter(FileWriter(file))

@@ -9,26 +9,66 @@ import com.google.gson.GsonBuilder
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.file.configs.*
 import lol.liquidcat.utils.mc
-import net.minecraft.client.renderer.texture.DynamicTexture
-import net.minecraft.util.ResourceLocation
-import java.awt.image.BufferedImage
 import java.io.File
-import java.io.FileInputStream
-import javax.imageio.ImageIO
 
 object FileManager {
-    val dir = File(mc.mcDataDir, LiquidCat.CLIENT_NAME)
-    val fontsDir = File(dir, "fonts")
-    val settingsDir = File(dir, "settings")
 
-    val modulesConfig = ModulesConfig(File(dir, "modules.json"))
-    val valuesConfig = ValuesConfig(File(dir, "values.json"))
-    val clickGuiConfig = ClickGuiConfig(File(dir, "clickgui.json"))
-    val accountsConfig = AccountsConfig(File(dir, "accounts.json"))
-    val friendsConfig = FriendsConfig(File(dir, "friends.json"))
-    val xrayConfig = XRayConfig(File(dir, "xray-blocks.json"))
-    val hudConfig = HudConfig(File(dir, "hud.json"))
-    val shortcutsConfig = ShortcutsConfig(File(dir, "shortcuts.json"))
+    /**
+     * Main client folder
+     */
+    val mainDir = File(mc.mcDataDir, LiquidCat.CLIENT_NAME).apply {
+        if (!exists()) mkdir()
+    }
+
+    /**
+     * Fonts folder
+     */
+    val fontsDir = File(mainDir, "fonts").apply {
+        if (!exists()) mkdir()
+    }
+
+    /**
+     * Folder with configs
+     */
+    val settingsDir = File(mainDir, "settings").apply {
+        if (!exists()) mkdir()
+    }
+
+    /**
+     * Config file containing modules settings
+     */
+    val modulesConfig = ModulesConfig(File(mainDir, "modules.json"))
+
+    /**
+     * Config file containing settings of different values
+     */
+    val valuesConfig = ValuesConfig(File(mainDir, "values.json"))
+
+    /**
+     * Config file containing CilckGUI settings
+     */
+    val clickGuiConfig = ClickGuiConfig(File(mainDir, "clickgui.json"))
+
+    /**
+     * Config file containing saved accounts
+     */
+    val accountsConfig = AccountsConfig(File(mainDir, "accounts.json"))
+
+    /**
+     * Config file containing a list of friends
+     */
+    val friendsConfig = FriendsConfig(File(mainDir, "friends.json"))
+
+    /**
+     * Config file containing a list of blocks allowed for XRay module
+     */
+    val xrayConfig = XRayConfig(File(mainDir, "xray-blocks.json"))
+
+    /**
+     * Config file containing HUD settings
+     */
+    val hudConfig = HudConfig(File(mainDir, "hud.json"))
+    val shortcutsConfig = ShortcutsConfig(File(mainDir, "shortcuts.json"))
 
     val configs = arrayOf(
         modulesConfig,
@@ -54,27 +94,16 @@ object FileManager {
     fun saveConfigs() = configs.forEach { saveConfig(it) }
 
     /**
-     * Setup folder
-     */
-    fun setupFolder() {
-        if (!dir.exists()) dir.mkdir()
-        if (!fontsDir.exists()) fontsDir.mkdir()
-        if (!settingsDir.exists()) settingsDir.mkdir()
-    }
-
-    /**
-     * Load one config
-     *
-     * @param config to load
+     * Load [config]
      */
     fun loadConfig(config: FileConfig) {
-        if (!config.hasConfig()) {
+        if (!config.exists()) {
             LiquidCat.logger.info("[FileManager] Skipped loading config: " + config.file.name + ".")
             saveConfig(config, true)
             return
         }
         try {
-            config.loadConfig()
+            config.load()
             LiquidCat.logger.info("[FileManager] Loaded config: " + config.file.name + ".")
         } catch (t: Throwable) {
             LiquidCat.logger.error("[FileManager] Failed to load config file: " + config.file.name + ".", t)
@@ -82,16 +111,16 @@ object FileManager {
     }
 
     /**
-     * Save one config
+     * Save [config]
      *
-     * @param config         to save
      * @param ignoreStarting check starting
      */
     fun saveConfig(config: FileConfig, ignoreStarting: Boolean = false) {
         if (!ignoreStarting && LiquidCat.isStarting) return
+
         try {
-            if (!config.hasConfig()) config.createConfig()
-            config.saveConfig()
+            if (!config.exists()) config.create()
+            config.save()
             LiquidCat.logger.info("[FileManager] Saved config: " + config.file.name + ".")
         } catch (t: Throwable) {
             LiquidCat.logger.error(
@@ -99,13 +128,5 @@ object FileManager {
                         config.file.name + ".", t
             )
         }
-    }
-
-    /**
-     * Constructor of file manager
-     * Setup everything important
-     */
-    init {
-        setupFolder()
     }
 }

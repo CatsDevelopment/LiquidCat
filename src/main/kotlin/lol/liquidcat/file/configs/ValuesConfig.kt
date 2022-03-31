@@ -27,10 +27,8 @@ import java.io.*
 import java.util.function.Consumer
 
 class ValuesConfig(file: File?) : FileConfig(file!!) {
-    /**
-     * Load config from file
-     */
-    override fun loadConfig() {
+
+    override fun load() {
         val jsonElement = JsonParser().parse(BufferedReader(FileReader(file)))
         if (jsonElement is JsonNull) return
         val jsonObject = jsonElement as JsonObject
@@ -79,10 +77,7 @@ class ValuesConfig(file: File?) : FileConfig(file!!) {
         }
     }
 
-    /**
-     * Save config to file
-     */
-    override fun saveConfig() {
+    override fun save() {
         val jsonObject = JsonObject()
         jsonObject.addProperty("CommandPrefix", CommandManager.prefix)
         val jsonTargets = JsonObject()

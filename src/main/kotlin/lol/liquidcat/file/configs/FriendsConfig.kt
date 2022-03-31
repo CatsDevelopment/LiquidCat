@@ -18,7 +18,7 @@ class FriendsConfig(file: File?) : FileConfig(file!!) {
     /**
      * Load config from file
      */
-    override fun loadConfig() {
+    override fun load() {
         val jsonElement = JsonParser().parse(BufferedReader(FileReader(file)))
         val jsonObject = jsonElement as JsonObject
 
@@ -33,7 +33,7 @@ class FriendsConfig(file: File?) : FileConfig(file!!) {
     /**
      * Save config to file
      */
-    override fun saveConfig() {
+    override fun save() {
         val jsonObject = JsonObject()
         FriendManager.friends.forEach { jsonObject.addProperty(it.name, it.alias) }
 
