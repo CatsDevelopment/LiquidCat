@@ -8,7 +8,7 @@ package lol.liquidcat.cape
 import com.google.gson.JsonParser
 import lol.liquidcat.LiquidCat
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.misc.HttpUtils
+import lol.liquidcat.utils.io.HttpUtils
 import net.minecraft.client.renderer.IImageBuffer
 import net.minecraft.client.renderer.ThreadDownloadImageData
 import net.minecraft.util.ResourceLocation

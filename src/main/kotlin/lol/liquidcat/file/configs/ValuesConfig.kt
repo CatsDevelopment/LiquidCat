@@ -17,9 +17,9 @@ import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.value.Value
-import net.ccbluex.liquidbounce.features.special.AntiForge
+import lol.liquidcat.features.misc.AntiForge
 import net.ccbluex.liquidbounce.features.special.AutoReconnect.delay
-import net.ccbluex.liquidbounce.features.special.BungeeCordSpoof
+import lol.liquidcat.features.misc.BungeeCordSpoof
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDonatorCape.Companion.capeEnabled
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDonatorCape.Companion.transferCode
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAltening.Companion.apiKey

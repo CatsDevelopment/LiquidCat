@@ -4,7 +4,7 @@
  * https://github.com/CatsDevelopment/LiquidCat
  */
 
-package lol.liquidcat.friend
+package lol.liquidcat.features.friend
 
 object FriendManager {
 

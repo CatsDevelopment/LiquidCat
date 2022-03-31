@@ -8,7 +8,7 @@ package lol.liquidcat.file.configs
 import com.google.gson.Gson
 import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
-import net.ccbluex.liquidbounce.utils.login.MinecraftAccount
+import lol.liquidcat.utils.login.MinecraftAccount
 import java.io.*
 
 class AccountsConfig(file: File?) : FileConfig(file!!) {
@@ -35,7 +35,11 @@ class AccountsConfig(file: File?) : FileConfig(file!!) {
                 MinecraftAccount(
                     information[0], information[1]
                 )
-            ) else altManagerMinecraftAccounts.add(MinecraftAccount(information[0]))
+            ) else altManagerMinecraftAccounts.add(
+                MinecraftAccount(
+                    information[0]
+                )
+            )
         }
     }
 
@@ -44,7 +48,7 @@ class AccountsConfig(file: File?) : FileConfig(file!!) {
      */
     override fun saveConfig() {
         val accountList: MutableList<String> = ArrayList()
-        for (minecraftAccount in altManagerMinecraftAccounts) accountList.add(minecraftAccount.name + ":" + (if (minecraftAccount.password == null) "" else minecraftAccount.password) + ":" + if (minecraftAccount.accountName == null) "" else minecraftAccount.accountName)
+        altManagerMinecraftAccounts.forEach { accountList.add(it.name + ":" + (it.password ?: "") + ":" + (it.accountName ?: "")) }
         val printWriter = PrintWriter(FileWriter(file))
         printWriter.println(FileManager.PRETTY_GSON.toJson(accountList))
         printWriter.close()

@@ -3,19 +3,21 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package lol.liquidcat.utils
+package lol.liquidcat.utils.click
 
+import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.ClickWindowEvent
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.utils.timer.MSTimer
-import lol.liquidcat.value.IntValue
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
 
 object ClickHandler : Listenable {
 
-    val a = IntValue("", 1, 3..5)
+    init {
+        LiquidCat.eventManager.registerListener(this)
+    }
 
     val CLICK_TIMER = MSTimer()
 

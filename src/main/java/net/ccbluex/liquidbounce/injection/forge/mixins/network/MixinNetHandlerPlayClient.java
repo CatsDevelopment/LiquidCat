@@ -8,7 +8,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.network;
 import io.netty.buffer.Unpooled;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.EntityMovementEvent;
-import net.ccbluex.liquidbounce.features.special.AntiForge;
+import lol.liquidcat.features.misc.AntiForge;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDownloadTerrain;

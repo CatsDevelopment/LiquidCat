@@ -4,22 +4,14 @@
  * https://github.com/CatsDevelopment/LiquidCat
  */
 
-package net.ccbluex.liquidbounce.utils.misc
+package lol.liquidcat.utils.io
 
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.IOException
-import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-/**
- * LiquidBounce Hacked Client
- * A minecraft forge injection client using Mixin
- *
- * @game Minecraft
- * @author CCBlueX
- */
 object HttpUtils {
 
     private const val DEFAULT_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0"
@@ -28,8 +20,7 @@ object HttpUtils {
         HttpURLConnection.setFollowRedirects(true)
     }
 
-    private fun make(url: String, method: String,
-                     agent: String = DEFAULT_AGENT): HttpURLConnection {
+    private fun make(url: String, method: String, agent: String = DEFAULT_AGENT): HttpURLConnection {
         val httpConnection = URL(url).openConnection() as HttpURLConnection
 
         httpConnection.requestMethod = method
@@ -45,19 +36,10 @@ object HttpUtils {
     }
 
     @Throws(IOException::class)
-    fun request(url: String, method: String,
-                agent: String = DEFAULT_AGENT): String {
+    fun request(url: String, method: String, agent: String = DEFAULT_AGENT): String {
         val connection = make(url, method, agent)
 
         return connection.inputStream.reader().readText()
-    }
-
-    @Throws(IOException::class)
-    fun requestStream(url: String, method: String,
-                      agent: String = DEFAULT_AGENT): InputStream? {
-        val connection = make(url, method, agent)
-
-        return connection.inputStream
     }
 
     @Throws(IOException::class)
@@ -67,5 +49,4 @@ object HttpUtils {
     @Throws(IOException::class)
     @JvmStatic
     fun download(url: String, file: File) = FileUtils.copyInputStreamToFile(make(url, "GET").inputStream, file)
-
 }

@@ -5,9 +5,8 @@
  */
 package net.ccbluex.liquidbounce.ui.client;
 
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.file.FileManager;
-import net.ccbluex.liquidbounce.features.special.AntiForge;
+import lol.liquidcat.features.misc.AntiForge;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

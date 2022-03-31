@@ -9,9 +9,9 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.event.SessionEvent
+import lol.liquidcat.utils.login.UserUtils
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDonatorCape
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.login.UserUtils
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.apache.http.HttpHeaders

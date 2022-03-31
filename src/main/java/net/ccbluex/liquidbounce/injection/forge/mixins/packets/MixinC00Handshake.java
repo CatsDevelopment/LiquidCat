@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.packets;
 
-import net.ccbluex.liquidbounce.features.special.AntiForge;
+import lol.liquidcat.features.misc.AntiForge;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.EnumConnectionState;
 import net.minecraft.network.PacketBuffer;

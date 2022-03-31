@@ -5,7 +5,6 @@
  */
 package lol.liquidcat.features.module.modules.render
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.Module

@@ -13,7 +13,7 @@ import lol.liquidcat.value.*
 import lol.liquidcat.features.module.modules.misc.NameProtect
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.entity.EntityUtils
-import net.ccbluex.liquidbounce.utils.misc.HttpUtils.get
+import lol.liquidcat.utils.io.HttpUtils.get
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.translateAlternateColorCodes
 import org.lwjgl.input.Keyboard

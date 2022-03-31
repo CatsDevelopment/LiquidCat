@@ -42,7 +42,7 @@ class ScoreboardElement(x: Double = 5.0, y: Double = 0.0, scale: Float = 1F,
 
     private val bgRed by IntValue("Background-R", 0, 0..255)
     private val bgGreen by IntValue("Background-G", 0, 0..255)
-    private val bgBlur by IntValue("Background-B", 0, 0..255)
+    private val bgBlue by IntValue("Background-B", 0, 0..255)
     private val bgAlpha by IntValue("Background-Alpha", 95, 0..255)
 
     private val rect by BoolValue("Rect", false)
@@ -142,7 +142,7 @@ class ScoreboardElement(x: Double = 5.0, y: Double = 0.0, scale: Float = 1F,
         return Border(-maxWidth.toFloat() - 5 - if (rect) 3 else 0, -2F, 5F, maxHeight.toFloat() + font.FONT_HEIGHT)
     }
 
-    private fun backgroundColor() = Color(bgRed, bgGreen, bgBlur, bgAlpha)
+    private fun backgroundColor() = Color(bgRed, bgGreen, bgBlue, bgAlpha)
 
     private fun textColor() = Color(textRed, textGreen, textBlue)
 }

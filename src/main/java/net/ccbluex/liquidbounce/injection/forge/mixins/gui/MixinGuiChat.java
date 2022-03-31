@@ -8,7 +8,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.command.CommandManager;
 import lol.liquidcat.file.FileManager;
-import lol.liquidcat.friend.FriendManager;
+import lol.liquidcat.features.friend.FriendManager;
 import lol.liquidcat.utils.render.GLUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiChat;

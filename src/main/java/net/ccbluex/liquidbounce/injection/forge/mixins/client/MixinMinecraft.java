@@ -13,7 +13,7 @@ import lol.liquidcat.features.module.modules.exploit.MultiActions;
 import lol.liquidcat.features.module.modules.world.FastPlace;
 import lol.liquidcat.utils.render.GLUtils;
 import net.ccbluex.liquidbounce.ui.client.GuiMainMenu;
-import net.ccbluex.liquidbounce.utils.CPSCounter;
+import lol.liquidcat.utils.click.CPSCounter;
 import net.ccbluex.liquidbounce.utils.render.IconUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;

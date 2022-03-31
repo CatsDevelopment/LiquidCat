@@ -12,7 +12,7 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.utils.item.ArmorComparator
 import lol.liquidcat.utils.item.ArmorPiece
-import lol.liquidcat.utils.ClickHandler
+import lol.liquidcat.utils.click.ClickHandler
 import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue

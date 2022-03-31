@@ -23,8 +23,8 @@ import io.netty.handler.ssl.util.InsecureTrustManagerFactory
 import lol.liquidcat.chat.packet.PacketDeserializer
 import lol.liquidcat.chat.packet.PacketSerializer
 import lol.liquidcat.chat.packet.packets.*
+import lol.liquidcat.utils.login.UserUtils
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.login.UserUtils
 import java.net.URI
 import java.util.*
 

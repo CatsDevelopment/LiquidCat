@@ -14,7 +14,7 @@ import lol.liquidcat.features.module.modules.combat.AutoArmor
 import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.utils.item.ArmorPiece
 import lol.liquidcat.utils.item.BLOCK_BLACKLIST
-import lol.liquidcat.utils.ClickHandler
+import lol.liquidcat.utils.click.ClickHandler
 import lol.liquidcat.utils.item.getEnchantment
 import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.value.BoolValue

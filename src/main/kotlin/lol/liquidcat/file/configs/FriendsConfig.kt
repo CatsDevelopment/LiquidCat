@@ -10,7 +10,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
-import lol.liquidcat.friend.FriendManager
+import lol.liquidcat.features.friend.FriendManager
 import java.io.*
 
 class FriendsConfig(file: File?) : FileConfig(file!!) {

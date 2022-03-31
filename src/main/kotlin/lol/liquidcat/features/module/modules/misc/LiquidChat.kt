@@ -15,11 +15,11 @@ import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.login.UserUtils
 import lol.liquidcat.utils.msg
-import lol.liquidcat.value.BoolValue
-import net.ccbluex.liquidbounce.utils.login.UserUtils
-import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import lol.liquidcat.utils.timer.MSTimer
+import lol.liquidcat.value.BoolValue
+import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting

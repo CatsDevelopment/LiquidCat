@@ -11,13 +11,13 @@ import com.google.gson.JsonParser;
 import com.thealtening.AltService;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.file.FileManager;
+import lol.liquidcat.utils.io.HttpUtils;
+import lol.liquidcat.utils.login.LoginUtils;
+import lol.liquidcat.utils.login.MinecraftAccount;
+import lol.liquidcat.utils.login.UserUtils;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.*;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAltening;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.utils.login.LoginUtils;
-import net.ccbluex.liquidbounce.utils.login.MinecraftAccount;
-import net.ccbluex.liquidbounce.utils.login.UserUtils;
-import net.ccbluex.liquidbounce.utils.misc.HttpUtils;
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -162,7 +162,7 @@ public class GuiAltManager extends GuiScreen {
         Fonts.font35.drawCenteredString(FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.size() + " Alts", width / 2, 18, 0xffffff);
         Fonts.font35.drawCenteredString(status, width / 2, 32, 0xffffff);
         Fonts.font35.drawStringWithShadow("§7User: §a" + mc.getSession().getUsername(), 6, 6, 0xffffff);
-        Fonts.font35.drawStringWithShadow("§7Type: §a" + (altService.getCurrentService() == AltService.EnumAltService.THEALTENING ? "TheAltening" : UserUtils.INSTANCE.isValidTokenOffline(mc.getSession().getToken()) ? "Premium" : "Cracked"), 6, 15, 0xffffff);
+        Fonts.font35.drawStringWithShadow("§7Type: §a" + (altService.getCurrentService() == AltService.EnumAltService.THEALTENING ? "TheAltening" : UserUtils.isValidTokenOffline(mc.getSession().getToken()) ? "Premium" : "Cracked"), 6, 15, 0xffffff);
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

@@ -7,7 +7,7 @@ package net.ccbluex.liquidbounce.script.remapper
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.file.FileManager
-import net.ccbluex.liquidbounce.utils.misc.HttpUtils
+import lol.liquidcat.utils.io.HttpUtils
 import java.io.File
 
 /**

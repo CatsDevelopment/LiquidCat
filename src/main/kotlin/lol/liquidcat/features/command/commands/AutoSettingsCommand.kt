@@ -11,7 +11,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import lol.liquidcat.utils.SettingsUtils
-import net.ccbluex.liquidbounce.utils.misc.HttpUtils
+import lol.liquidcat.utils.io.HttpUtils
 import kotlin.concurrent.thread
 
 object AutoSettingsCommand : Command("autosettings", arrayOf("setting", "settings", "config", "autosetting")) {
@@ -83,7 +83,8 @@ object AutoSettingsCommand : Command("autosettings", arrayOf("setting", "setting
                 }
 
                 try {
-                    val json = JsonParser().parse(HttpUtils.get(
+                    val json = JsonParser().parse(
+                        HttpUtils.get(
                             // TODO: Add another way to get all settings
                             "https://api.github.com/repos/CCBlueX/LiquidCloud/contents/LiquidBounce/settings"
                     ))

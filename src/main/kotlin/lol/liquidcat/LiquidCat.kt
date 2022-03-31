@@ -13,9 +13,8 @@ import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.ClientUtils.disableFastRender
-import lol.liquidcat.utils.ClickHandler
-import net.ccbluex.liquidbounce.features.special.AntiForge
-import net.ccbluex.liquidbounce.features.special.BungeeCordSpoof
+import lol.liquidcat.utils.click.ClickHandler
+import lol.liquidcat.features.misc.BungeeCordSpoof
 import net.ccbluex.liquidbounce.features.special.DonatorCape
 import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.script.remapper.Remapper.loadSrg
@@ -69,10 +68,7 @@ object LiquidCat {
 
         // Register listeners
         eventManager.registerListener(RotationUtils())
-        eventManager.registerListener(AntiForge())
-        eventManager.registerListener(BungeeCordSpoof())
         eventManager.registerListener(DonatorCape())
-        eventManager.registerListener(ClickHandler)
 
         // Load client fonts
         Fonts.loadFonts()
