@@ -47,9 +47,6 @@ object UserUtils {
 
     /**
      * Gets the Username of a player by his [uuid]
-     *
-     * Example:
-     * ```getUsername("bd346dd5ac1c427d87e873bdd4bf3e13") -> "Player"```
      */
     fun getUsername(uuid: String): String? {
         val httpConnection = HttpUtils.get("https://api.mojang.com/user/profiles/$uuid/names")
@@ -64,9 +61,6 @@ object UserUtils {
 
     /**
      * Gets the UUID of a player by his [username]
-     *
-     * Example:
-     * ```getUUID("Player") -> "bd346dd5ac1c427d87e873bdd4bf3e13"```
      */
     fun getUUID(username: String): String {
         val httpConnection = HttpUtils.get("https://api.mojang.com/users/profiles/minecraft/$username")

@@ -15,36 +15,43 @@ object ClientUtils {
     private var fastRenderField: Field? = null
 
     init {
-        try {
+        runCatching {
             fastRenderField = GameSettings::class.java.getDeclaredField("ofFastRender")
 
             if (!fastRenderField!!.isAccessible)
                 fastRenderField!!.isAccessible = true
-
-        } catch (ignored: NoSuchFieldException) {
         }
     }
 
+    /**
+     * Disables OptiFine FastRender
+     */
     @JvmStatic
     fun disableFastRender() {
-        try {
+        runCatching {
             if (fastRenderField != null) {
                 if (!fastRenderField!!.isAccessible)
                     fastRenderField!!.isAccessible = true
 
                 fastRenderField!!.setBoolean(mc.gameSettings, false)
             }
-        } catch (ignored: IllegalAccessException) {
         }
     }
 }
 
-val mc: Minecraft = Minecraft.getMinecraft()
+/**
+ * Minecraft instance
+ */
+val mc = Minecraft.getMinecraft()!!
 
+/**
+ * Sends client-side [message] to chat
+ */
 fun msg(message: String) {
     mc.ingameGUI.chatGUI.printChatMessage(ChatComponentText(message))
 }
 
-fun sendPacket(packet: Packet<*>) {
-    mc.netHandler?.addToSendQueue(packet)
-}
+/**
+ * Sends a [packet] to the server
+ */
+fun sendPacket(packet: Packet<*>) = mc.netHandler?.addToSendQueue(packet)

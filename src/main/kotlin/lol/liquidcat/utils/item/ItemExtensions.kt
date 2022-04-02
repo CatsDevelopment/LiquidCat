@@ -14,9 +14,7 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 
 /**
- * Returns the enchantment level
- *
- * @param enchantment Enchantment
+ * Returns [enchantment] level
  */
 fun ItemStack?.getEnchantment(enchantment: Enchantment): Int {
     val enchantments = this?.enchantmentTagList ?: return 0
@@ -57,9 +55,7 @@ fun ItemStack?.getDamage(): Double {
 }
 
 /**
- * Returns the block digging speed
- *
- * @param block Block
+ * Returns [block] digging speed
  */
 fun ItemStack?.getMineSpeed(block: Block?): Float {
     var speed = this?.getStrVsBlock(block) ?: 1f
