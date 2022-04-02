@@ -12,15 +12,17 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.strafe
 import lol.liquidcat.value.FloatValue
+import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.minecraft.network.play.server.S12PacketEntityVelocity
 import net.minecraft.network.play.server.S27PacketExplosion
 
 object Velocity : Module("Velocity", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT) {
 
-    private val mode by ListValue("Mode", arrayOf("Normal", "Strafe"), "Normal")
+    private val mode by ListValue("Mode", arrayOf("Normal", "Strafe", "Reset"), "Normal")
     private val horizontal by FloatValue("Horizontal", 0f, 0f..1f)
     private val vertical by FloatValue("Vertical", 0f, 0f..1f)
+    private val time by IntValue("ResetTime", 5, 1..10)
 
     override val tag: String
         get() = if (mode == "Normal") "${horizontal}% ${vertical}%" else mode
@@ -46,6 +48,13 @@ object Velocity : Module("Velocity", "Allows you to modify the amount of knockba
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if (mode == "Strafe" && mc.thePlayer.hurtTime > 0) mc.thePlayer.strafe()
+        when (mode) {
+            "Strafe" -> if (mc.thePlayer.hurtTime > 0) mc.thePlayer.strafe()
+
+            "Reset" -> if (mc.thePlayer.hurtTime == time) {
+                mc.thePlayer.motionZ = 0.0
+                mc.thePlayer.motionX = 0.0
+            }
+        }
     }
 }
