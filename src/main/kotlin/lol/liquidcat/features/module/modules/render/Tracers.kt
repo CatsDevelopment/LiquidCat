@@ -16,7 +16,7 @@ import lol.liquidcat.value.IntValue
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.util.Vec3
-import org.lwjgl.opengl.GL11
+import org.lwjgl.opengl.GL11.*
 import java.awt.Color
 
 object Tracers : Module("Tracers", "Draws a line to targets around you.", ModuleCategory.RENDER) {
@@ -24,55 +24,50 @@ object Tracers : Module("Tracers", "Draws a line to targets around you.", Module
     private val red by IntValue("Red", 255, 0..255)
     private val green by IntValue("Green", 255, 0..255)
     private val blue by IntValue("Blue", 255, 0..255)
+
     private val thickness by FloatValue("Thickness", 2f, 1f..5f)
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        GL11.glEnable(GL11.GL_BLEND)
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
-        GL11.glEnable(GL11.GL_LINE_SMOOTH)
-        GL11.glLineWidth(thickness)
-        GL11.glDisable(GL11.GL_TEXTURE_2D)
-        GL11.glShadeModel(GL11.GL_SMOOTH)
-        GL11.glDisable(GL11.GL_DEPTH_TEST)
-        GL11.glDisable(GL11.GL_ALPHA_TEST)
-        GL11.glDepthMask(false)
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        glEnable(GL_LINE_SMOOTH)
+        glLineWidth(thickness)
+        glDisable(GL_TEXTURE_2D)
+        glDisable(GL_DEPTH_TEST)
+        glDepthMask(false)
+        glDisable(GL_ALPHA_TEST)
+        glShadeModel(GL_SMOOTH)
 
-        GL11.glBegin(GL11.GL_LINES)
+        glBegin(GL_LINES)
 
         for (entity in mc.theWorld.loadedEntityList) {
             if (EntityUtils.isSelected(entity, false))
-                drawTraces(entity, Color(red, green, blue, 100))
+                drawTraces(entity, Color(red, green, blue))
         }
 
-        GL11.glEnd()
+        glEnd()
 
-        GL11.glEnable(GL11.GL_TEXTURE_2D)
-        GL11.glShadeModel(GL11.GL_FLAT)
-        GL11.glDisable(GL11.GL_LINE_SMOOTH)
-        GL11.glEnable(GL11.GL_ALPHA_TEST)
-        GL11.glEnable(GL11.GL_DEPTH_TEST)
-        GL11.glDepthMask(true)
-        GL11.glDisable(GL11.GL_BLEND)
+        glDisable(GL_BLEND)
+        glDisable(GL_LINE_SMOOTH)
+        glEnable(GL_TEXTURE_2D)
+        glEnable(GL_DEPTH_TEST)
+        glDepthMask(true)
+        glEnable(GL_ALPHA_TEST)
+        glShadeModel(GL_FLAT)
         GlStateManager.resetColor()
     }
 
     private fun drawTraces(entity: Entity, color: Color) {
-        val x = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * mc.timer.renderPartialTicks
-                - mc.renderManager.renderPosX)
-        val y = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * mc.timer.renderPartialTicks
-                - mc.renderManager.renderPosY)
-        val z = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * mc.timer.renderPartialTicks
-                - mc.renderManager.renderPosZ)
-
-        val eyeVector = Vec3(0.0, 0.0, 1.0)
-                .rotatePitch((-Math.toRadians(mc.thePlayer.rotationPitch.toDouble())).toFloat())
-                .rotateYaw((-Math.toRadians(mc.thePlayer.rotationYaw.toDouble())).toFloat())
+        val pos = GLUtils.interpolate(entity)
+        val eyeVec = Vec3(0.0, 0.0, 1.0)
+            .rotatePitch((-Math.toRadians(mc.thePlayer.rotationPitch.toDouble())).toFloat())
+            .rotateYaw((-Math.toRadians(mc.thePlayer.rotationYaw.toDouble())).toFloat())
 
         GLUtils.glColor(color)
-        GL11.glVertex3d(eyeVector.xCoord, eyeVector.yCoord + mc.thePlayer.eyeHeight, eyeVector.zCoord)
+        glVertex3d(eyeVec.xCoord, eyeVec.yCoord + mc.thePlayer.eyeHeight - if (mc.thePlayer.isSneaking) 0.08 else 0.0, eyeVec.zCoord)
 
         GLUtils.glColor(Color(red, green, blue, 0))
-        GL11.glVertex3d(x, y + entity.height / 2, z)
+        glVertex3d(pos.x, pos.y + entity.eyeHeight * 1.25 / 2.0, pos.z)
     }
 }
