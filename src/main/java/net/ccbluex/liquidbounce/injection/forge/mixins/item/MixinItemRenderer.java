@@ -8,6 +8,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.item;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.combat.KillAura;
 import lol.liquidcat.features.module.modules.render.AntiBlind;
+import lol.liquidcat.features.module.modules.render.ItemView;
 import lol.liquidcat.features.module.modules.render.SwingAnimation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -20,6 +21,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.spongepowered.asm.mixin.Final;
@@ -59,8 +61,33 @@ public abstract class MixinItemRenderer {
     @Shadow
     protected abstract void renderItemMap(AbstractClientPlayer clientPlayer, float pitch, float equipmentProgress, float swingProgress);
 
-    @Shadow
-    protected abstract void transformFirstPersonItem(float equipProgress, float swingProgress);
+    /**
+     * @author Shurpe
+     */
+    @Overwrite
+    private void transformFirstPersonItem(float equipProgress, float swingProgress) {
+        final ItemView itemView = ItemView.INSTANCE;
+
+        if (itemView.getState()) {
+            GlStateManager.translate(itemView.getX(), itemView.getY(), itemView.getZ());
+        } else {
+            GlStateManager.translate(0.56F, -0.52F, -0.71999997F);
+        }
+
+        GlStateManager.translate(0.0F, equipProgress * -0.6F, 0.0F);
+        GlStateManager.rotate(45.0F, 0.0F, 1.0F, 0.0F);
+        float f = MathHelper.sin(swingProgress * swingProgress * 3.1415927F);
+        float f1 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * 3.1415927F);
+        GlStateManager.rotate(f * -20.0F, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(f1 * -20.0F, 0.0F, 0.0F, 1.0F);
+        GlStateManager.rotate(f1 * -80.0F, 1.0F, 0.0F, 0.0F);
+
+        if (itemView.getState()) {
+            GlStateManager.scale(itemView.getScale(), itemView.getScale(), itemView.getScale());
+        } else {
+            GlStateManager.scale(0.4F, 0.4F, 0.4F);
+        }
+    }
 
     @Shadow
     protected abstract void performDrinking(AbstractClientPlayer clientPlayer, float partialTicks);
