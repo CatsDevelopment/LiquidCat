@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.utils.render
 
+import lol.liquidcat.features.module.modules.render.FunnyJump
 import net.minecraft.util.ChatAllowedCharacters
 import java.awt.Color
 import java.util.*
@@ -27,6 +28,15 @@ object ColorUtils {
 
             hexColors[i] = red and 255 shl 16 or (green and 255 shl 8) or (blue and 255)
         }
+    }
+
+    /**
+     * warning: skidded form fdp!!!
+     */
+    fun hsbTransition(from: Float, to: Float, angle: Int, s: Float = 1f, b: Float = 1f): Color {
+        return Color.getHSBColor(
+            if (angle < 180) from + (to - from) * (angle / 180f)
+            else from + (to - from) * (-(angle - 360) / 180f), s, b)
     }
 
     @JvmStatic

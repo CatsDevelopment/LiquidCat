@@ -40,6 +40,7 @@ object ModuleManager : Listenable {
 
         arrayOf(
             ItemView,
+            FunnyJump,
             FunnyHat,
             AutoArmor,
             AutoBow,
