@@ -138,35 +138,6 @@ object GLUtils {
     }
 
     /**
-     * Draws a rectangular border with rounded edges
-     *
-     * @param x Start X position
-     * @param y Start Y position
-     * @param x2 End X position
-     * @param y2 End Y position
-     * @param radius Edge rounding radius
-     * @param width Border width
-     * @param color Border color
-     */
-    @JvmStatic
-    fun drawRoundedBorder(x: Float, y: Float, x2: Float, y2: Float, radius: Float, width: Float, color: Int) {
-        val x1 = x + radius
-        val y1 = y + radius
-        val x3 = x2 - radius
-        val y3 = y2 - radius
-
-        drawLine(x1, y1 - radius, x3, y1 - radius, width, color)
-        drawLine(x1, y3 + radius, x3, y3 + radius, width, color)
-        drawLine(x1 - radius, y1, x1 - radius, y3, width, color)
-        drawLine(x3 + radius, y1, x3 + radius, y3, width, color)
-
-        drawCircle(x3, y3, radius, width, Color(color), 0, 90)
-        drawCircle(x1, y3, radius, width, Color(color), 90, 180)
-        drawCircle(x1, y1, radius, width, Color(color), 180, 270)
-        drawCircle(x3, y1, radius, width, Color(color), 270, 360)
-    }
-
-    /**
      * Draws a circle border
      *
      * @param x X position

@@ -1,5 +1,11 @@
+/*
+ * LiquidCat Hacked Client
+ * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
+ * https://github.com/CatsDevelopment/LiquidCat
+ */
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
+import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
@@ -41,14 +47,14 @@ class Radar(x: Double = 5.0, y: Double = 5.0, scale: Float = 1F, side: Side = Si
         GL11.glBegin(GL11.GL_POINTS)
 
         for (entity in mc.theWorld.loadedEntityList) {
-            if (entity != mc.thePlayer) {
+            if (EntityUtils.isSelected(entity, false)) {
                 val entPos = GLUtils.interpolate(entity)
                 val plrPos = GLUtils.interpolate(mc.thePlayer)
 
                 val xDiff = entPos.x - plrPos.x
                 val zDiff = entPos.z - plrPos.z
 
-                val angleDiff = Math.toRadians(atan2(xDiff, zDiff))
+                val angleDiff = atan2(xDiff, zDiff) * 180 / PI
                 val angle = ((mc.thePlayer.rotationYaw + angleDiff) % 360) * PI / 180
                 val hyp = hypot(xDiff, zDiff) * 4
 

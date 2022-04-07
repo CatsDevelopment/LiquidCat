@@ -6,8 +6,6 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.entity;
 
 import lol.liquidcat.LiquidCat;
-import lol.liquidcat.cape.CapeAPI;
-import lol.liquidcat.cape.CapeInfo;
 import lol.liquidcat.features.module.modules.misc.NameProtect;
 import lol.liquidcat.features.module.modules.render.FOV;
 import net.minecraft.client.Minecraft;
@@ -28,18 +26,9 @@ import java.util.Objects;
 @SideOnly(Side.CLIENT)
 public abstract class MixinAbstractClientPlayer extends MixinEntityPlayer {
 
-    private CapeInfo capeInfo;
-
     @Inject(method = "getLocationCape", at = @At("HEAD"), cancellable = true)
     private void getCape(CallbackInfoReturnable<ResourceLocation> callbackInfoReturnable) {
-        if(!CapeAPI.INSTANCE.hasCapeService())
-            return;
-
-        if (capeInfo == null)
-            capeInfo = CapeAPI.INSTANCE.loadCape(getUniqueID());
-
-        if(capeInfo != null && capeInfo.isCapeAvailable())
-            callbackInfoReturnable.setReturnValue(capeInfo.getResourceLocation());
+        callbackInfoReturnable.setReturnValue(new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/cape.png"));
     }
 
     @Inject(method = "getFovModifier", at = @At("HEAD"), cancellable = true)

@@ -5,7 +5,6 @@
  */
 package lol.liquidcat
 
-import lol.liquidcat.cape.CapeAPI.registerCapeService
 import lol.liquidcat.discord.ClientRichPresence
 import lol.liquidcat.event.ClientShutdownEvent
 import lol.liquidcat.event.EventManager
@@ -13,9 +12,6 @@ import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.ClientUtils.disableFastRender
-import lol.liquidcat.utils.click.ClickHandler
-import lol.liquidcat.features.misc.BungeeCordSpoof
-import net.ccbluex.liquidbounce.features.special.DonatorCape
 import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.script.remapper.Remapper.loadSrg
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
@@ -68,7 +64,6 @@ object LiquidCat {
 
         // Register listeners
         eventManager.registerListener(RotationUtils())
-        eventManager.registerListener(DonatorCape())
 
         // Load client fonts
         Fonts.loadFonts()
@@ -93,13 +88,6 @@ object LiquidCat {
 
         // Load configs
         FileManager.loadConfigs()
-
-        // Register capes service
-        try {
-            registerCapeService()
-        } catch (throwable: Throwable) {
-            logger.error("Failed to register cape service", throwable)
-        }
 
         // Setup Discord RPC
         try {

@@ -29,7 +29,7 @@ class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
 
         drawBackground(0)
 
-        GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME + "/icons/largelogo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
+        GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/largelogo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
     }
