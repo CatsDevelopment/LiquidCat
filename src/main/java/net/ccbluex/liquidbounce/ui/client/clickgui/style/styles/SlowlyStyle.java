@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.ui.client.clickgui.style.styles;
 
+import lol.liquidcat.utils.MathUtils;
 import lol.liquidcat.utils.block.BlockExtensions;
 import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.value.*;
@@ -180,7 +181,7 @@ public class SlowlyStyle extends Style {
                         }
                     } else if (value instanceof FloatValue) {
                         final FloatValue floatValue = (FloatValue) value;
-                        final String text = value.getName() + "§f: " + round(floatValue.get());
+                        final String text = value.getName() + "§f: " + MathUtils.round(floatValue.get(), 2);
                         final float textWidth = Fonts.font35.getStringWidth(text);
 
                         if (moduleElement.getSettingsWidth() < textWidth + 8)
@@ -294,12 +295,6 @@ public class SlowlyStyle extends Style {
                 rightMouseDown = Mouse.isButtonDown(1);
             }
         }
-    }
-
-    private BigDecimal round(final float v) {
-        BigDecimal bigDecimal = new BigDecimal(Float.toString(v));
-        bigDecimal = bigDecimal.setScale(2, 4);
-        return bigDecimal;
     }
 
     private Color hoverColor(final Color color, final int hover) {

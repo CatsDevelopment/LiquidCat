@@ -11,6 +11,7 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
@@ -78,8 +79,8 @@ object FunnyJump : Module("FunnyJump", "funny jumpa circles", ModuleCategory.REN
             glBegin(GL_TRIANGLE_STRIP)
             for (i in 0..360) {
                 val color = if (rainbow) Color.getHSBColor(i / 360f, 1f, 1f) else ColorUtils.hsbTransition(start, end, i)
-                val x = (dif * radius * 0.01 * sin(i * PI / 180))
-                val z = (dif * radius * 0.01 * cos(i * PI / 180))
+                val x = (dif * radius * 0.01 * sin(i.toDouble().toRadians()))
+                val z = (dif * radius * 0.01 * cos(i.toDouble().toRadians()))
 
                 GLUtils.glColor(color.red, color.green, color.blue, 0)
                 glVertex3d(x, 0.0, z)

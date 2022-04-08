@@ -5,11 +5,10 @@
 */
 package lol.liquidcat.utils.item
 
+import lol.liquidcat.utils.round
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.item.ItemArmor
 import net.minecraft.item.ItemStack
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 class ArmorComparator : Comparator<ArmorPiece> {
 
@@ -18,13 +17,13 @@ class ArmorComparator : Comparator<ArmorPiece> {
         // For damage reduction it is better if it is smaller, so it has to be inverted
         // The decimal values have to be rounded since in double math equals is inaccurate
         // For example 1.03 - 0.41 = 0.6200000000000001 and (1.03 - 0.41) == 0.62 would be false
-        val compare = round(getThresholdedDamageReduction(o2.itemStack).toDouble(), 3)
-            .compareTo(round(getThresholdedDamageReduction(o1.itemStack).toDouble(), 3))
+        val compare = getThresholdedDamageReduction(o2.itemStack).toDouble().round(3)
+            .compareTo(getThresholdedDamageReduction(o1.itemStack).toDouble().round(3))
 
         // If both armor pieces have the exact same damage, compare enchantments
         if (compare == 0) {
-            val otherEnchantmentCmp = round(getEnchantmentThreshold(o1.itemStack).toDouble(), 3)
-                .compareTo(round(getEnchantmentThreshold(o2.itemStack).toDouble(), 3))
+            val otherEnchantmentCmp = getEnchantmentThreshold(o1.itemStack).toDouble().round(3)
+                .compareTo(getEnchantmentThreshold(o2.itemStack).toDouble().round(3))
 
             // If both have the same enchantment threshold, prefer the item with more enchantments
             if (otherEnchantmentCmp == 0) {
@@ -90,19 +89,5 @@ class ArmorComparator : Comparator<ArmorPiece> {
             Enchantment.unbreaking
         )
         private val OTHER_ENCHANTMENT_FACTORS = floatArrayOf(3.0f, 1.0f, 0.1f, 0.05f, 0.01f)
-
-        /**
-         * Rounds a double. From https://stackoverflow.com/a/2808648/9140494
-         *
-         * @param value  the value to be rounded
-         * @param places Decimal places
-         * @return The rounded value
-         */
-        fun round(value: Double, places: Int): Double {
-            require(places >= 0)
-            var bd = BigDecimal.valueOf(value)
-            bd = bd.setScale(places, RoundingMode.HALF_UP)
-            return bd.toDouble()
-        }
     }
 }

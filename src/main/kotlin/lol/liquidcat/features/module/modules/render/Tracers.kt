@@ -11,6 +11,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import net.minecraft.client.renderer.GlStateManager
@@ -61,8 +62,8 @@ object Tracers : Module("Tracers", "Draws a line to targets around you.", Module
     private fun drawTraces(entity: Entity, color: Color) {
         val pos = GLUtils.interpolate(entity)
         val eyeVec = Vec3(0.0, 0.0, 1.0)
-            .rotatePitch((-Math.toRadians(mc.thePlayer.rotationPitch.toDouble())).toFloat())
-            .rotateYaw((-Math.toRadians(mc.thePlayer.rotationYaw.toDouble())).toFloat())
+            .rotatePitch((-mc.thePlayer.rotationPitch.toDouble().toRadians()).toFloat())
+            .rotateYaw((-mc.thePlayer.rotationYaw.toDouble().toRadians()).toFloat())
 
         GLUtils.glColor(color)
         glVertex3d(eyeVec.xCoord, eyeVec.yCoord + mc.thePlayer.eyeHeight - if (mc.thePlayer.isSneaking) 0.08 else 0.0, eyeVec.zCoord)

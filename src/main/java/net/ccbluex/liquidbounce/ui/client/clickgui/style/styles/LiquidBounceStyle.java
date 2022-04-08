@@ -7,6 +7,7 @@ package net.ccbluex.liquidbounce.ui.client.clickgui.style.styles;
 
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.render.ClickGUI;
+import lol.liquidcat.utils.MathUtils;
 import lol.liquidcat.utils.block.BlockExtensions;
 import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.value.*;
@@ -152,7 +153,7 @@ public class LiquidBounceStyle extends Style {
                         }
                     }else if(value instanceof FloatValue) {
                         final FloatValue floatValue = (FloatValue) value;
-                        final String text = value.getName() + "§f: §c" + round(floatValue.get());
+                        final String text = value.getName() + "§f: §c" + MathUtils.round(floatValue.get(), 2);
                         final float textWidth = Fonts.font35.getStringWidth(text);
 
                         if(moduleElement.getSettingsWidth() < textWidth + 8)
@@ -166,7 +167,7 @@ public class LiquidBounceStyle extends Style {
                         if(mouseX >= moduleElement.getX() + moduleElement.getWidth() + 4 && mouseX <= moduleElement.getX() + moduleElement.getWidth() + moduleElement.getSettingsWidth() - 4 && mouseY >= yPos + 15 && mouseY <= yPos + 21) {
                             if(Mouse.isButtonDown(0)) {
                                 double i = MathHelper.clamp_double((mouseX - moduleElement.getX() - moduleElement.getWidth() - 8) / (moduleElement.getSettingsWidth() - 12), 0, 1);
-                                floatValue.set(round((float) (floatValue.min() + (floatValue.max() - floatValue.min()) * i)).floatValue());
+                                floatValue.set((float) MathUtils.round((float) (floatValue.min() + (floatValue.max() - floatValue.min()) * i), 2));
                             }
                         }
 
@@ -288,11 +289,5 @@ public class LiquidBounceStyle extends Style {
                     GLUtils.drawBorderedRect(moduleElement.getX() + moduleElement.getWidth() + 4, moduleElement.getY() + 6, moduleElement.getX() + moduleElement.getWidth() + moduleElement.getSettingsWidth(), yPos + 2, 1F, Integer.MIN_VALUE, 0);
             }
         }
-    }
-
-    private BigDecimal round(final float f) {
-        BigDecimal bd = new BigDecimal(Float.toString(f));
-        bd = bd.setScale(2, 4);
-        return bd;
     }
 }

@@ -10,6 +10,7 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
@@ -59,7 +60,7 @@ object FunnyHat : Module("FunnyHat", "funny china hat", ModuleCategory.RENDER) {
             val color = if (rainbow) Color.getHSBColor(i / 360f, 1f, 1f) else ColorUtils.hsbTransition(start, end, i)
 
             GLUtils.glColor(color.red, color.green, color.blue, 130)
-            glVertex3d((radius * sin(i * PI / 180)), 0.0, (radius * cos(i * PI / 180)))
+            glVertex3d((radius * sin(i.toDouble().toRadians())), 0.0, (radius * cos(i.toDouble().toRadians())))
         }
         glEnd()
 
@@ -68,7 +69,7 @@ object FunnyHat : Module("FunnyHat", "funny china hat", ModuleCategory.RENDER) {
             val color = if (rainbow) Color.getHSBColor(i / 360f, 1f, 1f) else ColorUtils.hsbTransition(start, end, i)
 
             GLUtils.glColor(color.red, color.green, color.blue)
-            glVertex3d((radius * sin(i * PI / 180)), 0.0, (radius * cos(i * PI / 180)))
+            glVertex3d((radius * sin(i.toDouble().toRadians())), 0.0, (radius * cos(i.toDouble().toRadians())))
         }
         glEnd()
 

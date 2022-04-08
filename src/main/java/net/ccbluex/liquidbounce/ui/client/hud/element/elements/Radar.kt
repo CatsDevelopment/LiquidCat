@@ -7,6 +7,8 @@ package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.toDegrees
+import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
@@ -54,8 +56,8 @@ class Radar(x: Double = 5.0, y: Double = 5.0, scale: Float = 1F, side: Side = Si
                 val xDiff = entPos.x - plrPos.x
                 val zDiff = entPos.z - plrPos.z
 
-                val angleDiff = atan2(xDiff, zDiff) * 180 / PI
-                val angle = ((mc.thePlayer.rotationYaw + angleDiff) % 360) * PI / 180
+                val angleDiff = atan2(xDiff, zDiff).toDegrees()
+                val angle = ((mc.thePlayer.rotationYaw + angleDiff) % 360).toRadians()
                 val hyp = hypot(xDiff, zDiff) * 4
 
                 GL11.glVertex2f((50 - hyp * sin(angle)).toFloat(), (50 - hyp * cos(angle)).toFloat())

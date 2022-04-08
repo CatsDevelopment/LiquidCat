@@ -7,15 +7,14 @@ package lol.liquidcat.utils.render
 
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.mc
+import lol.liquidcat.utils.toRadians
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.OpenGlHelper
 import net.minecraft.entity.Entity
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
 import net.minecraft.util.ResourceLocation
-import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
 import javax.vecmath.Vector3d
@@ -194,8 +193,8 @@ object GLUtils {
         glVertex2f(x, y)
         for (i in start..end) {
             glVertex2f(
-                x + (radius * sin(i * PI / 180)).toFloat(),
-                y + (radius * cos(i * PI / 180)).toFloat()
+                x + (radius * sin(i.toDouble().toRadians())).toFloat(),
+                y + (radius * cos(i.toDouble().toRadians())).toFloat()
             )
         }
 

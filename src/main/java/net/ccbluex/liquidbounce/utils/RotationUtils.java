@@ -5,7 +5,6 @@
  */
 package net.ccbluex.liquidbounce.utils;
 
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.EventTarget;
 import lol.liquidcat.event.Listenable;
 import lol.liquidcat.event.PacketEvent;
