@@ -20,6 +20,7 @@ object HUD : Module("HUD", "Toggles visibility of the HUD.", ModuleCategory.REND
     val inventoryParticle by BoolValue("InventoryParticle", false)
     private val blur by BoolValue("Blur", false)
     val fontChat by BoolValue("FontChat", false)
+    val cleanChat by BoolValue("CleanChat", true)
 
     @EventTarget
     fun onRender2D(event: Render2DEvent) {

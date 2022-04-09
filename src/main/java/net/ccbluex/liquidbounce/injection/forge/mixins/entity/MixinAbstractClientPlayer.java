@@ -28,7 +28,10 @@ public abstract class MixinAbstractClientPlayer extends MixinEntityPlayer {
 
     @Inject(method = "getLocationCape", at = @At("HEAD"), cancellable = true)
     private void getCape(CallbackInfoReturnable<ResourceLocation> callbackInfoReturnable) {
-        callbackInfoReturnable.setReturnValue(new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/cape.png"));
+
+        if ((Object) this == Minecraft.getMinecraft().thePlayer) {
+            callbackInfoReturnable.setReturnValue(new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/cape.png"));
+        }
     }
 
     @Inject(method = "getFovModifier", at = @At("HEAD"), cancellable = true)

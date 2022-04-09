@@ -20,8 +20,6 @@ import lol.liquidcat.value.Value
 import lol.liquidcat.features.misc.AntiForge
 import net.ccbluex.liquidbounce.features.special.AutoReconnect.delay
 import lol.liquidcat.features.misc.BungeeCordSpoof
-import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDonatorCape.Companion.capeEnabled
-import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDonatorCape.Companion.transferCode
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAltening.Companion.apiKey
 import java.io.*
 import java.util.function.Consumer
@@ -60,10 +58,6 @@ class ValuesConfig(file: File?) : FileConfig(file!!) {
             } else if (key.equals("liquidchat", ignoreCase = true)) {
                 val jsonValue = value as JsonObject
                 if (jsonValue.has("token")) jwtToken = jsonValue["token"].asString
-            } else if (key.equals("DonatorCape", ignoreCase = true)) {
-                val jsonValue = value as JsonObject
-                if (jsonValue.has("TransferCode")) transferCode = jsonValue["TransferCode"].asString
-                if (jsonValue.has("CapeEnabled")) capeEnabled = jsonValue["CapeEnabled"].asBoolean
             } else {
                 val module = ModuleManager.getModule(key)
                 if (module != null) {
@@ -101,10 +95,6 @@ class ValuesConfig(file: File?) : FileConfig(file!!) {
         val liquidChatObject = JsonObject()
         liquidChatObject.addProperty("token", jwtToken)
         jsonObject.add("liquidchat", liquidChatObject)
-        val capeObject = JsonObject()
-        capeObject.addProperty("TransferCode", transferCode)
-        capeObject.addProperty("CapeEnabled", capeEnabled)
-        jsonObject.add("DonatorCape", capeObject)
         ModuleManager.modules.stream().filter { module: Module -> !module.values.isEmpty() }
             .forEach { module: Module ->
                 val jsonModule = JsonObject()
