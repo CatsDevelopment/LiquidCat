@@ -26,7 +26,7 @@ import java.util.Random;
 @SideOnly(Side.CLIENT)
 public final class RotationUtils extends MinecraftInstance implements Listenable {
 
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     private static int keepLength;
 

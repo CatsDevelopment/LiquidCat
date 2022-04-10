@@ -23,7 +23,7 @@ object RemoteViewCommand : Command("remoteview", arrayOf("rv")) {
             return
         }
 
-        val targetName = args[1];
+        val targetName = args[1]
 
         for (entity in mc.theWorld.loadedEntityList) {
             if (targetName == entity.name) {

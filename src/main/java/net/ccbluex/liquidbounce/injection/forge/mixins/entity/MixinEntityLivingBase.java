@@ -68,7 +68,7 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
      */
     @Overwrite
     protected void jump() {
-        this.motionY = (double)this.getJumpUpwardsMotion();
+        this.motionY = this.getJumpUpwardsMotion();
 
         if ((Object) this == Minecraft.getMinecraft().thePlayer) {
             final JumpEvent jumpEvent = new JumpEvent(this.getJumpUpwardsMotion());
@@ -80,13 +80,13 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
         }
 
         if (this.isPotionActive(Potion.jump)) {
-            this.motionY += (double)((float)(this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
+            this.motionY += (float)(this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F;
         }
 
         if (this.isSprinting()) {
             float f = this.rotationYaw * 0.017453292F;
-            this.motionX -= (double)(MathHelper.sin(f) * 0.2F);
-            this.motionZ += (double)(MathHelper.cos(f) * 0.2F);
+            this.motionX -= MathHelper.sin(f) * 0.2F;
+            this.motionZ += MathHelper.cos(f) * 0.2F;
         }
 
         this.isAirBorne = true;

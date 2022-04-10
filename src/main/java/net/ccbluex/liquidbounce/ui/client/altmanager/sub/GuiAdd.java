@@ -13,7 +13,7 @@ import com.thealtening.AltService;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.file.FileManager;
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager;
-import net.ccbluex.liquidbounce.ui.elements.GuiPasswordField;
+import lol.liquidcat.ui.client.GuiPasswordField;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.utils.TabUtils;
 import lol.liquidcat.utils.login.MinecraftAccount;

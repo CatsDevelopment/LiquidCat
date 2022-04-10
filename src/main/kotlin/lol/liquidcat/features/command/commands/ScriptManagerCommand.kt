@@ -7,7 +7,6 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
-import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.file.FileManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
@@ -114,7 +113,7 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
 
                 args[1].equals("reload", true) -> {
                     try {
-                        LiquidCat.isStarting = true
+                        LiquidCat.loading = true
                         LiquidCat.scriptManager.disableScripts()
                         LiquidCat.scriptManager.unloadScripts()
                         for(module in ModuleManager.modules)
@@ -122,7 +121,7 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                         LiquidCat.scriptManager.loadScripts()
                         LiquidCat.scriptManager.enableScripts()
                         FileManager.loadConfig(FileManager.modulesConfig)
-                        LiquidCat.isStarting = false
+                        LiquidCat.loading = false
                         FileManager.loadConfig(FileManager.valuesConfig)
                         LiquidCat.clickGui = ClickGui()
                         FileManager.loadConfig(FileManager.clickGuiConfig)

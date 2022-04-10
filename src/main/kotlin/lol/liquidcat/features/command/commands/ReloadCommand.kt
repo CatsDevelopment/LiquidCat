@@ -7,7 +7,6 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
-import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.file.FileManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
@@ -19,7 +18,7 @@ object ReloadCommand : Command("reload", arrayOf("configreload")) {
      */
     override fun execute(args: Array<String>) {
         chat("Reloading...")
-        LiquidCat.isStarting = true
+        LiquidCat.loading = true
         LiquidCat.scriptManager.disableScripts()
         LiquidCat.scriptManager.unloadScripts()
 
@@ -33,7 +32,7 @@ object ReloadCommand : Command("reload", arrayOf("configreload")) {
         Fonts.loadFonts()
         chat("§c§lReloading modules...")
         FileManager.loadConfig(FileManager.modulesConfig)
-        LiquidCat.isStarting = false
+        LiquidCat.loading = false
         chat("§c§lReloading values...")
         FileManager.loadConfig(FileManager.valuesConfig)
         chat("§c§lReloading accounts...")

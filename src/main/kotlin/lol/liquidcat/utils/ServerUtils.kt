@@ -5,7 +5,7 @@
  */
 package lol.liquidcat.utils
 
-import net.ccbluex.liquidbounce.ui.client.GuiMainMenu
+import lol.liquidcat.ui.client.guis.GuiMainMenu
 import net.minecraft.client.gui.GuiMultiplayer
 import net.minecraft.client.multiplayer.GuiConnecting
 import net.minecraft.client.multiplayer.ServerData

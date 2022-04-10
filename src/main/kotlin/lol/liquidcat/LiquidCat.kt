@@ -20,21 +20,43 @@ import net.ccbluex.liquidbounce.ui.client.hud.HUD
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.createDefault
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import net.minecraft.util.ResourceLocation
 import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
 
 object LiquidCat {
 
+    /**
+     * Client name
+     */
     const val CLIENT_NAME = "LiquidCat"
+
+    /**
+     * Current client version
+     *
+     * @TODO Latest client version check (API)
+     */
     const val CLIENT_VERSION = "1.0.0"
+
+    /**
+     * Client creators
+     */
     const val CLIENT_CREATOR = "CCBlueX & CatsDevelopment"
-    const val MINECRAFT_VERSION = "1.8.9"
+
+    /**
+     * Cloud with client resources
+     *
+     * @TODO Make a new LiquidCat cloud
+     */
     const val CLIENT_CLOUD = "https://cloud.liquidbounce.net/LiquidBounce"
 
-    var isStarting = false
+    /**
+     * Client load status
+     */
+    var loading = false
 
-    val logger: Logger = LogManager.getLogger(CLIENT_NAME)
+    /**
+     * Client logger used to output info in console
+     */
+    val logger = LogManager.getLogger(CLIENT_NAME)!!
 
     // Managers
     lateinit var eventManager: EventManager
@@ -42,20 +64,16 @@ object LiquidCat {
 
     // HUD & ClickGUI
     lateinit var hud: HUD
-
     lateinit var clickGui: ClickGui
-
-    // Menu Background
-    var background: ResourceLocation? = null
 
     // Discord RPC
     private lateinit var clientRichPresence: ClientRichPresence
 
     /**
-     * Execute if client will be started
+     * Called when client starts
      */
     fun startClient() {
-        isStarting = true
+        loading = true
 
         logger.info("Launching $CLIENT_NAME $CLIENT_VERSION, by $CLIENT_CREATOR")
 
@@ -103,12 +121,11 @@ object LiquidCat {
         // Load generators
         GuiAltManager.loadGenerators()
 
-        // Set is starting status
-        isStarting = false
+        loading = false
     }
 
     /**
-     * Execute if client will be stopped
+     * Called when client stops
      */
     fun stopClient() {
         logger.info("Shutting down $CLIENT_NAME...")

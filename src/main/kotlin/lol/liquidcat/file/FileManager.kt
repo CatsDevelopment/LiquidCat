@@ -116,7 +116,7 @@ object FileManager {
      * @param ignoreStarting check starting
      */
     fun saveConfig(config: FileConfig, ignoreStarting: Boolean = false) {
-        if (!ignoreStarting && LiquidCat.isStarting) return
+        if (!ignoreStarting && LiquidCat.loading) return
 
         try {
             if (!config.exists()) config.create()

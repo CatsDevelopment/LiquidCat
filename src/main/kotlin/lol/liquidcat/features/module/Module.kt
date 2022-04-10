@@ -28,13 +28,13 @@ open class Module(
         set(value) {
             field = value
 
-            if (!LiquidCat.isStarting) FileManager.saveConfig(FileManager.modulesConfig)
+            if (!LiquidCat.loading) FileManager.saveConfig(FileManager.modulesConfig)
         }
     var hide = hide
         set(value) {
             field = value
 
-            if (!LiquidCat.isStarting) FileManager.saveConfig(FileManager.modulesConfig)
+            if (!LiquidCat.loading) FileManager.saveConfig(FileManager.modulesConfig)
         }
     var state = false
         set(value) {
@@ -42,7 +42,7 @@ open class Module(
 
             onToggle(value)
 
-            if (!LiquidCat.isStarting) {
+            if (!LiquidCat.loading) {
                 mc.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("random.click"), 1f))
                 LiquidCat.hud.addNotification(Notification("${if (value) "Enabled " else "Disabled "}$name"))
             }

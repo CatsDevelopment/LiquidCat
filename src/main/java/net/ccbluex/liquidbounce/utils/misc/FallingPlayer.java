@@ -19,7 +19,7 @@ public class FallingPlayer extends MinecraftInstance {
     private double motionY;
     private double motionZ;
 
-    private float yaw;
+    private final float yaw;
 
     private float strafe;
     private float forward;

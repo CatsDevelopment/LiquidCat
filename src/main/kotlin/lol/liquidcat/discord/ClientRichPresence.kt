@@ -11,6 +11,7 @@ import com.jagrosh.discordipc.entities.RichPresence
 import com.jagrosh.discordipc.entities.pipe.PipeStatus
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.ModuleManager
+import lol.liquidcat.utils.ServerUtils
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import org.json.JSONObject
 import java.time.OffsetDateTime
@@ -89,7 +90,7 @@ class ClientRichPresence : MinecraftInstance() {
             val serverData = mc.currentServerData
 
             // Set display infos
-            builder.setDetails("Server: ${if (mc.isIntegratedServerRunning || serverData == null) "Singleplayer" else serverData.serverIP}")
+            builder.setDetails("Server: ${ServerUtils.remoteIp}")
             builder.setState("Enabled ${ModuleManager.modules.count { it.state }} of ${ModuleManager.modules.size} modules")
         }
 

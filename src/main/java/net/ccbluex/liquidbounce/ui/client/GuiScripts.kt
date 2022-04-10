@@ -153,14 +153,13 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
         list.handleMouseInput()
     }
 
-    private inner class GuiList(gui: GuiScreen) :
-            GuiSlot(mc, gui.width, gui.height, 40, gui.height - 40, 30) {
+    private inner class GuiList(gui: GuiScreen) : GuiSlot(mc, gui.width, gui.height, 40, gui.height - 40, 30) {
 
         private var selectedSlot = 0
 
         override fun isSelected(id: Int) = selectedSlot == id
 
-        internal fun getSelectedSlot() = if (selectedSlot > LiquidCat.scriptManager.scripts.size) -1 else selectedSlot
+        fun getSelectedSlot() = if (selectedSlot > LiquidCat.scriptManager.scripts.size) -1 else selectedSlot
 
         override fun getSize() = LiquidCat.scriptManager.scripts.size
 

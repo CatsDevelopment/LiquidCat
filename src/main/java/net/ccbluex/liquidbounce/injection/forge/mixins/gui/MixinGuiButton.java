@@ -9,7 +9,6 @@ import lol.liquidcat.utils.render.GLUtils;
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
@@ -57,8 +56,8 @@ public abstract class MixinGuiButton extends Gui {
    @Shadow
    @Final
    protected static ResourceLocation buttonTextures;
-   private float cut;
-   private float alpha;
+
+   private int alpha;
 
    /**
     * @author CCBlueX
@@ -66,46 +65,34 @@ public abstract class MixinGuiButton extends Gui {
    @Overwrite
    public void drawButton(Minecraft mc, int mouseX, int mouseY) {
       if (visible) {
-         final FontRenderer fontRenderer =
-            mc.getLanguageManager().isCurrentLocaleUnicode() ? mc.fontRendererObj : Fonts.font35;
-         hovered = (mouseX >= this.xPosition && mouseY >= this.yPosition &&
-                    mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height);
+         hovered = (mouseX >= xPosition && mouseY >= yPosition && mouseX < xPosition + width && mouseY < yPosition + height);
 
          final int delta = GLUtils.deltaTime;
 
          if (enabled && hovered) {
-            cut += 0.05F * delta;
+            alpha += 2 * delta;
 
-            if (cut >= 4) cut = 4;
-
-            alpha += 0.3F * delta;
-
-            if (alpha >= 210) alpha = 210;
+            if (alpha >= 255) alpha = 255;
          } else {
-            cut -= 0.05F * delta;
+            alpha -= 2 * delta;
 
-            if (cut <= 0) cut = 0;
-
-            alpha -= 0.3F * delta;
-
-            if (alpha <= 120) alpha = 120;
+            if (alpha <= 0) alpha = 0;
          }
 
-         Gui.drawRect(this.xPosition + (int) this.cut, this.yPosition,
-                 this.xPosition + this.width - (int) this.cut, this.yPosition + this.height,
-                 this.enabled ? new Color(0F, 0F, 0F, this.alpha / 255F).getRGB() :
-                         new Color(0.5F, 0.5F, 0.5F, 0.5F).getRGB());
+         GLUtils.drawBorderedRect(
+                 xPosition,
+                 yPosition,
+                 xPosition + width,
+                 yPosition + height,
+                 1f,
+                 new Color(0, 255, 133, alpha).getRGB(),
+                 enabled ? new Color(15, 15, 17, 155).getRGB() : new Color(27, 27, 31, 155).getRGB());
 
          mc.getTextureManager().bindTexture(buttonTextures);
          mouseDragged(mc, mouseX, mouseY);
 
          AWTFontRenderer.Companion.setAssumeNonVolatile(true);
-
-         fontRenderer.drawStringWithShadow(displayString,
-                 (float) ((this.xPosition + this.width / 2) -
-                         fontRenderer.getStringWidth(displayString) / 2),
-                 this.yPosition + (this.height - 5) / 2F, 14737632);
-
+         Fonts.nunito.drawCenteredString(displayString, (xPosition + width / 2f), (yPosition + height / 2f) - Fonts.nunito.FONT_HEIGHT / 4f, Color.WHITE.getRGB(), false);
          AWTFontRenderer.Companion.setAssumeNonVolatile(false);
 
          GlStateManager.resetColor();

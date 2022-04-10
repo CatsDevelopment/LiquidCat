@@ -14,7 +14,7 @@ import com.thealtening.api.TheAltening
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.SessionEvent
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
-import net.ccbluex.liquidbounce.ui.elements.GuiPasswordField
+import lol.liquidcat.ui.client.GuiPasswordField
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
 import net.minecraft.client.gui.Gui
