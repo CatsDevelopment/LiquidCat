@@ -13,11 +13,11 @@ import lol.liquidcat.utils.item.findHotbarSlot
 import lol.liquidcat.utils.item.findInventorySlot
 import lol.liquidcat.utils.item.isHotbarFull
 import lol.liquidcat.utils.sendPacket
+import lol.liquidcat.utils.timer.MSTimer
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
-import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.init.Items
 import net.minecraft.network.play.client.*

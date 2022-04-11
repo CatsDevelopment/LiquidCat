@@ -6,7 +6,6 @@
 package lol.liquidcat.features.command.commands
 
 import joptsimple.internal.Strings
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.utils.msg

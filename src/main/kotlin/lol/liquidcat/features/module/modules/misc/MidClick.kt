@@ -7,10 +7,10 @@ package lol.liquidcat.features.module.modules.misc
 
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render2DEvent
+import lol.liquidcat.features.friend.FriendManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.file.FileManager
-import lol.liquidcat.features.friend.FriendManager
 import lol.liquidcat.utils.msg
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.stripColor
 import net.minecraft.entity.player.EntityPlayer

@@ -5,12 +5,10 @@
  */
 package lol.liquidcat.utils.entity
 
-import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.friend.FriendManager
 import lol.liquidcat.features.module.modules.combat.NoFriends
 import lol.liquidcat.features.module.modules.misc.AntiBot
 import lol.liquidcat.features.module.modules.misc.Teams
-import lol.liquidcat.file.FileManager
-import lol.liquidcat.features.friend.FriendManager
 import lol.liquidcat.utils.mc
 import net.minecraft.client.network.NetworkPlayerInfo
 import net.minecraft.entity.Entity

@@ -5,18 +5,21 @@
  */
 package lol.liquidcat.utils.timer
 
+/**
+ * Millisecond timer
+ */
 class MSTimer {
 
-    private var time = -1L
+    private var time = 0L
 
-    fun hasTimePassed(ms: Long): Boolean {
-        return System.currentTimeMillis() >= time + ms
-    }
+    /**
+     * Checks if timer [time] has passed [x][ms] milliseconds
+     */
+    fun hasTimePassed(ms: Long) = System.currentTimeMillis() >= time + ms
 
-    fun hasTimeLeft(ms: Long): Long {
-        return ms + time - System.currentTimeMillis()
-    }
-
+    /**
+     * Resets timer time
+     */
     fun reset() {
         time = System.currentTimeMillis()
     }

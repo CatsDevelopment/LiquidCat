@@ -12,10 +12,10 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.Rotation
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.entity.getDistanceToEntityBox
+import lol.liquidcat.utils.timer.MSTimer
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import lol.liquidcat.utils.timer.MSTimer
 import kotlin.random.Random
 
 //TODO Rewrite?

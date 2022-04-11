@@ -5,7 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.item;
 
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.combat.KillAura;
 import lol.liquidcat.features.module.modules.render.AntiBlind;
 import lol.liquidcat.features.module.modules.render.ItemView;

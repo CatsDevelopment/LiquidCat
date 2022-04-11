@@ -2,7 +2,6 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.resources;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.misc.NameProtect;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.SkinManager;

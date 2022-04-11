@@ -5,7 +5,6 @@
  */
 package lol.liquidcat.features.module.modules.world
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.event.UpdateEvent
@@ -18,12 +17,12 @@ import lol.liquidcat.utils.block.getCenterDistance
 import lol.liquidcat.utils.block.searchBlocks
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.sendPacket
+import lol.liquidcat.utils.timer.MSTimer
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import lol.liquidcat.utils.timer.TickTimer
 import net.minecraft.block.Block
 import net.minecraft.block.BlockAir
 import net.minecraft.block.BlockLiquid
@@ -47,13 +46,13 @@ object Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.W
     private val layer by BoolValue("Layer", false)
     private val hitDelay by IntValue("HitDelay", 4, 0..20)
     private val nukeValue by IntValue("Nuke", 1, 1..20)
-    private val nukeDelay by IntValue("NukeDelay", 1, 1..20)
+    private val nukeDelay by IntValue("NukeDelay", 1, 100..5000)
 
     private val attackedBlocks = arrayListOf<BlockPos>()
     var currentDamage = 0f
     private var currentBlock: BlockPos? = null
     private var blockHitDelay = 0
-    private var nukeTimer = TickTimer()
+    private var nukeTimer = MSTimer()
     private var nuke = 0
 
     @EventTarget
@@ -65,8 +64,7 @@ object Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.W
         }
 
         // Reset bps
-        nukeTimer.update()
-        if (nukeTimer.hasTimePassed(nukeDelay)) {
+        if (nukeTimer.hasTimePassed(nukeDelay.toLong())) {
             nuke = 0
             nukeTimer.reset()
         }

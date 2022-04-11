@@ -5,11 +5,11 @@
  */
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
+import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
-import lol.liquidcat.value.ListValue
 import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11

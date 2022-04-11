@@ -18,7 +18,6 @@ import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.utils.render.ColorUtils
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
-import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 

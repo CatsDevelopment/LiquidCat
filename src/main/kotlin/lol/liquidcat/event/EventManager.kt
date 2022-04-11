@@ -5,8 +5,6 @@
  */
 package lol.liquidcat.event
 
-import java.util.*
-
 class EventManager {
 
     private val registry = HashMap<Class<out Event>, MutableList<EventHook>>()

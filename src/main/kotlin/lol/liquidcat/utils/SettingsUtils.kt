@@ -8,12 +8,12 @@ package lol.liquidcat.utils
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.ModuleManager
-import lol.liquidcat.features.module.modules.misc.Spammer
-import lol.liquidcat.value.*
 import lol.liquidcat.features.module.modules.misc.NameProtect
+import lol.liquidcat.features.module.modules.misc.Spammer
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.io.HttpUtils.get
+import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.translateAlternateColorCodes
 import org.lwjgl.input.Keyboard

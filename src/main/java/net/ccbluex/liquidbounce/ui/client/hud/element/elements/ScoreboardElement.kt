@@ -7,12 +7,12 @@ package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import com.google.common.collect.Iterables
 import com.google.common.collect.Lists
+import lol.liquidcat.features.module.modules.render.NoScoreboard
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FontValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
-import lol.liquidcat.features.module.modules.render.NoScoreboard
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo

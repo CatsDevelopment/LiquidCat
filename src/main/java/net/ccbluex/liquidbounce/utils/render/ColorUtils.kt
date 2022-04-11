@@ -5,7 +5,6 @@
  */
 package net.ccbluex.liquidbounce.utils.render
 
-import lol.liquidcat.features.module.modules.render.FunnyJump
 import net.minecraft.util.ChatAllowedCharacters
 import java.awt.Color
 import java.util.*

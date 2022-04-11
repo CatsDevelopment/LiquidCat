@@ -9,9 +9,10 @@ import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.Module;
 import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleManager;
-import lol.liquidcat.file.FileManager;
-import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.features.module.modules.render.ClickGUI;
+import lol.liquidcat.file.FileManager;
+import lol.liquidcat.utils.entity.EntityUtils;
+import lol.liquidcat.utils.render.GLUtils;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.Element;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ModuleElement;
@@ -19,7 +20,6 @@ import net.ccbluex.liquidbounce.ui.client.clickgui.style.Style;
 import net.ccbluex.liquidbounce.ui.client.clickgui.style.styles.SlowlyStyle;
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner;
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer;
-import lol.liquidcat.utils.entity.EntityUtils;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -30,7 +30,6 @@ import org.lwjgl.input.Mouse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ClickGui extends GuiScreen {
 

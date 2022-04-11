@@ -8,7 +8,6 @@ package lol.liquidcat.file.configs
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.command.shortcuts.Shortcut

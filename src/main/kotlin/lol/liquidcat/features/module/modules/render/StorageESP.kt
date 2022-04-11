@@ -15,11 +15,11 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.modules.world.ChestAura.clickedBlocks
 import lol.liquidcat.utils.ClientUtils.disableFastRender
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.render.shader.shaders.GlowShader
+import lol.liquidcat.utils.render.shader.shaders.OutlineShader
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
-import lol.liquidcat.utils.render.shader.shaders.GlowShader
-import lol.liquidcat.utils.render.shader.shaders.OutlineShader
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher
 import net.minecraft.tileentity.TileEntityChest
 import org.lwjgl.opengl.GL11

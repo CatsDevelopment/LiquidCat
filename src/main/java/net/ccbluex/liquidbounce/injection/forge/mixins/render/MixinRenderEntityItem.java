@@ -5,7 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.render.Chams;
 import net.minecraft.client.renderer.entity.RenderEntityItem;
 import org.lwjgl.opengl.GL11;

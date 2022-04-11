@@ -5,7 +5,6 @@
  */
 package net.ccbluex.liquidbounce.ui.client.clickgui.style.styles;
 
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.render.ClickGUI;
 import lol.liquidcat.utils.MathUtils;
 import lol.liquidcat.utils.block.BlockExtensions;
@@ -29,7 +28,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
-import java.math.BigDecimal;
 import java.util.List;
 
 @SideOnly(Side.CLIENT)

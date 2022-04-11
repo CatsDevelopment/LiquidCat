@@ -5,7 +5,6 @@
  */
 package lol.liquidcat.features.module.modules.render
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.ClientShutdownEvent
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent

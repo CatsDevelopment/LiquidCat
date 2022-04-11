@@ -18,14 +18,14 @@ import lol.liquidcat.utils.block.isReplaceable
 import lol.liquidcat.utils.item.findAutoBlockBlock
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.sendPacket
+import lol.liquidcat.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.TimeUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.RotationUtils
-import lol.liquidcat.utils.timer.MSTimer
-import lol.liquidcat.utils.timer.TimeUtils
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.settings.GameSettings

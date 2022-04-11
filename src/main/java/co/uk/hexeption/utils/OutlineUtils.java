@@ -7,9 +7,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.EXTPackedDepthStencil;
-import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Outline ESP

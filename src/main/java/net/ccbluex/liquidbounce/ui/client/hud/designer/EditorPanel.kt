@@ -6,9 +6,9 @@
 package net.ccbluex.liquidbounce.ui.client.hud.designer
 
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.module.modules.render.ClickGUI
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.*
-import lol.liquidcat.features.module.modules.render.ClickGUI
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.createDefault
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.elements
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element

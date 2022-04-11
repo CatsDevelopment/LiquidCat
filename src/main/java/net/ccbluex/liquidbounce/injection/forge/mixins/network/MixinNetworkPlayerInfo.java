@@ -1,7 +1,6 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.network;
 
 import com.mojang.authlib.GameProfile;
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.module.modules.misc.NameProtect;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;

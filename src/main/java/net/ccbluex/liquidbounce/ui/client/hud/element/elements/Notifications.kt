@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.utils.render.AnimationUtils
 import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
@@ -13,7 +14,6 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import lol.liquidcat.utils.render.AnimationUtils
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color
 

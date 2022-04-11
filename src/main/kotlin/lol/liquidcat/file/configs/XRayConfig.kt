@@ -7,11 +7,10 @@ package lol.liquidcat.file.configs
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.LiquidCat.logger
+import lol.liquidcat.features.module.modules.render.XRay
 import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
-import lol.liquidcat.features.module.modules.render.XRay
 import net.minecraft.block.Block
 import java.io.*
 

@@ -10,11 +10,11 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.timer.MSTimer
+import lol.liquidcat.utils.timer.TimeUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.TextValue
-import lol.liquidcat.utils.timer.MSTimer
-import lol.liquidcat.utils.timer.TimeUtils
 import org.apache.commons.lang3.RandomStringUtils
 import kotlin.random.Random
 

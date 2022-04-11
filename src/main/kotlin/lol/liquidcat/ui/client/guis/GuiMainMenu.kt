@@ -6,9 +6,9 @@
 package lol.liquidcat.ui.client.guis
 
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.ui.client.ImageButton
 import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.ui.client.GuiModsMenu
-import lol.liquidcat.ui.client.ImageButton
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.minecraft.client.gui.*
 import net.minecraft.util.ResourceLocation

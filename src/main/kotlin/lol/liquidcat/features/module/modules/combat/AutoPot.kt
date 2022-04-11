@@ -14,13 +14,13 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.Rotation
 import lol.liquidcat.utils.item.isHotbarFull
 import lol.liquidcat.utils.sendPacket
+import lol.liquidcat.utils.timer.MSTimer
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.misc.FallingPlayer
-import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.item.ItemPotion
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement

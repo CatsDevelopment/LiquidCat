@@ -9,15 +9,15 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.click.ClickHandler
 import lol.liquidcat.utils.entity.moving
 import lol.liquidcat.utils.item.ArmorComparator
 import lol.liquidcat.utils.item.ArmorPiece
-import lol.liquidcat.utils.click.ClickHandler
 import lol.liquidcat.utils.sendPacket
+import lol.liquidcat.utils.timer.TimeUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.injection.implementations.IItemStack
-import lol.liquidcat.utils.timer.TimeUtils
 import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.item.ItemArmor
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement

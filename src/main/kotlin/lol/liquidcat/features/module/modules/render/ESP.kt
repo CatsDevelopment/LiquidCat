@@ -13,14 +13,14 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.render.WorldToScreen
+import lol.liquidcat.utils.render.shader.shaders.GlowShader
+import lol.liquidcat.utils.render.shader.shaders.OutlineShader
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
-import lol.liquidcat.utils.render.WorldToScreen
-import lol.liquidcat.utils.render.shader.shaders.GlowShader
-import lol.liquidcat.utils.render.shader.shaders.OutlineShader
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11
 import org.lwjgl.util.vector.Vector3f

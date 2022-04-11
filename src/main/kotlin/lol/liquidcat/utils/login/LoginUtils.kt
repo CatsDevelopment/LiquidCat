@@ -13,8 +13,8 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.SessionEvent
-import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import lol.liquidcat.utils.login.UserUtils.getUUID
+import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.minecraft.util.Session
 import java.net.Proxy
 import java.util.*

@@ -11,6 +11,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.misc.AntiForge
+import lol.liquidcat.features.misc.AutoReconnect.delay
 import lol.liquidcat.features.misc.BungeeCordSpoof
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleManager
@@ -19,7 +20,6 @@ import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.value.Value
-import net.ccbluex.liquidbounce.features.special.AutoReconnect.delay
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAltening.Companion.apiKey
 import java.io.*
 import java.util.function.Consumer

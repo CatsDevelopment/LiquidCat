@@ -17,7 +17,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @SideOnly(Side.CLIENT)
 public abstract class Panel extends MinecraftInstance {
