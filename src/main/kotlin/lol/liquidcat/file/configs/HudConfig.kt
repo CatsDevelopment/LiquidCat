@@ -7,7 +7,7 @@ package lol.liquidcat.file.configs
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.file.FileConfig
-import net.ccbluex.liquidbounce.ui.client.hud.Config
+import lol.liquidcat.ui.client.hud.Config
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.FileWriter

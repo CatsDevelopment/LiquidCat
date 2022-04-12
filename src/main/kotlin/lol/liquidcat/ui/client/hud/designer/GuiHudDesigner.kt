@@ -3,11 +3,11 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package net.ccbluex.liquidbounce.ui.client.hud.designer
+package lol.liquidcat.ui.client.hud.designer
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.file.FileManager
-import net.ccbluex.liquidbounce.ui.client.hud.element.Element
+import lol.liquidcat.ui.client.hud.element.Element
 import net.minecraft.client.gui.GuiScreen
 import org.lwjgl.input.Keyboard
 import org.lwjgl.input.Mouse

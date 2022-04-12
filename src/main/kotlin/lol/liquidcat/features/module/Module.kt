@@ -10,7 +10,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.value.Value
-import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
+import lol.liquidcat.ui.client.hud.element.elements.Notification
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.stripColor
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation

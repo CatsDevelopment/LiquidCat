@@ -3,7 +3,7 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package net.ccbluex.liquidbounce.ui.client.hud.element.elements
+package lol.liquidcat.ui.client.hud.element.elements
 
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
@@ -13,10 +13,10 @@ import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.FontValue
 import lol.liquidcat.value.IntValue
-import net.ccbluex.liquidbounce.ui.client.hud.element.Border
-import net.ccbluex.liquidbounce.ui.client.hud.element.Element
-import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
-import net.ccbluex.liquidbounce.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Border
+import lol.liquidcat.ui.client.hud.element.Element
+import lol.liquidcat.ui.client.hud.element.ElementInfo
+import lol.liquidcat.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow

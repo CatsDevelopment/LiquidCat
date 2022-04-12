@@ -3,22 +3,19 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package net.ccbluex.liquidbounce.ui.client.hud
+package lol.liquidcat.ui.client.hud
 
 import lol.liquidcat.LiquidCat
-import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
-import net.ccbluex.liquidbounce.ui.client.hud.element.Element
-import net.ccbluex.liquidbounce.ui.client.hud.element.elements.*
-import net.ccbluex.liquidbounce.utils.MinecraftInstance
+import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner
+import lol.liquidcat.ui.client.hud.element.Element
+import lol.liquidcat.ui.client.hud.element.elements.*
+import lol.liquidcat.utils.mc
 import net.minecraft.client.gui.ScaledResolution
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import org.lwjgl.opengl.GL11
 import kotlin.math.max
 import kotlin.math.min
 
-@SideOnly(Side.CLIENT)
-open class HUD : MinecraftInstance() {
+open class HUD {
 
     val elements = mutableListOf<Element>()
     val notifications = mutableListOf<Notification>()
@@ -50,7 +47,6 @@ open class HUD : MinecraftInstance() {
                 .addElement(Armor())
                 .addElement(Effects())
                 .addElement(Notifications())
-                .addElement(Radar())
     }
 
     /**
@@ -79,10 +75,7 @@ open class HUD : MinecraftInstance() {
     /**
      * Update all elements
      */
-    fun update() {
-        for (element in elements)
-            element.updateElement()
-    }
+    fun update() = elements.forEach { it.updateElement() }
 
     /**
      * Handle mouse click
@@ -109,17 +102,13 @@ open class HUD : MinecraftInstance() {
     /**
      * Handle released mouse key
      */
-    fun handleMouseReleased() {
-        for (element in elements)
-            element.drag = false
-    }
+    fun handleMouseReleased() = elements.forEach { it.drag = false }
 
     /**
      * Handle mouse move
      */
     fun handleMouseMove(mouseX: Int, mouseY: Int) {
-        if (mc.currentScreen !is GuiHudDesigner)
-            return
+        if (mc.currentScreen !is GuiHudDesigner) return
 
         val scaledResolution = ScaledResolution(mc)
 
@@ -161,10 +150,7 @@ open class HUD : MinecraftInstance() {
     /**
      * Handle incoming key
      */
-    fun handleKey(c: Char, keyCode: Int) {
-        for (element in elements)
-            element.handleKey(c, keyCode)
-    }
+    fun handleKey(c: Char, keyCode: Int) = elements.forEach { it.handleKey(c, keyCode) }
 
     /**
      * Add [element] to HUD
@@ -188,9 +174,7 @@ open class HUD : MinecraftInstance() {
      * Clear all elements
      */
     fun clearElements() {
-        for (element in elements)
-            element.destroyElement()
-
+        elements.forEach { it.destroyElement() }
         elements.clear()
     }
 
@@ -203,5 +187,4 @@ open class HUD : MinecraftInstance() {
      * Remove [notification]
      */
     fun removeNotification(notification: Notification) = notifications.remove(notification)
-
 }

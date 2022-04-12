@@ -3,16 +3,17 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package net.ccbluex.liquidbounce.ui.client.hud.element.elements
+package lol.liquidcat.ui.client.hud.element.elements
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.utils.render.AnimationUtils
 import lol.liquidcat.utils.render.GLUtils
-import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
-import net.ccbluex.liquidbounce.ui.client.hud.element.Border
-import net.ccbluex.liquidbounce.ui.client.hud.element.Element
-import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
-import net.ccbluex.liquidbounce.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner
+import lol.liquidcat.ui.client.hud.element.Border
+import lol.liquidcat.ui.client.hud.element.Element
+import lol.liquidcat.ui.client.hud.element.ElementInfo
+import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.utils.mc
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color
@@ -22,7 +23,8 @@ import java.awt.Color
  */
 @ElementInfo(name = "Notifications", single = true)
 class Notifications(x: Double = 0.0, y: Double = 30.0, scale: Float = 1F,
-                    side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.DOWN)) : Element(x, y, scale, side) {
+                    side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.DOWN)
+) : Element(x, y, scale, side) {
 
     /**
      * Example notification for CustomHUD designer

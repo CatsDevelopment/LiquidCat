@@ -10,7 +10,7 @@ import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
-import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
+import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner
 import net.minecraft.client.gui.GuiChat
 import net.minecraft.util.ResourceLocation
 

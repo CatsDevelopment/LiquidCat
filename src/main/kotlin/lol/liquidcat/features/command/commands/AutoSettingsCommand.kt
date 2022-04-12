@@ -11,7 +11,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.utils.SettingsUtils
 import lol.liquidcat.utils.io.HttpUtils
-import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
+import lol.liquidcat.ui.client.hud.element.elements.Notification
 import kotlin.concurrent.thread
 
 object AutoSettingsCommand : Command("autosettings", arrayOf("setting", "settings", "config", "autosetting")) {

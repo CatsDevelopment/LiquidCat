@@ -3,13 +3,14 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package net.ccbluex.liquidbounce.ui.client.hud.element.elements
+package lol.liquidcat.ui.client.hud.element.elements
 
 import lol.liquidcat.value.ListValue
-import net.ccbluex.liquidbounce.ui.client.hud.element.Border
-import net.ccbluex.liquidbounce.ui.client.hud.element.Element
-import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
-import net.ccbluex.liquidbounce.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Border
+import lol.liquidcat.ui.client.hud.element.Element
+import lol.liquidcat.ui.client.hud.element.ElementInfo
+import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.utils.mc
 import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11
@@ -21,7 +22,8 @@ import org.lwjgl.opengl.GL11
  */
 @ElementInfo(name = "Armor")
 class Armor(x: Double = -8.0, y: Double = 57.0, scale: Float = 1F,
-            side: Side = Side(Side.Horizontal.MIDDLE, Side.Vertical.DOWN)) : Element(x, y, scale, side) {
+            side: Side = Side(Side.Horizontal.MIDDLE, Side.Vertical.DOWN)
+) : Element(x, y, scale, side) {
 
     private val mode by ListValue("Alignment", arrayOf("Horizontal", "Vertical"), "Horizontal")
 

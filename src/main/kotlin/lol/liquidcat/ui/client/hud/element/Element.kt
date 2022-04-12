@@ -3,20 +3,16 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package net.ccbluex.liquidbounce.ui.client.hud.element
+package lol.liquidcat.ui.client.hud.element
 
+import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.Value
-import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.minecraft.client.gui.ScaledResolution
 import kotlin.math.max
 import kotlin.math.min
 
-/**
- * CustomHUD element
- */
-abstract class Element(var x: Double = 2.0, var y: Double = 2.0, var scale: Float = 1F,
-                       var side: Side = Side.default()) : MinecraftInstance() {
+abstract class Element(var x: Double = 2.0, var y: Double = 2.0, var scale: Float = 1f, var side: Side = Side()) {
 
     val info = javaClass.getAnnotation(ElementInfo::class.java)
             ?: throw IllegalArgumentException("Passed element with missing element info")
@@ -25,33 +21,33 @@ abstract class Element(var x: Double = 2.0, var y: Double = 2.0, var scale: Floa
         get() = info.name
 
     var renderX: Double
-        get() = when (side.horizontal) {
-            Side.Horizontal.LEFT -> x
-            Side.Horizontal.MIDDLE -> (ScaledResolution(mc).scaledWidth / 2) - x
-            Side.Horizontal.RIGHT -> ScaledResolution(mc).scaledWidth - x
+        get() {
+            val sr = ScaledResolution(mc)
+
+            return when (side.horizontal) {
+                Side.Horizontal.LEFT -> x
+                Side.Horizontal.MIDDLE -> (sr.scaledWidth / 2) - x
+                Side.Horizontal.RIGHT -> sr.scaledWidth - x
+            }
         }
         set(value) = when (side.horizontal) {
-            Side.Horizontal.LEFT -> {
-                x += value
-            }
-            Side.Horizontal.MIDDLE, Side.Horizontal.RIGHT -> {
-                x -= value
-            }
+            Side.Horizontal.LEFT -> x += value
+            Side.Horizontal.MIDDLE, Side.Horizontal.RIGHT -> x -= value
         }
 
     var renderY: Double
-        get() = when (side.vertical) {
-            Side.Vertical.UP -> y
-            Side.Vertical.MIDDLE -> (ScaledResolution(mc).scaledHeight / 2) - y
-            Side.Vertical.DOWN -> ScaledResolution(mc).scaledHeight - y
+        get() {
+            val sr = ScaledResolution(mc)
+
+            return when (side.vertical) {
+                Side.Vertical.UP -> y
+                Side.Vertical.MIDDLE -> (sr.scaledHeight / 2) - y
+                Side.Vertical.DOWN -> sr.scaledHeight - y
+            }
         }
         set(value) = when (side.vertical) {
-            Side.Vertical.UP -> {
-                y += value
-            }
-            Side.Vertical.MIDDLE, Side.Vertical.DOWN -> {
-                y -= value
-            }
+            Side.Vertical.UP -> y += value
+            Side.Vertical.MIDDLE, Side.Vertical.DOWN -> y -= value
         }
 
     var border: Border? = null
@@ -121,60 +117,6 @@ abstract class Element(var x: Double = 2.0, var y: Double = 2.0, var scale: Floa
  */
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 annotation class ElementInfo(val name: String, val single: Boolean = false, val force: Boolean = false)
-
-/**
- * CustomHUD Side
- *
- * Allows to change default x and y position by side
- */
-class Side(var horizontal: Horizontal, var vertical: Vertical) {
-
-    companion object {
-
-        /**
-         * Default element side
-         */
-        fun default() = Side(Horizontal.LEFT, Vertical.UP)
-
-    }
-
-    /**
-     * Horizontal side
-     */
-    enum class Horizontal(val sideName: String) {
-
-        LEFT("Left"),
-        MIDDLE("Middle"),
-        RIGHT("Right");
-
-        companion object {
-
-            @JvmStatic
-            fun getByName(name: String) = values().find { it.sideName == name }
-
-        }
-
-    }
-
-    /**
-     * Vertical side
-     */
-    enum class Vertical(val sideName: String) {
-
-        UP("Up"),
-        MIDDLE("Middle"),
-        DOWN("Down");
-
-        companion object {
-
-            @JvmStatic
-            fun getByName(name: String) = values().find { it.sideName == name }
-
-        }
-
-    }
-
-}
 
 /**
  * Border of element

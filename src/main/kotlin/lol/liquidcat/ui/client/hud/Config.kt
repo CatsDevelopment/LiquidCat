@@ -3,7 +3,7 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package net.ccbluex.liquidbounce.ui.client.hud
+package lol.liquidcat.ui.client.hud
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -11,10 +11,10 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.value.FontValue
-import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.createDefault
-import net.ccbluex.liquidbounce.ui.client.hud.HUD.Companion.elements
-import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
-import net.ccbluex.liquidbounce.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.HUD.Companion.createDefault
+import lol.liquidcat.ui.client.hud.HUD.Companion.elements
+import lol.liquidcat.ui.client.hud.element.ElementInfo
+import lol.liquidcat.ui.client.hud.element.Side
 
 class Config {
 
@@ -67,8 +67,8 @@ class Config {
                             element.y = jsonObject["Y"].asInt.toDouble()
                             element.scale = jsonObject["Scale"].asFloat
                             element.side = Side(
-                                    Side.Horizontal.getByName(jsonObject["HorizontalFacing"].asString)!!,
-                                    Side.Vertical.getByName(jsonObject["VerticalFacing"].asString)!!
+                                    Side.Horizontal.byName(jsonObject["HorizontalFacing"].asString)!!,
+                                    Side.Vertical.byName(jsonObject["VerticalFacing"].asString)!!
                             )
 
                             for (value in element.values) {
