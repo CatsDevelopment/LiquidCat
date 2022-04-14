@@ -5,7 +5,7 @@
  */
 package lol.liquidcat
 
-import lol.liquidcat.discord.ClientRichPresence
+import lol.liquidcat.discord.RichPresence
 import lol.liquidcat.event.ClientShutdownEvent
 import lol.liquidcat.event.EventManager
 import lol.liquidcat.features.command.CommandManager
@@ -62,9 +62,6 @@ object LiquidCat {
     lateinit var hud: HUD
     lateinit var clickGui: ClickGui
 
-    // Discord RPC
-    private lateinit var clientRichPresence: ClientRichPresence
-
     /**
      * Called when client starts
      */
@@ -100,12 +97,7 @@ object LiquidCat {
         FileManager.loadConfigs()
 
         // Setup Discord RPC
-        try {
-            clientRichPresence = ClientRichPresence()
-            clientRichPresence.setup()
-        } catch (throwable: Throwable) {
-            logger.error("Failed to setup Discord RPC.", throwable)
-        }
+        RichPresence.setup()
 
         // Disable optifine fastrender
         disableFastRender()
@@ -129,6 +121,6 @@ object LiquidCat {
         FileManager.saveConfigs()
 
         // Shutdown discord rpc
-        clientRichPresence.shutdown()
+        RichPresence.shutdown()
     }
 }

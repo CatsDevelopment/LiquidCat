@@ -12,30 +12,29 @@ import com.jagrosh.discordipc.entities.pipe.PipeStatus
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.utils.ServerUtils
-import net.ccbluex.liquidbounce.utils.MinecraftInstance
+import lol.liquidcat.utils.mc
 import org.json.JSONObject
 import java.time.OffsetDateTime
 import kotlin.concurrent.thread
 
-class ClientRichPresence : MinecraftInstance() {
+object RichPresence {
 
-    // IPC Client
+    private const val CLIENT_ID = 939974399233253447
+
     private var ipcClient: IPCClient? = null
-
-    private var appID = 939974399233253447
     private val timestamp = OffsetDateTime.now()
 
     // Status of running
-    private var running: Boolean = false
+    private var running = false
 
     /**
      * Setup Discord RPC
      */
     fun setup() {
-        try {
+        runCatching {
             running = true
 
-            ipcClient = IPCClient(appID)
+            ipcClient = IPCClient(CLIENT_ID)
             ipcClient?.setListener(object : IPCListener {
 
                 /**
@@ -48,10 +47,7 @@ class ClientRichPresence : MinecraftInstance() {
                         while (running) {
                             update()
 
-                            try {
-                                Thread.sleep(1000L)
-                            } catch (ignored: InterruptedException) {
-                            }
+                            Thread.sleep(1000L)
                         }
                     }
                 }
@@ -65,13 +61,10 @@ class ClientRichPresence : MinecraftInstance() {
                 override fun onClose(client: IPCClient?, json: JSONObject?) {
                     running = false
                 }
-
             })
-            ipcClient?.connect()
-        } catch (e: Throwable) {
-            LiquidCat.logger.error("Failed to setup Discord RPC.", e)
-        }
 
+            ipcClient?.connect()
+        }.onFailure { LiquidCat.logger.error("Failed to setup Discord RPC.", it.message) }
     }
 
     /**
@@ -80,19 +73,14 @@ class ClientRichPresence : MinecraftInstance() {
     fun update() {
         val builder = RichPresence.Builder()
 
-        // Set playing time
         builder.setStartTimestamp(timestamp)
+        builder.setLargeImage("icon", "${LiquidCat.CLIENT_NAME} ${LiquidCat.CLIENT_VERSION}")
 
-        builder.setLargeImage("funnycat", "${LiquidCat.CLIENT_NAME} ${LiquidCat.CLIENT_VERSION}")
-
-        // Check user is ingame
         if (mc.thePlayer != null) {
-            val serverData = mc.currentServerData
-
-            // Set display infos
-            builder.setDetails("Server: ${ServerUtils.remoteIp}")
+            builder.setDetails("Playing on ${ServerUtils.remoteIp}")
             builder.setState("Enabled ${ModuleManager.modules.count { it.state }} of ${ModuleManager.modules.size} modules")
-        }
+        } else
+            builder.setDetails("cool client")
 
         // Check ipc client is connected and send rpc
         if (ipcClient?.status == PipeStatus.CONNECTED)
@@ -103,10 +91,8 @@ class ClientRichPresence : MinecraftInstance() {
      * Shutdown ipc client
      */
     fun shutdown() {
-        try {
+        runCatching {
             ipcClient?.close()
-        } catch (e: Throwable) {
-            LiquidCat.logger.error("Failed to close Discord RPC.", e)
-        }
+        }.onFailure { LiquidCat.logger.error("Failed to close Discord RPC.", it.message) }
     }
 }
