@@ -5,15 +5,45 @@
  */
 package lol.liquidcat.utils.entity
 
+import lol.liquidcat.features.friend.FriendManager
 import lol.liquidcat.utils.mc
+import lol.liquidcat.utils.toRadians
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.Entity
+import net.minecraft.entity.boss.EntityDragon
+import net.minecraft.entity.monster.EntityGhast
+import net.minecraft.entity.monster.EntityGolem
+import net.minecraft.entity.monster.EntityMob
+import net.minecraft.entity.monster.EntitySlime
+import net.minecraft.entity.passive.EntityAnimal
+import net.minecraft.entity.passive.EntityBat
+import net.minecraft.entity.passive.EntitySquid
+import net.minecraft.entity.passive.EntityVillager
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumAction
 import net.minecraft.potion.Potion
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.Vec3
 import kotlin.math.*
+
+/**
+ * Checks if the entity is your friend
+ */
+fun Entity.isFriend() = this is EntityPlayer && FriendManager.isFriend(name)
+
+/**
+ * Checks if the entity is an animal
+ */
+fun Entity.isAnimal(): Boolean {
+    return this is EntityAnimal || this is EntitySquid || this is EntityGolem || this is EntityBat
+}
+
+/**
+ * Checks if the entity is a mob
+ */
+fun Entity.isMob(): Boolean {
+    return this is EntityMob || this is EntityVillager || this is EntitySlime || this is EntityGhast || this is EntityDragon
+}
 
 /**
  * Checks if the player moves
@@ -51,7 +81,7 @@ val EntityPlayerSP.directionYaw: Float
 
 fun EntityPlayerSP.strafe(speed: Double = this.speed, yaw: Float = directionYaw) {
     if (moving) {
-        val angle = Math.toRadians(yaw.toDouble())
+        val angle = yaw.toDouble().toRadians()
 
         motionX = -sin(angle) * speed
         motionZ = cos(angle) * speed
@@ -119,21 +149,15 @@ private fun getNearestPoint(eye: Vec3, box: AxisAlignedBB): Vec3 {
 }
 
 /**
- * Moves the player's position forward
- *
- * @param length Move length
+ * Moves the player forward by [x] blocks
  */
-fun EntityPlayerSP.forward(length: Double) {
-    val yaw = Math.toRadians(rotationYaw.toDouble())
+fun EntityPlayerSP.forward(x: Double) {
+    val yaw = rotationYaw.toDouble().toRadians()
 
-    setPosition(posX + -sin(yaw) * length, posY, posZ + cos(yaw) * length)
+    setPosition(posX - sin(yaw) * x, posY, posZ + cos(yaw) * x)
 }
 
 /**
- * Moves the player's position up
- *
- * @param height Move height
+ * Moves player up by [x] blocks
  */
-fun EntityPlayerSP.upwards(height: Double) {
-    mc.thePlayer.setPosition(posX, posY + height, posZ)
-}
+fun EntityPlayerSP.upwards(x: Double) = setPosition(posX, posY + x, posZ)

@@ -13,8 +13,7 @@ import lol.liquidcat.features.module.modules.misc.AntiBot
 import lol.liquidcat.features.module.modules.misc.Teams
 import lol.liquidcat.features.module.modules.player.Blink
 import lol.liquidcat.features.module.modules.render.FreeCam
-import lol.liquidcat.utils.entity.EntityUtils
-import lol.liquidcat.utils.entity.getDistanceToEntityBox
+import lol.liquidcat.utils.entity.*
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.utils.timer.MSTimer
@@ -486,14 +485,14 @@ object KillAura : Module("KillAura", "Automatically attacks targets around you."
                 if (entity.isSpectator || AntiBot.isBot(entity))
                     return false
 
-                if (EntityUtils.isFriend(entity) && !NoFriends.state)
+                if (entity.isFriend() && !NoFriends.state)
                     return false
 
                 return !Teams.isInYourTeam(entity)
             }
 
-            return EntityUtils.targetMobs && EntityUtils.isMob(entity) || EntityUtils.targetAnimals &&
-                    EntityUtils.isAnimal(entity)
+            return EntityUtils.targetMobs && entity.isMob() || EntityUtils.targetAnimals &&
+                    entity.isAnimal()
         }
 
         return false
@@ -607,7 +606,7 @@ object KillAura : Module("KillAura", "Automatically attacks targets around you."
                         (isEnemy(it) || raycastIgnored || aac && mc.theWorld.getEntitiesWithinAABBExcludingEntity(it, it.entityBoundingBox).isNotEmpty())
             }
 
-            if (raycast && raycastedEntity is EntityLivingBase && (NoFriends.state || !EntityUtils.isFriend(raycastedEntity)))
+            if (raycast && raycastedEntity is EntityLivingBase && (NoFriends.state || !raycastedEntity.isFriend()))
                 currentTarget = raycastedEntity
 
             hitable = if(maxTurnSpeed > 0F) currentTarget == raycastedEntity else true

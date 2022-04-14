@@ -28,12 +28,14 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
                             return
                         }
 
-                        if (if (args.size > 3) FriendManager.addFriend(name, StringUtils.toCompleteString(args, 3)) else FriendManager.addFriend(name)) {
+                        if (!FriendManager.isFriend(name)) {
+                            FriendManager.addFriend(name, if (args.size > 3) StringUtils.toCompleteString(args, 3) else name)
                             FileManager.saveConfig(friendsConfig)
                             chat("§a§l$name§3 was added to your friend list.")
                             playEdit()
                         } else
                             chat("The name is already in the list.")
+
                         return
                     }
                     chatSyntax("friend add <name> [alias]")
@@ -44,12 +46,14 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
                     if (args.size > 2) {
                         val name = args[2]
 
-                        if (FriendManager.removeFriend(name)) {
+                        if (FriendManager.isFriend(name)) {
+                            FriendManager.removeFriend(name)
                             FileManager.saveConfig(friendsConfig)
                             chat("§a§l$name§3 was removed from your friend list.")
                             playEdit()
                         } else
                             chat("This name is not in the list.")
+
                         return
                     }
                     chatSyntax("friend remove <name>")

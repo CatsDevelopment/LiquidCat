@@ -5,7 +5,6 @@
  */
 package lol.liquidcat.file.configs
 
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import lol.liquidcat.features.friend.FriendManager
@@ -22,11 +21,12 @@ class FriendsConfig(file: File?) : FileConfig(file!!) {
         val jsonElement = JsonParser().parse(BufferedReader(FileReader(file)))
         val jsonObject = jsonElement as JsonObject
 
-        val iterator: Iterator<Map.Entry<String, JsonElement>> = jsonObject.entrySet().iterator()
+        val iterator = jsonObject.entrySet().iterator()
         while (iterator.hasNext()) {
             val (key, value) = iterator.next()
 
-            FriendManager.addFriend(key, value.asString)
+            if (!FriendManager.isFriend(key))
+                FriendManager.addFriend(key, value.asString)
         }
     }
 

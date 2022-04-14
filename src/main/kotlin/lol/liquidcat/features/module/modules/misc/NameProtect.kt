@@ -25,12 +25,11 @@ object NameProtect : Module("NameProtect", "Changes playernames clientside.", Mo
     @EventTarget(ignoreCondition = true)
     fun onText(event: TextEvent) {
         if (mc.thePlayer == null || event.text!!.contains("§8[§9§l" + LiquidCat.CLIENT_NAME + "§8] §3")) return
-        for (friend in FriendManager.friends) event.text = StringUtils.replace(
-            event.text, friend.name, translateAlternateColorCodes(
-                friend.alias!!
-            ) + "§f"
-        )
+        for (friend in FriendManager.friends)
+            event.text = StringUtils.replace(event.text, friend.name, translateAlternateColorCodes(friend.alias!!) + "§f")
+
         if (!state) return
+
         event.text =
             StringUtils.replace(event.text, mc.thePlayer.name, translateAlternateColorCodes(fakeName) + "§f")
         if (allPlayers) for (playerInfo in mc.netHandler.playerInfoMap) event.text =

@@ -14,28 +14,22 @@ object FriendManager {
     val friends = mutableListOf<Friend>()
 
     /**
-     * Adds a friend
+     * Adds a new friend
      *
-     * @param name Friend's name
-     * @param alias Friend's alias
-     * @return Add friend status
+     * @param name Friend name
+     * @param alias Friend alias
      */
-    fun addFriend(name: String, alias: String? = name): Boolean {
-        if (isFriend(name)) return false
+    fun addFriend(name: String, alias: String = name) {
         friends.add(Friend(name, alias))
-        return true
     }
 
     /**
      * Removes a friend
      *
-     * @param name Friend's name
-     * @return Remove friend status
+     * @param name Friend name
      */
-    fun removeFriend(name: String): Boolean {
-        if (!isFriend(name)) return false
-        friends.removeIf { it.name == name }
-        return true
+    fun removeFriend(name: String) {
+        friends.removeAll { it.name == name }
     }
 
     /**
@@ -43,7 +37,10 @@ object FriendManager {
      */
     fun clearFriends() = friends.clear()
 
-    fun isFriend(name: String) = friends.contains(Friend(name))
+    /**
+     * Checks if friend with [name] already exists
+     */
+    fun isFriend(name: String) = friends.any { it.name == name }
 
-    class Friend(val name: String, val alias: String? = null)
+    class Friend(val name: String, val alias: String = name)
 }
