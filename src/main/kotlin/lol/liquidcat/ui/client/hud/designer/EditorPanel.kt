@@ -7,13 +7,13 @@ package lol.liquidcat.ui.client.hud.designer
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.module.modules.render.ClickGUI
-import lol.liquidcat.utils.render.GLUtils
-import lol.liquidcat.value.*
 import lol.liquidcat.ui.client.hud.HUD.Companion.createDefault
 import lol.liquidcat.ui.client.hud.HUD.Companion.elements
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.ui.font.GameFontRenderer
 import net.ccbluex.liquidbounce.utils.MinecraftInstance

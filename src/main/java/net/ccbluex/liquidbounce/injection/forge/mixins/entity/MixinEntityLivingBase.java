@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.entity;
 
-import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventManager;
 import lol.liquidcat.event.JumpEvent;
 import lol.liquidcat.features.module.modules.movement.AirJump;
 import lol.liquidcat.features.module.modules.movement.NoJumpDelay;
@@ -72,7 +72,7 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
 
         if ((Object) this == Minecraft.getMinecraft().thePlayer) {
             final JumpEvent jumpEvent = new JumpEvent(this.getJumpUpwardsMotion());
-            LiquidCat.eventManager.callEvent(jumpEvent);
+            EventManager.callEvent(jumpEvent);
 
             if (jumpEvent.isCancelled()) return;
 

@@ -5,13 +5,13 @@
  */
 package lol.liquidcat.ui.client.hud.element.elements
 
-import lol.liquidcat.utils.render.GLUtils
-import lol.liquidcat.value.FloatValue
-import lol.liquidcat.value.ListValue
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.utils.mc
+import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.value.FloatValue
+import lol.liquidcat.value.ListValue
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.OpenGlHelper
 import net.minecraft.client.renderer.RenderHelper

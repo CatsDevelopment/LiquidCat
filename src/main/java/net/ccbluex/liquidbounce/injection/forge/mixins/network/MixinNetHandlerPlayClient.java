@@ -8,6 +8,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.network;
 import io.netty.buffer.Unpooled;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.EntityMovementEvent;
+import lol.liquidcat.event.EventManager;
 import lol.liquidcat.features.misc.AntiForge;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
@@ -98,6 +99,6 @@ public abstract class MixinNetHandlerPlayClient {
         final Entity entity = packetIn.getEntity(this.clientWorldController);
 
         if(entity != null)
-            LiquidCat.eventManager.callEvent(new EntityMovementEvent(entity));
+            EventManager.callEvent(new EntityMovementEvent(entity));
     }
 }

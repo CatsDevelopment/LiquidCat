@@ -12,6 +12,7 @@ import com.thealtening.AltService;
 import com.thealtening.api.TheAltening;
 import com.thealtening.api.data.AccountData;
 import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventManager;
 import lol.liquidcat.event.SessionEvent;
 import lol.liquidcat.features.misc.AntiForge;
 import lol.liquidcat.features.misc.AutoReconnect;
@@ -85,7 +86,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
                         yggdrasilUserAuthentication.logIn();
 
                         mc.session = new Session(yggdrasilUserAuthentication.getSelectedProfile().getName(), yggdrasilUserAuthentication.getSelectedProfile().getId().toString(), yggdrasilUserAuthentication.getAuthenticatedToken(), "mojang");
-                        LiquidCat.eventManager.callEvent(new SessionEvent());
+                        EventManager.callEvent(new SessionEvent());
                         ServerUtils.connectToLastServer();
                         break;
                     } catch (final Throwable throwable) {

@@ -6,7 +6,7 @@
 package lol.liquidcat.features.misc
 
 import io.netty.buffer.Unpooled
-import lol.liquidcat.LiquidCat
+import lol.liquidcat.event.EventManager
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.event.PacketEvent
@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.network.internal.FMLProxyPacket
 object AntiForge : Listenable {
 
     init {
-        LiquidCat.eventManager.registerListener(this)
+        EventManager.registerListener(this)
     }
 
     @JvmField

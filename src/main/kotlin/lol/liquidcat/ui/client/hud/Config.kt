@@ -10,11 +10,11 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import lol.liquidcat.LiquidCat
-import lol.liquidcat.value.FontValue
 import lol.liquidcat.ui.client.hud.HUD.Companion.createDefault
 import lol.liquidcat.ui.client.hud.HUD.Companion.elements
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.value.FontValue
 
 class Config {
 

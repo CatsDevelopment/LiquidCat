@@ -10,7 +10,7 @@ import lol.liquidcat.file.FileManager
 import java.io.File
 import java.io.FileFilter
 
-class ScriptManager {
+object ScriptManager {
 
     val scripts = mutableListOf<Script>()
 

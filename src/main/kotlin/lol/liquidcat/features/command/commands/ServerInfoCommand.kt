@@ -5,7 +5,7 @@
  */
 package lol.liquidcat.features.command.commands
 
-import lol.liquidcat.LiquidCat
+import lol.liquidcat.event.EventManager
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.event.PacketEvent
@@ -14,7 +14,7 @@ import net.minecraft.network.handshake.client.C00Handshake
 
 object ServerInfoCommand : Command("serverinfo", emptyArray()), Listenable {
     init {
-        LiquidCat.eventManager.registerListener(this)
+        EventManager.registerListener(this)
     }
 
     private var ip = ""

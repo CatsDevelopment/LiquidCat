@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
-import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventManager;
 import lol.liquidcat.event.Render2DEvent;
 import lol.liquidcat.features.module.modules.render.AntiBlind;
 import lol.liquidcat.features.module.modules.render.HUD;
@@ -67,7 +67,7 @@ public abstract class MixinGuiInGame {
             GlStateManager.disableRescaleNormal();
             GlStateManager.disableBlend();
 
-            LiquidCat.eventManager.callEvent(new Render2DEvent(partialTicks));
+            EventManager.callEvent(new Render2DEvent(partialTicks));
             AWTFontRenderer.Companion.garbageCollectionTick();
             callbackInfo.cancel();
         }
@@ -76,7 +76,7 @@ public abstract class MixinGuiInGame {
     @Inject(method = "renderTooltip", at = @At("RETURN"))
     private void renderTooltipPost(ScaledResolution sr, float partialTicks, CallbackInfo callbackInfo) {
         if (!ClassUtils.hasClass("net.labymod.api.LabyModAPI")) {
-            LiquidCat.eventManager.callEvent(new Render2DEvent(partialTicks));
+            EventManager.callEvent(new Render2DEvent(partialTicks));
             AWTFontRenderer.Companion.garbageCollectionTick();
         }
     }

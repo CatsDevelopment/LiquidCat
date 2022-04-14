@@ -7,6 +7,7 @@
 package lol.liquidcat.features.module
 
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.event.EventManager
 import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.KeyEvent
 import lol.liquidcat.event.Listenable
@@ -29,7 +30,7 @@ object ModuleManager : Listenable {
     val modules = mutableListOf<Module>()
 
     init {
-        LiquidCat.eventManager.registerListener(this)
+        EventManager.registerListener(this)
     }
 
     /**
@@ -176,7 +177,7 @@ object ModuleManager : Listenable {
         modules.add(module)
 
         generateCommand(module)
-        LiquidCat.eventManager.registerListener(module)
+        EventManager.registerListener(module)
     }
 
     /**
@@ -184,7 +185,7 @@ object ModuleManager : Listenable {
      */
     fun unregisterModule(module: Module) {
         modules.remove(module)
-        LiquidCat.eventManager.unregisterListener(module)
+        EventManager.unregisterListener(module)
     }
 
     /**

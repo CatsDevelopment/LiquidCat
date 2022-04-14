@@ -6,7 +6,7 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
 import com.google.common.base.Predicates;
-import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventManager;
 import lol.liquidcat.event.Render3DEvent;
 import lol.liquidcat.features.module.modules.player.Reach;
 import lol.liquidcat.features.module.modules.render.CameraClip;
@@ -63,7 +63,7 @@ public abstract class MixinEntityRenderer {
 
     @Inject(method = "renderWorldPass", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/EntityRenderer;renderHand:Z", shift = At.Shift.BEFORE))
     private void renderWorldPass(int pass, float partialTicks, long finishTimeNano, CallbackInfo callbackInfo) {
-        LiquidCat.eventManager.callEvent(new Render3DEvent(partialTicks));
+        EventManager.callEvent(new Render3DEvent(partialTicks));
     }
 
     @Inject(method = "hurtCameraEffect", at = @At("HEAD"), cancellable = true)

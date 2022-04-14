@@ -7,6 +7,7 @@ package net.ccbluex.liquidbounce.ui.client
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.file.FileManager
+import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
@@ -58,7 +59,7 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                 val fileName = file.name
 
                 if (fileName.endsWith(".js")) {
-                    LiquidCat.scriptManager.importScript(file)
+                    ScriptManager.importScript(file)
 
                     LiquidCat.clickGui = ClickGui()
                     FileManager.loadConfig(FileManager.clickGuiConfig)
@@ -71,7 +72,7 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                     while (entries.hasMoreElements()) {
                         val entry = entries.nextElement()
                         val entryName = entry.name
-                        val entryFile = File(LiquidCat.scriptManager.scriptsFolder, entryName)
+                        val entryFile = File(ScriptManager.scriptsFolder, entryName)
 
                         if (entry.isDirectory) {
                             entryFile.mkdir()
@@ -89,7 +90,7 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                             scriptFiles.add(entryFile)
                     }
 
-                    scriptFiles.forEach { scriptFile -> LiquidCat.scriptManager.loadScript(scriptFile) }
+                    scriptFiles.forEach { scriptFile -> ScriptManager.loadScript(scriptFile) }
 
                     LiquidCat.clickGui = ClickGui()
                     FileManager.loadConfig(FileManager.clickGuiConfig)
@@ -105,9 +106,9 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
 
             2 -> try {
                 if (list.getSelectedSlot() != -1) {
-                    val script = LiquidCat.scriptManager.scripts[list.getSelectedSlot()]
+                    val script = ScriptManager.scripts[list.getSelectedSlot()]
 
-                    LiquidCat.scriptManager.deleteScript(script)
+                    ScriptManager.deleteScript(script)
 
                     LiquidCat.clickGui = ClickGui()
                     FileManager.loadConfig(FileManager.clickGuiConfig)
@@ -118,13 +119,13 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                 MiscUtils.showErrorPopup(t.javaClass.name, t.message)
             }
             3 -> try {
-                LiquidCat.scriptManager.reloadScripts()
+                ScriptManager.reloadScripts()
             } catch (t: Throwable) {
                 LiquidCat.logger.error("Something went wrong while reloading all scripts.", t)
                 MiscUtils.showErrorPopup(t.javaClass.name, t.message)
             }
             4 -> try {
-                Desktop.getDesktop().open(LiquidCat.scriptManager.scriptsFolder)
+                Desktop.getDesktop().open(ScriptManager.scriptsFolder)
             } catch (t: Throwable) {
                 LiquidCat.logger.error("Something went wrong while trying to open your scripts folder.", t)
                 MiscUtils.showErrorPopup(t.javaClass.name, t.message)
@@ -159,16 +160,16 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
 
         override fun isSelected(id: Int) = selectedSlot == id
 
-        fun getSelectedSlot() = if (selectedSlot > LiquidCat.scriptManager.scripts.size) -1 else selectedSlot
+        fun getSelectedSlot() = if (selectedSlot > ScriptManager.scripts.size) -1 else selectedSlot
 
-        override fun getSize() = LiquidCat.scriptManager.scripts.size
+        override fun getSize() = ScriptManager.scripts.size
 
         public override fun elementClicked(id: Int, doubleClick: Boolean, var3: Int, var4: Int) {
             selectedSlot = id
         }
 
         override fun drawSlot(id: Int, x: Int, y: Int, var4: Int, var5: Int, var6: Int) {
-            val script = LiquidCat.scriptManager.scripts[id]
+            val script = ScriptManager.scripts[id]
             drawCenteredString(Fonts.font40, "§9" + script.scriptName + " §7v" + script.scriptVersion, width / 2, y + 2, Color.LIGHT_GRAY.rgb)
             drawCenteredString(Fonts.font40, "by §c" + script.scriptAuthors.joinToString(", "), width / 2, y + 15, Color.LIGHT_GRAY.rgb)
         }

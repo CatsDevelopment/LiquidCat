@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.ui.client.altmanager.sub;
 
-import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventManager;
 import lol.liquidcat.event.SessionEvent;
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
@@ -72,7 +72,7 @@ public class GuiChangeName extends GuiScreen {
                 }
 
                 mc.session = new Session(name.getText(), mc.getSession().getPlayerID(), mc.getSession().getToken(), mc.getSession().getSessionType().name());
-                LiquidCat.eventManager.callEvent(new SessionEvent());
+                EventManager.callEvent(new SessionEvent());
                 status = "§aChanged name to §7" + name.getText() + "§c.";
                 prevGui.status = status;
                 mc.displayGuiScreen(prevGui);

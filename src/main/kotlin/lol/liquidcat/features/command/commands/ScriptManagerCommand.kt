@@ -9,6 +9,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.file.FileManager
+import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
 import org.apache.commons.io.IOUtils
@@ -30,7 +31,7 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                         val fileName = file.name
 
                         if (fileName.endsWith(".js")) {
-                            LiquidCat.scriptManager.importScript(file)
+                            ScriptManager.importScript(file)
 
                             LiquidCat.clickGui = ClickGui()
                             FileManager.loadConfig(FileManager.clickGuiConfig)
@@ -45,7 +46,7 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                             while (entries.hasMoreElements()) {
                                 val entry = entries.nextElement()
                                 val entryName = entry.name
-                                val entryFile = File(LiquidCat.scriptManager.scriptsFolder, entryName)
+                                val entryFile = File(ScriptManager.scriptsFolder, entryName)
 
                                 if (entry.isDirectory) {
                                     entryFile.mkdir()
@@ -63,7 +64,7 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                                     scriptFiles.add(entryFile)
                             }
 
-                            scriptFiles.forEach { scriptFile -> LiquidCat.scriptManager.loadScript(scriptFile) }
+                            scriptFiles.forEach { scriptFile -> ScriptManager.loadScript(scriptFile) }
 
                             LiquidCat.clickGui = ClickGui()
                             FileManager.loadConfig(FileManager.clickGuiConfig)
@@ -88,7 +89,7 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                         }
 
                         val scriptIndex = args[2].toInt()
-                        val scripts = LiquidCat.scriptManager.scripts
+                        val scripts = ScriptManager.scripts
 
                         if (scriptIndex >= scripts.size) {
                             chat("Index $scriptIndex is too high.")
@@ -97,7 +98,7 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
 
                         val script = scripts[scriptIndex]
 
-                        LiquidCat.scriptManager.deleteScript(script)
+                        ScriptManager.deleteScript(script)
 
                         LiquidCat.clickGui = ClickGui()
                         FileManager.loadConfig(FileManager.clickGuiConfig)
@@ -114,12 +115,12 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
                 args[1].equals("reload", true) -> {
                     try {
                         LiquidCat.loading = true
-                        LiquidCat.scriptManager.disableScripts()
-                        LiquidCat.scriptManager.unloadScripts()
+                        ScriptManager.disableScripts()
+                        ScriptManager.unloadScripts()
                         for(module in ModuleManager.modules)
                             ModuleManager.generateCommand(module)
-                        LiquidCat.scriptManager.loadScripts()
-                        LiquidCat.scriptManager.enableScripts()
+                        ScriptManager.loadScripts()
+                        ScriptManager.enableScripts()
                         FileManager.loadConfig(FileManager.modulesConfig)
                         LiquidCat.loading = false
                         FileManager.loadConfig(FileManager.valuesConfig)
@@ -134,7 +135,7 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
 
                 args[1].equals("folder", true) -> {
                     try {
-                        Desktop.getDesktop().open(LiquidCat.scriptManager.scriptsFolder)
+                        Desktop.getDesktop().open(ScriptManager.scriptsFolder)
                         chat("Successfully opened scripts folder.")
                     } catch (t: Throwable) {
                         LiquidCat.logger.error("Something went wrong while trying to open your scripts folder.", t)
@@ -146,7 +147,7 @@ object ScriptManagerCommand : Command("scriptmanager", arrayOf("scripts")) {
             return
         }
 
-        val scriptManager = LiquidCat.scriptManager
+        val scriptManager = ScriptManager
 
         if (scriptManager.scripts.isNotEmpty()) {
             chat("§c§lScripts")

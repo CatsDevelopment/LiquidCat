@@ -9,6 +9,7 @@ import jdk.internal.dynalink.beans.StaticClass
 import jdk.nashorn.api.scripting.JSObject
 import jdk.nashorn.api.scripting.ScriptUtils
 import lol.liquidcat.LiquidCat
+import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleManager
@@ -33,7 +34,7 @@ class Script(val scriptFile: File) : MinecraftInstance() {
     private var state = false
     private val events = HashMap<String, JSObject>()
     private val registeredModules = mutableListOf<Module>()
-    private val registeredCommands = mutableListOf<lol.liquidcat.features.command.Command>()
+    private val registeredCommands = mutableListOf<Command>()
 
     init {
         // Global classes
@@ -44,7 +45,7 @@ class Script(val scriptFile: File) : MinecraftInstance() {
         scriptEngine.put("mc", mc)
         scriptEngine.put("moduleManager", ModuleManager)
         scriptEngine.put("commandManager", CommandManager)
-        scriptEngine.put("scriptManager", LiquidCat.scriptManager)
+        scriptEngine.put("scriptManager", ScriptManager)
 
         // Global functions
         scriptEngine.put("registerScript", RegisterScript())
@@ -156,7 +157,7 @@ class Script(val scriptFile: File) : MinecraftInstance() {
      * @param scriptFile Path to the file to be imported.
      */
     fun import(scriptFile: String) {
-        scriptEngine.eval(File(LiquidCat.scriptManager.scriptsFolder, scriptFile).readText())
+        scriptEngine.eval(File(ScriptManager.scriptsFolder, scriptFile).readText())
     }
 
     /**

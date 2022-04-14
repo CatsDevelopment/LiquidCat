@@ -7,9 +7,6 @@ package lol.liquidcat.ui.client.hud.element.elements
 
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleManager
-import lol.liquidcat.utils.render.AnimationUtils
-import lol.liquidcat.utils.render.GLUtils
-import lol.liquidcat.value.*
 import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
@@ -18,6 +15,9 @@ import lol.liquidcat.ui.client.hud.element.Side
 import lol.liquidcat.ui.client.hud.element.Side.Horizontal
 import lol.liquidcat.ui.client.hud.element.Side.Vertical
 import lol.liquidcat.utils.mc
+import lol.liquidcat.utils.render.AnimationUtils
+import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.render.ColorUtils

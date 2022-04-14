@@ -5,13 +5,13 @@
  */
 package lol.liquidcat.ui.client.hud.element.elements
 
-import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.FontValue
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
 import lol.liquidcat.utils.mc
+import lol.liquidcat.value.BoolValue
+import lol.liquidcat.value.FontValue
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer.Companion.assumeNonVolatile
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.resources.I18n

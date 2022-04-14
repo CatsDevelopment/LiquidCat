@@ -6,14 +6,14 @@
 package lol.liquidcat.ui.client.hud.element.elements
 
 import lol.liquidcat.LiquidCat
-import lol.liquidcat.utils.render.AnimationUtils
-import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
 import lol.liquidcat.utils.mc
+import lol.liquidcat.utils.render.AnimationUtils
+import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color

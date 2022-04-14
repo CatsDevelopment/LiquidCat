@@ -5,12 +5,12 @@
  */
 package lol.liquidcat.ui.client.hud.element.elements
 
-import lol.liquidcat.value.ListValue
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
 import lol.liquidcat.utils.mc
+import lol.liquidcat.value.ListValue
 import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11

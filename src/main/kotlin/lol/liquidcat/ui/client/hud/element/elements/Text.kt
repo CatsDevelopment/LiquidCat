@@ -6,18 +6,18 @@
 package lol.liquidcat.ui.client.hud.element.elements
 
 import lol.liquidcat.LiquidCat
-import lol.liquidcat.utils.ServerUtils
-import lol.liquidcat.utils.click.CPSCounter
-import lol.liquidcat.utils.entity.ping
-import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.FontValue
-import lol.liquidcat.value.IntValue
-import lol.liquidcat.value.TextValue
 import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
+import lol.liquidcat.utils.ServerUtils
+import lol.liquidcat.utils.click.CPSCounter
+import lol.liquidcat.utils.entity.ping
 import lol.liquidcat.utils.mc
+import lol.liquidcat.value.BoolValue
+import lol.liquidcat.value.FontValue
+import lol.liquidcat.value.IntValue
+import lol.liquidcat.value.TextValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.render.ColorUtils
 import net.minecraft.client.Minecraft

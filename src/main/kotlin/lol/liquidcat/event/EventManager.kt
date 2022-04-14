@@ -5,13 +5,14 @@
  */
 package lol.liquidcat.event
 
-class EventManager {
+object EventManager {
 
     private val registry = HashMap<Class<out Event>, MutableList<EventHook>>()
 
     /**
      * Register [listener]
      */
+    @JvmStatic
     fun registerListener(listener: Listenable) {
         for (method in listener.javaClass.declaredMethods) {
             if (method.isAnnotationPresent(EventTarget::class.java) && method.parameterTypes.size == 1) {
@@ -46,6 +47,7 @@ class EventManager {
      *
      * @param event to call
      */
+    @JvmStatic
     fun callEvent(event: Event) {
         val targets = registry[event.javaClass] ?: return
 

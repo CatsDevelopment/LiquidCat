@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.ui.font
 
-import lol.liquidcat.LiquidCat
+import lol.liquidcat.event.EventManager
 import lol.liquidcat.event.TextEvent
 import lol.liquidcat.utils.ClassUtils
 import lol.liquidcat.utils.render.GLUtils
@@ -50,7 +50,7 @@ class GameFontRenderer(font: Font) : FontRenderer(Minecraft.getMinecraft().gameS
         var currentText = text
 
         val event = TextEvent(currentText)
-        LiquidCat.eventManager.callEvent(event)
+        EventManager.callEvent(event)
         currentText = event.text ?: return 0
 
         val currY = y - 3F
@@ -173,7 +173,7 @@ class GameFontRenderer(font: Font) : FontRenderer(Minecraft.getMinecraft().gameS
         var currentText = text
 
         val event = TextEvent(currentText)
-        LiquidCat.eventManager.callEvent(event)
+        EventManager.callEvent(event)
         currentText = event.text ?: return 0
 
         return if (currentText.contains("§")) {

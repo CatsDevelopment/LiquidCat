@@ -5,8 +5,8 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.block;
 
-import lol.liquidcat.LiquidCat;
 import lol.liquidcat.event.BlockBBEvent;
+import lol.liquidcat.event.EventManager;
 import lol.liquidcat.features.module.modules.exploit.GhostHand;
 import lol.liquidcat.features.module.modules.player.NoFall;
 import lol.liquidcat.features.module.modules.render.XRay;
@@ -64,7 +64,7 @@ public abstract class MixinBlock {
 
         BlockBBEvent blockBBEvent = new BlockBBEvent(pos, blockState.getBlock(), axisalignedbb);
 
-        LiquidCat.eventManager.callEvent(blockBBEvent);
+        EventManager.callEvent(blockBBEvent);
         axisalignedbb = blockBBEvent.getBoundingBox();
         if(axisalignedbb != null && mask.intersectsWith(axisalignedbb))
             list.add(axisalignedbb);

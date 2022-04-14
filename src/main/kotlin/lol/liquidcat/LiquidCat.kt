@@ -11,13 +11,13 @@ import lol.liquidcat.event.EventManager
 import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.file.FileManager
+import lol.liquidcat.ui.client.hud.HUD
+import lol.liquidcat.ui.client.hud.HUD.Companion.createDefault
 import lol.liquidcat.utils.ClientUtils.disableFastRender
 import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.script.remapper.Remapper.loadSrg
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
-import lol.liquidcat.ui.client.hud.HUD
-import lol.liquidcat.ui.client.hud.HUD.Companion.createDefault
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import org.apache.logging.log4j.LogManager
@@ -58,10 +58,6 @@ object LiquidCat {
      */
     val logger = LogManager.getLogger(CLIENT_NAME)!!
 
-    // Managers
-    lateinit var eventManager: EventManager
-    lateinit var scriptManager: ScriptManager
-
     // HUD & ClickGUI
     lateinit var hud: HUD
     lateinit var clickGui: ClickGui
@@ -77,11 +73,8 @@ object LiquidCat {
 
         logger.info("Launching $CLIENT_NAME $CLIENT_VERSION, by $CLIENT_CREATOR")
 
-        // Crate event manager
-        eventManager = EventManager()
-
         // Register listeners
-        eventManager.registerListener(RotationUtils())
+        EventManager.registerListener(RotationUtils())
 
         // Load client fonts
         Fonts.loadFonts()
@@ -94,9 +87,8 @@ object LiquidCat {
             loadSrg()
 
             // ScriptManager
-            scriptManager = ScriptManager()
-            scriptManager.loadScripts()
-            scriptManager.enableScripts()
+            ScriptManager.loadScripts()
+            ScriptManager.enableScripts()
         } catch (throwable: Throwable) {
             logger.error("Failed to load scripts.", throwable)
         }
@@ -131,7 +123,7 @@ object LiquidCat {
         logger.info("Shutting down $CLIENT_NAME...")
 
         // Call client shutdown
-        eventManager.callEvent(ClientShutdownEvent())
+        EventManager.callEvent(ClientShutdownEvent())
 
         // Save all available configs
         FileManager.saveConfigs()

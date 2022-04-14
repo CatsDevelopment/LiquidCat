@@ -5,18 +5,14 @@
  */
 package lol.liquidcat.utils.click
 
-import lol.liquidcat.LiquidCat
-import lol.liquidcat.event.ClickWindowEvent
-import lol.liquidcat.event.EventTarget
-import lol.liquidcat.event.Listenable
-import lol.liquidcat.event.PacketEvent
+import lol.liquidcat.event.*
 import lol.liquidcat.utils.timer.MSTimer
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement
 
 object ClickHandler : Listenable {
 
     init {
-        LiquidCat.eventManager.registerListener(this)
+        EventManager.registerListener(this)
     }
 
     val CLICK_TIMER = MSTimer()

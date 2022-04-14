@@ -5,7 +5,6 @@
  */
 package lol.liquidcat.features.module.modules.combat
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.*
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
@@ -510,7 +509,7 @@ object KillAura : Module("KillAura", "Automatically attacks targets around you."
         }
 
         // Call attack event
-        LiquidCat.eventManager.callEvent(AttackEvent(entity))
+        EventManager.callEvent(AttackEvent(entity))
 
         // Attack target
         if (swing)

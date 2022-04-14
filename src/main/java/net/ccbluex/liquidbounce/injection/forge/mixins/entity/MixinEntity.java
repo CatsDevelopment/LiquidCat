@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.entity;
 
-import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventManager;
 import lol.liquidcat.event.StrafeEvent;
 import lol.liquidcat.features.module.modules.combat.HitBox;
 import lol.liquidcat.features.module.modules.exploit.NoPitchLimit;
@@ -210,7 +210,7 @@ public abstract class MixinEntity {
             return;
 
         final StrafeEvent strafeEvent = new StrafeEvent(strafe, forward, friction);
-        LiquidCat.eventManager.callEvent(strafeEvent);
+        EventManager.callEvent(strafeEvent);
 
         if (strafeEvent.isCancelled())
             callbackInfo.cancel();

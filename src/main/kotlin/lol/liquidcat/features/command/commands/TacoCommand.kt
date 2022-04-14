@@ -5,11 +5,7 @@
  */
 package lol.liquidcat.features.command.commands
 
-import lol.liquidcat.LiquidCat
-import lol.liquidcat.event.EventTarget
-import lol.liquidcat.event.Listenable
-import lol.liquidcat.event.Render2DEvent
-import lol.liquidcat.event.UpdateEvent
+import lol.liquidcat.event.*
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.utils.msg
 import lol.liquidcat.utils.render.GLUtils
@@ -36,7 +32,7 @@ object TacoCommand : Command("taco", emptyArray()), Listenable {
     )
 
     init {
-        LiquidCat.eventManager.registerListener(this)
+        EventManager.registerListener(this)
     }
 
     /**
