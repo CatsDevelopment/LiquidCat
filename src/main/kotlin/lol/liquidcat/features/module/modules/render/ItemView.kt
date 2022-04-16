@@ -1,8 +1,14 @@
+/*
+ * LiquidCat Hacked Client
+ * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
+ * https://github.com/CatsDevelopment/LiquidCat
+ */
 package lol.liquidcat.features.module.modules.render
 
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.FloatValue
+import lol.liquidcat.value.IntValue
 
 object ItemView : Module("ItemView", "Changes the look of the item in your hand.", ModuleCategory.RENDER) {
 
@@ -11,4 +17,5 @@ object ItemView : Module("ItemView", "Changes the look of the item in your hand.
     val z by FloatValue("Z", -0.71999997f, -1f..1f)
 
     val scale by FloatValue("Scale", 0.4f, 0.1f..3f)
+    val speed by IntValue("SwingSpeed", 3, 3..20)
 }

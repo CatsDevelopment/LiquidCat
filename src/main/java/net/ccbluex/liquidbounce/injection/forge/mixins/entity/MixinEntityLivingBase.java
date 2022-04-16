@@ -10,6 +10,7 @@ import lol.liquidcat.event.JumpEvent;
 import lol.liquidcat.features.module.modules.movement.AirJump;
 import lol.liquidcat.features.module.modules.movement.NoJumpDelay;
 import lol.liquidcat.features.module.modules.render.AntiBlind;
+import lol.liquidcat.features.module.modules.render.ItemView;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -118,5 +119,13 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
 
         if ((p_isPotionActive_1_ == Potion.confusion || p_isPotionActive_1_ == Potion.blindness) && antiBlind.getState() && antiBlind.getConfusion())
             callbackInfoReturnable.setReturnValue(false);
+    }
+
+    @Inject(method = "getArmSwingAnimationEnd", at = @At("HEAD"), cancellable = true)
+    private void getArmSwingAnimationEnd(CallbackInfoReturnable<Integer> callbackInfo) {
+        final ItemView itemView = ItemView.INSTANCE;
+
+        if (itemView.getState() && ((EntityLivingBase) (Object) this) instanceof EntityPlayerSP)
+            callbackInfo.setReturnValue(itemView.getSpeed());
     }
 }
