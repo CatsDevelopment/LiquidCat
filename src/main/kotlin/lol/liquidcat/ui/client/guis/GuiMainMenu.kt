@@ -11,7 +11,9 @@ import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.ui.client.GuiModsMenu
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.minecraft.client.gui.*
+import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
+import org.lwjgl.opengl.GL11
 
 class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
 
@@ -30,9 +32,12 @@ class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         drawBackground(0)
 
+        GlStateManager.enableTexture2D()
         GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/largelogo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
+
+        GlStateManager.disableTexture2D()
     }
 
     override fun actionPerformed(button: GuiButton) {

@@ -5,8 +5,10 @@
  */
 package lol.liquidcat.utils.render
 
+import lol.liquidcat.features.module.modules.render.HUD
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.mc
+import lol.liquidcat.utils.render.shader.shaders.RoundRectShader
 import lol.liquidcat.utils.toRadians
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.ScaledResolution
@@ -15,7 +17,9 @@ import net.minecraft.entity.Entity
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
 import net.minecraft.util.ResourceLocation
+import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL11.*
+import org.lwjgl.opengl.GL20
 import java.awt.Color
 import javax.vecmath.Vector3d
 import kotlin.math.PI
@@ -118,7 +122,7 @@ object GLUtils {
      * @param color Rectangle color
      */
     @JvmStatic
-    fun drawRoundedRect(x: Float, y: Float, x2: Float, y2: Float, radius: Float, color: Int) {
+    fun drawOldRoundedRect(x: Float, y: Float, x2: Float, y2: Float, radius: Float, color: Int) {
         val x1 = x + radius
         val y1 = y + radius
         val x3 = x2 - radius
@@ -134,6 +138,38 @@ object GLUtils {
         drawFilledCircle(x3, y1, radius, color, 90, 180)
         drawFilledCircle(x1, y1, radius, color, 180, 270)
         drawFilledCircle(x1, y3, radius, color, 270, 360)
+    }
+
+    fun drawRoundedRect(x: Float, y: Float, x2: Float, y2: Float, radius: Float, color: Color) {
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+
+        RoundRectShader.startShader()
+
+        GL20.glUniform4f(RoundRectShader.getUniform("color"), color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+        GL20.glUniform2f(RoundRectShader.getUniform("size"), x2 - x, y2 - y)
+        GL20.glUniform1f(RoundRectShader.getUniform("radius"), radius)
+
+        drawQuads(x, y, x2, y2)
+
+        RoundRectShader.stopShader()
+
+        glDisable(GL_BLEND)
+    }
+
+    private fun drawQuads(x: Float, y: Float, x2: Float, y2: Float) {
+        glBegin(GL_QUADS)
+
+        glTexCoord2f(0f, 0f)
+        glVertex2f(x, y)
+        glTexCoord2f(0f, 1f)
+        glVertex2f(x, y2)
+        glTexCoord2f(1f, 1f)
+        glVertex2f(x2, y2)
+        glTexCoord2f(1f, 0f)
+        glVertex2f(x2, y)
+
+        glEnd()
     }
 
     /**
@@ -238,22 +274,17 @@ object GLUtils {
      */
     @JvmStatic
     fun drawImage(image: ResourceLocation, x: Int, y: Int, width: Int, height: Int) {
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glDisable(GL_DEPTH_TEST)
         glDepthMask(false)
-        GlStateManager.enableTexture2D()
-        GlStateManager.enableBlend()
-        GlStateManager.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        GlStateManager.enableAlpha()
-        GlStateManager.alphaFunc(GL_GREATER, 0f)
 
         mc.textureManager.bindTexture(image)
         Gui.drawModalRectWithCustomSizedTexture(x, y, 0f, 0f, width, height, width.toFloat(), height.toFloat())
 
+        glDisable(GL_BLEND)
         glEnable(GL_DEPTH_TEST)
         glDepthMask(true)
-        GlStateManager.disableTexture2D()
-        GlStateManager.disableBlend()
-        GlStateManager.disableAlpha()
     }
 
     /**

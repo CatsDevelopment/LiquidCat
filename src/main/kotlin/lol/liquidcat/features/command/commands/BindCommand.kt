@@ -30,7 +30,6 @@ object BindCommand : Command("bind", emptyArray()) {
 
             // Response to user
             chat("Bound module §a§l${module.name}§3 to key §a§l${Keyboard.getKeyName(key)}§3.")
-            LiquidCat.hud.addNotification(Notification("Bound ${module.name} to ${Keyboard.getKeyName(key)}"))
             playEdit()
             return
         }

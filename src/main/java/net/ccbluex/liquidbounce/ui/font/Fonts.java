@@ -49,6 +49,9 @@ public class Fonts {
     @FontDetails(fontName = "Nunito Regular", fontSize = 38)
     public static GameFontRenderer nunito;
 
+    @FontDetails(fontName = "Nunito ExtraBold", fontSize = 38)
+    public static GameFontRenderer nunitoExBold;
+
     @FontDetails(fontName = "Minecraft Font")
     public static final FontRenderer minecraftFont = Minecraft.getMinecraft().fontRendererObj;
 
@@ -71,6 +74,7 @@ public class Fonts {
         displayThin50 = new GameFontRenderer(getDefFont("SF-UI-Display-Thin.ttf", 50));
 
         nunito = new GameFontRenderer(getDefFont("Nunito-Regular.ttf", 38));
+        nunitoExBold = new GameFontRenderer(getDefFont("Nunito-ExtraBold.ttf", 38));
 
         try {
             CUSTOM_FONT_RENDERERS.clear();

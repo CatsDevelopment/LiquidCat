@@ -32,7 +32,6 @@ object LocalAutoSettingsCommand : Command("localautosettings", arrayOf("localset
                                 chat("§9Set settings...")
                                 SettingsUtils.executeScript(settings)
                                 chat("§6Settings applied successfully.")
-                                LiquidCat.hud.addNotification(Notification("Updated Settings"))
                                 playEdit()
                             } catch (e: IOException) {
                                 e.printStackTrace()

@@ -6,113 +6,73 @@
 package lol.liquidcat.ui.client.hud.element.elements
 
 import lol.liquidcat.LiquidCat
-import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
-import lol.liquidcat.utils.mc
-import lol.liquidcat.utils.render.AnimationUtils
 import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.util.ResourceLocation
+import org.lwjgl.opengl.GL11
 import java.awt.Color
+import kotlin.math.max
 
 /**
  * CustomHUD Notification element
  */
 @ElementInfo(name = "Notifications", single = true)
-class Notifications(x: Double = 0.0, y: Double = 30.0, scale: Float = 1F,
-                    side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.DOWN)
-) : Element(x, y, scale, side) {
-
-    /**
-     * Example notification for CustomHUD designer
-     */
-    private val exampleNotification = Notification("Example Notification")
+class Notifications(x: Double = 0.0, y: Double = 30.0, scale: Float = 1F, side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.DOWN)) : Element(x, y, scale, side) {
 
     /**
      * Draw element
      */
-    override fun drawElement(): Border? {
-        if (LiquidCat.hud.notifications.size > 0)
-            LiquidCat.hud.notifications[0].drawNotification()
+    override fun drawElement(): Border {
+        LiquidCat.hud.notifications.removeIf { System.currentTimeMillis() > it.time + 2000 }
 
-        if (mc.currentScreen is GuiHudDesigner) {
-            if (!LiquidCat.hud.notifications.contains(exampleNotification))
-                LiquidCat.hud.addNotification(exampleNotification)
-
-            exampleNotification.fadeState = Notification.FadeState.STAY
-            exampleNotification.x = exampleNotification.textLength + 8F
-
-            return Border(-95F, -20F, 0F, 0F)
+        GL11.glPushMatrix()
+        LiquidCat.hud.notifications.forEach {
+            it.drawNotification()
+            GL11.glTranslatef(0f, -37f, 0f)
         }
+        GL11.glPopMatrix()
 
-        return null
+        return Border(-140f, -35f, 0f, 0f)
     }
-
 }
 
-class Notification(private val message: String) {
-    var x = 0F
-    var textLength = 0
+enum class NotificationType {
+    ENABLED,
+    DISABLED
+}
 
-    private var stay = 0F
-    private var fadeStep = 0F
-    var fadeState = FadeState.IN
-
-    /**
-     * Fade state for animation
-     */
-    enum class FadeState { IN, STAY, OUT, END }
+class Notification(private val upperMessage: String, val message: String, val type: NotificationType) {
+    var time = 0L
 
     init {
-        textLength = Fonts.font35.getStringWidth(message)
+        time = System.currentTimeMillis()
     }
 
-    /**
-     * Draw notification
-     */
     fun drawNotification() {
-        // Draw notification
-        GLUtils.drawRect(-x + 8 + textLength, 0F, -x, -20F, Color.BLACK.rgb)
-        GLUtils.drawRect(-x, 0F, -x - 5, -20F, Color(0, 160, 255).rgb)
-        Fonts.font35.drawString(message, -x + 4, -14F, Int.MAX_VALUE)
-        GlStateManager.resetColor()
+        val upWidth = Fonts.nunitoExBold.getStringWidth(upperMessage)
+        val lwWidth = Fonts.nunito.getStringWidth(message)
+        val width = max(upWidth, lwWidth) * 1.2
+        val halfWidth = width.toFloat() / 2f
 
-        // Animation
-        val delta = GLUtils.deltaTime
-        val width = textLength + 8F
-
-        when (fadeState) {
-            FadeState.IN -> {
-                if (x < width) {
-                    x = AnimationUtils.easeOut(fadeStep, width) * width
-                    fadeStep += delta / 4F
-                }
-                if (x >= width) {
-                    fadeState = FadeState.STAY
-                    x = width
-                    fadeStep = width
-                }
-
-                stay = 60F
-            }
-
-            FadeState.STAY -> if (stay > 0)
-                stay = 0F
+        GLUtils.drawRoundedRect(-width.toFloat() - 22, -35f, 0f, 0f, 4f,
+            if (type == NotificationType.ENABLED)
+                Color(74, 160, 84, 230)
             else
-                fadeState = FadeState.OUT
+                Color(180, 67, 84, 230))
 
-            FadeState.OUT -> if (x > 0) {
-                x = AnimationUtils.easeOut(fadeStep, width) * width
-                fadeStep -= delta / 4F
-            } else
-                fadeState = FadeState.END
+        Fonts.nunitoExBold.drawCenteredString(upperMessage, -halfWidth, -24f - Fonts.nunitoExBold.FONT_HEIGHT / 2f, Color.WHITE.rgb, false)
+        Fonts.nunito.drawCenteredString(message, -halfWidth, -10f - Fonts.nunito.FONT_HEIGHT / 2f, Color.WHITE.rgb, false)
 
-            FadeState.END -> LiquidCat.hud.removeNotification(this)
-        }
+        GLUtils.drawImage(ResourceLocation(
+            if (type == NotificationType.ENABLED)
+                "${LiquidCat.CLIENT_NAME.toLowerCase()}/icons/check.png"
+            else
+                "${LiquidCat.CLIENT_NAME.toLowerCase()}/icons/close.png"
+
+        ), -width.toInt() - 16, -26, 16, 16)
     }
-
 }
-

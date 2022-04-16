@@ -52,7 +52,6 @@ object AutoSettingsCommand : Command("autosettings", arrayOf("setting", "setting
                         chat("Applying settings...")
                         SettingsUtils.executeScript(settings)
                         chat("§6Settings applied successfully")
-                        LiquidCat.hud.addNotification(Notification("Updated Settings"))
                         playEdit()
                     } catch (exception: Exception) {
                         exception.printStackTrace()

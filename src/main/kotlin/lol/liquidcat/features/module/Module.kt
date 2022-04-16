@@ -10,6 +10,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.ui.client.hud.element.elements.Notification
+import lol.liquidcat.ui.client.hud.element.elements.NotificationType
 import lol.liquidcat.value.Value
 import net.ccbluex.liquidbounce.utils.render.ColorUtils.stripColor
 import net.minecraft.client.audio.PositionedSoundRecord
@@ -44,7 +45,11 @@ open class Module(
 
             if (!LiquidCat.loading) {
                 mc.soundHandler.playSound(PositionedSoundRecord.create(ResourceLocation("random.click"), 1f))
-                LiquidCat.hud.addNotification(Notification("${if (value) "Enabled " else "Disabled "}$name"))
+                LiquidCat.hud.addNotification(Notification(
+                    if (value) "Module enabled" else "Module disabled",
+                    if (value) "$name was enabled" else "$name was disabled",
+                    if (value) NotificationType.ENABLED else NotificationType.DISABLED)
+                )
             }
 
             if (value) {
