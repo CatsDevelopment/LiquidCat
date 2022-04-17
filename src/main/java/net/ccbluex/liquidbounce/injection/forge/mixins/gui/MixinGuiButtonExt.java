@@ -18,7 +18,7 @@ import java.awt.*;
 @SideOnly(Side.CLIENT)
 public abstract class MixinGuiButtonExt extends GuiButton {
 
-   private float alpha;
+   private int alpha;
 
    public MixinGuiButtonExt(int p_i1020_1_, int p_i1020_2_, int p_i1020_3_, String p_i1020_4_) {
       super(p_i1020_1_, p_i1020_2_, p_i1020_3_, p_i1020_4_);

@@ -32,7 +32,8 @@ open class HUD {
                 TabGUI::class.java,
                 Text::class.java,
                 ScoreboardElement::class.java,
-                Radar::class.java
+                Radar::class.java,
+                Bossbar::class.java
         )
 
         /**
@@ -47,6 +48,7 @@ open class HUD {
                 .addElement(Armor())
                 .addElement(Effects())
                 .addElement(Notifications())
+                .addElement(Bossbar())
     }
 
     /**

@@ -73,6 +73,13 @@ public abstract class MixinGuiInGame {
         }
     }
 
+    @Inject(method = "renderBossHealth", at = @At("HEAD"), cancellable = true)
+    private void renderBossHealth(CallbackInfo callbackInfo) {
+        if (HUD.INSTANCE.getState()) {
+            callbackInfo.cancel();
+        }
+    }
+
     @Inject(method = "renderTooltip", at = @At("RETURN"))
     private void renderTooltipPost(ScaledResolution sr, float partialTicks, CallbackInfo callbackInfo) {
         if (!ClassUtils.hasClass("net.labymod.api.LabyModAPI")) {
