@@ -1,11 +1,10 @@
 #version 120
 
-// https://www.shadertoy.com/view/ldfSDj
-
 uniform vec2 size;
 uniform vec4 color;
 uniform float radius;
 
+// https://www.shadertoy.com/view/ldfSDj
 float udRoundBox(vec2 p, vec2 b, float r)
 {
     return length(max(abs(p) - b + r, 0.0)) - r;
@@ -13,7 +12,6 @@ float udRoundBox(vec2 p, vec2 b, float r)
 
 void main()
 {
-
     vec2 halfSize = size * 0.5;
 
     float b = udRoundBox((gl_TexCoord[0].xy * size) - halfSize, halfSize - 1.0, radius);

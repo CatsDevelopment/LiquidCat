@@ -8,6 +8,7 @@ package lol.liquidcat.utils.render
 import lol.liquidcat.features.module.modules.render.HUD
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.mc
+import lol.liquidcat.utils.render.shader.shaders.RoundBRectShader
 import lol.liquidcat.utils.render.shader.shaders.RoundRectShader
 import lol.liquidcat.utils.toRadians
 import net.minecraft.client.gui.Gui
@@ -157,7 +158,26 @@ object GLUtils {
         glDisable(GL_BLEND)
     }
 
-    private fun drawQuads(x: Float, y: Float, x2: Float, y2: Float) {
+    fun drawBRoundedRect(x: Float, y: Float, x2: Float, y2: Float, radius: Float, thickness: Float, color: Color, color2: Color) {
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+
+        RoundBRectShader.startShader()
+
+        GL20.glUniform4f(RoundBRectShader.getUniform("rectColor"), color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+        GL20.glUniform4f(RoundBRectShader.getUniform("borderColor"), color2.red / 255f, color2.green / 255f, color2.blue / 255f, color2.alpha / 255f)
+        GL20.glUniform2f(RoundBRectShader.getUniform("size"), x2 - x, y2 - y)
+        GL20.glUniform1f(RoundBRectShader.getUniform("radius"), radius)
+        GL20.glUniform1f(RoundBRectShader.getUniform("borderThickness"), thickness)
+
+        drawQuads(x, y, x2, y2)
+
+        RoundBRectShader.stopShader()
+
+        glDisable(GL_BLEND)
+    }
+
+    fun drawQuads(x: Float, y: Float, x2: Float, y2: Float) {
         glBegin(GL_QUADS)
 
         glTexCoord2f(0f, 0f)
