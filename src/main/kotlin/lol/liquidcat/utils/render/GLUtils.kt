@@ -24,6 +24,7 @@ import javax.vecmath.Vector3d
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 object GLUtils {
 
@@ -458,6 +459,17 @@ object GLUtils {
         val z = interpolate(entity.lastTickPosZ, entity.posZ) - mc.renderManager.viewerPosZ
 
         return Vector3d(x, y, z)
+    }
+
+    fun renderDistance(entity: Entity): Double {
+        val pPos = interpolate(mc.thePlayer)
+        val ePos = interpolate(entity)
+
+        val x = pPos.x - ePos.x
+        val y = pPos.y - ePos.y
+        val z = pPos.z - ePos.z
+
+        return sqrt(x * x + y * y + z * z)
     }
 
     /**

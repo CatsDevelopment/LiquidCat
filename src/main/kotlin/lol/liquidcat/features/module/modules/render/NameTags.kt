@@ -17,12 +17,13 @@ import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.entity.EntityLivingBase
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
+import kotlin.math.max
 
 object NameTags : Module("NameTags", "Changes the scale of the nametags so you can always read them.", ModuleCategory.RENDER) {
 
-    private val red by IntValue("Red", 255, 0..255)
-    private val green by IntValue("Green", 150, 0..255)
-    private val blue by IntValue("Blue", 150, 0..255)
+    private val red by IntValue("Red", 74, 0..255)
+    private val green by IntValue("Green", 84, 0..255)
+    private val blue by IntValue("Blue", 255, 0..255)
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
@@ -35,51 +36,37 @@ object NameTags : Module("NameTags", "Changes the scale of the nametags so you c
     private fun renderNameTag(entity: EntityLivingBase) {
         glPushMatrix()
 
-        glTranslated(
-                entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * mc.timer.renderPartialTicks - mc.renderManager.renderPosX,
-                entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * mc.timer.renderPartialTicks - mc.renderManager.renderPosY + entity.eyeHeight.toDouble() + 0.55,
-                entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * mc.timer.renderPartialTicks - mc.renderManager.renderPosZ
-        )
+        val pos = GLUtils.interpolate(entity)
+        val scale = max(0.005, GLUtils.renderDistance(entity) * 0.0015) / glGetFloat(GL_PROJECTION_MATRIX)
 
-        glRotatef(-mc.renderManager.playerViewY, 0F, 1F, 0F)
-        if (mc.gameSettings.thirdPersonView < 2)
-            glRotatef(mc.renderManager.playerViewX, 1F, 0F, 0F)
-        else
-            glRotatef(-mc.renderManager.playerViewX, 1F, 0F, 0F)
+        glTranslated(pos.x, pos.y + entity.eyeHeight * 1.25 + 10 * scale, pos.z)
 
-        var distance = mc.thePlayer.getDistanceToEntity(entity) / 5f
-
-        distance = distance.coerceAtLeast(1f)
-
-        val scale = (distance / 100f) / glGetFloat(GL_PROJECTION_MATRIX)
+        glRotatef(-mc.renderManager.playerViewY, 0f, 1f, 0f)
+        glRotatef(mc.renderManager.playerViewX, if (mc.gameSettings.thirdPersonView < 2) 1f else -1f, 0f, 0f)
 
         glDisable(GL_DEPTH_TEST)
-        glScalef(-scale, -scale, scale)
+        glScaled(-scale, -scale, scale)
 
-        AWTFontRenderer.assumeNonVolatile = true
+        val text = entity.name
+        val width = Fonts.nunito.getStringWidth(text) / 2
 
-        val upText = entity.name
-        val downText = "Health: ${"%.1f".format(entity.health)}"
-        val width = Fonts.displayRegular50.getStringWidth(upText)
-            .coerceAtLeast(Fonts.displayLight25.getStringWidth(downText)) / 2
-
-        val startX = -width - 4f
-        val endX = width + 4f
+        val startX = -width - 3f
+        val endX = width + 3f
         val xDiff = endX - startX
 
-        GLUtils.drawRect(startX, -4f, endX, Fonts.displayRegular50.FONT_HEIGHT + 8f, Color(30, 30, 30, 150).rgb)
+        GLUtils.drawRect(startX, -3f, endX, Fonts.nunito.FONT_HEIGHT - 3f, Color(0, 0, 0, 75).rgb)
         GLUtils.drawRect(
             startX,
-            20f,
+            Fonts.nunito.FONT_HEIGHT - 3f,
             startX + (entity.health.coerceAtMost(entity.maxHealth) / entity.maxHealth) * xDiff,
-            Fonts.displayRegular50.FONT_HEIGHT + 8f,
-            Color(red, green, blue, 200).rgb
+            Fonts.nunito.FONT_HEIGHT - 3f + 1.0f,
+            Color(red, green, blue, 255).rgb
         )
 
-        Fonts.displayRegular50.drawString(upText, -width, 0, Color.WHITE.rgb)
-        Fonts.displayLight25.drawString(downText, -width, Fonts.displayRegular50.FONT_HEIGHT, Color.WHITE.rgb)
-
+        AWTFontRenderer.assumeNonVolatile = true
+        Fonts.nunito.drawString(text, -width, 0, Color.WHITE.rgb)
         AWTFontRenderer.assumeNonVolatile = false
+
         glEnable(GL_DEPTH_TEST)
 
         glPopMatrix()
