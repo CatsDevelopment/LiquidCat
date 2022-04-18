@@ -23,7 +23,6 @@ abstract class FramebufferShader(fragmentShader: String) : Shader(fragmentShader
     protected var blue = 0f
     protected var alpha = 1f
     protected var radius = 2f
-    protected var quality = 1f
 
     private var entityShadows = false
 
@@ -39,7 +38,7 @@ abstract class FramebufferShader(fragmentShader: String) : Shader(fragmentShader
         mc.entityRenderer.setupCameraTransform(partialTicks, 0)
     }
 
-    fun stopDraw(color: Color, radius: Float, quality: Float) {
+    fun stopDraw(color: Color, radius: Float) {
         mc.gameSettings.entityShadows = entityShadows
         GL11.glEnable(GL11.GL_BLEND)
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
@@ -51,7 +50,6 @@ abstract class FramebufferShader(fragmentShader: String) : Shader(fragmentShader
         alpha = color.alpha / 255f
 
         this.radius = radius
-        this.quality = quality
 
         mc.entityRenderer.disableLightmap()
         RenderHelper.disableStandardItemLighting()

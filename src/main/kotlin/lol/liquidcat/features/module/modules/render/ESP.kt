@@ -5,17 +5,13 @@
  */
 package lol.liquidcat.features.module.modules.render
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.EventTarget
-import lol.liquidcat.event.Render2DEvent
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.WorldToScreen
-import lol.liquidcat.utils.render.shader.shaders.GlowShader
-import lol.liquidcat.utils.render.shader.shaders.OutlineShader
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
@@ -30,11 +26,9 @@ object ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCat
 
     val mode by ListValue(
         "Mode",
-        arrayOf("ShaderOutline", "ShaderGlow", "Box", "WireFrame", "2D", "Outline"),
+        arrayOf("Box", "WireFrame", "2D", "Outline"),
         "Box"
     )
-
-    private val shaderMode by ListValue("ShaderMode", arrayOf("Outline", "Box"), "Outline")
 
     private val red by IntValue("Red", 255, 0..255)
     private val green by IntValue("Green", 255, 0..255)
@@ -43,9 +37,6 @@ object ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCat
 
     val outlineWidth by FloatValue("Outline-Width", 3f, 0.5f..5f)
     val wireframeWidth by FloatValue("WireFrame-Width", 2f, 0.5f..5f)
-
-    private val shaderOutlineRadius by FloatValue("ShaderOutline-Radius", 1.35f, 1f..2f)
-    private val shaderGlowRadius by FloatValue("ShaderGlow-Radius", 2.3f, 2f..3f)
 
     override val tag: String
         get() = mode
@@ -141,41 +132,6 @@ object ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCat
             GL11.glPopMatrix()
             GL11.glPopAttrib()
         }
-    }
-
-    @EventTarget
-    fun onRender2D(event: Render2DEvent) {
-        val shader = when(mode) {
-            "ShaderOutline" -> OutlineShader
-            "ShaderGlow" -> GlowShader
-
-            else -> return
-        }
-
-        shader.startDraw(event.partialTicks)
-        renderNameTags = false
-
-        try {
-            for (entity in mc.theWorld.loadedEntityList)
-                if (EntityUtils.isSelected(entity, false))
-                    if (shaderMode == "Outline")
-                        mc.renderManager.renderEntityStatic(entity, mc.timer.renderPartialTicks, true)
-                    else
-                        GLUtils.drawFilledBB(GLUtils.interpolateEntityBB(entity))
-        } catch (e: Exception) {
-            LiquidCat.logger.error("An error occurred while rendering all entities for shader esp", e)
-        }
-
-        renderNameTags = true
-
-        val radius = when(mode) {
-            "ShaderOutline" -> shaderOutlineRadius
-            "ShaderGlow" -> shaderGlowRadius
-
-            else -> 1f
-        }
-
-        shader.stopDraw(getColor(), radius, 1f)
     }
 
     fun getColor(): Color {

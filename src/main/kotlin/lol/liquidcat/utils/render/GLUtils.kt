@@ -5,7 +5,6 @@
  */
 package lol.liquidcat.utils.render
 
-import lol.liquidcat.features.module.modules.render.HUD
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.shader.shaders.RoundBRectShader
@@ -18,7 +17,6 @@ import net.minecraft.entity.Entity
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
 import net.minecraft.util.ResourceLocation
-import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL11.*
 import org.lwjgl.opengl.GL20
 import java.awt.Color

@@ -42,7 +42,7 @@ object FunnyHat : Module("FunnyHat", "funny china hat", ModuleCategory.RENDER) {
         glRotated(System.currentTimeMillis() / spinSpeed % 360.0, 0.0, 1.0, 0.0)
 
         glEnable(GL_BLEND)
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_LINE_SMOOTH)
         glLineWidth(1f)
         glDisable(GL_CULL_FACE)
@@ -53,7 +53,7 @@ object FunnyHat : Module("FunnyHat", "funny china hat", ModuleCategory.RENDER) {
         glShadeModel(GL_SMOOTH)
 
         glBegin(GL_TRIANGLE_FAN)
-        GLUtils.glColor(255, 255, 255, 30)
+        GLUtils.glColor(255, 255, 255, 130)
         glVertex3d(0.0, height.toDouble(), 0.0)
         for (i in 0..360) {
             val color = if (rainbow) Color.getHSBColor(i / 360f, 1f, 1f) else ColorUtils.hsbTransition(start, end, i)
