@@ -115,8 +115,6 @@ public abstract class MixinGuiConnecting extends GuiScreen {
 
         this.drawDefaultBackground();
 
-        GLUtils.drawLoadingCircle(scaledResolution.getScaledWidth() / 2, scaledResolution.getScaledHeight() / 4 + 70);
-
         String ip = "Unknown";
 
         final ServerData serverData = mc.getCurrentServerData();

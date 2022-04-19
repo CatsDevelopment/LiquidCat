@@ -4,8 +4,7 @@ uniform vec2 size;
 uniform vec4 color;
 uniform float radius;
 
-// https://www.shadertoy.com/view/ldfSDj
-float udRoundBox(vec2 p, vec2 b, float r)
+float udRoundBox(in vec2 p, in vec2 b, in float r)
 {
     return length(max(abs(p) - b + r, 0.0)) - r;
 }

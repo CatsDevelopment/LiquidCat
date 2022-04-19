@@ -7,9 +7,9 @@ package lol.liquidcat.utils.render
 
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.mc
-import lol.liquidcat.utils.render.shader.shaders.RoundBRectShader
+import lol.liquidcat.utils.render.shader.shaders.CircleShader
 import lol.liquidcat.utils.render.shader.shaders.RoundRectShader
-import lol.liquidcat.utils.toRadians
+import lol.liquidcat.utils.render.shader.shaders.SRoundRectShader
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
@@ -21,9 +21,6 @@ import org.lwjgl.opengl.GL11.*
 import org.lwjgl.opengl.GL20
 import java.awt.Color
 import javax.vecmath.Vector3d
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
 import kotlin.math.sqrt
 
 object GLUtils {
@@ -41,6 +38,8 @@ object GLUtils {
      * @param y Start Y position
      * @param x2 End X position
      * @param y2 End Y position
+     *
+     * @param color Rectangle color
      */
     @JvmStatic
     fun drawRect(x: Float, y: Float, x2: Float, y2: Float, color: Int) {
@@ -69,7 +68,9 @@ object GLUtils {
      * @param y Start Y position
      * @param x2 End X position
      * @param y2 End Y position
+     *
      * @param width Border width
+     *
      * @param color Border color
      */
     fun drawBorder(x: Float, y: Float, x2: Float, y2: Float, width: Float, color: Int) {
@@ -101,7 +102,9 @@ object GLUtils {
      * @param y Start Y position
      * @param x2 End X position
      * @param y2 End Y position
+     *
      * @param width Border width
+     *
      * @param color Border color
      * @param color2 Rectangle color
      */
@@ -112,34 +115,18 @@ object GLUtils {
     }
 
     /**
-     * Draws a rectangle with rounded edges
+     * Draws a rounded rectangle
      *
      * @param x Start X position
      * @param y Start Y position
      * @param x2 End X position
      * @param y2 End Y position
-     * @param radius Edge rounding radius
+     *
+     * @param radius Corner radius
+     *
      * @param color Rectangle color
      */
     @JvmStatic
-    fun drawOldRoundedRect(x: Float, y: Float, x2: Float, y2: Float, radius: Float, color: Int) {
-        val x1 = x + radius
-        val y1 = y + radius
-        val x3 = x2 - radius
-        val y3 = y2 - radius
-
-        drawRect(x1, y1, x3, y3, color)
-        drawRect(x1, y, x3, y1, color)
-        drawRect(x1, y3, x3, y2, color)
-        drawRect(x, y1, x1, y3, color)
-        drawRect(x3, y1, x2, y3, color)
-
-        drawFilledCircle(x3, y3, radius, color, 0, 90)
-        drawFilledCircle(x3, y1, radius, color, 90, 180)
-        drawFilledCircle(x1, y1, radius, color, 180, 270)
-        drawFilledCircle(x1, y3, radius, color, 270, 360)
-    }
-
     fun drawRoundedRect(x: Float, y: Float, x2: Float, y2: Float, radius: Float, color: Color) {
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
@@ -157,26 +144,41 @@ object GLUtils {
         glDisable(GL_BLEND)
     }
 
-    fun drawBRoundedRect(x: Float, y: Float, x2: Float, y2: Float, radius: Float, thickness: Float, color: Color, color2: Color) {
+    /**
+     * Draws a rounded rectangle with a separate radius for each corner
+     *
+     * @param x Start X position
+     * @param y Start Y position
+     * @param x2 End X position
+     * @param y2 End Y position
+     *
+     * @param tr Top right corner radius
+     * @param br Bottom right corner radius
+     * @param tl Top left corner radius
+     * @param br Bottom left corner radius
+     *
+     * @param color Rectangle color
+     */
+    @Suppress("unused")
+    // @TODO Use this in clickgui
+    fun drawSeparateRoundedRect(x: Float, y: Float, x2: Float, y2: Float, tr: Float, br: Float, tl: Float, bl: Float, color: Color) {
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-        RoundBRectShader.startShader()
+        SRoundRectShader.startShader()
 
-        GL20.glUniform4f(RoundBRectShader.getUniform("rectColor"), color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
-        GL20.glUniform4f(RoundBRectShader.getUniform("borderColor"), color2.red / 255f, color2.green / 255f, color2.blue / 255f, color2.alpha / 255f)
-        GL20.glUniform2f(RoundBRectShader.getUniform("size"), x2 - x, y2 - y)
-        GL20.glUniform1f(RoundBRectShader.getUniform("radius"), radius)
-        GL20.glUniform1f(RoundBRectShader.getUniform("borderThickness"), thickness)
+        GL20.glUniform4f(SRoundRectShader.getUniform("color"), color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+        GL20.glUniform2f(SRoundRectShader.getUniform("size"), x2 - x, y2 - y)
+        GL20.glUniform4f(SRoundRectShader.getUniform("radius"), tr, br, tl, bl)
 
         drawQuads(x, y, x2, y2)
 
-        RoundBRectShader.stopShader()
+        SRoundRectShader.stopShader()
 
         glDisable(GL_BLEND)
     }
 
-    fun drawQuads(x: Float, y: Float, x2: Float, y2: Float) {
+    private fun drawQuads(x: Float, y: Float, x2: Float, y2: Float) {
         glBegin(GL_QUADS)
 
         glTexCoord2f(0f, 0f)
@@ -192,71 +194,30 @@ object GLUtils {
     }
 
     /**
-     * Draws a circle border
-     *
-     * @param x X position
-     * @param y Y position
-     * @param radius Circle radius
-     * @param width Circle width
-     * @param color Circle color
-     * @param start Start circle angle
-     * @param end End circle angle
-     */
-    private fun drawCircle(x: Float, y: Float, radius: Float, width: Float, color: Color, start: Int = 0, end: Int = 360) {
-        glEnable(GL_BLEND)
-        glDisable(GL_TEXTURE_2D)
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        glEnable(GL_LINE_SMOOTH)
-        glLineWidth(width)
-        glColor(color)
-
-        glBegin(GL_LINE_STRIP)
-
-        for (i in start..end) {
-            glVertex2f(
-                x + (radius * cos(i * PI / 180)).toFloat(),
-                y + (radius * sin(i * PI / 180)).toFloat()
-            )
-        }
-
-        glEnd()
-
-        glDisable(GL_BLEND)
-        glEnable(GL_TEXTURE_2D)
-        glDisable(GL_LINE_SMOOTH)
-    }
-
-    /**
      * Draws a circle
      *
-     * @param x X position
-     * @param y Y position
-     * @param radius Circle radius
+     * @param x Start X position
+     * @param y Start Y position
+     * @param x2 End X position
+     * @param y2 End Y position
+     *
      * @param color Circle color
-     * @param start Start circle angle
-     * @param end End circle angle
      */
     @JvmStatic
-    fun drawFilledCircle(x: Float, y: Float, radius: Float, color: Int, start: Int = 0, end: Int = 360) {
+    fun drawCircle(x: Float, y: Float, x2: Float, y2: Float, color: Color) {
         glEnable(GL_BLEND)
-        glDisable(GL_TEXTURE_2D)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        glColor(color)
 
-        glBegin(GL_TRIANGLE_FAN)
+        CircleShader.startShader()
 
-        glVertex2f(x, y)
-        for (i in start..end) {
-            glVertex2f(
-                x + (radius * sin(i.toDouble().toRadians())).toFloat(),
-                y + (radius * cos(i.toDouble().toRadians())).toFloat()
-            )
-        }
+        GL20.glUniform4f(CircleShader.getUniform("color"), color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+        GL20.glUniform2f(CircleShader.getUniform("size"), x2 - x, y2 - y)
 
-        glEnd()
+        drawQuads(x, y, x2, y2)
+
+        CircleShader.stopShader()
 
         glDisable(GL_BLEND)
-        glEnable(GL_TEXTURE_2D)
     }
 
     /**
@@ -325,28 +286,6 @@ object GLUtils {
 
         glEnd()
         glEnable(GL_TEXTURE_2D)
-    }
-
-    /**
-     * Draws a smooth line with color
-     *
-     * @param x Start X position
-     * @param y Start Y position
-     * @param x2 End X position
-     * @param y2 End Y position
-     * @param width Line width
-     * @param color Line color
-     */
-    private fun drawLine(x: Float, y: Float, x2: Float, y2: Float, width: Float, color: Int) {
-        glEnable(GL_BLEND)
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        glEnable(GL_LINE_SMOOTH)
-        glColor(color)
-
-        drawLine(x.toDouble(), y.toDouble(), x2.toDouble(), y2.toDouble(), width)
-
-        glDisable(GL_BLEND)
-        glDisable(GL_LINE_SMOOTH)
     }
 
     /**
@@ -579,15 +518,6 @@ object GLUtils {
         glEnable(GL_DEPTH_TEST)
         glDepthMask(true)
         glDisable(GL_LINE_SMOOTH)
-    }
-
-    @JvmStatic
-    fun drawLoadingCircle(x: Float, y: Float) {
-        for (i in 0..3) {
-            val rot = (System.nanoTime() / 5000000 * i % 360).toInt()
-
-            drawCircle(x, y, (i * 10).toFloat(), 2f, Color.WHITE, rot - 180, rot)
-        }
     }
 
     fun drawPlatform(entity: Entity, color: Color) {

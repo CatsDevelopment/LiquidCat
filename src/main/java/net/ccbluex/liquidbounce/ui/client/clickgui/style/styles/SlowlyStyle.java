@@ -43,7 +43,7 @@ public class SlowlyStyle extends Style {
 
         GLUtils.drawRect(x, y, x + width, y + 2, Integer.MAX_VALUE);
         GLUtils.drawRect(x, y, sliderValue, y + 2, color.getRGB());
-        GLUtils.drawFilledCircle((int) sliderValue, y + 1, 3, color.getRGB(), 0, 360);
+        GLUtils.drawCircle(sliderValue - 3f, y + 1 - 3f, sliderValue + 3f, y + 1 + 3f, color);
 
         if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + 3 && Mouse.isButtonDown(0)) {
             double i = MathHelper.clamp_double(((double) mouseX - (double) x) / ((double) width - 3), 0, 1);
@@ -58,11 +58,11 @@ public class SlowlyStyle extends Style {
 
     @Override
     public void drawPanel(int mouseX, int mouseY, Panel panel) {
-        GLUtils.drawOldRoundedRect((float) panel.getX(), (float) panel.getY() - 3, (float) panel.getX() + panel.getWidth(), (float) panel.getY() + 17, 3, new Color(21, 23, 26).getRGB());
+        GLUtils.drawRoundedRect((float) panel.getX(), (float) panel.getY() - 3, (float) panel.getX() + panel.getWidth(), (float) panel.getY() + 17, 3, new Color(21, 23, 26));
 
         if (panel.getFade() > 0) {
             GLUtils.drawRect((float) panel.getX(), (float) panel.getY() + 17, (float) panel.getX() + panel.getWidth(), panel.getY() + 19 + panel.getFade(), new Color(21, 23, 26).getRGB());
-            GLUtils.drawOldRoundedRect((float) panel.getX(), panel.getY() + 17 + panel.getFade(), (float) panel.getX() + panel.getWidth(), panel.getY() + 19 + panel.getFade() + 5, 3, new Color(21, 23, 26).getRGB());
+            GLUtils.drawRoundedRect((float) panel.getX(), panel.getY() + 17 + panel.getFade(), (float) panel.getX() + panel.getWidth(), panel.getY() + 19 + panel.getFade() + 5, 3, new Color(21, 23, 26));
         }
         GlStateManager.resetColor();
         float textWidth = Fonts.font35.getStringWidth("§f" + StringUtils.stripControlCodes(panel.getName()));
@@ -73,7 +73,7 @@ public class SlowlyStyle extends Style {
     public void drawDescription(int mouseX, int mouseY, String text) {
         int textWidth = Fonts.font35.getStringWidth(text);
 
-        GLUtils.drawOldRoundedRect(mouseX + 9, mouseY, mouseX + textWidth + 14, mouseY + Fonts.font35.FONT_HEIGHT + 3, 3f, new Color(26, 30, 33).getRGB());
+        GLUtils.drawRoundedRect(mouseX + 9, mouseY, mouseX + textWidth + 14, mouseY + Fonts.font35.FONT_HEIGHT + 3, 3f, new Color(26, 30, 33));
         GlStateManager.resetColor();
         Fonts.font35.drawString(text, mouseX + 12, mouseY + (Fonts.font35.FONT_HEIGHT / 2), Color.WHITE.getRGB());
     }
@@ -113,7 +113,7 @@ public class SlowlyStyle extends Style {
 
             if (moduleElement.isShowSettings()) {
                 if (moduleElement.getSettingsWidth() > 0F && moduleElement.slowlySettingsYPos > moduleElement.getY() + 6)
-                    GLUtils.drawOldRoundedRect(moduleElement.getX() + moduleElement.getWidth() + 4, moduleElement.getY() + 6, moduleElement.getX() + moduleElement.getWidth() + moduleElement.getSettingsWidth(), moduleElement.slowlySettingsYPos + 2, 3f, new Color(35, 36, 42).getRGB());
+                    GLUtils.drawRoundedRect(moduleElement.getX() + moduleElement.getWidth() + 4, moduleElement.getY() + 6, moduleElement.getX() + moduleElement.getWidth() + moduleElement.getSettingsWidth(), moduleElement.slowlySettingsYPos + 2, 3f, new Color(35, 36, 42));
 
                 moduleElement.slowlySettingsYPos = moduleElement.getY() + 6;
                 for (final Value value : moduleValues) {

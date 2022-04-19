@@ -19,12 +19,17 @@ import kotlin.concurrent.thread
 
 object RichPresence {
 
+    /**
+     * Discord application ID
+     */
     private const val CLIENT_ID = 939974399233253447
 
     private var ipcClient: IPCClient? = null
     private val timestamp = OffsetDateTime.now()
 
-    // Status of running
+    /**
+     * Status of running
+     */
     private var running = false
 
     /**
@@ -68,7 +73,7 @@ object RichPresence {
     }
 
     /**
-     * Update rich presence
+     * Update Discord RPC
      */
     fun update() {
         val builder = RichPresence.Builder()
@@ -88,7 +93,7 @@ object RichPresence {
     }
 
     /**
-     * Shutdown ipc client
+     * Shutdown Discord RPC
      */
     fun shutdown() {
         runCatching {
