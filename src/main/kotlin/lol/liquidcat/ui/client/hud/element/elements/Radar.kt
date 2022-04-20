@@ -12,6 +12,7 @@ import lol.liquidcat.ui.client.hud.element.Side
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.render.StencilUtils
 import lol.liquidcat.utils.toDegrees
 import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.IntValue
@@ -31,17 +32,15 @@ class Radar(x: Double = 5.0, y: Double = 5.0, scale: Float = 1F, side: Side = Si
     private val alpha by IntValue("Alpha", 140, 0..255)
 
     override fun drawElement(): Border {
-        GLUtils.drawRect(0f, 0f, 100f, 100f, Color(red, green, blue, alpha).rgb)
+
+        GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 10f, Color(red, green, blue, alpha))
+
+        StencilUtils.initStencil(mc.framebuffer)
+        StencilUtils.writeToStencil()
+        GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 10f, Color(red, green, blue, alpha))
+        StencilUtils.readFromStencil()
 
         GL11.glPushMatrix()
-        GL11.glEnable(GL11.GL_SCISSOR_TEST)
-
-        GLUtils.makeScissorBox(
-            renderX.toFloat() * scale,
-            renderY.toFloat() * scale,
-            (100 + renderX.toFloat()) * scale,
-            (100 + renderY.toFloat()) * scale
-        )
 
         GL11.glEnable(GL11.GL_BLEND)
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
@@ -74,8 +73,9 @@ class Radar(x: Double = 5.0, y: Double = 5.0, scale: Float = 1F, side: Side = Si
         GL11.glEnable(GL11.GL_TEXTURE_2D)
         GL11.glDisable(GL11.GL_POINT_SMOOTH)
 
-        GL11.glDisable(GL11.GL_SCISSOR_TEST)
         GL11.glPopMatrix()
+
+        StencilUtils.uninitStencil()
 
         return Border(0f, 0f, 100f, 100f)
     }

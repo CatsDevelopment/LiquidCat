@@ -44,7 +44,7 @@ object Tracers : Module("Tracers", "Draws a line to targets around you.", Module
 
         for (entity in mc.theWorld.loadedEntityList) {
             if (EntityUtils.isSelected(entity, false))
-                drawTraces(entity, Color(red, green, blue))
+                drawTraces(entity)
         }
 
         glEnd()
@@ -59,13 +59,13 @@ object Tracers : Module("Tracers", "Draws a line to targets around you.", Module
         GlStateManager.resetColor()
     }
 
-    private fun drawTraces(entity: Entity, color: Color) {
+    private fun drawTraces(entity: Entity) {
         val pos = GLUtils.interpolate(entity)
         val eyeVec = Vec3(0.0, 0.0, 1.0)
             .rotatePitch((-mc.thePlayer.rotationPitch.toDouble().toRadians()).toFloat())
             .rotateYaw((-mc.thePlayer.rotationYaw.toDouble().toRadians()).toFloat())
 
-        GLUtils.glColor(color)
+        GLUtils.glColor(Color(red, green, blue))
         glVertex3d(eyeVec.xCoord, eyeVec.yCoord + mc.thePlayer.eyeHeight - if (mc.thePlayer.isSneaking) 0.08 else 0.0, eyeVec.zCoord)
 
         GLUtils.glColor(Color(red, green, blue, 0))
