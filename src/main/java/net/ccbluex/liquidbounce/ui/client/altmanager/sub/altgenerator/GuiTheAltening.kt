@@ -64,12 +64,12 @@ class GuiTheAltening(private val prevGui: GuiAltManager) : GuiScreen() {
         buttonList.add(GuiButton(0, width / 2 + 2, height - 54, 98, 20, "Back"))
 
         // Token text field
-        tokenField = GuiTextField(666, Fonts.font40, width / 2 - 100, 50, 200, 20)
+        tokenField = GuiTextField(666, Fonts.nunitoBold40, width / 2 - 100, 50, 200, 20)
         tokenField.isFocused = true
         tokenField.maxStringLength = Integer.MAX_VALUE
 
         // Api key password field
-        apiKeyField = GuiPasswordField(1337, Fonts.font40, width / 2 - 100, 115, 200, 20)
+        apiKeyField = GuiPasswordField(1337, Fonts.nunitoBold40, width / 2 - 100, 115, 200, 20)
         apiKeyField.maxStringLength = 18
         apiKeyField.text = apiKey
         super.initGui()
@@ -84,17 +84,17 @@ class GuiTheAltening(private val prevGui: GuiAltManager) : GuiScreen() {
         Gui.drawRect(30, 30, width - 30, height - 30, Integer.MIN_VALUE)
 
         // Draw title and status
-        drawCenteredString(Fonts.font35, "TheAltening", width / 2, 6, 0xffffff)
-        drawCenteredString(Fonts.font35, status, width / 2, 18, 0xffffff)
+        drawCenteredString(Fonts.nunito35, "TheAltening", width / 2, 6, 0xffffff)
+        drawCenteredString(Fonts.nunito35, status, width / 2, 18, 0xffffff)
 
         // Draw fields
         apiKeyField.drawTextBox()
         tokenField.drawTextBox()
 
         // Draw text
-        drawCenteredString(Fonts.font40, "§7Token:", width / 2 - 84, 40, 0xffffff)
-        drawCenteredString(Fonts.font40, "§7API-Key:", width / 2 - 78, 105, 0xffffff)
-        drawCenteredString(Fonts.font40, "§7Use coupon code 'liquidbounce' for 20% off!", width / 2, height - 65, 0xffffff)
+        drawCenteredString(Fonts.nunitoBold40, "§7Token:", width / 2 - 84, 40, 0xffffff)
+        drawCenteredString(Fonts.nunitoBold40, "§7API-Key:", width / 2 - 78, 105, 0xffffff)
+        drawCenteredString(Fonts.nunitoBold40, "§7Use coupon code 'liquidbounce' for 20% off!", width / 2, height - 65, 0xffffff)
         super.drawScreen(mouseX, mouseY, partialTicks)
     }
 

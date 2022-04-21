@@ -46,7 +46,7 @@ class GuiSessionLogin(private val prevGui: GuiAltManager) : GuiScreen() {
         buttonList.add(GuiButton(0, width / 2 - 100, height / 4 + 120, "Back"))
 
         // Add fields to screen
-        sessionTokenField = GuiTextField(666, Fonts.font40, width / 2 - 100, 80, 200, 20)
+        sessionTokenField = GuiTextField(666, Fonts.nunitoBold40, width / 2 - 100, 80, 200, 20)
         sessionTokenField.isFocused = true
         sessionTokenField.maxStringLength = Integer.MAX_VALUE
         sessionTokenField
@@ -64,13 +64,13 @@ class GuiSessionLogin(private val prevGui: GuiAltManager) : GuiScreen() {
         Gui.drawRect(30, 30, width - 30, height - 30, Integer.MIN_VALUE)
 
         // Draw title and status
-        drawCenteredString(Fonts.font35, "Session Login", width / 2, 36, 0xffffff)
-        drawCenteredString(Fonts.font35, status, width / 2, height / 4 + 80, 0xffffff)
+        drawCenteredString(Fonts.nunito35, "Session Login", width / 2, 36, 0xffffff)
+        drawCenteredString(Fonts.nunito35, status, width / 2, height / 4 + 80, 0xffffff)
 
         // Draw fields
         sessionTokenField.drawTextBox()
 
-        drawCenteredString(Fonts.font40, "§7Session Token:", width / 2 - 65, 66, 0xffffff)
+        drawCenteredString(Fonts.nunitoBold40, "§7Session Token:", width / 2 - 65, 66, 0xffffff)
 
         // Call sub method
         super.drawScreen(mouseX, mouseY, partialTicks)

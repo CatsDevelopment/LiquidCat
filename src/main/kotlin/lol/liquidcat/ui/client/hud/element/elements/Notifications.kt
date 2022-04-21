@@ -53,8 +53,8 @@ class Notification(private val upperMessage: String, val message: String, val ty
     }
 
     fun drawNotification() {
-        val upWidth = Fonts.nunitoExBold.getStringWidth(upperMessage)
-        val lwWidth = Fonts.nunito.getStringWidth(message)
+        val upWidth = Fonts.nunitoExBold40.getStringWidth(upperMessage)
+        val lwWidth = Fonts.nunito40.getStringWidth(message)
         val width = max(upWidth, lwWidth) * 1.2
         val halfWidth = width.toFloat() / 2f
 
@@ -64,8 +64,8 @@ class Notification(private val upperMessage: String, val message: String, val ty
             else
                 Color(180, 67, 84, 230))
 
-        Fonts.nunitoExBold.drawCenteredString(upperMessage, -halfWidth, -24f - Fonts.nunitoExBold.FONT_HEIGHT / 2f, Color.WHITE.rgb, false)
-        Fonts.nunito.drawCenteredString(message, -halfWidth, -10f - Fonts.nunito.FONT_HEIGHT / 2f, Color.WHITE.rgb, false)
+        Fonts.nunitoExBold40.drawCenteredString(upperMessage, -halfWidth, -24f - Fonts.nunitoExBold40.FONT_HEIGHT / 2f, Color.WHITE.rgb, false)
+        Fonts.nunito40.drawCenteredString(message, -halfWidth, -10f - Fonts.nunito40.FONT_HEIGHT / 2f, Color.WHITE.rgb, false)
 
         GLUtils.drawImage(ResourceLocation(
             if (type == NotificationType.ENABLED)

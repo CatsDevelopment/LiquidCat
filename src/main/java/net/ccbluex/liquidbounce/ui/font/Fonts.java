@@ -8,7 +8,6 @@ package net.ccbluex.liquidbounce.ui.font;
 import com.google.gson.*;
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.file.FileManager;
-import lol.liquidcat.utils.io.HttpUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.fml.relauncher.Side;
@@ -19,38 +18,21 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 @SideOnly(Side.CLIENT)
 public class Fonts {
 
-    @FontDetails(fontName = "Roboto Medium", fontSize = 35)
-    public static GameFontRenderer font35;
+    @FontDetails(fontName = "Nunito Regular", fontSize = 35)
+    public static GameFontRenderer nunito35;
 
-    @FontDetails(fontName = "Roboto Medium", fontSize = 40)
-    public static GameFontRenderer font40;
+    @FontDetails(fontName = "Nunito Regular", fontSize = 40)
+    public static GameFontRenderer nunito40;
 
-    @FontDetails(fontName = "Roboto Bold", fontSize = 180)
-    public static GameFontRenderer fontBold180;
+    @FontDetails(fontName = "Nunito Bold", fontSize = 40)
+    public static GameFontRenderer nunitoBold40;
 
-    @FontDetails(fontName = "SF UI Display Regular", fontSize = 50)
-    public static GameFontRenderer displayRegular50;
-
-    @FontDetails(fontName = "SF UI Display Light", fontSize = 50)
-    public static GameFontRenderer displayLight50;
-
-    @FontDetails(fontName = "SF UI Display Light", fontSize = 25)
-    public static GameFontRenderer displayLight25;
-
-    @FontDetails(fontName = "SF UI Display Thin", fontSize = 50)
-    public static GameFontRenderer displayThin50;
-
-    @FontDetails(fontName = "Nunito Regular", fontSize = 38)
-    public static GameFontRenderer nunito;
-
-    @FontDetails(fontName = "Nunito ExtraBold", fontSize = 38)
-    public static GameFontRenderer nunitoExBold;
+    @FontDetails(fontName = "Nunito ExtraBold", fontSize = 40)
+    public static GameFontRenderer nunitoExBold40;
 
     @FontDetails(fontName = "Minecraft Font")
     public static final FontRenderer minecraftFont = Minecraft.getMinecraft().fontRendererObj;
@@ -62,19 +44,10 @@ public class Fonts {
 
         LiquidCat.INSTANCE.getLogger().info("Loading Fonts.");
 
-        downloadFonts();
-
-        font35 = new GameFontRenderer(getFont("Roboto-Medium.ttf", 35));
-        font40 = new GameFontRenderer(getFont("Roboto-Medium.ttf", 40));
-        fontBold180 = new GameFontRenderer(getFont("Roboto-Bold.ttf", 180));
-
-        displayRegular50 = new GameFontRenderer(getDefFont("SF-UI-Display-Regular.ttf", 50));
-        displayLight50 = new GameFontRenderer(getDefFont("SF-UI-Display-Light.ttf", 50));
-        displayLight25 = new GameFontRenderer(getDefFont("SF-UI-Display-Light.ttf", 25));
-        displayThin50 = new GameFontRenderer(getDefFont("SF-UI-Display-Thin.ttf", 50));
-
-        nunito = new GameFontRenderer(getDefFont("Nunito-Regular.ttf", 38));
-        nunitoExBold = new GameFontRenderer(getDefFont("Nunito-ExtraBold.ttf", 38));
+        nunito35 = new GameFontRenderer(getDefFont("Nunito-Regular.ttf", 35));
+        nunito40 = new GameFontRenderer(getDefFont("Nunito-Regular.ttf", 40));
+        nunitoBold40 = new GameFontRenderer(getDefFont("Nunito-Bold.ttf", 40));
+        nunitoExBold40 = new GameFontRenderer(getDefFont("Nunito-ExtraBold.ttf", 40));
 
         try {
             CUSTOM_FONT_RENDERERS.clear();
@@ -109,21 +82,6 @@ public class Fonts {
         }
 
         LiquidCat.INSTANCE.getLogger().info("Loaded Fonts. (" + (System.currentTimeMillis() - l) + "ms)");
-    }
-
-    private static void downloadFonts() {
-        try {
-            final File outputFile = new File(FileManager.INSTANCE.getFontsDir(), "roboto.zip");
-
-            if(!outputFile.exists()) {
-                LiquidCat.INSTANCE.getLogger().info("Downloading fonts...");
-                HttpUtils.download(LiquidCat.CLIENT_CLOUD + "/fonts/Roboto.zip", outputFile);
-                LiquidCat.INSTANCE.getLogger().info("Extract fonts...");
-                extractZip(outputFile.getPath(), FileManager.INSTANCE.getFontsDir().getPath());
-            }
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static FontRenderer getFontRenderer(final String name, final int size) {
@@ -225,38 +183,6 @@ public class Fonts {
             e.printStackTrace();
 
             return new Font("default", Font.PLAIN, size);
-        }
-    }
-
-    private static void extractZip(final String zipFile, final String outputFolder) {
-        final byte[] buffer = new byte[1024];
-
-        try {
-            final File folder = new File(outputFolder);
-
-            if(!folder.exists()) folder.mkdir();
-
-            final ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(zipFile));
-
-            ZipEntry zipEntry = zipInputStream.getNextEntry();
-            while(zipEntry != null) {
-                File newFile = new File(outputFolder + File.separator + zipEntry.getName());
-                new File(newFile.getParent()).mkdirs();
-
-                FileOutputStream fileOutputStream = new FileOutputStream(newFile);
-
-                int i;
-                while((i = zipInputStream.read(buffer)) > 0)
-                    fileOutputStream.write(buffer, 0, i);
-
-                fileOutputStream.close();
-                zipEntry = zipInputStream.getNextEntry();
-            }
-
-            zipInputStream.closeEntry();
-            zipInputStream.close();
-        }catch(final IOException e) {
-            e.printStackTrace();
         }
     }
 }

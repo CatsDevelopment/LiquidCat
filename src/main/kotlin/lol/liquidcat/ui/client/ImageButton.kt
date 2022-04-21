@@ -37,7 +37,7 @@ class ImageButton(val id: Int, val name: String, private val icon: String, val x
             GlStateManager.translate(0f, -cut, 0f)
 
             if (hovered)
-                Fonts.nunito.drawCenteredString(name, x + width.toFloat() / 2, y - 10f, Color.WHITE.rgb, false)
+                Fonts.nunito40.drawCenteredString(name, x + width.toFloat() / 2, y - 10f, Color.WHITE.rgb, false)
 
             GLUtils.drawImage(
                 ResourceLocation("${LiquidCat.CLIENT_NAME.toLowerCase()}/icons/$icon"),

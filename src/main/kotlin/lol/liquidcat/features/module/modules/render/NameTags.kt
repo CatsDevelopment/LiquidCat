@@ -48,23 +48,23 @@ object NameTags : Module("NameTags", "Changes the scale of the nametags so you c
         glScaled(-scale, -scale, scale)
 
         val text = entity.name
-        val width = Fonts.nunito.getStringWidth(text) / 2
+        val width = Fonts.nunito40.getStringWidth(text) / 2
 
         val startX = -width - 3f
         val endX = width + 3f
         val xDiff = endX - startX
 
-        GLUtils.drawRect(startX, -3f, endX, Fonts.nunito.FONT_HEIGHT - 3f, Color(0, 0, 0, 75).rgb)
+        GLUtils.drawRect(startX, -3f, endX, Fonts.nunito40.FONT_HEIGHT - 3f, Color(0, 0, 0, 75).rgb)
         GLUtils.drawRect(
             startX,
-            Fonts.nunito.FONT_HEIGHT - 3f,
+            Fonts.nunito40.FONT_HEIGHT - 3f,
             startX + (entity.health.coerceAtMost(entity.maxHealth) / entity.maxHealth) * xDiff,
-            Fonts.nunito.FONT_HEIGHT - 3f + 1.0f,
+            Fonts.nunito40.FONT_HEIGHT - 3f + 1.0f,
             Color(red, green, blue, 255).rgb
         )
 
         AWTFontRenderer.assumeNonVolatile = true
-        Fonts.nunito.drawString(text, -width, 0, Color.WHITE.rgb)
+        Fonts.nunito40.drawString(text, -width, 0, Color.WHITE.rgb)
         AWTFontRenderer.assumeNonVolatile = false
 
         glEnable(GL_DEPTH_TEST)

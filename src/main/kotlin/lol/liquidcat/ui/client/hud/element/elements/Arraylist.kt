@@ -66,7 +66,7 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
     private val textHeight by FloatValue("TextHeight", 11f, 1f..20f)
     private val textY by FloatValue("TextY", 1f, 0f..20f)
     private val tagsArrayColor by BoolValue("TagsArrayColor", false)
-    private val font by FontValue("Font", Fonts.font40)
+    private val font by FontValue("Font", Fonts.nunitoBold40)
 
     private var x2 = 0
     private var y2 = 0F

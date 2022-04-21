@@ -33,7 +33,7 @@ public class GuiChangeName extends GuiScreen {
         buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 96, "Change"));
         buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120, "Back"));
 
-        name = new GuiTextField(2, Fonts.font40, width / 2 - 100, 60, 200, 20);
+        name = new GuiTextField(2, Fonts.nunitoBold40, width / 2 - 100, 60, 200, 20);
         name.setFocused(true);
         name.setText(mc.getSession().getUsername());
         name.setMaxStringLength(16);
@@ -44,12 +44,12 @@ public class GuiChangeName extends GuiScreen {
         drawBackground(0);
         Gui.drawRect(30, 30, width - 30, height - 30, Integer.MIN_VALUE);
 
-        drawCenteredString(Fonts.font40, "Change Name", width / 2, 34, 0xffffff);
-        drawCenteredString(Fonts.font40, status == null ? "" : status, width / 2, height / 4 + 84, 0xffffff);
+        drawCenteredString(Fonts.nunitoBold40, "Change Name", width / 2, 34, 0xffffff);
+        drawCenteredString(Fonts.nunitoBold40, status == null ? "" : status, width / 2, height / 4 + 84, 0xffffff);
         name.drawTextBox();
 
         if(name.getText().isEmpty() && !name.isFocused())
-            drawCenteredString(Fonts.font40, "§7Username", width / 2 - 74, 66, 0xffffff);
+            drawCenteredString(Fonts.nunitoBold40, "§7Username", width / 2 - 74, 66, 0xffffff);
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

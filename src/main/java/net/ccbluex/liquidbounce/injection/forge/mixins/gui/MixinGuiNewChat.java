@@ -107,7 +107,7 @@ public abstract class MixinGuiNewChat extends Gui {
                                     GlStateManager.enableBlend();
 
                                     if (hud.getFontChat())
-                                        Fonts.nunito.drawStringWithShadow(s, (float)i2, (float)(j2 - 8), 16777215 + (l1 << 24));
+                                        Fonts.nunito40.drawStringWithShadow(s, (float)i2, (float)(j2 - 8), 16777215 + (l1 << 24));
                                     else
                                         this.mc.fontRendererObj.drawStringWithShadow(s, (float)i2, (float)(j2 - 8), 16777215 + (l1 << 24));
 
@@ -119,7 +119,7 @@ public abstract class MixinGuiNewChat extends Gui {
                     }
 
                     if (flag) {
-                        i1 = hud.getFontChat() ? Fonts.nunito.FONT_HEIGHT : this.mc.fontRendererObj.FONT_HEIGHT;
+                        i1 = hud.getFontChat() ? Fonts.nunito40.FONT_HEIGHT : this.mc.fontRendererObj.FONT_HEIGHT;
                         GlStateManager.translate(-3.0F, 0.0F, 0.0F);
                         int l2 = k * i1 + k;
                         j1 = j * i1 + j;

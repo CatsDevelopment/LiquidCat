@@ -8,7 +8,6 @@ package lol.liquidcat.ui.client.guis
 import lol.liquidcat.features.misc.AntiForge
 import lol.liquidcat.file.FileManager.saveConfig
 import lol.liquidcat.file.FileManager.valuesConfig
-import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiScreen
 import org.lwjgl.input.Keyboard
@@ -59,13 +58,7 @@ class GuiAntiForge(private val prevGui: GuiScreen) : GuiScreen() {
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         drawBackground(0)
-        Fonts.fontBold180.drawCenteredString(
-            "AntiForge",
-            (width / 2f).toInt().toFloat(),
-            (height / 8f + 5f).toInt().toFloat(),
-            4673984,
-            true
-        )
+
         super.drawScreen(mouseX, mouseY, partialTicks)
     }
 

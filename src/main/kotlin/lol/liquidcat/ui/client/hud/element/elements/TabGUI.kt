@@ -52,7 +52,7 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
     private val borderRainbow by BoolValue("Border Rainbow", false)
     
     private val arrows by BoolValue("Arrows", true)
-    private val font by FontValue("Font", Fonts.font35)
+    private val font by FontValue("Font", Fonts.nunito35)
     private val shadow by BoolValue("TextShadow", false)
     private val textFade by BoolValue("TextFade", true)
     private val textPositionY by FloatValue("TextPosition-Y", 2f, 0f..5f)

@@ -49,10 +49,10 @@ public class GuiAdd extends GuiScreen {
         buttonList.add(addButton = new GuiButton(1, width / 2 - 100, height / 4 + 72, "Add"));
         buttonList.add(clipboardButton = new GuiButton(2, width / 2 - 100, height / 4 + 96, "Clipboard"));
         buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120, "Back"));
-        username = new GuiTextField(2, Fonts.font40, width / 2 - 100, 60, 200, 20);
+        username = new GuiTextField(2, Fonts.nunitoBold40, width / 2 - 100, 60, 200, 20);
         username.setFocused(true);
         username.setMaxStringLength(Integer.MAX_VALUE);
-        password = new GuiPasswordField(3, Fonts.font40, width / 2 - 100, 85, 200, 20);
+        password = new GuiPasswordField(3, Fonts.nunitoBold40, width / 2 - 100, 85, 200, 20);
         password.setMaxStringLength(Integer.MAX_VALUE);
     }
 
@@ -61,17 +61,17 @@ public class GuiAdd extends GuiScreen {
         drawBackground(0);
         Gui.drawRect(30, 30, width - 30, height - 30, Integer.MIN_VALUE);
 
-        drawCenteredString(Fonts.font40, "Add Account", width / 2, 34, 0xffffff);
-        drawCenteredString(Fonts.font35, status == null ? "" : status, width / 2, height / 4 + 60, 0xffffff);
+        drawCenteredString(Fonts.nunitoBold40, "Add Account", width / 2, 34, 0xffffff);
+        drawCenteredString(Fonts.nunito35, status == null ? "" : status, width / 2, height / 4 + 60, 0xffffff);
 
         username.drawTextBox();
         password.drawTextBox();
 
         if(username.getText().isEmpty() && !username.isFocused())
-            drawCenteredString(Fonts.font40, "§7Username / E-Mail", width / 2 - 55, 66, 0xffffff);
+            drawCenteredString(Fonts.nunitoBold40, "§7Username / E-Mail", width / 2 - 55, 66, 0xffffff);
 
         if(password.getText().isEmpty() && !password.isFocused())
-            drawCenteredString(Fonts.font40, "§7Password", width / 2 - 74, 91, 0xffffff);
+            drawCenteredString(Fonts.nunitoBold40, "§7Password", width / 2 - 74, 91, 0xffffff);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

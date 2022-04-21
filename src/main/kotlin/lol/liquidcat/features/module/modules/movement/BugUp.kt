@@ -152,10 +152,10 @@ object BugUp : Module("BugUp", "Automatically setbacks you after falling a certa
         GL11.glEnable(GL11.GL_BLEND)
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
 
-        val width = Fonts.font35.getStringWidth(string!!) / 2
+        val width = Fonts.nunito35.getStringWidth(string!!) / 2
 
-        Gui.drawRect(-width - 1, -1, width + 1, Fonts.font35.FONT_HEIGHT, Int.MIN_VALUE)
-        Fonts.font35.drawString(string, -width.toFloat(), 1.5f, Color.WHITE.rgb, true)
+        Gui.drawRect(-width - 1, -1, width + 1, Fonts.nunito35.FONT_HEIGHT, Int.MIN_VALUE)
+        Fonts.nunito35.drawString(string, -width.toFloat(), 1.5f, Color.WHITE.rgb, true)
 
         GL11.glEnable(GL11.GL_DEPTH_TEST)
         GL11.glDisable(GL11.GL_BLEND)

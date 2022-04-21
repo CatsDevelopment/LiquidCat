@@ -36,7 +36,7 @@ class Bossbar(x: Double = 0.0, y: Double = 0.0, side: Side = Side(Side.Horizonta
             if (healthWidth > 0) {
                 GLUtils.drawRoundedRect(-hWidth, 12f, -hWidth + healthWidth, 17f, 1.2f, Color(red, green, blue))
 
-                Fonts.nunitoExBold.drawCenteredString(
+                Fonts.nunitoExBold40.drawCenteredString(
                     BossStatus.bossName,
                     0f,
                     2f,

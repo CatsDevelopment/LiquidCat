@@ -160,11 +160,11 @@ public class GuiAltManager extends GuiScreen {
 
         altsList.drawScreen(mouseX, mouseY, partialTicks);
 
-        Fonts.font40.drawCenteredString("AltManager", width / 2, 6, 0xffffff);
-        Fonts.font35.drawCenteredString(FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.size() + " Alts", width / 2, 18, 0xffffff);
-        Fonts.font35.drawCenteredString(status, width / 2, 32, 0xffffff);
-        Fonts.font35.drawStringWithShadow("§7User: §a" + mc.getSession().getUsername(), 6, 6, 0xffffff);
-        Fonts.font35.drawStringWithShadow("§7Type: §a" + (altService.getCurrentService() == AltService.EnumAltService.THEALTENING ? "TheAltening" : UserUtils.isValidTokenOffline(mc.getSession().getToken()) ? "Premium" : "Cracked"), 6, 15, 0xffffff);
+        Fonts.nunitoBold40.drawCenteredString("AltManager", width / 2, 6, 0xffffff);
+        Fonts.nunito35.drawCenteredString(FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.size() + " Alts", width / 2, 18, 0xffffff);
+        Fonts.nunito35.drawCenteredString(status, width / 2, 32, 0xffffff);
+        Fonts.nunito35.drawStringWithShadow("§7User: §a" + mc.getSession().getUsername(), 6, 6, 0xffffff);
+        Fonts.nunito35.drawStringWithShadow("§7Type: §a" + (altService.getCurrentService() == AltService.EnumAltService.THEALTENING ? "TheAltening" : UserUtils.isValidTokenOffline(mc.getSession().getToken()) ? "Premium" : "Cracked"), 6, 15, 0xffffff);
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
@@ -381,8 +381,8 @@ public class GuiAltManager extends GuiScreen {
         @Override
         protected void drawSlot(int id, int x, int y, int var4, int var5, int var6) {
             final MinecraftAccount minecraftAccount = FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.get(id);
-            Fonts.font40.drawCenteredString(minecraftAccount.getAccountName() == null ? minecraftAccount.getName() : minecraftAccount.getAccountName(), (width / 2), y + 2, Color.WHITE.getRGB(), true);
-            Fonts.font40.drawCenteredString(minecraftAccount.isCracked() ? "Cracked" : (minecraftAccount.getAccountName() == null ? "Premium" : minecraftAccount.getName()), (width / 2), y + 15, minecraftAccount.isCracked() ? Color.GRAY.getRGB() : (minecraftAccount.getAccountName() == null ? Color.GREEN.getRGB() : Color.LIGHT_GRAY.getRGB()), true);
+            Fonts.nunitoBold40.drawCenteredString(minecraftAccount.getAccountName() == null ? minecraftAccount.getName() : minecraftAccount.getAccountName(), (width / 2), y + 2, Color.WHITE.getRGB(), true);
+            Fonts.nunitoBold40.drawCenteredString(minecraftAccount.isCracked() ? "Cracked" : (minecraftAccount.getAccountName() == null ? "Premium" : minecraftAccount.getName()), (width / 2), y + 15, minecraftAccount.isCracked() ? Color.GRAY.getRGB() : (minecraftAccount.getAccountName() == null ? Color.GREEN.getRGB() : Color.LIGHT_GRAY.getRGB()), true);
         }
 
         @Override

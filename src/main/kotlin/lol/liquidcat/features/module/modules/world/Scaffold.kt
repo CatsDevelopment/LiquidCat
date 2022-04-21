@@ -280,14 +280,14 @@ object Scaffold : Module("Scaffold", "Automatically places blocks beneath your f
             GLUtils.drawBorderedRect(
                 (scaledResolution.scaledWidth / 2 - 2).toFloat(),
                 (scaledResolution.scaledHeight / 2 + 5).toFloat(),
-                (scaledResolution.scaledWidth / 2 + Fonts.font40.getStringWidth(info) + 2).toFloat(),
+                (scaledResolution.scaledWidth / 2 + Fonts.nunitoBold40.getStringWidth(info) + 2).toFloat(),
                 (scaledResolution.scaledHeight / 2 + 16).toFloat(),
                 3f,
                 Color.BLACK.rgb,
                 Color.BLACK.rgb
             )
             GlStateManager.resetColor()
-            Fonts.font40.drawString(
+            Fonts.nunitoBold40.drawString(
                 info,
                 scaledResolution.scaledWidth / 2,
                 scaledResolution.scaledHeight / 2 + 7,

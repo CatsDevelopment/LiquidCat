@@ -51,7 +51,7 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F) : Element(x, y
 
             text.displayString = "%clientName%"
             text.shadow = true
-            text.font = Fonts.font40
+            text.font = Fonts.nunitoBold40
             text.setColor(Color(0, 111, 255))
 
             return text
@@ -65,7 +65,7 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F) : Element(x, y
     private var blue by IntValue("Blue", 255, 0..255)
     private val rainbow by BoolValue("Rainbow", false)
     private var shadow by BoolValue("Shadow", true)
-    private var font by FontValue("Font", Fonts.font40)
+    private var font by FontValue("Font", Fonts.nunitoBold40)
 
     private var editMode = false
     private var editTicks = 0
