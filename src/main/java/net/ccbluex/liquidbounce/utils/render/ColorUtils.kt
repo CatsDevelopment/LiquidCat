@@ -30,6 +30,19 @@ object ColorUtils {
     }
 
     /**
+     * Makes [color] brighter
+     */
+    fun brighter(color: Color, factor: Float): Color {
+        require(factor in 0f..1f) { "Color factor should be between 0 and 1" }
+
+        val red = color.red + ((255 - color.red) * factor).toInt()
+        val green = color.green + ((255 - color.green) * factor).toInt()
+        val blue = color.blue + ((255 - color.blue) * factor).toInt()
+
+        return Color(red, green, blue, color.alpha)
+    }
+
+    /**
      * warning: skidded form fdp!!!
      */
     fun hsbTransition(from: Float, to: Float, angle: Int, s: Float = 1f, b: Float = 1f): Color {

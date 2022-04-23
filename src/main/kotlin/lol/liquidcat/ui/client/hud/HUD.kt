@@ -33,7 +33,8 @@ open class HUD {
                 Text::class.java,
                 ScoreboardElement::class.java,
                 Radar::class.java,
-                Bossbar::class.java
+                Bossbar::class.java,
+                Keystrokes::class.java
         )
 
         /**
@@ -42,13 +43,14 @@ open class HUD {
         @JvmStatic
         fun createDefault() = HUD()
                 .addElement(Text.defaultClient())
-                .addElement(TabGUI())
                 .addElement(Arraylist())
                 .addElement(ScoreboardElement())
                 .addElement(Armor())
                 .addElement(Effects())
                 .addElement(Notifications())
                 .addElement(Bossbar())
+                .addElement(Radar())
+                .addElement(Keystrokes())
     }
 
     /**

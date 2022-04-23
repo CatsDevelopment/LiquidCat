@@ -13,6 +13,7 @@ import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.StencilUtils
+import lol.liquidcat.utils.render.shader.shaders.BlurShader
 import lol.liquidcat.utils.toDegrees
 import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.IntValue
@@ -24,23 +25,27 @@ import kotlin.math.hypot
 import kotlin.math.sin
 
 @ElementInfo(name = "Radar", single = true)
-class Radar(x: Double = 5.0, y: Double = 5.0, scale: Float = 1F, side: Side = Side(Side.Horizontal.LEFT, Side.Vertical.UP)) : Element(x, y, scale, side) {
+class Radar(x: Double = 4.0, y: Double = 32.0, scale: Float = 1F, side: Side = Side(Side.Horizontal.LEFT, Side.Vertical.UP)) : Element(x, y, scale, side) {
 
-    private val red by IntValue("Red", 0, 0..255)
-    private val green by IntValue("Green", 0, 0..255)
-    private val blue by IntValue("Blue", 0, 0..255)
-    private val alpha by IntValue("Alpha", 140, 0..255)
+    private val red by IntValue("Red", 40, 0..255)
+    private val green by IntValue("Green", 100, 0..255)
+    private val blue by IntValue("Blue", 255, 0..255)
+    private val alpha by IntValue("Alpha", 110, 0..255)
 
     override fun drawElement(): Border {
 
-        GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 10f, Color(red, green, blue, alpha))
+        GLUtils.blur(10) {
+            GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 10f, Color.WHITE)
+        }
 
         StencilUtils.initStencil(mc.framebuffer)
         StencilUtils.writeToStencil()
-        GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 10f, Color(red, green, blue, alpha))
+        GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 10f, Color.WHITE)
         StencilUtils.readFromStencil()
 
         GL11.glPushMatrix()
+
+        GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 10f, Color(red, green, blue, alpha))
 
         GL11.glEnable(GL11.GL_BLEND)
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)

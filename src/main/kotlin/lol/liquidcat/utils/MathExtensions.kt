@@ -8,6 +8,10 @@
 package lol.liquidcat.utils
 
 import java.math.RoundingMode
+import kotlin.math.PI
+import kotlin.math.exp
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 const val DEGREES_TO_RADIANS = 0.017453292519943295
 
@@ -32,3 +36,14 @@ fun Double.toRadians() = this * DEGREES_TO_RADIANS
  * Converts double to degrees
  */
 fun Double.toDegrees() = this * RADIANS_TO_DEGREES
+
+/**
+ * Calculates Gaussian value in one dimension
+ *
+ * [Assignment information](https://en.wikipedia.org/wiki/Gaussian_blur)
+ */
+fun gaussian(x: Int, sigma: Float): Float {
+    val s = sigma.pow(2) * 2
+
+    return (1f / (sqrt(PI.toFloat() * s))) * exp(-(x * x) / s)
+}

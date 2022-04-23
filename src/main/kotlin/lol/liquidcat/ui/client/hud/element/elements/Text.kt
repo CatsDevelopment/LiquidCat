@@ -47,12 +47,12 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F) : Element(x, y
          * Create default element
          */
         fun defaultClient(): Text {
-            val text = Text(x = 2.0, y = 2.0, scale = 2F)
+            val text = Text(x = 4.0, y = 4.0, scale = 2F)
 
+            text.shadow = false
             text.displayString = "%clientName%"
-            text.shadow = true
-            text.font = Fonts.nunitoBold40
-            text.setColor(Color(0, 111, 255))
+            text.font = Fonts.nunitoExBold40
+            text.setColor(Color(50, 140, 255))
 
             return text
         }

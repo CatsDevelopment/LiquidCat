@@ -7,6 +7,7 @@ package lol.liquidcat.utils.render
 
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.mc
+import lol.liquidcat.utils.render.shader.shaders.BlurShader
 import lol.liquidcat.utils.render.shader.shaders.CircleShader
 import lol.liquidcat.utils.render.shader.shaders.RoundRectShader
 import lol.liquidcat.utils.render.shader.shaders.SRoundRectShader
@@ -178,7 +179,7 @@ object GLUtils {
         glDisable(GL_BLEND)
     }
 
-    private fun drawQuads(x: Float, y: Float, x2: Float, y2: Float) {
+    fun drawQuads(x: Float, y: Float, x2: Float, y2: Float) {
         glBegin(GL_QUADS)
 
         glTexCoord2f(0f, 0f)
@@ -518,6 +519,20 @@ object GLUtils {
         glEnable(GL_DEPTH_TEST)
         glDepthMask(true)
         glDisable(GL_LINE_SMOOTH)
+    }
+
+    fun blur(radius: Int, f: () -> Unit) {
+        StencilUtils.initStencil(mc.framebuffer)
+        StencilUtils.writeToStencil()
+        f()
+        StencilUtils.readFromStencil()
+
+        glPushMatrix()
+        mc.entityRenderer.setupOverlayRendering()
+        BlurShader.blur(radius)
+        glPopMatrix()
+
+        StencilUtils.uninitStencil()
     }
 
     fun drawPlatform(entity: Entity, color: Color) {
