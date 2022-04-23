@@ -3,7 +3,6 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-
 @file:JvmName("BlockExtensions")
 
 package lol.liquidcat.utils.block

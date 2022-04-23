@@ -1,3 +1,8 @@
+/*
+ * LiquidCat Hacked Client
+ * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
+ * https://github.com/CatsDevelopment/LiquidCat
+ */
 package lol.liquidcat.ui.client.hud.element.elements
 
 import lol.liquidcat.ui.client.hud.element.Border
