@@ -34,7 +34,8 @@ open class HUD {
                 ScoreboardElement::class.java,
                 Radar::class.java,
                 Bossbar::class.java,
-                Keystrokes::class.java
+                Keystrokes::class.java,
+                SpeedGraph::class.java
         )
 
         /**
@@ -45,12 +46,12 @@ open class HUD {
                 .addElement(Text.defaultClient())
                 .addElement(Arraylist())
                 .addElement(ScoreboardElement())
-                .addElement(Armor())
                 .addElement(Effects())
                 .addElement(Notifications())
                 .addElement(Bossbar())
                 .addElement(Radar())
                 .addElement(Keystrokes())
+                .addElement(SpeedGraph())
     }
 
     /**
