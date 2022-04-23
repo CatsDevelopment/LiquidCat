@@ -40,6 +40,7 @@ object ModuleManager : Listenable {
         LiquidCat.logger.info("[ModuleManager] Loading modules...")
 
         arrayOf(
+            Ambience,
             ShaderESP,
             ItemView,
             FunnyJump,
