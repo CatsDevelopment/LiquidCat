@@ -9,6 +9,7 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.BoolValue
@@ -34,7 +35,7 @@ object FunnyHat : Module("FunnyHat", "funny china hat", ModuleCategory.RENDER) {
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
-        val pos = GLUtils.interpolate(mc.thePlayer)
+        val pos = mc.thePlayer.renderPos
 
         glPushMatrix()
 

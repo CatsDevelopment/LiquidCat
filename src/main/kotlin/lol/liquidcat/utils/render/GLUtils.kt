@@ -6,6 +6,8 @@
 package lol.liquidcat.utils.render
 
 import lol.liquidcat.utils.block.getBlock
+import lol.liquidcat.utils.entity.renderBoundingBox
+import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.shader.shaders.BlurShader
 import lol.liquidcat.utils.render.shader.shaders.CircleShader
@@ -386,41 +388,8 @@ object GLUtils {
      * @param old Previous position
      * @param current Current position
      */
-    private fun interpolate(old: Double, current: Double): Double {
+    fun interpolate(old: Double, current: Double): Double {
         return old + (current - old) * mc.timer.renderPartialTicks.toDouble()
-    }
-
-    /**
-     * Interpolates [entity] position into position for rendering
-     */
-    fun interpolate(entity: Entity): Vector3d {
-        val x = interpolate(entity.lastTickPosX, entity.posX) - mc.renderManager.viewerPosX
-        val y = interpolate(entity.lastTickPosY, entity.posY) - mc.renderManager.viewerPosY
-        val z = interpolate(entity.lastTickPosZ, entity.posZ) - mc.renderManager.viewerPosZ
-
-        return Vector3d(x, y, z)
-    }
-
-    fun renderDistance(entity: Entity): Double {
-        val pPos = interpolate(mc.thePlayer)
-        val ePos = interpolate(entity)
-
-        val x = pPos.x - ePos.x
-        val y = pPos.y - ePos.y
-        val z = pPos.z - ePos.z
-
-        return sqrt(x * x + y * y + z * z)
-    }
-
-    /**
-     * Interpolates [entity] BoundingBox into AxisAlignedBB with position for rendering
-     */
-    fun interpolateEntityBB(entity: Entity): AxisAlignedBB {
-        val position = interpolate(entity)
-
-        return entity.entityBoundingBox
-            .offset(-entity.posX, -entity.posY, -entity.posZ)
-            .offset(position.x, position.y, position.z)
     }
 
     fun glColor(red: Int, green: Int, blue: Int, alpha: Int = 255) {
@@ -453,7 +422,7 @@ object GLUtils {
         glDisable(GL_DEPTH_TEST)
         glDepthMask(false)
 
-        val bb = interpolateEntityBB(entity)
+        val bb = entity.renderBoundingBox
 
         if (filled) {
             glColor(color.red, color.green, color.blue, 50)
@@ -536,7 +505,7 @@ object GLUtils {
     }
 
     fun drawPlatform(entity: Entity, color: Color) {
-        val bb = interpolateEntityBB(entity)
+        val bb = entity.renderBoundingBox
 
         glEnable(GL_BLEND)
         glDisable(GL_TEXTURE_2D)

@@ -10,6 +10,8 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
+import lol.liquidcat.utils.entity.renderDistanceTo
+import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
@@ -36,8 +38,8 @@ object NameTags : Module("NameTags", "Changes the scale of the nametags so you c
     private fun renderNameTag(entity: EntityLivingBase) {
         glPushMatrix()
 
-        val pos = GLUtils.interpolate(entity)
-        val scale = max(0.005, GLUtils.renderDistance(entity) * 0.0015) / glGetFloat(GL_PROJECTION_MATRIX)
+        val pos = entity.renderPos
+        val scale = max(0.005, mc.thePlayer.renderDistanceTo(entity) * 0.0015) / glGetFloat(GL_PROJECTION_MATRIX)
 
         glTranslated(pos.x, pos.y + entity.eyeHeight * 1.25 + 10 * scale, pos.z)
 

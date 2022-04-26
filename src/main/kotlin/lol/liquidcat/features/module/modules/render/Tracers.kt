@@ -10,6 +10,7 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
+import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.FloatValue
@@ -60,7 +61,7 @@ object Tracers : Module("Tracers", "Draws a line to targets around you.", Module
     }
 
     private fun drawTraces(entity: Entity) {
-        val pos = GLUtils.interpolate(entity)
+        val pos = entity.renderPos
         val eyeVec = Vec3(0.0, 0.0, 1.0)
             .rotatePitch((-mc.thePlayer.rotationPitch.toDouble().toRadians()).toFloat())
             .rotateYaw((-mc.thePlayer.rotationYaw.toDouble().toRadians()).toFloat())

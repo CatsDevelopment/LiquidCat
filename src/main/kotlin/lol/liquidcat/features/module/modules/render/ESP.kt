@@ -10,6 +10,7 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
+import lol.liquidcat.utils.entity.renderBoundingBox
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.WorldToScreen
 import lol.liquidcat.value.BoolValue
@@ -79,7 +80,7 @@ object ESP : Module("ESP", "Allows you to see targets through walls.", ModuleCat
                     )
 
                     "2D" -> {
-                        val bb = GLUtils.interpolateEntityBB(entity)
+                        val bb = entity.renderBoundingBox
 
                         val boxVertices = arrayOf(
                             doubleArrayOf(bb.minX, bb.minY, bb.minZ),

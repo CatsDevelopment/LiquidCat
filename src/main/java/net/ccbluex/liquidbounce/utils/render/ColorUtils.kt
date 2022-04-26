@@ -9,6 +9,9 @@ import net.minecraft.util.ChatAllowedCharacters
 import java.awt.Color
 import java.util.*
 import java.util.regex.Pattern
+import kotlin.math.abs
+import kotlin.math.cos
+import kotlin.math.sin
 
 object ColorUtils {
 
@@ -40,6 +43,30 @@ object ColorUtils {
         val blue = color.blue + ((255 - color.blue) * factor).toInt()
 
         return Color(red, green, blue, color.alpha)
+    }
+
+    /**
+     * Mixes two colors
+     *
+     * @param a First color
+     * @param b Second color
+     */
+    fun mix(a: Color, b: Color, factor: Float): Color {
+        require(factor in 0f..1f) { "Color factor should be between 0 and 1" }
+
+        return Color(
+            (a.red * factor + b.red * (1 - factor)).toInt(),
+            (a.green * factor + b.green * (1 - factor)).toInt(),
+            (a.blue * factor + b.blue * (1 - factor)).toInt()
+        )
+    }
+
+    fun fade(a: Color, b: Color, speed: Double = 0.001, offset: Double = 0.0): Color {
+
+        val time = System.currentTimeMillis() * speed + offset
+        val factor = 0.5f * (sin(time) + 1)
+
+        return mix(a, b, factor.toFloat())
     }
 
     /**

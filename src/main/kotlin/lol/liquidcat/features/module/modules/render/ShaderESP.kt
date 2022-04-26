@@ -11,6 +11,8 @@ import lol.liquidcat.event.Render2DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
+import lol.liquidcat.utils.entity.renderBoundingBox
+import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.shader.shaders.GlowShader
 import lol.liquidcat.utils.render.shader.shaders.OutlineShader
@@ -63,7 +65,7 @@ object ShaderESP : Module("ShaderESP", "cool shader", ModuleCategory.RENDER) {
                     if (shape == "Outline")
                         mc.renderManager.renderEntityStatic(entity, mc.timer.renderPartialTicks, true)
                     else
-                        GLUtils.drawFilledBB(GLUtils.interpolateEntityBB(entity))
+                        GLUtils.drawFilledBB(entity.renderBoundingBox)
 
             if (storages)
                 for (tileEntity in mc.theWorld.loadedTileEntityList)

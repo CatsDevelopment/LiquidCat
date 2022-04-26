@@ -30,46 +30,34 @@ import java.awt.Color
  * Shows a list of enabled modules
  */
 @ElementInfo(name = "Arraylist", single = true)
-class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
+class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
                 side: Side = Side(Horizontal.RIGHT, Vertical.UP)
 ) : Element(x, y, scale, side) {
 
-    private val textColorMode by ListValue("Text-Color", arrayOf("Custom", "Random", "Rainbow"), "Custom")
+    private val textColorMode by ListValue("Text-Color", arrayOf("Static", "Fade", "Rainbow"), "Fade")
     
-    private val textRed by IntValue("Text-R", 0, 0..255)
-    private val textGreen by IntValue("Text-G", 111, 0..255)
-    private val textBlue by IntValue("Text-B", 255, 0..255)
-    
-    private val rectColorMode by ListValue("Rect-Color", arrayOf("Custom", "Random", "Rainbow"), "Rainbow")
-    
-    private val rectRed by IntValue("Rect-R", 255, 0..255)
-    private val rectGreen by IntValue("Rect-G", 255, 0..255)
-    private val rectBlue by IntValue("Rect-B", 255, 0..255)
-    private val rectAlpha by IntValue("Rect-Alpha", 255, 0..255)
-    
-    private val saturation by FloatValue("Random-Saturation", 0.9f, 0f..1f)
-    private val brightness by FloatValue("Random-Brightness", 1f, 0f..1f)
-    
+    private val textRed by IntValue("Text-Red", 53, 0..255)
+    private val textGreen by IntValue("Text-Green", 111, 0..255)
+    private val textBlue by IntValue("Text-Blue", 255, 0..255)
+
+    private val textRed2 by IntValue("Text-Red-2", 120, 0..255)
+    private val textGreen2 by IntValue("Text-Green-2", 255, 0..255)
+    private val textBlue2 by IntValue("Text-Blue-2", 174, 0..255)
+
+    private val textMode by ListValue("TextMode", arrayOf("Normal", "UpperCase", "LowerCase"), "Normal")
+
     private val tags by BoolValue("Tags", true)
     private val shadow by BoolValue("ShadowText", true)
-    
-    private val bgColorMode by ListValue("Background-Color", arrayOf("Custom", "Random", "Rainbow"), "Custom")
-    
+
     private val bgRed by IntValue("Background-R", 0, 0..255)
     private val bgGreen by IntValue("Background-G", 0, 0..255)
     private val bgBlue by IntValue("Background-B", 0, 0..255)
-    private val bgAlpha by IntValue("Background-Alpha", 0, 0..255)
-    
-    private val rectMode by ListValue("Rect", arrayOf("None", "Left", "Right"), "None")
-    private val upperCase by BoolValue("UpperCase", false)
-    private val space by FloatValue("Space", 0f, 0f..5f)
-    private val textHeight by FloatValue("TextHeight", 11f, 1f..20f)
-    private val textY by FloatValue("TextY", 1f, 0f..20f)
-    private val tagsArrayColor by BoolValue("TagsArrayColor", false)
-    private val font by FontValue("Font", Fonts.nunitoBold40)
+    private val bgAlpha by IntValue("Background-Alpha", 160, 0..255)
+
+    private val font by FontValue("Font", Fonts.nunito35)
 
     private var x2 = 0
-    private var y2 = 0F
+    private var y2 = 0f
 
     private var modules = emptyList<Module>()
 
@@ -80,138 +68,88 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
         val delta = GLUtils.deltaTime
 
         for (module in ModuleManager.modules) {
-            if (module.hide || (!module.state && module.slide == 0F)) continue
+            if (module.hide || (!module.state && module.slide == 0f)) continue
 
-            var displayString = if (!tags)
-                module.name
-            else if (tagsArrayColor)
-                module.colorlessTagName
-            else module.tagName
+            var displayString = if (!tags) module.name else module.tagName
 
-            if (upperCase)
-                displayString = displayString.toUpperCase()
+            displayString = when (textMode) {
+                "UpperCase" -> displayString.toUpperCase()
+                "LowerCase" -> displayString.toLowerCase()
+                else -> displayString
+            }
 
             val width = font.getStringWidth(displayString)
 
             if (module.state) {
                 if (module.slide < width) {
                     module.slide = AnimationUtils.easeOut(module.slideStep, width.toFloat()) * width
-                    module.slideStep += delta / 4F
+                    module.slideStep += delta / 4f
                 }
             } else if (module.slide > 0) {
                 module.slide = AnimationUtils.easeOut(module.slideStep, width.toFloat()) * width
-                module.slideStep -= delta / 4F
+                module.slideStep -= delta / 4f
             }
 
-            module.slide = module.slide.coerceIn(0F, width.toFloat())
-            module.slideStep = module.slideStep.coerceIn(0F, width.toFloat())
+            module.slide = module.slide.coerceIn(0f, width.toFloat())
+            module.slideStep = module.slideStep.coerceIn(0f, width.toFloat())
         }
 
-        val textColor = Color(textRed, textGreen, textBlue, 1).rgb
-        val rectColor = Color(rectRed, rectGreen, rectBlue, rectAlpha).rgb
+        val textColor = Color(textRed, textGreen, textBlue)
+        val textColor2 = Color(textRed2, textGreen2, textBlue2)
         val bgColor = Color(bgRed, bgGreen, bgBlue, bgAlpha).rgb
-        val textSpacer = textHeight + space
+        val textSpacer = font.FONT_HEIGHT.toFloat()
 
         when (side.horizontal) {
             Horizontal.RIGHT, Horizontal.MIDDLE -> {
                 modules.forEachIndexed { index, module ->
-                    var displayString = if (!tags)
-                        module.name
-                    else if (tagsArrayColor)
-                        module.colorlessTagName
-                    else module.tagName
+                    var displayString = if (!tags) module.name else module.tagName
 
-                    if (upperCase)
-                        displayString = displayString.toUpperCase()
+                    displayString = when (textMode) {
+                        "UpperCase" -> displayString.toUpperCase()
+                        "LowerCase" -> displayString.toLowerCase()
+                        else -> displayString
+                    }
 
                     val xPos = -module.slide - 2
                     val yPos = (if (side.vertical == Vertical.DOWN) -textSpacer else textSpacer) *
                             if (side.vertical == Vertical.DOWN) index + 1 else index
-                    val moduleColor = Color.getHSBColor(module.hue, saturation, brightness).rgb
 
-                    GLUtils.drawRect(
-                            xPos - if (rectMode.equals("right", true)) 5 else 2,
-                            yPos,
-                            if (rectMode.equals("right", true)) -3F else 0F,
-                            yPos + textHeight, when {
-                        bgColorMode.equals("Rainbow", ignoreCase = true) -> ColorUtils.rainbow(400000000L * index).rgb
-                        bgColorMode.equals("Random", ignoreCase = true) -> moduleColor
-                        else -> bgColor
-                    }
-                    )
+                    // Draws background rect
+                    GLUtils.drawRect(xPos - 2, yPos - 1, 0f, yPos + textSpacer - 1, bgColor)
 
-                    font.drawString(displayString, xPos - if (rectMode.equals("right", true)) 3 else 0, yPos + textY, when {
-                        textColorMode.equals("Rainbow", ignoreCase = true) -> ColorUtils.rainbow(400000000L * index).rgb
-                        textColorMode.equals("Random", ignoreCase = true) -> moduleColor
-                        else -> textColor
+                    // Draws module name
+                    font.drawString(displayString, xPos, yPos, when (textColorMode) {
+                        "Rainbow" -> ColorUtils.rainbow(400000000L * index).rgb
+                        "Fade" -> ColorUtils.fade(textColor, textColor2, offset = index * 0.1).rgb
+                        else -> textColor.rgb
                     }, shadow)
-
-                    if (!rectMode.equals("none", true)) {
-                        val rectColor = when {
-                            rectColorMode.equals("Rainbow", ignoreCase = true) -> ColorUtils.rainbow(400000000L * index).rgb
-                            rectColorMode.equals("Random", ignoreCase = true) -> moduleColor
-                            else -> rectColor
-                        }
-
-                        when {
-                            rectMode.equals("left", true) -> GLUtils.drawRect(xPos - 5, yPos, xPos - 2, yPos + textHeight,
-                                    rectColor)
-                            rectMode.equals("right", true) -> GLUtils.drawRect(-3F, yPos, 0F,
-                                    yPos + textHeight, rectColor)
-                        }
-                    }
                 }
             }
 
             Horizontal.LEFT -> {
                 modules.forEachIndexed { index, module ->
-                    var displayString = if (!tags)
-                        module.name
-                    else if (tagsArrayColor)
-                        module.colorlessTagName
-                    else module.tagName
+                    var displayString = if (!tags) module.name else module.tagName
 
-                    if (upperCase)
-                        displayString = displayString.toUpperCase()
+                    displayString = when (textMode) {
+                        "UpperCase" -> displayString.toUpperCase()
+                        "LowerCase" -> displayString.toLowerCase()
+                        else -> displayString
+                    }
 
                     val width = font.getStringWidth(displayString)
-                    val xPos = -(width - module.slide) + if (rectMode.equals("left", true)) 5 else 2
+                    val xPos = -(width - module.slide) + 2
                     val yPos = (if (side.vertical == Vertical.DOWN) -textSpacer else textSpacer) *
                             if (side.vertical == Vertical.DOWN) index + 1 else index
-                    val moduleColor = Color.getHSBColor(module.hue, saturation, brightness).rgb
 
-                    GLUtils.drawRect(
-                            0F,
-                            yPos,
-                            xPos + width + if (rectMode.equals("right", true)) 5 else 2,
-                            yPos + textHeight, when {
-                        bgColorMode.equals("Rainbow", ignoreCase = true) -> ColorUtils.rainbow(400000000L * index).rgb
-                        bgColorMode.equals("Random", ignoreCase = true) -> moduleColor
-                        else -> bgColor
-                    }
-                    )
+                    // Draws background rect
+                    GLUtils.drawRect(0f, yPos - 1, xPos + width + 2, yPos + textSpacer - 1, bgColor)
 
-                    font.drawString(displayString, xPos, yPos + textY, when {
-                        textColorMode.equals("Rainbow", ignoreCase = true) -> ColorUtils.rainbow(400000000L * index).rgb
-                        textColorMode.equals("Random", ignoreCase = true) -> moduleColor
-                        else -> textColor
+                    // Draws module name
+                    font.drawString(displayString, xPos, yPos, when (textColorMode) {
+                        "Rainbow" -> ColorUtils.rainbow(400000000L * index).rgb
+                        "Fade" -> ColorUtils.fade(textColor, textColor2, offset = index * 0.1).rgb
+                        else -> textColor.rgb
                     }, shadow)
-
-                    if (!rectMode.equals("none", true)) {
-                        val rectColor = when {
-                            rectColorMode.equals("Rainbow", ignoreCase = true) -> ColorUtils.rainbow(400000000L * index).rgb
-                            rectColorMode.equals("Random", ignoreCase = true) -> moduleColor
-                            else -> rectColor
-                        }
-
-                        when {
-                            rectMode.equals("left", true) -> GLUtils.drawRect(0F,
-                                    yPos - 1, 3F, yPos + textHeight, rectColor)
-                            rectMode.equals("right", true) ->
-                                GLUtils.drawRect(xPos + width + 2, yPos, xPos + width + 2 + 3,
-                                        yPos + textHeight, rectColor)
-                        }
-                    }
                 }
             }
         }
@@ -222,26 +160,26 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
 
             if (modules.isEmpty()) {
                 return if (side.horizontal == Horizontal.LEFT)
-                    Border(0F, -1F, 20F, 20F)
+                    Border(0f, -1f, 20F, 20f)
                 else
-                    Border(0F, -1F, -20F, 20F)
+                    Border(0f, -1f, -20f, 20f)
             }
 
             for (module in modules) {
                 when (side.horizontal) {
                     Horizontal.RIGHT, Horizontal.MIDDLE -> {
-                        val xPos = -module.slide.toInt() - 2
+                        val xPos = -module.slide.toInt() - 4
                         if (x2 == Int.MIN_VALUE || xPos < x2) x2 = xPos
                     }
                     Horizontal.LEFT -> {
-                        val xPos = module.slide.toInt() + 14
+                        val xPos = module.slide.toInt() + 4
                         if (x2 == Int.MIN_VALUE || xPos > x2) x2 = xPos
                     }
                 }
             }
             y2 = (if (side.vertical == Vertical.DOWN) -textSpacer else textSpacer) * modules.size
 
-            return Border(0F, 0F, x2 - 7F, y2 - if(side.vertical == Vertical.DOWN) 1F else 0F)
+            return Border(0f, -1f, x2.toFloat(), y2 - 1f)
         }
 
         AWTFontRenderer.assumeNonVolatile = false
@@ -252,6 +190,12 @@ class Arraylist(x: Double = 1.0, y: Double = 2.0, scale: Float = 1F,
     override fun updateElement() {
         modules = ModuleManager.modules
                 .filter { !it.hide && it.slide > 0 }
-                .sortedBy { -font.getStringWidth(if (upperCase) (if (!tags) it.name else if (tagsArrayColor) it.colorlessTagName else it.tagName).toUpperCase() else if (!tags) it.name else if (tagsArrayColor) it.colorlessTagName else it.tagName) }
+                .sortedBy { -font.getStringWidth(
+                    when (textMode) {
+                        "UpperCase" -> it.tagName.toUpperCase()
+                        "LowerCase" -> it.tagName.toLowerCase()
+                        else -> it.tagName
+                    })
+                }
     }
 }

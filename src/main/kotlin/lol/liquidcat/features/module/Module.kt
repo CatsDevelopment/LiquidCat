@@ -65,7 +65,6 @@ open class Module(
             FileManager.saveConfig(FileManager.modulesConfig)
         }
     // HUD
-    val hue = Math.random().toFloat()
     var slide = 0F
     var slideStep = 0F
 

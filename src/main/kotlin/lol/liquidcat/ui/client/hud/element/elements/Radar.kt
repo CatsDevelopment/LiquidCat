@@ -10,10 +10,10 @@ import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
 import lol.liquidcat.utils.entity.EntityUtils
+import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.StencilUtils
-import lol.liquidcat.utils.render.shader.shaders.BlurShader
 import lol.liquidcat.utils.toDegrees
 import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.IntValue
@@ -58,8 +58,8 @@ class Radar(x: Double = 4.0, y: Double = 32.0, scale: Float = 1F, side: Side = S
 
         for (entity in mc.theWorld.loadedEntityList) {
             if (EntityUtils.isSelected(entity, false)) {
-                val entPos = GLUtils.interpolate(entity)
-                val plrPos = GLUtils.interpolate(mc.thePlayer)
+                val entPos = entity.renderPos
+                val plrPos = mc.thePlayer.renderPos
 
                 val xDiff = entPos.x - plrPos.x
                 val zDiff = entPos.z - plrPos.z

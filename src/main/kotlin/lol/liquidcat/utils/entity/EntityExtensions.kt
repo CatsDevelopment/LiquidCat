@@ -7,6 +7,7 @@ package lol.liquidcat.utils.entity
 
 import lol.liquidcat.features.friend.FriendManager
 import lol.liquidcat.utils.mc
+import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.toRadians
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.Entity
@@ -24,6 +25,7 @@ import net.minecraft.item.EnumAction
 import net.minecraft.potion.Potion
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.Vec3
+import javax.vecmath.Vector3d
 import kotlin.math.*
 
 /**
@@ -161,3 +163,36 @@ fun EntityPlayerSP.forward(x: Double) {
  * Moves player up by [x] blocks
  */
 fun EntityPlayerSP.upwards(x: Double) = setPosition(posX, posY + x, posZ)
+
+/**
+ * Render entity position
+ */
+val Entity.renderPos: Vector3d
+    get() {
+        val x = GLUtils.interpolate(lastTickPosX, posX) - mc.renderManager.viewerPosX
+        val y = GLUtils.interpolate(lastTickPosY, posY) - mc.renderManager.viewerPosY
+        val z = GLUtils.interpolate(lastTickPosZ, posZ) - mc.renderManager.viewerPosZ
+
+        return Vector3d(x, y, z)
+    }
+
+val Entity.renderBoundingBox: AxisAlignedBB
+    get() {
+        return this.entityBoundingBox
+            .offset(-this.posX, -this.posY, -this.posZ)
+            .offset(this.renderPos.x, this.renderPos.y, this.renderPos.z)
+    }
+
+/**
+ * Gets render distance to [entity]
+ */
+fun Entity.renderDistanceTo(entity: Entity): Double {
+    val fromPos = this.renderPos
+    val toPos = entity.renderPos
+
+    val x = fromPos.x - toPos.x
+    val y = fromPos.y - toPos.y
+    val z = fromPos.z - toPos.z
+
+    return sqrt(x * x + y * y + z * z)
+}
