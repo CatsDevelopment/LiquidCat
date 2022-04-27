@@ -46,6 +46,19 @@ object ColorUtils {
     }
 
     /**
+     * Makes [color] darker
+     */
+    fun darker(color: Color, factor: Float): Color {
+        require(factor in 0f..1f) { "Color factor should be between 0 and 1" }
+
+        val red = (color.red * (1 - factor)).toInt()
+        val green = (color.green * (1 - factor)).toInt()
+        val blue = (color.blue * (1 - factor)).toInt()
+
+        return Color(red, green, blue, color.alpha)
+    }
+
+    /**
      * Mixes two colors
      *
      * @param a First color

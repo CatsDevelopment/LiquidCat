@@ -14,8 +14,8 @@ import lol.liquidcat.utils.entity.renderDistanceTo
 import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.IntValue
-import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
+import net.ccbluex.liquidbounce.utils.render.ColorUtils
 import net.minecraft.entity.EntityLivingBase
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
@@ -31,15 +31,26 @@ object NameTags : Module("NameTags", "Changes the scale of the nametags so you c
     fun onRender3D(event: Render3DEvent) {
         for (entity in mc.theWorld.loadedEntityList) {
             if (EntityUtils.isSelected(entity, false))
-                renderNameTag(entity as EntityLivingBase)
+                drawNametag(entity as EntityLivingBase)
         }
     }
 
-    private fun renderNameTag(entity: EntityLivingBase) {
-        glPushMatrix()
+    /**
+     * Draws [entity] nametag
+     */
+    private fun drawNametag(entity: EntityLivingBase) {
 
         val pos = entity.renderPos
         val scale = max(0.005, mc.thePlayer.renderDistanceTo(entity) * 0.0015) / glGetFloat(GL_PROJECTION_MATRIX)
+        val text = entity.displayName.unformattedText
+        val width = Fonts.nunitoBold40.getStringWidth(text) / 2
+
+        val startX = -width - 3f
+        val endX = width + 3f
+        val endY = Fonts.nunitoBold40.FONT_HEIGHT - 3f
+        val xDiff = endX - startX
+
+        glPushMatrix()
 
         glTranslated(pos.x, pos.y + entity.eyeHeight * 1.25 + 10 * scale, pos.z)
 
@@ -49,25 +60,29 @@ object NameTags : Module("NameTags", "Changes the scale of the nametags so you c
         glDisable(GL_DEPTH_TEST)
         glScaled(-scale, -scale, scale)
 
-        val text = entity.name
-        val width = Fonts.nunito40.getStringWidth(text) / 2
+        // Draws background
+        GLUtils.drawRect(startX, -3f, endX, endY, Color(0, 0, 0, 75).rgb)
 
-        val startX = -width - 3f
-        val endX = width + 3f
-        val xDiff = endX - startX
-
-        GLUtils.drawRect(startX, -3f, endX, Fonts.nunito40.FONT_HEIGHT - 3f, Color(0, 0, 0, 75).rgb)
+        // Draws health bar background
         GLUtils.drawRect(
             startX,
-            Fonts.nunito40.FONT_HEIGHT - 3f,
-            startX + (entity.health.coerceAtMost(entity.maxHealth) / entity.maxHealth) * xDiff,
-            Fonts.nunito40.FONT_HEIGHT - 3f + 1.0f,
-            Color(red, green, blue, 255).rgb
+            endY,
+            startX + xDiff,
+            endY + 1f,
+            ColorUtils.darker(Color(red, green, blue), 0.5f).rgb
         )
 
-        AWTFontRenderer.assumeNonVolatile = true
-        Fonts.nunito40.drawString(text, -width, 0, Color.WHITE.rgb)
-        AWTFontRenderer.assumeNonVolatile = false
+        // Draws health bar
+        GLUtils.drawRect(
+            startX,
+            endY,
+            startX + (entity.health.coerceAtMost(entity.maxHealth) / entity.maxHealth) * xDiff,
+            endY + 1f,
+            Color(red, green, blue).rgb
+        )
+
+        // Draws name
+        Fonts.nunitoBold40.drawString(text, -width, (-1.5).toInt(), Color.WHITE.rgb)
 
         glEnable(GL_DEPTH_TEST)
 

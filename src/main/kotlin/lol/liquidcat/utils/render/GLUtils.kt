@@ -7,7 +7,6 @@ package lol.liquidcat.utils.render
 
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.entity.renderBoundingBox
-import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.shader.shaders.BlurShader
 import lol.liquidcat.utils.render.shader.shaders.CircleShader
@@ -23,8 +22,6 @@ import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.GL11.*
 import org.lwjgl.opengl.GL20
 import java.awt.Color
-import javax.vecmath.Vector3d
-import kotlin.math.sqrt
 
 object GLUtils {
 
