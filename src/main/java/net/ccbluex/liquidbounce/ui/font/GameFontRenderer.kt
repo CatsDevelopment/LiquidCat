@@ -9,7 +9,7 @@ import lol.liquidcat.event.EventManager
 import lol.liquidcat.event.TextEvent
 import lol.liquidcat.utils.ClassUtils
 import lol.liquidcat.utils.render.GLUtils
-import net.ccbluex.liquidbounce.utils.render.ColorUtils
+import lol.liquidcat.utils.render.ColorUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.renderer.GlStateManager

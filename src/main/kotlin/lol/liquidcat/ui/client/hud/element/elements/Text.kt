@@ -19,7 +19,7 @@ import lol.liquidcat.value.FontValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.TextValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.render.ColorUtils
+import lol.liquidcat.utils.render.ColorUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ChatAllowedCharacters
 import org.lwjgl.input.Keyboard
@@ -152,12 +152,10 @@ class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F) : Element(x, y
 
         val fontRenderer = font
 
-        fontRenderer.drawString(displayText, 0F, 0F, if (rainbow)
-            ColorUtils.rainbow(400000000L).rgb else color, shadow)
+        fontRenderer.drawString(displayText, 0F, 0F, if (rainbow) ColorUtils.rainbow().rgb else color, shadow)
 
         if (editMode && mc.currentScreen is GuiHudDesigner && editTicks <= 40)
-            fontRenderer.drawString("_", fontRenderer.getStringWidth(displayText) + 2F,
-                    0F, if (rainbow) ColorUtils.rainbow(400000000L).rgb else color, shadow)
+            fontRenderer.drawString("_", fontRenderer.getStringWidth(displayText) + 2F, 0F, if (rainbow) ColorUtils.rainbow().rgb else color, shadow)
 
         if (editMode && mc.currentScreen !is GuiHudDesigner) {
             editMode = false

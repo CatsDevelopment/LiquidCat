@@ -10,10 +10,10 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.block.isClickable
+import lol.liquidcat.utils.render.ColorUtils.rainbow
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
-import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.BlockPos
 import org.lwjgl.opengl.GL11
@@ -40,7 +40,7 @@ object BlockOverlay : Module("BlockOverlay", "Allows you to change the design of
         val blockPos = currentBlock ?: return
         val block = mc.theWorld.getBlockState(blockPos).block ?: return
         val partialTicks = event.partialTicks
-        val color = if (rainbow) rainbow(0.4F) else Color(red, green, blue, (0.4F * 255).toInt())
+        val color = if (rainbow) rainbow(alpha = 102) else Color(red, green, blue, 102)
 
         GlStateManager.enableBlend()
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)

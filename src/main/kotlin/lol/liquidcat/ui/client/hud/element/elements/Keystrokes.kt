@@ -12,7 +12,7 @@ import lol.liquidcat.ui.client.hud.element.Side
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.render.ColorUtils
+import lol.liquidcat.utils.render.ColorUtils
 import org.lwjgl.input.Keyboard
 import java.awt.Color
 

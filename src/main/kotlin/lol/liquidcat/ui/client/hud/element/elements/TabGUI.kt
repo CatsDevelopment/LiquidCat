@@ -12,6 +12,7 @@ import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.utils.render.ColorUtils.rainbow
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
@@ -19,7 +20,6 @@ import lol.liquidcat.value.FontValue
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.input.Keyboard
@@ -90,7 +90,7 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
         val color = if (!rectRainbow)
             Color(rectRed, rectGreen, rectBlue, rectAlpha)
         else
-            rainbow(400000000L, rectAlpha)
+            rainbow(alpha = rectAlpha)
 
         val backgroundColor = Color(bgRed, bgGreen, bgBlue,
                 bgAlpha)
@@ -98,7 +98,7 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
         val borderColor = if (!borderRainbow)
             Color(borderRed, borderGreen, borderBlue, borderAlpha)
         else
-            rainbow(400000000L, borderAlpha)
+            rainbow(alpha = borderAlpha)
 
         // Draw
         val guiHeight = tabs.size * tabHeight

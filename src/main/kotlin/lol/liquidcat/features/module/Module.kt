@@ -12,7 +12,6 @@ import lol.liquidcat.file.FileManager
 import lol.liquidcat.ui.client.hud.element.elements.Notification
 import lol.liquidcat.ui.client.hud.element.elements.NotificationType
 import lol.liquidcat.value.Value
-import net.ccbluex.liquidbounce.utils.render.ColorUtils.stripColor
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.input.Keyboard
@@ -74,9 +73,6 @@ open class Module(
 
     val tagName: String
         get() = "$name${if (tag == null) "" else " §7$tag"}"
-
-    val colorlessTagName: String
-        get() = "$name${if (tag == null) "" else " " + stripColor(tag)}"
 
     /**
      * Toggle module

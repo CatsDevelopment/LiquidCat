@@ -20,7 +20,7 @@ import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.render.ColorUtils
+import lol.liquidcat.utils.render.ColorUtils
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color
 
@@ -119,7 +119,7 @@ class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
 
                     // Draws module name
                     font.drawString(displayString, xPos, yPos, when (textColorMode) {
-                        "Rainbow" -> ColorUtils.rainbow(400000000L * index).rgb
+                        "Rainbow" -> ColorUtils.rainbow(offset = index * 0.05).rgb
                         "Fade" -> ColorUtils.fade(textColor, textColor2, offset = index * 0.1).rgb
                         else -> textColor.rgb
                     }, shadow)
@@ -146,7 +146,7 @@ class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
 
                     // Draws module name
                     font.drawString(displayString, xPos, yPos, when (textColorMode) {
-                        "Rainbow" -> ColorUtils.rainbow(400000000L * index).rgb
+                        "Rainbow" -> ColorUtils.rainbow(offset = index * 0.05).rgb
                         "Fade" -> ColorUtils.fade(textColor, textColor2, offset = index * 0.1).rgb
                         else -> textColor.rgb
                     }, shadow)

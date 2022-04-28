@@ -10,10 +10,10 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.render.ColorUtils.rainbow
 import lol.liquidcat.utils.render.GLUtils.glColor
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
-import net.ccbluex.liquidbounce.utils.render.ColorUtils.rainbow
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 import java.util.*

@@ -19,7 +19,7 @@ import lol.liquidcat.value.FontValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.render.ColorUtils
+import lol.liquidcat.utils.render.ColorUtils
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.scoreboard.ScoreObjective
@@ -133,7 +133,7 @@ class ScoreboardElement(x: Double = 5.0, y: Double = 0.0, scale: Float = 1F,
 
             if (rect) {
                 val rectColor = when {
-                    rectColorMode.equals("Rainbow", ignoreCase = true) -> ColorUtils.rainbow(400000000L * index).rgb
+                    rectColorMode.equals("Rainbow", ignoreCase = true) -> ColorUtils.rainbow(offset = index * 0.05).rgb
                     else -> rectColor
                 }
 

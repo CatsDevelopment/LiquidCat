@@ -15,7 +15,7 @@ import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
-import net.ccbluex.liquidbounce.utils.render.ColorUtils
+import lol.liquidcat.utils.render.ColorUtils
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
 import kotlin.math.cos

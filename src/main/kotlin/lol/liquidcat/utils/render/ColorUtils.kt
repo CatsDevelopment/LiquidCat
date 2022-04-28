@@ -3,19 +3,14 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package net.ccbluex.liquidbounce.utils.render
+package lol.liquidcat.utils.render
 
 import net.minecraft.util.ChatAllowedCharacters
 import java.awt.Color
 import java.util.*
-import java.util.regex.Pattern
-import kotlin.math.abs
-import kotlin.math.cos
 import kotlin.math.sin
 
 object ColorUtils {
-
-    private val COLOR_PATTERN = Pattern.compile("(?i)§[0-9A-FK-OR]")
 
     @JvmField
     val hexColors = IntArray(16)
@@ -34,6 +29,10 @@ object ColorUtils {
 
     /**
      * Makes [color] brighter
+     *
+     * The greater [factor] value, the brighter the color will be
+     *
+     * @param factor Color brightness factor
      */
     fun brighter(color: Color, factor: Float): Color {
         require(factor in 0f..1f) { "Color factor should be between 0 and 1" }
@@ -47,6 +46,10 @@ object ColorUtils {
 
     /**
      * Makes [color] darker
+     *
+     * The greater [factor] value, the darker the color will be
+     *
+     * @param factor Color darkness factor
      */
     fun darker(color: Color, factor: Float): Color {
         require(factor in 0f..1f) { "Color factor should be between 0 and 1" }
@@ -74,12 +77,28 @@ object ColorUtils {
         )
     }
 
+    /**
+     * Smoothly fades between two colors
+     *
+     * @param a First color
+     * @param b Second color
+     * @param speed Fade speed
+     * @param offset Fade offset
+     */
     fun fade(a: Color, b: Color, speed: Double = 0.001, offset: Double = 0.0): Color {
 
         val time = System.currentTimeMillis() * speed + offset
         val factor = 0.5f * (sin(time) + 1)
 
         return mix(a, b, factor.toFloat())
+    }
+
+    fun rainbow(speed: Double = 0.0005, offset: Double = 0.0, alpha: Int = 255): Color {
+
+        val time = ((System.currentTimeMillis() * speed) + offset) % 1f
+        val c = Color.getHSBColor(time.toFloat(), 1f, 1f)
+
+        return Color(c.red, c.green, c.blue, alpha)
     }
 
     /**
@@ -89,11 +108,6 @@ object ColorUtils {
         return Color.getHSBColor(
             if (angle < 180) from + (to - from) * (angle / 180f)
             else from + (to - from) * (-(angle - 360) / 180f), s, b)
-    }
-
-    @JvmStatic
-    fun stripColor(input: String?): String? {
-        return COLOR_PATTERN.matcher(input ?: return null).replaceAll("")
     }
 
     @JvmStatic
@@ -122,35 +136,5 @@ object ColorUtils {
         }
 
         return stringBuilder.toString()
-    }
-
-    @JvmStatic
-    fun rainbow(): Color {
-        val currentColor = Color(Color.HSBtoRGB((System.nanoTime() + 400000L) / 10000000000F % 1, 1F, 1F))
-        return Color(currentColor.red / 255F * 1F, currentColor.green / 255f * 1F, currentColor.blue / 255F * 1F, currentColor.alpha / 255F)
-    }
-
-    // TODO: Use kotlin optional argument feature
-
-    @JvmStatic
-    fun rainbow(offset: Long): Color {
-        val currentColor = Color(Color.HSBtoRGB((System.nanoTime() + offset) / 10000000000F % 1, 1F, 1F))
-        return Color(currentColor.red / 255F * 1F, currentColor.green / 255F * 1F, currentColor.blue / 255F * 1F,
-                currentColor.alpha / 255F)
-    }
-
-    @JvmStatic
-    fun rainbow(alpha: Float) = rainbow(400000L, alpha)
-
-    @JvmStatic
-    fun rainbow(alpha: Int) = rainbow(400000L, alpha / 255)
-
-    @JvmStatic
-    fun rainbow(offset: Long, alpha: Int) = rainbow(offset, alpha.toFloat() / 255)
-
-    @JvmStatic
-    fun rainbow(offset: Long, alpha: Float): Color {
-        val currentColor = Color(Color.HSBtoRGB((System.nanoTime() + offset) / 10000000000F % 1, 1F, 1F))
-        return Color(currentColor.red / 255F * 1F, currentColor.green / 255f * 1F, currentColor.blue / 255F * 1F, alpha)
     }
 }
