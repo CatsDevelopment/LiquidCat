@@ -6,97 +6,133 @@
 package lol.liquidcat.utils.render.shader
 
 import lol.liquidcat.LiquidCat
-import lol.liquidcat.LiquidCat.logger
 import org.apache.commons.io.IOUtils
-import org.lwjgl.opengl.*
+import org.lwjgl.opengl.GL11
+import org.lwjgl.opengl.GL20.*
+import org.lwjgl.opengl.OpenGLException
 
 abstract class Shader(fragmentShader: String) {
+
+    /**
+     * Shader program
+     */
     private var program = 0
-    private lateinit var uniformsMap: MutableMap<String, Int>
 
+    /**
+     * Shader uniforms
+     */
+    private var uniforms = mutableMapOf<String, Int>()
+
+    /**
+     * Starts shader rendering
+     */
     fun startShader() {
-        GL11.glPushMatrix()
-        GL20.glUseProgram(program)
+        if (program != 0) {
+            GL11.glPushMatrix()
+            glUseProgram(program)
 
-        uniformsMap = HashMap()
-        setupUniforms()
+            uniforms.clear()
 
-        updateUniforms()
+            setupUniforms()
+            updateUniforms()
+        }
     }
 
+    /**
+     * Stops shader rendering
+     */
     fun stopShader() {
-        GL20.glUseProgram(0)
-        GL11.glPopMatrix()
+        if (program != 0) {
+            glUseProgram(0)
+            GL11.glPopMatrix()
+        }
+    }
+
+    private fun createShader(shaderType: Int, shaderSrc: String): Int {
+
+        // Creates a shader
+        val shader = glCreateShader(shaderType)
+
+        if (shader == 0)
+            throw OpenGLException("An error occurred while creating shader.")
+
+        glShaderSource(shader, shaderSrc)
+
+        // Compiles shader
+        glCompileShader(shader)
+
+        // Checks for errors during shader compilation
+        if (glGetShaderi(shader, GL_COMPILE_STATUS) == GL11.GL_FALSE) {
+
+            // Deletes shader
+            glDeleteShader(shader)
+
+            throw OpenGLException("An error occurred while compiling shader.")
+        }
+
+        return shader
+    }
+
+    private fun createProgram(vertShader: Int, fragShader: Int): Int {
+
+        // Creates a program
+        val program = glCreateProgram()
+
+        // Attaches shaders
+        glAttachShader(program, vertShader)
+        glAttachShader(program, fragShader)
+
+        // Links program
+        glLinkProgram(program)
+
+        // Checks for errors during program linking
+        if (glGetProgrami(program, GL_LINK_STATUS) == GL11.GL_FALSE) {
+
+            glDeleteProgram(program)
+
+            // Deletes shaders
+            glDeleteProgram(vertShader)
+            glDeleteProgram(fragShader)
+
+            throw OpenGLException("An error occurred while linking program.")
+        }
+
+        // Detaches shaders
+        glDetachShader(program, vertShader)
+        glDetachShader(program, fragShader)
+
+        return program
+    }
+
+    init {
+        runCatching {
+
+            // Links vertex shader code
+            val vertStream = javaClass.getResourceAsStream("/assets/minecraft/${LiquidCat.CLIENT_NAME.toLowerCase()}/shader/vertex.vert")
+            val vertShader = createShader(GL_VERTEX_SHADER, IOUtils.toString(vertStream))
+            IOUtils.closeQuietly(vertStream)
+
+            // Links fragment shader code
+            val fragStream = javaClass.getResourceAsStream("/assets/minecraft/${LiquidCat.CLIENT_NAME.toLowerCase()}/shader/fragment/$fragmentShader")
+            val fragShader = createShader(GL_FRAGMENT_SHADER, IOUtils.toString(fragStream))
+            IOUtils.closeQuietly(fragStream)
+
+            program = createProgram(vertShader, fragShader)
+        }.onFailure { it.printStackTrace() }
     }
 
     abstract fun setupUniforms()
     abstract fun updateUniforms()
 
-    private fun createShader(shaderSource: String, shaderType: Int): Int {
-        var shader = 0
-
-        return try {
-            shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType)
-
-            if (shader == 0)
-                return 0
-
-            ARBShaderObjects.glShaderSourceARB(shader, shaderSource)
-            ARBShaderObjects.glCompileShaderARB(shader)
-
-            if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE)
-                throw RuntimeException("Error creating shader: " + getLogInfo(shader))
-
-            shader
-        } catch (e: Exception) {
-            ARBShaderObjects.glDeleteObjectARB(shader)
-            throw e
-        }
-    }
-
-    private fun getLogInfo(i: Int): String {
-        return ARBShaderObjects.glGetInfoLogARB(i, ARBShaderObjects.glGetObjectParameteriARB(i, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB))
-    }
-
-    fun setUniform(uniformName: String, location: Int) {
-        uniformsMap[uniformName] = location
+    private fun setUniform(uniformName: String, location: Int) {
+        uniforms[uniformName] = location
     }
 
     fun setupUniform(uniformName: String) {
-        setUniform(uniformName, GL20.glGetUniformLocation(program, uniformName))
+        setUniform(uniformName, glGetUniformLocation(program, uniformName))
     }
 
     fun getUniform(uniformName: String): Int {
-        return uniformsMap[uniformName] ?: 0
-    }
-
-    init {
-        var vertexShaderID = 0
-        var fragmentShaderID = 0
-
-        try {
-            val vertexStream = javaClass.getResourceAsStream("/assets/minecraft/${LiquidCat.CLIENT_NAME.toLowerCase()}/shader/vertex.vert")
-            vertexShaderID = createShader(IOUtils.toString(vertexStream), ARBVertexShader.GL_VERTEX_SHADER_ARB)
-            IOUtils.closeQuietly(vertexStream)
-
-            val fragmentStream = javaClass.getResourceAsStream("/assets/minecraft/${LiquidCat.CLIENT_NAME.toLowerCase()}/shader/fragment/$fragmentShader")
-            fragmentShaderID = createShader(IOUtils.toString(fragmentStream), ARBFragmentShader.GL_FRAGMENT_SHADER_ARB)
-            IOUtils.closeQuietly(fragmentStream)
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        if (vertexShaderID != 0 && fragmentShaderID != 0) {
-            program = ARBShaderObjects.glCreateProgramObjectARB()
-
-            if (program != 0) {
-                ARBShaderObjects.glAttachObjectARB(program, vertexShaderID)
-                ARBShaderObjects.glAttachObjectARB(program, fragmentShaderID)
-                ARBShaderObjects.glLinkProgramARB(program)
-                ARBShaderObjects.glValidateProgramARB(program)
-                logger.info("[Shader] Successfully loaded: $fragmentShader")
-            }
-        }
+        return uniforms[uniformName] ?: 0
     }
 }
