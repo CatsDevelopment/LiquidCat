@@ -178,6 +178,7 @@ object GLUtils {
         glDisable(GL_BLEND)
     }
 
+    @JvmStatic
     fun drawQuads(x: Float, y: Float, x2: Float, y2: Float) {
         glBegin(GL_QUADS)
 

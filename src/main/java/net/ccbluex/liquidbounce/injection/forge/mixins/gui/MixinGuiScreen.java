@@ -7,6 +7,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
 import lol.liquidcat.features.command.CommandManager;
 import lol.liquidcat.features.module.modules.render.HUD;
+import lol.liquidcat.utils.render.GLUtils;
 import lol.liquidcat.utils.render.shader.shaders.BackgroundShader;
 import net.ccbluex.liquidbounce.utils.render.ParticleUtils;
 import net.minecraft.client.Minecraft;
@@ -78,14 +79,7 @@ public abstract class MixinGuiScreen {
 
         BackgroundShader.INSTANCE.startShader();
 
-        final Tessellator instance = Tessellator.getInstance();
-        final WorldRenderer worldRenderer = instance.getWorldRenderer();
-        worldRenderer.begin(7, DefaultVertexFormats.POSITION);
-        worldRenderer.pos(0, height, 0.0D).endVertex();
-        worldRenderer.pos(width, height, 0.0D).endVertex();
-        worldRenderer.pos(width, 0, 0.0D).endVertex();
-        worldRenderer.pos(0, 0, 0.0D).endVertex();
-        instance.draw();
+        GLUtils.drawQuads(0f, 0f, width, height);
 
         BackgroundShader.INSTANCE.stopShader();
 

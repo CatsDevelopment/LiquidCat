@@ -62,7 +62,7 @@ public abstract class MixinGuiButtonExt extends GuiButton {
          mouseDragged(mc, mouseX, mouseY);
 
          AWTFontRenderer.Companion.setAssumeNonVolatile(true);
-         Fonts.nunito40.drawCenteredString(displayString, (xPosition + width / 2f), (yPosition + height / 2f) - Fonts.nunito40.FONT_HEIGHT / 4f, Color.WHITE.getRGB(), false);
+         Fonts.nunitoBold40.drawCenteredString(displayString, (xPosition + width / 2f), (yPosition + height / 2f) - Fonts.nunitoBold40.FONT_HEIGHT / 4f, Color.WHITE.getRGB(), false);
          AWTFontRenderer.Companion.setAssumeNonVolatile(false);
 
          GlStateManager.resetColor();
