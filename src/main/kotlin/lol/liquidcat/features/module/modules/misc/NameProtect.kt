@@ -11,10 +11,10 @@ import lol.liquidcat.event.TextEvent
 import lol.liquidcat.features.friend.FriendManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
+import lol.liquidcat.utils.render.ColorUtils.translateAlternateColorCodes
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.TextValue
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
-import lol.liquidcat.utils.render.ColorUtils.translateAlternateColorCodes
 
 object NameProtect : Module("NameProtect", "Changes playernames clientside.", ModuleCategory.MISC) {
 

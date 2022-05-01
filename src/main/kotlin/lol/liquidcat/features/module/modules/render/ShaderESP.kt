@@ -12,7 +12,6 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.entity.renderBoundingBox
-import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.shader.shaders.GlowShader
 import lol.liquidcat.utils.render.shader.shaders.OutlineShader
@@ -20,9 +19,6 @@ import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
-import net.minecraft.client.renderer.ChestRenderer
-import net.minecraft.client.renderer.entity.RenderEntity
-import net.minecraft.client.renderer.entity.RendererLivingEntity
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher
 import net.minecraft.tileentity.TileEntityChest
 import java.awt.Color
@@ -44,6 +40,9 @@ object ShaderESP : Module("ShaderESP", "cool shader", ModuleCategory.RENDER) {
     private val blue by IntValue("Blue", 255, 0..255)
 
     private val storages by BoolValue("Storages", false)
+
+    override val tag
+        get() = mode
 
     @EventTarget
     fun onRender2D(event: Render2DEvent) {

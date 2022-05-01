@@ -5,10 +5,8 @@
  */
 package lol.liquidcat.features.command.commands
 
-import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.module.ModuleManager
-import lol.liquidcat.ui.client.hud.element.elements.Notification
 import org.lwjgl.input.Keyboard
 
 object BindCommand : Command("bind", emptyArray()) {

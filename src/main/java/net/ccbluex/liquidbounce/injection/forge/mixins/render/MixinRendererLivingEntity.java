@@ -6,10 +6,7 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
 import co.uk.hexeption.utils.OutlineUtils;
-import lol.liquidcat.features.module.modules.render.Chams;
-import lol.liquidcat.features.module.modules.render.ESP;
-import lol.liquidcat.features.module.modules.render.NameTags;
-import lol.liquidcat.features.module.modules.render.TrueSight;
+import lol.liquidcat.features.module.modules.render.*;
 import lol.liquidcat.utils.ClientUtils;
 import lol.liquidcat.utils.entity.EntityUtils;
 import lol.liquidcat.utils.render.GLUtils;
@@ -60,7 +57,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
 
     @Inject(method = "canRenderName", at = @At("HEAD"), cancellable = true)
     private <T extends EntityLivingBase> void canRenderName(T entity, CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
-        if (!ESP.renderNameTags || (NameTags.INSTANCE.getState() && EntityUtils.isSelected(entity, false)))
+        if (EntityUtils.isSelected(entity, false) && ((ESP2D.INSTANCE.getState() && ESP2D.INSTANCE.getShowName()) || ShaderESP.INSTANCE.getState() || NameTags.INSTANCE.getState()))
             callbackInfoReturnable.setReturnValue(false);
     }
 

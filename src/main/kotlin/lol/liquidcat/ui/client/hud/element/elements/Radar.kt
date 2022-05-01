@@ -12,13 +12,11 @@ import lol.liquidcat.ui.client.hud.element.Side
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.mc
-import lol.liquidcat.utils.render.ColorUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.StencilUtils
 import lol.liquidcat.utils.toDegrees
 import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.IntValue
-import net.ccbluex.liquidbounce.ui.font.Fonts
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 import kotlin.math.atan2

@@ -8,7 +8,6 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.file.FileManager
-import lol.liquidcat.ui.client.hud.element.elements.Notification
 import lol.liquidcat.utils.SettingsUtils
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import java.io.File

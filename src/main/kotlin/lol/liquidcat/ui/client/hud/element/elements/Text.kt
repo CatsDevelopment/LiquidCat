@@ -14,12 +14,12 @@ import lol.liquidcat.utils.ServerUtils
 import lol.liquidcat.utils.click.CPSCounter
 import lol.liquidcat.utils.entity.ping
 import lol.liquidcat.utils.mc
+import lol.liquidcat.utils.render.ColorUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FontValue
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.TextValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import lol.liquidcat.utils.render.ColorUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.util.ChatAllowedCharacters
 import org.lwjgl.input.Keyboard

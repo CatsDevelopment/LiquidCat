@@ -13,7 +13,6 @@ import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.minecraft.client.gui.*
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
-import org.lwjgl.opengl.GL11
 
 class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
 

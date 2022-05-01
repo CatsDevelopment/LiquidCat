@@ -27,6 +27,10 @@ object ColorUtils {
         }
     }
 
+    fun Color.applyAlpha(alpha: Int): Color {
+        return Color(red, green, blue, alpha)
+    }
+
     /**
      * Makes [color] brighter
      *

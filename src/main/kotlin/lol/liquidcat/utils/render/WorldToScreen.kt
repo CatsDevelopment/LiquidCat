@@ -1,3 +1,8 @@
+/*
+ * LiquidCat Hacked Client
+ * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
+ * https://github.com/CatsDevelopment/LiquidCat
+ */
 package lol.liquidcat.utils.render
 
 import org.lwjgl.BufferUtils
@@ -9,15 +14,11 @@ import org.lwjgl.util.vector.Vector4f
 
 object WorldToScreen {
     fun getMatrix(matrix: Int): Matrix4f {
-        val floatBuffer = BufferUtils.createFloatBuffer(16)
+        val buffer = BufferUtils.createFloatBuffer(16)
 
-        GL11.glGetFloat(matrix, floatBuffer)
+        GL11.glGetFloat(matrix, buffer)
 
-        return Matrix4f().load(floatBuffer) as Matrix4f
-    }
-
-    fun toScreen(pointInWorld: Vector3f, screenWidth: Int, screenHeight: Int): Vector2f? {
-        return toScreen(pointInWorld, getMatrix(GL11.GL_MODELVIEW_MATRIX), getMatrix(GL11.GL_PROJECTION_MATRIX), screenWidth, screenHeight)
+        return Matrix4f().load(buffer) as Matrix4f
     }
 
     fun toScreen(pointInWorld: Vector3f, view: Matrix4f, projection: Matrix4f, screenWidth: Int, screenHeight: Int): Vector2f? {

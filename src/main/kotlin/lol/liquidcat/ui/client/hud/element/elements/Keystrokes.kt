@@ -9,10 +9,10 @@ import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.utils.render.ColorUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import lol.liquidcat.utils.render.ColorUtils
 import org.lwjgl.input.Keyboard
 import java.awt.Color
 

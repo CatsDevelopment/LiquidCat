@@ -16,11 +16,14 @@ import lol.liquidcat.ui.client.hud.element.Side.Horizontal
 import lol.liquidcat.ui.client.hud.element.Side.Vertical
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.AnimationUtils
+import lol.liquidcat.utils.render.ColorUtils
 import lol.liquidcat.utils.render.GLUtils
-import lol.liquidcat.value.*
+import lol.liquidcat.value.BoolValue
+import lol.liquidcat.value.FontValue
+import lol.liquidcat.value.IntValue
+import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import lol.liquidcat.utils.render.ColorUtils
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color
 

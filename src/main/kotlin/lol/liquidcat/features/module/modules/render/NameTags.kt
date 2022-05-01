@@ -12,10 +12,10 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.entity.renderDistanceTo
 import lol.liquidcat.utils.entity.renderPos
+import lol.liquidcat.utils.render.ColorUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import lol.liquidcat.utils.render.ColorUtils
 import net.minecraft.entity.EntityLivingBase
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
