@@ -19,13 +19,13 @@ import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.util.Vec3
 import org.lwjgl.opengl.GL11.*
-import java.awt.Color
 
 object Tracers : Module("Tracers", "Draws a line to targets around you.", ModuleCategory.RENDER) {
 
-    private val red by IntValue("Red", 255, 0..255)
-    private val green by IntValue("Green", 255, 0..255)
+    private val red by IntValue("Red", 90, 0..255)
+    private val green by IntValue("Green", 120, 0..255)
     private val blue by IntValue("Blue", 255, 0..255)
+    private val transparency by IntValue("Transparency", 150, 0..255)
 
     private val thickness by FloatValue("Thickness", 2f, 1f..5f)
 
@@ -45,7 +45,7 @@ object Tracers : Module("Tracers", "Draws a line to targets around you.", Module
 
         for (entity in mc.theWorld.loadedEntityList) {
             if (EntityUtils.isSelected(entity, false))
-                drawTraces(entity)
+                drawTrace(entity)
         }
 
         glEnd()
@@ -60,16 +60,16 @@ object Tracers : Module("Tracers", "Draws a line to targets around you.", Module
         GlStateManager.resetColor()
     }
 
-    private fun drawTraces(entity: Entity) {
+    private fun drawTrace(entity: Entity) {
         val pos = entity.renderPos
         val eyeVec = Vec3(0.0, 0.0, 1.0)
             .rotatePitch((-mc.thePlayer.rotationPitch.toDouble().toRadians()).toFloat())
             .rotateYaw((-mc.thePlayer.rotationYaw.toDouble().toRadians()).toFloat())
 
-        GLUtils.glColor(Color(red, green, blue))
+        GLUtils.glColor(red, green, blue, transparency)
         glVertex3d(eyeVec.xCoord, eyeVec.yCoord + mc.thePlayer.eyeHeight - if (mc.thePlayer.isSneaking) 0.08 else 0.0, eyeVec.zCoord)
 
-        GLUtils.glColor(Color(red, green, blue, 0))
+        GLUtils.glColor(red, green, blue, 0)
         glVertex3d(pos.x, pos.y + entity.eyeHeight * 1.25 / 2.0, pos.z)
     }
 }
