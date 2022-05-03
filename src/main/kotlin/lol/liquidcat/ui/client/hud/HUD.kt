@@ -23,6 +23,7 @@ open class HUD {
     companion object {
 
         val elements = arrayOf(
+                Inventory::class.java,
                 Armor::class.java,
                 Arraylist::class.java,
                 Effects::class.java,
