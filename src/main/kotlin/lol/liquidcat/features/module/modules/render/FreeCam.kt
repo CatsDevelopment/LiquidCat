@@ -17,8 +17,6 @@ import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.client.C0BPacketEntityAction
 
-//TODO Rewrite?
-
 object FreeCam : Module("FreeCam", "Allows you to move out of your body.", ModuleCategory.RENDER) {
 
     private val speed by FloatValue("Speed", 0.8f, 0.1f..2f)
@@ -37,27 +35,30 @@ object FreeCam : Module("FreeCam", "Allows you to move out of your body.", Modul
         oldY = mc.thePlayer.posY
         oldZ = mc.thePlayer.posZ
 
+        // Creates a copy of the player
         fakePlayer = EntityOtherPlayerMP(mc.theWorld, mc.thePlayer.gameProfile)
         fakePlayer!!.clonePlayer(mc.thePlayer, true)
-        fakePlayer!!.rotationYawHead = mc.thePlayer.rotationYawHead
         fakePlayer!!.copyLocationAndAnglesFrom(mc.thePlayer)
+        fakePlayer!!.rotationYawHead = mc.thePlayer.rotationYawHead
 
+        // Adds a copy to the world
         mc.theWorld.addEntityToWorld(-1000, fakePlayer)
-
-        if (noClip) mc.thePlayer.noClip = true
     }
 
     override fun onDisable() {
-        if (mc.thePlayer == null || fakePlayer == null) return
+        if (mc.thePlayer == null || fakePlayer == null)
+            return
 
-        mc.thePlayer.setPositionAndRotation(oldX, oldY, oldZ, mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch)
+        mc.thePlayer.setPosition(oldX, oldY, oldZ)
+
+        // Deletes a copy of the player
         mc.theWorld.removeEntityFromWorld(fakePlayer!!.entityId)
-
         fakePlayer = null
 
-        mc.thePlayer.motionX = 0.0
-        mc.thePlayer.motionY = 0.0
-        mc.thePlayer.motionZ = 0.0
+        mc.thePlayer.setVelocity(0.0, 0.0, 0.0)
+
+        // Updates chunks
+        mc.renderGlobal.loadRenderers()
     }
 
     @EventTarget
@@ -69,12 +70,13 @@ object FreeCam : Module("FreeCam", "Allows you to move out of your body.", Modul
         if (fly) {
             val speed = speed.toDouble()
 
-            mc.thePlayer.motionY = 0.0
-            mc.thePlayer.motionX = 0.0
-            mc.thePlayer.motionZ = 0.0
+            mc.thePlayer.setVelocity(0.0, 0.0, 0.0)
 
-            if (mc.gameSettings.keyBindJump.isKeyDown) mc.thePlayer.motionY += speed
-            if (mc.gameSettings.keyBindSneak.isKeyDown) mc.thePlayer.motionY -= speed
+            if (mc.gameSettings.keyBindJump.isKeyDown)
+                mc.thePlayer.motionY += speed
+
+            if (mc.gameSettings.keyBindSneak.isKeyDown)
+                mc.thePlayer.motionY -= speed
 
             mc.thePlayer.strafe(speed)
         }
@@ -84,6 +86,8 @@ object FreeCam : Module("FreeCam", "Allows you to move out of your body.", Modul
     fun onPacket(event: PacketEvent) {
         val packet = event.packet
 
-        if (packet is C03PacketPlayer || packet is C0BPacketEntityAction) event.cancelEvent()
+        // Cancels some client packets
+        if (packet is C03PacketPlayer || packet is C0BPacketEntityAction)
+            event.cancelEvent()
     }
 }
