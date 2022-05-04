@@ -194,11 +194,18 @@ class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
         modules = ModuleManager.modules
                 .filter { !it.hide && it.slide > 0 }
                 .sortedBy { -font.getStringWidth(
-                    when (textMode) {
-                        "UpperCase" -> it.tagName.toUpperCase()
-                        "LowerCase" -> it.tagName.toLowerCase()
-                        else -> it.tagName
-                    })
-                }
+                    if (tags)
+                        when (textMode) {
+                            "UpperCase" -> it.tagName.toUpperCase()
+                            "LowerCase" -> it.tagName.toLowerCase()
+                            else -> it.tagName
+                        }
+                    else
+                        when (textMode) {
+                            "UpperCase" -> it.name.toUpperCase()
+                            "LowerCase" -> it.name.toLowerCase()
+                            else -> it.name
+                        }
+                )}
     }
 }

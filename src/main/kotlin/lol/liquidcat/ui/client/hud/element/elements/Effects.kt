@@ -16,6 +16,7 @@ import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer.Companion.assumeNonVolat
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.resources.I18n
 import net.minecraft.potion.Potion
+import net.minecraft.util.StringUtils
 
 /**
  * CustomHUD effects element
@@ -27,22 +28,23 @@ class Effects(x: Double = 2.0, y: Double = 10.0, scale: Float = 1F,
               side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.DOWN)
 ) : Element(x, y, scale, side) {
 
+    private val amplifier by BoolValue("Amplifier", false)
+
     private val font by FontValue("Font", Fonts.nunito35)
     private val shadow by BoolValue("Shadow", true)
 
-    /**
-     * Draw element
-     */
     override fun drawElement(): Border {
-        var y = 0F
-        var width = 0F
+
+        var y = 0f
+        var width = 0f
 
         assumeNonVolatile = true
 
         for (effect in mc.thePlayer.activePotionEffects) {
-            val potion = Potion.potionTypes[effect.potionID]
 
+            val potion = Potion.potionTypes[effect.potionID]
             val number = when {
+                effect.amplifier == 0 -> "I"
                 effect.amplifier == 1 -> "II"
                 effect.amplifier == 2 -> "III"
                 effect.amplifier == 3 -> "IV"
@@ -53,10 +55,12 @@ class Effects(x: Double = 2.0, y: Double = 10.0, scale: Float = 1F,
                 effect.amplifier == 8 -> "IX"
                 effect.amplifier == 9 -> "X"
                 effect.amplifier > 10 -> "X+"
-                else -> "I"
+
+                // Potion effect amplifier becomes negative when its value is greater than 127
+                else -> ""
             }
 
-            val name = "${I18n.format(potion.name)} $number§f: §7${Potion.getDurationString(effect)}"
+            val name = "${I18n.format(potion.name)} ${if (amplifier) number else ""}§f - §7${StringUtils.ticksToElapsedTime(effect.duration)}"
             val stringWidth = font.getStringWidth(name).toFloat()
 
             if (width < stringWidth)
@@ -68,12 +72,10 @@ class Effects(x: Double = 2.0, y: Double = 10.0, scale: Float = 1F,
 
         assumeNonVolatile = false
 
-        if (width == 0F)
-            width = 40F
+        if (width == 0f) width = 40f
 
-        if (y == 0F)
-            y = -10F
+        if (y == 0f) y = -10f
 
-        return Border(2F, font.FONT_HEIGHT.toFloat(), -width - 2F, y + font.FONT_HEIGHT - 2F)
+        return Border(2f, font.FONT_HEIGHT.toFloat(), -width - 2f, y + font.FONT_HEIGHT - 2f)
     }
 }
