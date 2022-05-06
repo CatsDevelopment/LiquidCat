@@ -5,12 +5,15 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 import lol.liquidcat.event.EventManager;
 import lol.liquidcat.event.Render2DEvent;
 import lol.liquidcat.features.module.modules.render.AntiBlind;
 import lol.liquidcat.features.module.modules.render.HUD;
 import lol.liquidcat.features.module.modules.render.NoScoreboard;
 import lol.liquidcat.utils.ClassUtils;
+import lol.liquidcat.utils.render.GLUtils;
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
@@ -20,11 +23,16 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL44;
+import org.lwjgl.opengl.GLUConstants;
+import org.lwjgl.util.glu.GLU;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.awt.*;
 
 @Mixin(GuiIngame.class)
 @SideOnly(Side.CLIENT)
@@ -49,8 +57,9 @@ public abstract class MixinGuiInGame {
             int middleScreen = sr.getScaledWidth() / 2;
 
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            GuiIngame.drawRect(middleScreen - 91, sr.getScaledHeight() - 24, middleScreen + 90, sr.getScaledHeight(), Integer.MIN_VALUE);
-            GuiIngame.drawRect(middleScreen - 91 - 1 + entityPlayer.inventory.currentItem * 20 + 1, sr.getScaledHeight() - 24, middleScreen - 91 - 1 + entityPlayer.inventory.currentItem * 20 + 22, sr.getScaledHeight() - 22 - 1 + 24, Integer.MAX_VALUE);
+
+            GLUtils.drawRect(middleScreen - 91, sr.getScaledHeight() - 22, middleScreen + 91, sr.getScaledHeight(), new Color(0, 0, 0, 75).getRGB());
+            GLUtils.drawRect(middleScreen - 91 + entityPlayer.inventory.currentItem * 20, sr.getScaledHeight() - 22, middleScreen - 91 + entityPlayer.inventory.currentItem * 20 + 22, sr.getScaledHeight(), new Color(0, 0, 0, 145).getRGB());
 
             GlStateManager.enableRescaleNormal();
             GlStateManager.enableBlend();
