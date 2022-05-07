@@ -23,8 +23,8 @@ import kotlin.math.sin
 
 object FunnyJump : Module("FunnyJump", "funny jumpa circles", ModuleCategory.RENDER) {
 
-    private val disappearTime by IntValue("Time", 500, 1000..3000)
-    private val radius by FloatValue("Radius", 1f, 0.1f..0.3f)
+    private val disappearTime by IntValue("Time", 1000, 1000..3000)
+    private val radius by FloatValue("Radius", 2f, 1f..5f)
 
     private val rainbow by BoolValue("Rainbow", false)
 
@@ -78,14 +78,14 @@ object FunnyJump : Module("FunnyJump", "funny jumpa circles", ModuleCategory.REN
             glBegin(GL_TRIANGLE_STRIP)
             for (i in 0..360) {
                 val color = if (rainbow) Color.getHSBColor(i / 360f, 1f, 1f) else ColorUtils.hsbTransition(start, end, i)
-                val x = (dif * radius * 0.01 * sin(i.toDouble().toRadians()))
-                val z = (dif * radius * 0.01 * cos(i.toDouble().toRadians()))
+                val x = (dif * radius * 0.001 * sin(i.toDouble().toRadians()))
+                val z = (dif * radius * 0.001 * cos(i.toDouble().toRadians()))
 
                 GLUtils.glColor(color.red, color.green, color.blue, 0)
-                glVertex3d(x, 0.0, z)
+                glVertex3d(x / 2, 0.0, z / 2)
 
                 GLUtils.glColor(color.red, color.green, color.blue, c.toInt())
-                glVertex3d(x * 2, 0.0, z * 2)
+                glVertex3d(x, 0.0, z)
             }
             glEnd()
 

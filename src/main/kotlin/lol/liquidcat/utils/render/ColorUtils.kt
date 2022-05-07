@@ -8,6 +8,7 @@ package lol.liquidcat.utils.render
 import net.minecraft.util.ChatAllowedCharacters
 import java.awt.Color
 import java.util.*
+import kotlin.math.abs
 import kotlin.math.sin
 
 object ColorUtils {
@@ -92,7 +93,7 @@ object ColorUtils {
     fun fade(a: Color, b: Color, speed: Double = 0.001, offset: Double = 0.0): Color {
 
         val time = System.currentTimeMillis() * speed + offset
-        val factor = 0.5f * (sin(time) + 1)
+        val factor = abs(sin(time))
 
         return mix(a, b, factor.toFloat())
     }

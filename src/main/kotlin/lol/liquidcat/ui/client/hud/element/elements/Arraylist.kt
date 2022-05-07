@@ -18,10 +18,7 @@ import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.AnimationUtils
 import lol.liquidcat.utils.render.ColorUtils
 import lol.liquidcat.utils.render.GLUtils
-import lol.liquidcat.value.BoolValue
-import lol.liquidcat.value.FontValue
-import lol.liquidcat.value.IntValue
-import lol.liquidcat.value.ListValue
+import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.renderer.GlStateManager
@@ -38,7 +35,10 @@ class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
 ) : Element(x, y, scale, side) {
 
     private val textColorMode by ListValue("Text-Color", arrayOf("Static", "Fade", "Rainbow"), "Fade")
-    
+
+    private val fadeOffset by FloatValue("Fade-Offset", 0.1f, 0.1f..1f)
+    private val fadeSpeed by FloatValue("Fade-Speed", 1f, 1f..10f)
+
     private val textRed by IntValue("Text-Red", 53, 0..255)
     private val textGreen by IntValue("Text-Green", 111, 0..255)
     private val textBlue by IntValue("Text-Blue", 255, 0..255)
@@ -123,7 +123,7 @@ class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
                     // Draws module name
                     font.drawString(displayString, xPos, yPos, when (textColorMode) {
                         "Rainbow" -> ColorUtils.rainbow(offset = index * 0.05).rgb
-                        "Fade" -> ColorUtils.fade(textColor, textColor2, offset = index * 0.1).rgb
+                        "Fade" -> ColorUtils.fade(textColor, textColor2, speed = 0.001 * fadeSpeed.toDouble(), offset = index * fadeOffset.toDouble()).rgb
                         else -> textColor.rgb
                     }, shadow)
                 }
@@ -150,7 +150,7 @@ class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
                     // Draws module name
                     font.drawString(displayString, xPos, yPos, when (textColorMode) {
                         "Rainbow" -> ColorUtils.rainbow(offset = index * 0.05).rgb
-                        "Fade" -> ColorUtils.fade(textColor, textColor2, offset = index * 0.1).rgb
+                        "Fade" -> ColorUtils.fade(textColor, textColor2, offset = index * fadeOffset.toDouble()).rgb
                         else -> textColor.rgb
                     }, shadow)
                 }
