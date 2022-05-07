@@ -39,6 +39,8 @@ class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
     private val fadeOffset by FloatValue("Fade-Offset", 0.1f, 0.1f..1f)
     private val fadeSpeed by FloatValue("Fade-Speed", 1f, 1f..10f)
 
+    private val rainbowSpeed by FloatValue("Rainbow-Speed", 1f, 1f..10f)
+
     private val textRed by IntValue("Text-Red", 53, 0..255)
     private val textGreen by IntValue("Text-Green", 111, 0..255)
     private val textBlue by IntValue("Text-Blue", 255, 0..255)
@@ -122,8 +124,16 @@ class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
 
                     // Draws module name
                     font.drawString(displayString, xPos, yPos, when (textColorMode) {
-                        "Rainbow" -> ColorUtils.rainbow(offset = index * 0.05).rgb
-                        "Fade" -> ColorUtils.fade(textColor, textColor2, speed = 0.001 * fadeSpeed.toDouble(), offset = index * fadeOffset.toDouble()).rgb
+                        "Rainbow" -> ColorUtils.rainbow(
+                            speed = 0.0005 * rainbowSpeed.toDouble(),
+                            offset = index * 0.95
+                        ).rgb
+                        "Fade" -> ColorUtils.fade(
+                            textColor,
+                            textColor2,
+                            speed = 0.001 * fadeSpeed.toDouble(),
+                            offset = index * fadeOffset.toDouble()
+                        ).rgb
                         else -> textColor.rgb
                     }, shadow)
                 }
@@ -149,8 +159,16 @@ class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
 
                     // Draws module name
                     font.drawString(displayString, xPos, yPos, when (textColorMode) {
-                        "Rainbow" -> ColorUtils.rainbow(offset = index * 0.05).rgb
-                        "Fade" -> ColorUtils.fade(textColor, textColor2, offset = index * fadeOffset.toDouble()).rgb
+                        "Rainbow" -> ColorUtils.rainbow(
+                            speed = 0.0005 * rainbowSpeed.toDouble(),
+                            offset = index * 0.95
+                        ).rgb
+                        "Fade" -> ColorUtils.fade(
+                            textColor,
+                            textColor2,
+                            speed = 0.001 * fadeSpeed.toDouble(),
+                            offset = index * fadeOffset.toDouble()
+                        ).rgb
                         else -> textColor.rgb
                     }, shadow)
                 }

@@ -100,7 +100,7 @@ object ColorUtils {
 
     fun rainbow(speed: Double = 0.0005, offset: Double = 0.0, alpha: Int = 255): Color {
 
-        val time = ((System.currentTimeMillis() * speed) + offset) % 1f
+        val time = (System.currentTimeMillis() * speed + offset) % 1.0
         val c = Color.getHSBColor(time.toFloat(), 1f, 1f)
 
         return Color(c.red, c.green, c.blue, alpha)
