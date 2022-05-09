@@ -13,7 +13,7 @@ import lol.liquidcat.features.module.modules.misc.Spammer
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.io.HttpUtils.get
-import lol.liquidcat.utils.render.ColorUtils.translateAlternateColorCodes
+import lol.liquidcat.utils.render.color.ColorUtils.translateAlternateColorCodes
 import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import org.lwjgl.input.Keyboard

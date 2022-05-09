@@ -14,7 +14,7 @@ import lol.liquidcat.utils.ServerUtils
 import lol.liquidcat.utils.click.CPSCounter
 import lol.liquidcat.utils.entity.ping
 import lol.liquidcat.utils.mc
-import lol.liquidcat.utils.render.ColorUtils
+import lol.liquidcat.utils.render.color.ColorUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FontValue
 import lol.liquidcat.value.IntValue

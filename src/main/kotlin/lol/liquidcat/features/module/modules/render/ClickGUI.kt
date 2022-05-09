@@ -10,7 +10,7 @@ import lol.liquidcat.event.EventTarget
 import lol.liquidcat.event.PacketEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
-import lol.liquidcat.utils.render.ColorUtils.rainbow
+import lol.liquidcat.utils.render.color.ColorUtils.rainbow
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue

@@ -16,7 +16,7 @@ import lol.liquidcat.ui.client.hud.element.Side.Horizontal
 import lol.liquidcat.ui.client.hud.element.Side.Vertical
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.AnimationUtils
-import lol.liquidcat.utils.render.ColorUtils
+import lol.liquidcat.utils.render.color.ColorUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer

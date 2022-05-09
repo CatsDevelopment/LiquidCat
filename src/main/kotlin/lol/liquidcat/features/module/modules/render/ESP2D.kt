@@ -11,10 +11,10 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.entity.renderBoundingBox
-import lol.liquidcat.utils.render.ColorUtils
-import lol.liquidcat.utils.render.ColorUtils.applyAlpha
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.WorldToScreen
+import lol.liquidcat.utils.render.color.ColorUtils
+import lol.liquidcat.utils.render.color.applyAlpha
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.font.Fonts

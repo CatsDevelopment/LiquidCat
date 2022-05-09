@@ -12,8 +12,8 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.entity.renderDistanceTo
 import lol.liquidcat.utils.entity.renderPos
-import lol.liquidcat.utils.render.ColorUtils
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.render.color.darker
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.entity.EntityLivingBase
@@ -69,7 +69,7 @@ object NameTags : Module("NameTags", "Changes the scale of the nametags so you c
             endY,
             startX + xDiff,
             endY + 1f,
-            ColorUtils.darker(Color(red, green, blue), 0.5f).rgb
+            Color(red, green, blue).darker(0.5f).rgb
         )
 
         // Draws health bar

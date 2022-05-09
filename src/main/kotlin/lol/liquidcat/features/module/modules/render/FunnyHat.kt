@@ -10,7 +10,7 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.renderPos
-import lol.liquidcat.utils.render.ColorUtils
+import lol.liquidcat.utils.render.color.ColorUtils
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.toRadians
 import lol.liquidcat.value.BoolValue

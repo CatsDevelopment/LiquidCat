@@ -3,7 +3,7 @@
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
  * https://github.com/CatsDevelopment/LiquidCat
  */
-package lol.liquidcat.utils.render
+package lol.liquidcat.utils.render.color
 
 import net.minecraft.util.ChatAllowedCharacters
 import java.awt.Color
@@ -26,44 +26,6 @@ object ColorUtils {
 
             hexColors[i] = red and 255 shl 16 or (green and 255 shl 8) or (blue and 255)
         }
-    }
-
-    fun Color.applyAlpha(alpha: Int): Color {
-        return Color(red, green, blue, alpha)
-    }
-
-    /**
-     * Makes [color] brighter
-     *
-     * The greater [factor] value, the brighter the color will be
-     *
-     * @param factor Color brightness factor
-     */
-    fun brighter(color: Color, factor: Float): Color {
-        require(factor in 0f..1f) { "Color factor should be between 0 and 1" }
-
-        val red = color.red + ((255 - color.red) * factor).toInt()
-        val green = color.green + ((255 - color.green) * factor).toInt()
-        val blue = color.blue + ((255 - color.blue) * factor).toInt()
-
-        return Color(red, green, blue, color.alpha)
-    }
-
-    /**
-     * Makes [color] darker
-     *
-     * The greater [factor] value, the darker the color will be
-     *
-     * @param factor Color darkness factor
-     */
-    fun darker(color: Color, factor: Float): Color {
-        require(factor in 0f..1f) { "Color factor should be between 0 and 1" }
-
-        val red = (color.red * (1 - factor)).toInt()
-        val green = (color.green * (1 - factor)).toInt()
-        val blue = (color.blue * (1 - factor)).toInt()
-
-        return Color(red, green, blue, color.alpha)
     }
 
     /**

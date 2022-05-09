@@ -10,7 +10,7 @@ import lol.liquidcat.event.Render3DEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.entity.EntityUtils
-import lol.liquidcat.utils.render.ColorUtils.rainbow
+import lol.liquidcat.utils.render.color.ColorUtils.rainbow
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue

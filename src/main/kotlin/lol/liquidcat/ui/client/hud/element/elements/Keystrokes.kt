@@ -9,8 +9,8 @@ import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
-import lol.liquidcat.utils.render.ColorUtils
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.render.color.brighter
 import lol.liquidcat.value.IntValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import org.lwjgl.input.Keyboard
@@ -27,7 +27,7 @@ class Keystrokes(x: Double = 8.0, y: Double = 96.0, scale: Float = 1F, side: Sid
     override fun drawElement(): Border {
 
         val c = Color(red, green, blue, alpha)
-        val c2 = ColorUtils.brighter(c, 0.5f)
+        val c2 = c.brighter(0.5f)
 
         GLUtils.blur(10) {
             GLUtils.drawRoundedRect(0f, 70f, 30f, 100f, 4f, Color.WHITE)
