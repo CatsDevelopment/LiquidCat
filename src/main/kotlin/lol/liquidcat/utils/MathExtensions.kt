@@ -8,10 +8,7 @@
 package lol.liquidcat.utils
 
 import java.math.RoundingMode
-import kotlin.math.PI
-import kotlin.math.exp
-import kotlin.math.pow
-import kotlin.math.sqrt
+import kotlin.math.*
 
 const val DEGREES_TO_RADIANS = 0.017453292519943295
 
@@ -25,6 +22,10 @@ const val RADIANS_TO_DEGREES = 57.29577951308232
 fun Double.round(x: Int): Double {
     require(x >= 0)
     return this.toBigDecimal().setScale(x, RoundingMode.HALF_UP).toDouble()
+}
+
+fun Double.clamp(range: ClosedFloatingPointRange<Double>): Double {
+    return max(range.start, min(range.endInclusive, this))
 }
 
 /**
