@@ -15,17 +15,11 @@ const val DEGREES_TO_RADIANS = 0.017453292519943295
 const val RADIANS_TO_DEGREES = 57.29577951308232
 
 /**
- * Rounds double
- *
- * @param x Number of decimals
+ * Rounds double with [x] number of decimals
  */
 fun Double.round(x: Int): Double {
     require(x >= 0)
     return this.toBigDecimal().setScale(x, RoundingMode.HALF_UP).toDouble()
-}
-
-fun Double.clamp(range: ClosedFloatingPointRange<Double>): Double {
-    return max(range.start, min(range.endInclusive, this))
 }
 
 /**

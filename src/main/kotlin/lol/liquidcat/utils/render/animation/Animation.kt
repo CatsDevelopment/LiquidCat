@@ -5,7 +5,6 @@
  */
 package lol.liquidcat.utils.render.animation
 
-import lol.liquidcat.utils.clamp
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.animation.easing.Direction
 import lol.liquidcat.utils.render.animation.easing.Easing
@@ -14,7 +13,7 @@ class Animation(val speed: Double, val style: Easing, private val direction: Dir
 
     private var time = 0.0
         set(value) {
-            field = value.clamp(0.0..1.0)
+            field = value.coerceIn(0.0..1.0)
         }
 
     var value = 0.0

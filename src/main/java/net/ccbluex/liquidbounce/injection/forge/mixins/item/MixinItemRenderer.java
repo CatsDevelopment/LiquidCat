@@ -9,6 +9,10 @@ import lol.liquidcat.features.module.modules.combat.KillAura;
 import lol.liquidcat.features.module.modules.render.AntiBlind;
 import lol.liquidcat.features.module.modules.render.ItemView;
 import lol.liquidcat.features.module.modules.render.SwingAnimation;
+import lol.liquidcat.utils.render.animation.easing.easings.Back;
+import lol.liquidcat.utils.render.animation.easing.easings.Expo;
+import lol.liquidcat.utils.render.animation.easing.easings.Sine;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -18,6 +22,8 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.MathHelper;
@@ -112,41 +118,74 @@ public abstract class MixinItemRenderer {
     @Overwrite
     public void renderItemInFirstPerson(float partialTicks) {
         float f = 1.0F - (this.prevEquippedProgress + (this.equippedProgress - this.prevEquippedProgress) * partialTicks);
-        AbstractClientPlayer abstractclientplayer = this.mc.thePlayer;
-        float f1 = abstractclientplayer.getSwingProgress(partialTicks);
-        float f2 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks;
-        float f3 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks;
+
+        EntityPlayerSP player = this.mc.thePlayer;
+
+        float f1 = player.getSwingProgress(partialTicks);
+        float f2 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
+        float f3 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * partialTicks;
+
         this.rotateArroundXAndY(f2, f3);
-        this.setLightMapFromPlayer(abstractclientplayer);
-        this.rotateWithPlayerRotations((EntityPlayerSP) abstractclientplayer, partialTicks);
+        this.setLightMapFromPlayer(player);
+        this.rotateWithPlayerRotations(player, partialTicks);
+
         GlStateManager.enableRescaleNormal();
         GlStateManager.pushMatrix();
 
         if (this.itemToRender != null) {
             final KillAura killAura = KillAura.INSTANCE;
 
-            if (this.itemToRender.getItem() instanceof net.minecraft.item.ItemMap) {
-                this.renderItemMap(abstractclientplayer, f2, f, f1);
-            } else if (abstractclientplayer.getItemInUseCount() > 0 || (itemToRender.getItem() instanceof ItemSword && killAura.getBlockingStatus())) {
+            if (this.itemToRender.getItem() instanceof ItemMap) {
+                this.renderItemMap(player, f2, f, f1);
+
+            } else if (player.getItemInUseCount() > 0 || (itemToRender.getItem() instanceof ItemSword && killAura.getBlockingStatus())) {
                 EnumAction enumaction = killAura.getBlockingStatus() ? EnumAction.BLOCK : this.itemToRender.getItemUseAction();
 
                 switch(enumaction) {
                     case NONE:
                         this.transformFirstPersonItem(f, 0.0F);
                         break;
+
                     case EAT:
                     case DRINK:
-                        this.performDrinking(abstractclientplayer, partialTicks);
-                        this.transformFirstPersonItem(f, f1);
+                        this.performDrinking(player, partialTicks);
+                        this.transformFirstPersonItem(f, 0.0F);
                         break;
+
                     case BLOCK:
-                        this.transformFirstPersonItem(f + 0.1F, f1);
-                        this.doBlockTransformations();
-                        GlStateManager.translate(-0.5F, 0.2F, 0.0F);
+                        final ItemView itemView = ItemView.INSTANCE;
+
+                        if (itemView.getState()) {
+                            switch (itemView.getAnimation()) {
+                                case "None":
+                                    this.transformFirstPersonItem(f, 0.0F);
+                                    this.doBlockTransformations();
+                                    break;
+
+                                case "Normal":
+                                    this.transformFirstPersonItem(f, f1);
+                                    this.doBlockTransformations();
+                                    break;
+
+                                case "Slide":
+                                    this.transformFirstPersonItem(f, 0.0F);
+                                    this.doBlockTransformations();
+
+                                    float f4 = MathHelper.sin(MathHelper.sqrt_float(f1) * (float) Math.PI);
+
+                                    GlStateManager.rotate(-f4 * 90.0F * itemView.getSlideFactor(), -1.0F, 0.0F, 1.0F);
+                                    GlStateManager.rotate(-f4 * 90.0F, 1.0F, 0.0F, 0.0F);
+                                    break;
+                            }
+                        } else {
+                            this.transformFirstPersonItem(f, f1);
+                            this.doBlockTransformations();
+                        }
                         break;
+
                     case BOW:
-                        this.transformFirstPersonItem(f, f1);
-                        this.doBowTransformations(partialTicks, abstractclientplayer);
+                        this.transformFirstPersonItem(f, 0.0F);
+                        this.doBowTransformations(partialTicks, player);
                 }
             } else {
                 if (!SwingAnimation.INSTANCE.getState())
@@ -154,9 +193,9 @@ public abstract class MixinItemRenderer {
                 this.transformFirstPersonItem(f, f1);
             }
 
-            this.renderItem(abstractclientplayer, this.itemToRender, ItemCameraTransforms.TransformType.FIRST_PERSON);
-        } else if (!abstractclientplayer.isInvisible()) {
-            this.renderPlayerArm(abstractclientplayer, f, f1);
+            this.renderItem(player, this.itemToRender, ItemCameraTransforms.TransformType.FIRST_PERSON);
+        } else if (!player.isInvisible()) {
+            this.renderPlayerArm(player, f, f1);
         }
 
         GlStateManager.popMatrix();

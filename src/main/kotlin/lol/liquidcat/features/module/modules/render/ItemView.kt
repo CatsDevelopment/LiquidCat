@@ -9,6 +9,7 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
+import lol.liquidcat.value.ListValue
 
 object ItemView : Module("ItemView", "Changes the look of the item in your hand.", ModuleCategory.RENDER) {
 
@@ -18,4 +19,8 @@ object ItemView : Module("ItemView", "Changes the look of the item in your hand.
 
     val scale by FloatValue("Scale", 0.4f, 0.1f..3f)
     val speed by IntValue("SwingSpeed", 3, 3..20)
+
+    val animation by ListValue("Animation", arrayOf("None", "Normal", "Slide"), "Slide")
+
+    val slideFactor by FloatValue("SlideFactor", 1f, 0.1f..1f)
 }
