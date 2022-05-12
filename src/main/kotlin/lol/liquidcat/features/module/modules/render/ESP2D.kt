@@ -17,6 +17,7 @@ import lol.liquidcat.utils.render.color.ColorUtils
 import lol.liquidcat.utils.render.color.applyAlpha
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue
+import lol.liquidcat.value.ListValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.entity.EntityLivingBase
 import org.lwjgl.opengl.GL11
@@ -27,7 +28,7 @@ import kotlin.math.min
 
 object ESP2D : Module("ESP2D", "Allows you to see targets through walls.", ModuleCategory.RENDER) {
 
-    private val box by BoolValue("Box", false)
+    private val boxMode by ListValue("BoxMode", arrayOf("None", "Border", "Corners", "Corners1", "Corners2"), "Border")
     private val healthBar by BoolValue("HealthBar", true)
     private val armorBar by BoolValue("ArmorBar", true)
     val showName by BoolValue("ShowName", true)
@@ -116,16 +117,83 @@ object ESP2D : Module("ESP2D", "Allows you to see targets through walls.", Modul
                         GLUtils.drawRect(minX + 1, maxY + 3, maxX - width - 1, maxY + 6 - 1, armorColor)
                     }
 
-                    if (box) {
-                        GLUtils.drawRect(minX, minY, minX + 3, maxY, bgColor)
-                        GLUtils.drawRect(maxX - 3, minY, maxX, maxY, bgColor)
-                        GLUtils.drawRect(minX, minY, maxX, minY + 3, bgColor)
-                        GLUtils.drawRect(minX, maxY - 3, maxX, maxY, bgColor)
+                    when (boxMode) {
+                        "Border" -> {
+                            GLUtils.drawRect(minX, minY, minX + 3, maxY, bgColor)
+                            GLUtils.drawRect(maxX - 3, minY, maxX, maxY, bgColor)
+                            GLUtils.drawRect(minX, minY, maxX, minY + 3, bgColor)
+                            GLUtils.drawRect(minX, maxY - 3, maxX, maxY, bgColor)
 
-                        GLUtils.drawRect(minX + 1, minY + 1, minX + 2, maxY - 1, color)
-                        GLUtils.drawRect(maxX - 2, minY + 1, maxX - 1, maxY - 1, color)
-                        GLUtils.drawRect(minX + 1, minY + 1, maxX - 1, minY + 2, color)
-                        GLUtils.drawRect(minX + 1, maxY - 2, maxX - 1, maxY - 1, color)
+                            GLUtils.drawRect(minX + 1, minY + 1, minX + 2, maxY - 1, color)
+                            GLUtils.drawRect(maxX - 2, minY + 1, maxX - 1, maxY - 1, color)
+                            GLUtils.drawRect(minX + 1, minY + 1, maxX - 1, minY + 2, color)
+                            GLUtils.drawRect(minX + 1, maxY - 2, maxX - 1, maxY - 1, color)
+                        }
+
+                        "Corners" -> {
+                            val a1 = (maxX - minX) * 0.75f
+                            val a2 = (maxY - minY) * 0.75f
+
+                            GLUtils.drawRect(minX + a1, minY, maxX, minY + 3, bgColor)
+                            GLUtils.drawRect(minX, minY, maxX - a1, minY + 3, bgColor)
+                            GLUtils.drawRect(minX + a1, maxY - 3, maxX, maxY, bgColor)
+                            GLUtils.drawRect(minX, maxY - 3, maxX - a1, maxY, bgColor)
+
+                            GLUtils.drawRect(minX, minY + a2, minX + 3, maxY, bgColor)
+                            GLUtils.drawRect(minX, minY, minX + 3, maxY - a2, bgColor)
+                            GLUtils.drawRect(maxX - 3, minY + a2, maxX, maxY, bgColor)
+                            GLUtils.drawRect(maxX - 3, minY, maxX, maxY - a2, bgColor)
+
+                            GLUtils.drawRect(minX + 1 + a1, minY + 1, maxX - 1, minY + 2, color)
+                            GLUtils.drawRect(minX + 1, minY + 1, maxX - 1 - a1, minY + 2, color)
+                            GLUtils.drawRect(minX + 1 + a1, maxY - 2, maxX - 1, maxY - 1, color)
+                            GLUtils.drawRect(minX + 1, maxY - 2, maxX - 1 - a1, maxY - 1, color)
+
+                            GLUtils.drawRect(minX + 1, minY + 1 + a2, minX + 2, maxY - 1, color)
+                            GLUtils.drawRect(minX + 1, minY + 1, minX + 2, maxY - 1 - a2, color)
+                            GLUtils.drawRect(maxX - 2, minY + 1 + a2, maxX - 1, maxY - 1, color)
+                            GLUtils.drawRect(maxX - 2, minY + 1, maxX - 1, maxY - 1 - a2, color)
+                        }
+
+                        "Corners1" -> {
+                            val a1 = (maxX - minX) * 0.75f
+
+                            GLUtils.drawRect(minX, minY, minX + 3, maxY, bgColor)
+                            GLUtils.drawRect(maxX - 3, minY, maxX, maxY, bgColor)
+
+                            GLUtils.drawRect(minX + a1, minY, maxX, minY + 3, bgColor)
+                            GLUtils.drawRect(minX, minY, maxX - a1, minY + 3, bgColor)
+                            GLUtils.drawRect(minX + a1, maxY - 3, maxX, maxY, bgColor)
+                            GLUtils.drawRect(minX, maxY - 3, maxX - a1, maxY, bgColor)
+
+                            GLUtils.drawRect(minX + 1, minY + 1, minX + 2, maxY - 1, color)
+                            GLUtils.drawRect(maxX - 2, minY + 1, maxX - 1, maxY - 1, color)
+
+                            GLUtils.drawRect(minX + 1 + a1, minY + 1, maxX - 1, minY + 2, color)
+                            GLUtils.drawRect(minX + 1, minY + 1, maxX - 1 - a1, minY + 2, color)
+                            GLUtils.drawRect(minX + 1 + a1, maxY - 2, maxX - 1, maxY - 1, color)
+                            GLUtils.drawRect(minX + 1, maxY - 2, maxX - 1 - a1, maxY - 1, color)
+                        }
+
+                        "Corners2" -> {
+                            val a1 = (maxY - minY) * 0.75f
+
+                            GLUtils.drawRect(minX, minY, maxX, minY + 3, bgColor)
+                            GLUtils.drawRect(minX, maxY - 3, maxX, maxY, bgColor)
+
+                            GLUtils.drawRect(minX, minY + a1, minX + 3, maxY, bgColor)
+                            GLUtils.drawRect(minX, minY, minX + 3, maxY - a1, bgColor)
+                            GLUtils.drawRect(maxX - 3, minY + a1, maxX, maxY, bgColor)
+                            GLUtils.drawRect(maxX - 3, minY, maxX, maxY - a1, bgColor)
+
+                            GLUtils.drawRect(minX + 1, minY + 1, maxX - 1, minY + 2, color)
+                            GLUtils.drawRect(minX + 1, maxY - 2, maxX - 1, maxY - 1, color)
+
+                            GLUtils.drawRect(minX + 1, minY + 1 + a1, minX + 2, maxY - 1, color)
+                            GLUtils.drawRect(minX + 1, minY + 1, minX + 2, maxY - 1 - a1, color)
+                            GLUtils.drawRect(maxX - 2, minY + 1 + a1, maxX - 1, maxY - 1, color)
+                            GLUtils.drawRect(maxX - 2, minY + 1, maxX - 1, maxY - 1 - a1, color)
+                        }
                     }
                 }
             }
