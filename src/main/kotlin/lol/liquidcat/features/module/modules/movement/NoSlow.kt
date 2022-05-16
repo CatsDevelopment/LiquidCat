@@ -24,7 +24,7 @@ import net.minecraft.util.EnumFacing
 
 //TODO Add more modes
 
-object NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand and using items.", ModuleCategory.MOVEMENT) {
+object NoSlow : Module("NoSlow", "Cancels slowness effects.", ModuleCategory.MOVEMENT) {
 
     private val mode by ListValue("Mode", arrayOf("Vanilla", "NCP"), "Vanilla")
     private val forwardMultiplier by FloatValue("ForwardMultiplier", 1f, 0.2f..1f)
@@ -32,7 +32,7 @@ object NoSlow : Module("NoSlow", "Cancels slowness effects caused by soulsand an
     val soulsand by BoolValue("Soulsand", true)
     val web by BoolValue("Web", true)
 
-    override val tag: String
+    override val tag
         get() = mode
 
     @EventTarget

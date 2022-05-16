@@ -15,7 +15,7 @@ object HighJump : Module("HighJump", "Allows you to jump higher.", ModuleCategor
 
     private val height by FloatValue("Height", 2f, 1.01f..5f)
 
-    override val tag: String
+    override val tag
         get() = height.toString()
 
     @EventTarget

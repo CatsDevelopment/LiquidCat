@@ -55,7 +55,7 @@ object Spammer : Module("Spammer", "Spams the chat with a given message.", Modul
                 if (custom)
                     replace(message)
                 else
-                    "${message} [${RandomStringUtils.randomAlphanumeric(5 + Random.nextInt(5))}]"
+                    "$message [${RandomStringUtils.randomAlphanumeric(5 + Random.nextInt(5))}]"
             )
 
             delayTimer.reset()

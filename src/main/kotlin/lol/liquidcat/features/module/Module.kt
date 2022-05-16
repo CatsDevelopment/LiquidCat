@@ -11,6 +11,9 @@ import lol.liquidcat.event.Listenable
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.ui.client.hud.element.elements.Notification
 import lol.liquidcat.ui.client.hud.element.elements.NotificationType
+import lol.liquidcat.utils.render.animation.Animation
+import lol.liquidcat.utils.render.animation.easing.Direction
+import lol.liquidcat.utils.render.animation.easing.easings.*
 import lol.liquidcat.value.Value
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation
@@ -51,6 +54,8 @@ open class Module(
                 )
             }
 
+            slideAnim.reset()
+
             if (value) {
                 onEnable()
 
@@ -64,8 +69,7 @@ open class Module(
             FileManager.saveConfig(FileManager.modulesConfig)
         }
     // HUD
-    var slide = 0F
-    var slideStep = 0F
+    var slideAnim = Animation(200.0, Quint, Direction.OUT)
 
     // Tag
     open val tag: String?

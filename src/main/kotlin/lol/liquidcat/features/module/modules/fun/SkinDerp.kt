@@ -48,14 +48,19 @@ object SkinDerp : Module("SkinDerp", "Makes your skin blink (Requires multi-laye
         if (delayTimer.hasTimePassed(delay.toLong())) {
             if (hat)
                 mc.gameSettings.setModelPartEnabled(EnumPlayerModelParts.HAT, Random.nextBoolean())
+
             if (jacket)
                 mc.gameSettings.setModelPartEnabled(EnumPlayerModelParts.JACKET, Random.nextBoolean())
+
             if (leftPants)
                 mc.gameSettings.setModelPartEnabled(EnumPlayerModelParts.LEFT_PANTS_LEG, Random.nextBoolean())
+
             if (rightPants)
                 mc.gameSettings.setModelPartEnabled(EnumPlayerModelParts.RIGHT_PANTS_LEG, Random.nextBoolean())
+
             if (leftSleeve)
                 mc.gameSettings.setModelPartEnabled(EnumPlayerModelParts.LEFT_SLEEVE, Random.nextBoolean())
+
             if (rightSleeve)
                 mc.gameSettings.setModelPartEnabled(EnumPlayerModelParts.RIGHT_SLEEVE, Random.nextBoolean())
 

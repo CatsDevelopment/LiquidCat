@@ -23,4 +23,7 @@ object ItemView : Module("ItemView", "Changes the look of the item in your hand.
     val animation by ListValue("Animation", arrayOf("None", "Normal", "Slide"), "Slide")
 
     val slideFactor by FloatValue("SlideFactor", 1f, 0.1f..1f)
+
+    override val tag
+        get() = animation
 }

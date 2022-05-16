@@ -15,18 +15,16 @@ import lol.liquidcat.value.ListValue
 
 //TODO Add more modes
 
-object Fly : Module("Fly", "Allows you to fly in survival mode.", ModuleCategory.MOVEMENT) {
+object Fly : Module("Fly", "Allows you to fly.", ModuleCategory.MOVEMENT) {
 
     private val mode by ListValue("Mode", arrayOf("Vanilla"), "Vanilla")
-    private val speed by FloatValue("Speed", 2f, 0f..5f)
+    private val speed by FloatValue("Speed", 1f, 0.1f..5f)
 
-    override val tag: String
+    override val tag
         get() = mode
 
     override fun onDisable() {
-        mc.thePlayer.motionX = 0.0
-        mc.thePlayer.motionY = 0.0
-        mc.thePlayer.motionZ = 0.0
+        mc.thePlayer.setVelocity(0.0, 0.0, 0.0)
     }
 
     @EventTarget
@@ -37,9 +35,7 @@ object Fly : Module("Fly", "Allows you to fly in survival mode.", ModuleCategory
 
                 mc.thePlayer.capabilities.isFlying = false
 
-                mc.thePlayer.motionX = 0.0
-                mc.thePlayer.motionY = 0.0
-                mc.thePlayer.motionZ = 0.0
+                mc.thePlayer.setVelocity(0.0, 0.0, 0.0)
 
                 if (mc.gameSettings.keyBindJump.isKeyDown)
                     mc.thePlayer.motionY += vanillaSpeed

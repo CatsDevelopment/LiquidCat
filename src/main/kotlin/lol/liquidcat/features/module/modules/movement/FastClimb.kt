@@ -18,9 +18,6 @@ object FastClimb : Module("FastClimb", "Allows you to climb up ladders and vines
     @EventTarget
     fun onMove(event: MoveEvent) {
         if (mc.thePlayer.isOnLadder)
-            event.y = if (mc.thePlayer.isCollidedHorizontally)
-                speed.toDouble()
-            else
-                -speed.toDouble()
+            event.y = if (mc.thePlayer.isCollidedHorizontally) speed.toDouble() else -speed.toDouble()
     }
 }

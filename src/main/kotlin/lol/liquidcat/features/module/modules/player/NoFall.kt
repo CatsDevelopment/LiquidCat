@@ -20,7 +20,7 @@ object NoFall : Module("NoFall", "Prevents you from taking fall damage.", Module
     val mode by ListValue("Mode", arrayOf("Spoof", "Damage", "NoGround"), "Spoof")
     private val stableMotion by BoolValue("StableDamageMotion", false)
 
-    override val tag: String
+    override val tag
         get() = mode
 
     @EventTarget

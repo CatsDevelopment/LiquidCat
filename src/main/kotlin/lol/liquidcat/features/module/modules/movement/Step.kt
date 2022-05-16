@@ -27,7 +27,7 @@ object Step : Module("Step", "Allows you to step up blocks.", ModuleCategory.MOV
 
     private var usedTimer = false
 
-    override val tag: String
+    override val tag
         get() = mode
 
     override fun onDisable() {
@@ -42,12 +42,14 @@ object Step : Module("Step", "Allows you to step up blocks.", ModuleCategory.MOV
         when (mode) {
             "Vanilla" -> event.stepHeight = height
 
-            else -> if (!mc.thePlayer.isInWeb && mc.thePlayer.onGround) event.stepHeight = 1F
+            else -> if (!mc.thePlayer.isInWeb && mc.thePlayer.onGround)
+                event.stepHeight = 1f
         }
     }
 
     @EventTarget
     fun onStepConfirm(event: StepConfirmEvent) {
+
         val x = mc.thePlayer.posX
         val y = mc.thePlayer.posY
         val z = mc.thePlayer.posZ

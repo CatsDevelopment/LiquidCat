@@ -38,6 +38,7 @@ object GuiMove : Module("GuiMove", "Allows you to walk while an inventory is ope
     fun onPacket(event: PacketEvent) {
         val packet = event.packet
 
+        // Cancels the packet to make the server think that the player's inventory wasn't opened
         if (spoof && packet is C16PacketClientStatus && packet.status == C16PacketClientStatus.EnumState.OPEN_INVENTORY_ACHIEVEMENT)
             event.cancelEvent()
     }

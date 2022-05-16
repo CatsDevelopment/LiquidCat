@@ -19,6 +19,9 @@ object Ambience : Module("Ambience", "Changes the world time", ModuleCategory.RE
     val mode by ListValue("Mode", arrayOf("Custom", "Day", "Night", "Noon", "Midnight", "Sunrise", "Sunset"), "Sunset")
     val time by IntValue("Time", 24000, 0..24000)
 
+    override val tag
+        get() = mode
+
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
 

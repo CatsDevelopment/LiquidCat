@@ -36,7 +36,7 @@ object BlockESP : Module("BlockESP", "Allows you to see a selected block through
     private val posList: MutableList<BlockPos> = ArrayList()
     private var thread: Thread? = null
 
-    override val tag: String
+    override val tag
         get() = getBlockName(block)
 
     @EventTarget

@@ -73,10 +73,14 @@ val EntityPlayerSP.directionYaw: Float
         if (moveForward < 0f) {
             rotationYaw += 180f
             forward = -0.5f
-        } else if (moveForward > 0f) forward = 0.5f
+        } else if (moveForward > 0f)
+            forward = 0.5f
 
-        if (moveStrafing > 0f) rotationYaw -= 90f * forward
-        if (moveStrafing < 0f) rotationYaw += 90f * forward
+        if (moveStrafing > 0f)
+            rotationYaw -= 90f * forward
+
+        if (moveStrafing < 0f)
+            rotationYaw += 90f * forward
 
         return rotationYaw
     }

@@ -24,7 +24,7 @@ object Velocity : Module("Velocity", "Allows you to modify the amount of knockba
     private val vertical by FloatValue("Vertical", 0f, 0f..1f)
     private val time by IntValue("ResetTime", 5, 1..10)
 
-    override val tag: String
+    override val tag
         get() = if (mode == "Normal") "${horizontal}% ${vertical}%" else mode
 
     @EventTarget

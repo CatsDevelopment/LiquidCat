@@ -38,7 +38,7 @@ object Blink : Module("Blink", "Suspends all movement packets.", ModuleCategory.
     private val positions = LinkedList<DoubleArray>()
     private val pulseTimer = MSTimer()
 
-    override val tag: String
+    override val tag
         get() = packets.size.toString()
 
     override fun onEnable() {

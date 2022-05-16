@@ -40,6 +40,9 @@ object ESP2D : Module("ESP2D", "Allows you to see targets through walls.", Modul
     private val bgColor = Color.BLACK.applyAlpha(100).rgb
     private val armorColor = Color(105, 120, 255).rgb
 
+    override val tag
+        get() = boxMode
+
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
 

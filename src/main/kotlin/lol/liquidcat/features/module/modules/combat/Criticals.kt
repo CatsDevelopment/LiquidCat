@@ -23,7 +23,7 @@ object Criticals : Module("Criticals", "Automatically deals critical hits.", Mod
 
     val delayTimer = MSTimer()
 
-    override val tag: String
+    override val tag
         get() = mode
 
     @EventTarget
