@@ -20,8 +20,11 @@ public final class IconUtils {
 
     public static ByteBuffer[] getFavicon() {
         try {
-            return new ByteBuffer[] {readImageToBuffer(IconUtils.class.getResourceAsStream("/assets/minecraft/" + LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/icon16.png")), readImageToBuffer(IconUtils.class.getResourceAsStream("/assets/minecraft/" + LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/icon32.png"))};
-        }catch(IOException e) {
+            return new ByteBuffer[] {
+                    readImageToBuffer(IconUtils.class.getResourceAsStream("/assets/minecraft/" + LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/app/app_16px_icon.png")),
+                    readImageToBuffer(IconUtils.class.getResourceAsStream("/assets/minecraft/" + LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/app/app_32px_icon.png"))
+            };
+        } catch(IOException e) {
             e.printStackTrace();
         }
         return null;

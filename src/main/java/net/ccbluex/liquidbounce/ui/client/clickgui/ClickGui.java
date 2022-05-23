@@ -34,7 +34,7 @@ import java.util.List;
 public class ClickGui extends GuiScreen {
 
     public final List<Panel> panels = new ArrayList<>();
-    private final ResourceLocation hudIcon = new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/custom_hud_icon.png");
+    private final ResourceLocation hudIcon = new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/hud/custom_hud_icon.png");
     public Style style = new SlowlyStyle();
     private Panel clickedPanel;
     private int mouseX;

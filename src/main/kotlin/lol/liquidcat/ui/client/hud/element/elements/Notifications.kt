@@ -96,9 +96,9 @@ class Notification(private val upperMessage: String, val message: String, val ty
 
         GLUtils.drawImage(ResourceLocation(
             if (type == NotificationType.ENABLED)
-                "${LiquidCat.CLIENT_NAME.toLowerCase()}/icons/check.png"
+                "${LiquidCat.CLIENT_NAME.toLowerCase()}/icons/hud/check_icon.png"
             else
-                "${LiquidCat.CLIENT_NAME.toLowerCase()}/icons/close.png"
+                "${LiquidCat.CLIENT_NAME.toLowerCase()}/icons/hud/close_icon.png"
 
         ), -width.toInt() - 16, -26, 16, 16)
 

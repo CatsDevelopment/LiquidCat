@@ -20,19 +20,19 @@ class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
         val dWidth = width / 2
         val dHeight = height - 40
         
-        buttonList.add(ImageButton(0, "Singleplayer", "singleplayer.png", dWidth, dHeight, 32, 32))
-        buttonList.add(ImageButton(1, "Multiplayer", "multiplayer.png", dWidth - 32 - 5, dHeight, 32, 32))
-        buttonList.add(ImageButton(2, "Alt Manager", "altmanager.png", dWidth + 32 + 5, dHeight, 32, 32))
-        buttonList.add(ImageButton(3, "Settings", "settings.png", dWidth - 64 - 10, dHeight, 32, 32))
-        buttonList.add(ImageButton(4, "Mods", "mods.png", dWidth + 64 + 10, dHeight, 32, 32))
-        buttonList.add(ImageButton(5, "Quit", "exit.png", dWidth - 96 - 15, dHeight, 32, 32))
+        buttonList.add(ImageButton(0, "Singleplayer", "singleplayer_icon.png", dWidth, dHeight, 32, 32))
+        buttonList.add(ImageButton(1, "Multiplayer", "multiplayer_icon.png", dWidth - 32 - 5, dHeight, 32, 32))
+        buttonList.add(ImageButton(2, "Alt Manager", "alt_manager_icon.png", dWidth + 32 + 5, dHeight, 32, 32))
+        buttonList.add(ImageButton(3, "Settings", "settings_icon.png", dWidth - 64 - 10, dHeight, 32, 32))
+        buttonList.add(ImageButton(4, "Mods", "mods_icon.png", dWidth + 64 + 10, dHeight, 32, 32))
+        buttonList.add(ImageButton(5, "Quit", "exit_icon.png", dWidth - 96 - 15, dHeight, 32, 32))
     }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         drawBackground(0)
 
         GlStateManager.enableTexture2D()
-        GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/largelogo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
+        GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/menu/client_logo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
 
