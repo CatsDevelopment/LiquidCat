@@ -227,7 +227,7 @@ object KillAura : Module("KillAura", "Automatically attacks targets around you."
         update()
 
         if (currentTarget != null && RotationUtils.targetRotation != null) {
-            when (rotationStrafe.toLowerCase()) {
+            when (rotationStrafe.lowercase()) {
                 "strict" -> {
                     val (yaw) = RotationUtils.targetRotation ?: return
                     var strafe = event.strafe
@@ -453,7 +453,7 @@ object KillAura : Module("KillAura", "Automatically attacks targets around you."
         }
 
         // Sort targets by priority
-        when (priority.toLowerCase()) {
+        when (priority.lowercase()) {
             "distance" -> targets.sortBy { mc.thePlayer.getDistanceToEntityBox(it) } // Sort by distance
             "health" -> targets.sortBy { it.health } // Sort by health
             "direction" -> targets.sortBy { RotationUtils.getRotationDifference(it) } // Sort by FOV

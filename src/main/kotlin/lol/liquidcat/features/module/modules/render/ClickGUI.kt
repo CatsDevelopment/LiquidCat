@@ -45,7 +45,7 @@ object ClickGUI : Module("ClickGUI", "Opens the ClickGUI.", ModuleCategory.RENDE
     }
 
     private fun updateStyle() {
-        when (style.toLowerCase()) {
+        when (style.lowercase()) {
             "liquidbounce" -> LiquidCat.clickGui.style = LiquidBounceStyle()
             "null" -> LiquidCat.clickGui.style = NullStyle()
             "slowly" -> LiquidCat.clickGui.style = SlowlyStyle()

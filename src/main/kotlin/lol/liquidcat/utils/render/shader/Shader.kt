@@ -108,12 +108,12 @@ abstract class Shader(fragmentShader: String) {
         runCatching {
 
             // Links vertex shader code
-            val vertStream = javaClass.getResourceAsStream("/assets/minecraft/${LiquidCat.CLIENT_NAME.toLowerCase()}/shader/vertex.vert")
+            val vertStream = javaClass.getResourceAsStream("/assets/minecraft/${LiquidCat.CLIENT_NAME.lowercase()}/shader/vertex.vert")
             val vertShader = createShader(GL_VERTEX_SHADER, IOUtils.toString(vertStream))
             IOUtils.closeQuietly(vertStream)
 
             // Links fragment shader code
-            val fragStream = javaClass.getResourceAsStream("/assets/minecraft/${LiquidCat.CLIENT_NAME.toLowerCase()}/shader/fragment/$fragmentShader")
+            val fragStream = javaClass.getResourceAsStream("/assets/minecraft/${LiquidCat.CLIENT_NAME.lowercase()}/shader/fragment/$fragmentShader")
             val fragShader = createShader(GL_FRAGMENT_SHADER, IOUtils.toString(fragStream))
             IOUtils.closeQuietly(fragStream)
 

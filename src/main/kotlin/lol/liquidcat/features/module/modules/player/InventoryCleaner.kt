@@ -212,7 +212,7 @@ object InventoryCleaner : Module("InventoryCleaner", "Automatically throws away 
     private fun findBetterItem(targetSlot: Int, slotStack: ItemStack?): Int? {
         val type = type(targetSlot)
 
-        when (type.toLowerCase()) {
+        when (type.lowercase()) {
             "sword", "pickaxe", "axe" -> {
                 val currentType: Class<out Item> = when {
                     type.equals("Sword", ignoreCase = true) -> ItemSword::class.java

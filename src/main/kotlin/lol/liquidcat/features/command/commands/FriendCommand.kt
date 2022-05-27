@@ -89,7 +89,7 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
         return when (args.size) {
             1 -> listOf("add", "remove", "list", "clear").filter { it.startsWith(args[0], true) }
             2 -> {
-                when (args[0].toLowerCase()) {
+                when (args[0].lowercase()) {
                     "add" -> {
                         return mc.theWorld.playerEntities
                             .map { it.name }

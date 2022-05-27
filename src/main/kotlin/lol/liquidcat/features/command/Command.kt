@@ -50,7 +50,7 @@ abstract class Command(val command: String, val alias: Array<String>) : Minecraf
         msg("§8[§9§l${LiquidCat.CLIENT_NAME}§8] §3Syntax:")
 
         for (syntax in syntaxes)
-            msg("§8> §7${CommandManager.prefix}$command ${syntax.toLowerCase()}")
+            msg("§8> §7${CommandManager.prefix}$command ${syntax.lowercase()}")
     }
 
     /**

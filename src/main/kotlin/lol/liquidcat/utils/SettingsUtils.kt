@@ -54,7 +54,7 @@ object SettingsUtils {
                     val url = if (urlRaw.startsWith("http"))
                         urlRaw
                     else
-                        "${LiquidCat.CLIENT_CLOUD}/settings/${urlRaw.toLowerCase()}"
+                        "${LiquidCat.CLIENT_CLOUD}/settings/${urlRaw.lowercase()}"
 
                     try {
                         msg("§7[§3§lAutoSettings§7] §7Loading settings from §a§l$url§7...")

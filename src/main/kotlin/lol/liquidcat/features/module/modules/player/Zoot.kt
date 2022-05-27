@@ -28,7 +28,7 @@ object Zoot : Module("Zoot", "Removes all bad potion effects/fire.", ModuleCateg
         if (badEffects) {
             val effect = mc.thePlayer.activePotionEffects
                 .filter { Potion.potionTypes[it.potionID].isBadEffect }
-                .maxBy { it.duration }
+                .maxByOrNull { it.duration }
 
             if (effect != null)
                 repeat(effect.duration / 20) {

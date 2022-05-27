@@ -82,7 +82,7 @@ object BugUp : Module("BugUp", "Automatically setbacks you after falling a certa
             }
 
             if (mc.thePlayer.fallDistance - lastFound > maxDistanceWithoutGround) {
-                when (mode.toLowerCase()) {
+                when (mode.lowercase()) {
                     "teleportback" -> {
                         mc.thePlayer.setPositionAndUpdate(prevX, prevY, prevZ)
                         mc.thePlayer.fallDistance = 0F

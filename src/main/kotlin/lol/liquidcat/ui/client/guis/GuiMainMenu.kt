@@ -32,7 +32,7 @@ class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
         drawBackground(0)
 
         GlStateManager.enableTexture2D()
-        GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/menu/client_logo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
+        GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.lowercase() + "/icons/menu/client_logo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
 

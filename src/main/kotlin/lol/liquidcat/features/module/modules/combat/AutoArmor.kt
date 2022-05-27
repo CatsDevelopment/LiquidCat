@@ -59,7 +59,7 @@ object AutoArmor : Module("AutoArmor", "Automatically equips the best armor in y
         // Find best armor
         val armorPieces = IntStream.range(0, 36)
             .filter { i: Int -> val itemStack = mc.thePlayer.inventory.getStackInSlot(i)
-                (itemStack != null && itemStack.item is ItemArmor && (i < 9 || System.currentTimeMillis() - (itemStack as Any as IItemStack).itemDelay >= itemDelay))
+                (itemStack != null && itemStack.item is ItemArmor && (i < 9 || System.currentTimeMillis() - (itemStack as IItemStack).itemDelay >= itemDelay))
             }
             .mapToObj { i: Int -> ArmorPiece(mc.thePlayer.inventory.getStackInSlot(i), i) }
             .collect(Collectors.groupingBy(ArmorPiece::armorType))

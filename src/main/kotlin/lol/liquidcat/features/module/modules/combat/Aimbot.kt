@@ -45,7 +45,7 @@ object Aimbot : Module("Aimbot", "Automatically faces selected entities around y
                     EntityUtils.isSelected(it, true) && mc.thePlayer.canEntityBeSeen(it) &&
                             mc.thePlayer.getDistanceToEntityBox(it) <= range && RotationUtils.getRotationDifference(it) <= fov
                 }
-                .minBy { RotationUtils.getRotationDifference(it) } ?: return
+                .minByOrNull { RotationUtils.getRotationDifference(it) } ?: return
 
         if (!lock && RotationUtils.isFaced(entity, range.toDouble()))
             return

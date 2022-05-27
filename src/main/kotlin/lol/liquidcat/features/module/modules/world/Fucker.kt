@@ -191,13 +191,13 @@ object Fucker : Module("Fucker", "Destroys selected blocks around you. (aka.  ID
                 Block.getIdFromBlock(it.value) == targetID && it.key.getCenterDistance() <= range
                         && (isHitable(it.key) || surroundings)
             }
-            .minBy { it.key.getCenterDistance() }?.key
+            .minByOrNull { it.key.getCenterDistance() }?.key
 
     /**
      * Check if block is hitable (or allowed to hit through walls)
      */
     private fun isHitable(blockPos: BlockPos): Boolean {
-        return when (throughWalls.toLowerCase()) {
+        return when (throughWalls.lowercase()) {
             "raycast" -> {
                 val eyesPos = Vec3(mc.thePlayer.posX, mc.thePlayer.entityBoundingBox.minY +
                         mc.thePlayer.getEyeHeight(), mc.thePlayer.posZ)

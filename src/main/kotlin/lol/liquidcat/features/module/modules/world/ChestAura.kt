@@ -78,7 +78,7 @@ object ChestAura : Module("ChestAura", "Automatically opens chests around you.",
 
                             movingObjectPosition != null && movingObjectPosition.blockPos == blockPos
                         }
-                        .minBy { it.key.getCenterDistance() }?.key
+                        .minByOrNull { it.key.getCenterDistance() }?.key
 
                 if (rotations)
                     RotationUtils.setTargetRotation((RotationUtils.faceBlock(currentBlock ?: return)

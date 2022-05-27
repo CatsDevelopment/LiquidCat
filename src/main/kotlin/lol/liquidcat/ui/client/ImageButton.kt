@@ -40,7 +40,7 @@ class ImageButton(val id: Int, val name: String, private val icon: String, val x
                 Fonts.nunito40.drawCenteredString(name, x + width.toFloat() / 2, y - 10f, Color.WHITE.rgb, false)
 
             GLUtils.drawImage(
-                ResourceLocation("${LiquidCat.CLIENT_NAME.toLowerCase()}/icons/menu/$icon"),
+                ResourceLocation("${LiquidCat.CLIENT_NAME.lowercase()}/icons/menu/$icon"),
                 x, y, width, height
             )
             GlStateManager.popMatrix()

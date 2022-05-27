@@ -138,8 +138,8 @@ class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
     private fun getModuleText(module: Module): String {
         val name = if (tags) module.tagName else module.name
         return when (textMode) {
-            "UpperCase" -> name.toUpperCase()
-            "LowerCase" -> name.toLowerCase()
+            "UpperCase" -> name.lowercase()
+            "LowerCase" -> name.lowercase()
 
             else -> name
         }

@@ -42,7 +42,7 @@ object AutoWeapon : Module("AutoWeapon", "Automatically selects the best weapon 
             val (slot, _) = (0..8)
                     .map { Pair(it, mc.thePlayer.inventory.getStackInSlot(it)) }
                     .filter { it.second != null && (it.second.item is ItemSword || it.second.item is ItemTool) }
-                    .maxBy { it.second.getDamage() } ?: return
+                    .maxByOrNull { it.second.getDamage() } ?: return
 
             if (slot == mc.thePlayer.inventory.currentItem) // If in hand no need to swap
                 return

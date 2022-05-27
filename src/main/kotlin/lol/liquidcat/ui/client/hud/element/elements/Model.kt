@@ -41,7 +41,7 @@ class Model(x: Double = 40.0, y: Double = 100.0) : Element(x, y) {
      * Draw element
      */
     override fun drawElement(): Border {
-        val yaw = when (yawMode.toLowerCase()) {
+        val yaw = when (yawMode.lowercase()) {
             "player" -> mc.thePlayer.rotationYaw
             "animation" -> {
                 val delta = GLUtils.deltaTime
@@ -68,7 +68,7 @@ class Model(x: Double = 40.0, y: Double = 100.0) : Element(x, y) {
             else -> 0F
         }
 
-        var pitch = when (pitchMode.toLowerCase()) {
+        var pitch = when (pitchMode.lowercase()) {
             "player" -> mc.thePlayer.rotationPitch
             "custom" -> customPitch
             else -> 0F

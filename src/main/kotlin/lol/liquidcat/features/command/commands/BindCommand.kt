@@ -23,7 +23,7 @@ object BindCommand : Command("bind", emptyArray()) {
                 return
             }
             // Find key by name and change
-            val key = Keyboard.getKeyIndex(args[2].toUpperCase())
+            val key = Keyboard.getKeyIndex(args[2].uppercase())
             module.keyBind = key
 
             // Response to user

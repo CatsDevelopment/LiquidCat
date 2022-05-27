@@ -96,9 +96,9 @@ object Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.W
                         }else false // Bad block
                     }.toMutableMap()
 
-            do{
+            do {
                 val (blockPos, block) = when(priority) {
-                    "Distance" -> validBlocks.minBy { (pos, block) ->
+                    "Distance" -> validBlocks.minByOrNull { (pos, block) ->
                         val distance = pos.getCenterDistance()
                         val safePos = BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1, mc.thePlayer.posZ)
 
@@ -107,7 +107,7 @@ object Nuker : Module("Nuker", "Breaks all blocks around you.", ModuleCategory.W
                         else
                             distance
                     }
-                    "Hardness" -> validBlocks.maxBy { (pos, block) ->
+                    "Hardness" -> validBlocks.maxByOrNull { (pos, block) ->
                         val hardness = block.getPlayerRelativeBlockHardness(mc.thePlayer, mc.theWorld, pos).toDouble()
 
                         val safePos = BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1, mc.thePlayer.posZ)

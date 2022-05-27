@@ -59,7 +59,7 @@ object AutoPot : Module("AutoPot", "Automatically throws healing potions.", Modu
 
                 if (mc.thePlayer.health <= health && potionInHotbar != -1) {
                     if (mc.thePlayer.onGround) {
-                        when (mode.toLowerCase()) {
+                        when (mode.lowercase()) {
                             "jump" -> mc.thePlayer.jump()
                             "port" -> mc.thePlayer.moveEntity(0.0, 0.42, 0.0)
                         }

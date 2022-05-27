@@ -35,7 +35,7 @@ object Fullbright : Module("Fullbright", "Brightens up the world around you.", M
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (state || XRay.state) {
-            when (mode.toLowerCase()) {
+            when (mode.lowercase()) {
                 "gamma" -> if (mc.gameSettings.gammaSetting <= 100f) mc.gameSettings.gammaSetting++
                 "nightvision" -> mc.thePlayer.addPotionEffect(PotionEffect(Potion.nightVision.id, 1337, 1))
             }
