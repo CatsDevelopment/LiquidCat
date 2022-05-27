@@ -5,21 +5,15 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
-import lol.liquidcat.features.command.CommandManager;
-import lol.liquidcat.features.module.modules.render.HUD;
-import lol.liquidcat.utils.render.GLUtils;
-import lol.liquidcat.utils.render.shader.shaders.BackgroundShader;
-import net.ccbluex.liquidbounce.utils.render.ParticleUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Mouse;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,6 +21,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+
+import lol.liquidcat.features.command.CommandManager;
+import lol.liquidcat.utils.render.GLUtils;
+import lol.liquidcat.utils.render.shader.shaders.BackgroundShader;
 
 @Mixin(GuiScreen.class)
 @SideOnly(Side.CLIENT)
@@ -53,18 +51,6 @@ public abstract class MixinGuiScreen {
 
     @Shadow
     public abstract void handleComponentHover(IChatComponent component, int x, int y);
-
-    @Inject(method = "drawWorldBackground", at = @At("HEAD"))
-    private void drawWorldBackground(final CallbackInfo callbackInfo) {
-        final HUD hud = HUD.INSTANCE;
-
-        if (hud.getInventoryParticle() && mc.thePlayer != null) {
-            final ScaledResolution scaledResolution = new ScaledResolution(mc);
-            final int width = scaledResolution.getScaledWidth();
-            final int height = scaledResolution.getScaledHeight();
-            ParticleUtils.drawParticles(Mouse.getX() * width / mc.displayWidth, height - Mouse.getY() * height / mc.displayHeight - 1);
-        }
-    }
 
     /**
      * @author CCBlueX

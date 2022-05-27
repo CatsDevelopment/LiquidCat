@@ -16,12 +16,10 @@ import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.BoolValue
 import net.minecraft.client.gui.GuiChat
-import net.minecraft.client.gui.ScaledResolution
 
 object HUD : Module("HUD", "Toggles visibility of the HUD.", ModuleCategory.RENDER, hide = true) {
 
     val blackHotbar by BoolValue("BlackHotbar", true)
-    val inventoryParticle by BoolValue("InventoryParticle", false)
     private val blur by BoolValue("Blur", false)
     val fontChat by BoolValue("FontChat", false)
     val cleanChat by BoolValue("CleanChat", true)

@@ -5,16 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.client;
 
-import lol.liquidcat.LiquidCat;
-import lol.liquidcat.event.*;
-import lol.liquidcat.features.module.modules.combat.AutoClicker;
-import lol.liquidcat.features.module.modules.exploit.AbortBreaking;
-import lol.liquidcat.features.module.modules.exploit.MultiActions;
-import lol.liquidcat.features.module.modules.world.FastPlace;
-import lol.liquidcat.ui.client.guis.GuiMainMenu;
-import lol.liquidcat.utils.click.CPSCounter;
-import lol.liquidcat.utils.render.GLUtils;
-import net.ccbluex.liquidbounce.utils.render.IconUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -29,6 +19,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Util;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -39,7 +30,24 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
+
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.ClickBlockEvent;
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.KeyEvent;
+import lol.liquidcat.event.ScreenEvent;
+import lol.liquidcat.event.TickEvent;
+import lol.liquidcat.event.WorldEvent;
+import lol.liquidcat.features.module.modules.combat.AutoClicker;
+import lol.liquidcat.features.module.modules.exploit.AbortBreaking;
+import lol.liquidcat.features.module.modules.exploit.MultiActions;
+import lol.liquidcat.features.module.modules.world.FastPlace;
+import lol.liquidcat.ui.client.guis.GuiMainMenu;
+import lol.liquidcat.utils.click.CPSCounter;
+import lol.liquidcat.utils.render.GLUtils;
 
 @Mixin(Minecraft.class)
 @SideOnly(Side.CLIENT)
@@ -80,6 +88,9 @@ public abstract class MixinMinecraft {
 
     @Shadow
     public GameSettings gameSettings;
+
+    @Shadow
+    abstract protected ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException;
 
     @Inject(method = "run", at = @At("HEAD"))
     private void init(CallbackInfo callbackInfo) {
@@ -148,12 +159,25 @@ public abstract class MixinMinecraft {
 
     @Inject(method = "setWindowIcon", at = @At("HEAD"), cancellable = true)
     private void setWindowIcon(CallbackInfo callbackInfo) {
+        LiquidCat.INSTANCE.getLogger().info("Setting client window icons");
+
         if (Util.getOSType() != Util.EnumOS.OSX) {
-            final ByteBuffer[] liquidBounceFavicon = IconUtils.getFavicon();
-            if (liquidBounceFavicon != null) {
-                Display.setIcon(liquidBounceFavicon);
-                callbackInfo.cancel();
+            try {
+                InputStream icon16 = LiquidCat.class.getResourceAsStream("/assets/minecraft/" + LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/app/app_16px_icon.png");
+                InputStream icon32 = LiquidCat.class.getResourceAsStream("/assets/minecraft/" + LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/app/app_32px_icon.png");
+
+                if (icon16 == null || icon32 == null) {
+                    LiquidCat.INSTANCE.getLogger().error("Cannot find client window icons");
+
+                    return;
+                }
+
+                Display.setIcon(new ByteBuffer[] {readImageToBuffer(icon16), readImageToBuffer(icon32)});
+            } catch (Exception e) {
+                LiquidCat.INSTANCE.getLogger().error("An error occurred when setting client window icons", e);
             }
+
+            callbackInfo.cancel();
         }
     }
 
