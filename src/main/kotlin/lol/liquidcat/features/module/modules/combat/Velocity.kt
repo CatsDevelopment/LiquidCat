@@ -16,6 +16,7 @@ import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
 import net.minecraft.network.play.server.S12PacketEntityVelocity
 import net.minecraft.network.play.server.S27PacketExplosion
+import net.minecraft.world.Explosion
 
 object Velocity : Module("Velocity", "Allows you to modify the amount of knockback you take.", ModuleCategory.COMBAT) {
 
@@ -31,19 +32,31 @@ object Velocity : Module("Velocity", "Allows you to modify the amount of knockba
     fun onPacket(event: PacketEvent) {
         val packet = event.packet
 
-        if (packet is S12PacketEntityVelocity) {
-            if ((mc.theWorld?.getEntityByID(packet.entityID) ?: return) == (mc.thePlayer ?: return)) {
-                if (mode == "Normal") {
-                    if (horizontal == 0f && vertical == 0f) event.cancelEvent()
+        if (mode == "Normal") {
+            if (mc.theWorld == null || mc.thePlayer == null)
+                return
+
+            if (packet is S12PacketEntityVelocity) {
+
+                val entity = mc.theWorld.getEntityByID(packet.entityID) ?: return
+
+                if (entity != mc.thePlayer) {
+
+                    if (horizontal == 0f && vertical == 0f)
+                        event.cancelEvent()
 
                     packet.motionX = (packet.getMotionX() * horizontal).toInt()
                     packet.motionY = (packet.getMotionY() * vertical).toInt()
                     packet.motionZ = (packet.getMotionZ() * horizontal).toInt()
                 }
             }
-        }
 
-        if (packet is S27PacketExplosion) event.cancelEvent()
+            if (packet is S27PacketExplosion) {
+                event.cancelEvent()
+
+                Explosion(mc.theWorld, null, packet.x, packet.y, packet.z, packet.strength, packet.affectedBlockPositions).doExplosionB(true)
+            }
+        }
     }
 
     @EventTarget
@@ -52,8 +65,8 @@ object Velocity : Module("Velocity", "Allows you to modify the amount of knockba
             "Strafe" -> if (mc.thePlayer.hurtTime > 0) mc.thePlayer.strafe()
 
             "Reset" -> if (mc.thePlayer.hurtTime == time) {
-                mc.thePlayer.motionZ = 0.0
                 mc.thePlayer.motionX = 0.0
+                mc.thePlayer.motionZ = 0.0
             }
         }
     }
