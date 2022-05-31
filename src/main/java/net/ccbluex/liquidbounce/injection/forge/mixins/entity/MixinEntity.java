@@ -16,6 +16,7 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,6 +25,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -186,22 +188,18 @@ public abstract class MixinEntity {
     private void getCollisionBorderSize(final CallbackInfoReturnable<Float> callbackInfoReturnable) {
         final HitBox hitBox = HitBox.INSTANCE;
 
-        if (hitBox.getState())
-            callbackInfoReturnable.setReturnValue(0.1F + hitBox.getSize());
+        if (hitBox.getState()) {
+            callbackInfoReturnable.setReturnValue(0.1f + hitBox.getSize());
+        }
     }
 
-    @Inject(method = "setAngles", at = @At("HEAD"), cancellable = true)
-    private void setAngles(final float yaw, final float pitch, final CallbackInfo callbackInfo) {
+    @Redirect(method = "setAngles", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/MathHelper;clamp_float(FFF)F"))
+    private float noPitchLimit(float num, float min, float max) {
         if (NoPitchLimit.INSTANCE.getState()) {
-            callbackInfo.cancel();
-
-            float f = this.rotationPitch;
-            float f1 = this.rotationYaw;
-            this.rotationYaw = (float) ((double) this.rotationYaw + (double) yaw * 0.15D);
-            this.rotationPitch = (float) ((double) this.rotationPitch - (double) pitch * 0.15D);
-            this.prevRotationPitch += this.rotationPitch - f;
-            this.prevRotationYaw += this.rotationYaw - f1;
+            return num;
         }
+
+        return MathHelper.clamp_float(num, min, max);
     }
 
     @Inject(method = "moveFlying", at = @At("HEAD"), cancellable = true)

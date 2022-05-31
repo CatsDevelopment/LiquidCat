@@ -18,7 +18,6 @@ object NoRotate : Module("NoRotate", "Prevents the server from rotating your hea
         val player = mc.thePlayer ?: return
         val packet = event.packet
 
-        // Changes the packet rotation yaw, pitch to the player rotation yaw, pitch
         if (packet is S08PacketPlayerPosLook) {
             packet.yaw = player.rotationYaw
             packet.pitch = player.rotationPitch

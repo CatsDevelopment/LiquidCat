@@ -13,6 +13,7 @@ import lol.liquidcat.utils.sendPacket
 import lol.liquidcat.utils.timer.MSTimer
 import lol.liquidcat.value.IntValue
 import lol.liquidcat.value.ListValue
+import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
@@ -28,27 +29,33 @@ object Criticals : Module("Criticals", "Automatically deals critical hits.", Mod
 
     @EventTarget
     fun onAttack(event: AttackEvent) {
-        if (event.targetEntity is EntityLivingBase) {
-            if (delayTimer.hasTimePassed(delay.toLong()) && mc.thePlayer.onGround && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWeb && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava && !mc.thePlayer.isRiding && !mc.gameSettings.keyBindJump.isKeyDown) {
-                val x = mc.thePlayer.posX
-                val y = mc.thePlayer.posY
-                val z = mc.thePlayer.posZ
+        if (canCrit(event.targetEntity ?: return)) {
 
-                when (mode) {
-                    "NCP" -> {
-                        sendPacket(C04PacketPlayerPosition(x, y + 0.06251000240445849, z, false))
-                        sendPacket(C04PacketPlayerPosition(x, y, z, false))
-                    }
-                    "Lowest" -> {
-                        sendPacket(C04PacketPlayerPosition(x, y + 0.00000000000000356, z, false))
-                        sendPacket(C04PacketPlayerPosition(x, y, z, false))
-                    }
-                    "Phase" -> sendPacket(C04PacketPlayerPosition(x, y - 0.00000000000000356, z, false))
+            val x = mc.thePlayer.posX
+            val y = mc.thePlayer.posY
+            val z = mc.thePlayer.posZ
+
+            when (mode) {
+                "NCP" -> {
+                    sendPacket(C04PacketPlayerPosition(x, y + 0.06251000240445849, z, false))
+                    sendPacket(C04PacketPlayerPosition(x, y, z, false))
                 }
-
-                mc.thePlayer.onCriticalHit(event.targetEntity)
-                delayTimer.reset()
+                "Lowest" -> {
+                    sendPacket(C04PacketPlayerPosition(x, y + 0.00000000000000356, z, false))
+                    sendPacket(C04PacketPlayerPosition(x, y, z, false))
+                }
+                "Phase" -> sendPacket(C04PacketPlayerPosition(x, y - 0.00000000000000356, z, false))
             }
+
+            mc.thePlayer.onCriticalHit(event.targetEntity)
+            delayTimer.reset()
         }
+    }
+
+    private fun canCrit(entity: Entity): Boolean {
+        return entity is EntityLivingBase && delayTimer.hasTimePassed(delay.toLong()) &&
+                mc.thePlayer.onGround && !mc.thePlayer.isOnLadder &&
+                !mc.thePlayer.isInWeb && !mc.thePlayer.isInWater && !mc.thePlayer.isInLava &&
+                !mc.thePlayer.isRiding && !mc.gameSettings.keyBindJump.isKeyDown
     }
 }

@@ -229,8 +229,9 @@ public abstract class MixinEntityPlayerSP extends MixinAbstractClientPlayer {
         if (noSwing.getState()) {
             callbackInfo.cancel();
 
-            if (!noSwing.getServerSide())
+            if (!noSwing.getServerSide()) {
                 this.sendQueue.addToSendQueue(new C0APacketAnimation());
+            }
         }
     }
 
