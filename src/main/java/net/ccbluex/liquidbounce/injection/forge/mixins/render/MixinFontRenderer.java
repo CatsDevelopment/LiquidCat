@@ -5,14 +5,16 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.event.TextEvent;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.TextEvent;
 
 @Mixin(FontRenderer.class)
 @SideOnly(Side.CLIENT)

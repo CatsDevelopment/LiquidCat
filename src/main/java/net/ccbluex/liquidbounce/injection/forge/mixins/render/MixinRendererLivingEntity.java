@@ -5,11 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
-import co.uk.hexeption.utils.OutlineUtils;
-import lol.liquidcat.features.module.modules.render.*;
-import lol.liquidcat.utils.ClientUtils;
-import lol.liquidcat.utils.entity.EntityUtils;
-import lol.liquidcat.utils.render.GLUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,6 +12,7 @@ import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -26,7 +22,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.awt.*;
+import java.awt.Color;
+
+import co.uk.hexeption.utils.OutlineUtils;
+import lol.liquidcat.features.module.modules.render.Chams;
+import lol.liquidcat.features.module.modules.render.ESP;
+import lol.liquidcat.features.module.modules.render.ESP2D;
+import lol.liquidcat.features.module.modules.render.NameTags;
+import lol.liquidcat.features.module.modules.render.ShaderESP;
+import lol.liquidcat.features.module.modules.render.TrueSight;
+import lol.liquidcat.utils.ClientUtils;
+import lol.liquidcat.utils.entity.EntityUtils;
+import lol.liquidcat.utils.render.GLUtils;
 
 @Mixin(RendererLivingEntity.class)
 @SideOnly(Side.CLIENT)

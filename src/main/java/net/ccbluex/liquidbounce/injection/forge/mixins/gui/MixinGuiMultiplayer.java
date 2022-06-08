@@ -5,16 +5,18 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
-import lol.liquidcat.features.misc.BungeeCordSpoof;
-import lol.liquidcat.file.FileManager;
-import lol.liquidcat.ui.client.guis.GuiAntiForge;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiScreen;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import lol.liquidcat.features.misc.BungeeCordSpoof;
+import lol.liquidcat.file.FileManager;
+import lol.liquidcat.ui.client.guis.GuiAntiForge;
 
 @Mixin(GuiMultiplayer.class)
 public abstract class MixinGuiMultiplayer extends MixinGuiScreen {

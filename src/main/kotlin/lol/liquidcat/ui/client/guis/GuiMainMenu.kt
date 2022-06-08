@@ -6,7 +6,7 @@
 package lol.liquidcat.ui.client.guis
 
 import lol.liquidcat.LiquidCat
-import lol.liquidcat.ui.client.ImageButton
+import lol.liquidcat.ui.client.CGuiButton
 import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.ui.client.GuiModsMenu
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
@@ -17,26 +17,27 @@ import net.minecraft.util.ResourceLocation
 class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
 
     override fun initGui() {
-        val dWidth = width / 2
-        val dHeight = height - 40
-        
-        buttonList.add(ImageButton(0, "Singleplayer", "singleplayer_icon.png", dWidth, dHeight, 32, 32))
-        buttonList.add(ImageButton(1, "Multiplayer", "multiplayer_icon.png", dWidth - 32 - 5, dHeight, 32, 32))
-        buttonList.add(ImageButton(2, "Alt Manager", "alt_manager_icon.png", dWidth + 32 + 5, dHeight, 32, 32))
-        buttonList.add(ImageButton(3, "Settings", "settings_icon.png", dWidth - 64 - 10, dHeight, 32, 32))
-        buttonList.add(ImageButton(4, "Mods", "mods_icon.png", dWidth + 64 + 10, dHeight, 32, 32))
-        buttonList.add(ImageButton(5, "Quit", "exit_icon.png", dWidth - 96 - 15, dHeight, 32, 32))
+        val dWidth = width / 2 - 100
+        val d2Width = dWidth + 103
+
+        val dHeight = height - 29
+
+        buttonList.add(CGuiButton(0, "Singleplayer", dWidth, dHeight - 52 - 6, 100, 26))
+        buttonList.add(CGuiButton(1, "Multiplayer", d2Width, dHeight - 52 - 6, 100, 26))
+        buttonList.add(CGuiButton(2, "Alt Manager", dWidth, dHeight - 26 - 3, 100, 26))
+        buttonList.add(CGuiButton(3, "Settings", d2Width, dHeight - 26 - 3, 100, 26))
+        buttonList.add(CGuiButton(4, "Mods", dWidth, dHeight, 100, 26))
+        buttonList.add(CGuiButton(5, "Quit", d2Width, dHeight, 100, 26))
     }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         drawBackground(0)
 
         GlStateManager.enableTexture2D()
-        GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.lowercase() + "/icons/menu/client_logo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
+        GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.lowercase() + "/images/menu_client_logo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
+        GlStateManager.disableTexture2D()
 
         super.drawScreen(mouseX, mouseY, partialTicks)
-
-        GlStateManager.disableTexture2D()
     }
 
     override fun actionPerformed(button: GuiButton) {

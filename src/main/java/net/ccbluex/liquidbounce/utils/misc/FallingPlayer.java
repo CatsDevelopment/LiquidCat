@@ -6,7 +6,12 @@
 package net.ccbluex.liquidbounce.utils.misc;
 
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
+
 import org.jetbrains.annotations.Nullable;
 
 public class FallingPlayer extends MinecraftInstance {

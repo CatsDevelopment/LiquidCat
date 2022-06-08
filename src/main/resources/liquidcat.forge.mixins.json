@@ -19,8 +19,6 @@
     "entity.MixinEntityPlayer",
     "entity.MixinEntityPlayerSP",
     "entity.MixinPlayerControllerMP",
-    "gui.MixinGuiButton",
-    "gui.MixinGuiButtonExt",
     "gui.MixinGuiChat",
     "gui.MixinGuiConnecting",
     "gui.MixinGuiDisconnected",

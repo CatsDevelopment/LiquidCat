@@ -5,21 +5,23 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.entity;
 
-import lol.liquidcat.event.AttackEvent;
-import lol.liquidcat.event.ClickWindowEvent;
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.features.module.modules.exploit.AbortBreaking;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import lol.liquidcat.event.AttackEvent;
+import lol.liquidcat.event.ClickWindowEvent;
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.features.module.modules.exploit.AbortBreaking;
 
 @Mixin(PlayerControllerMP.class)
 @SideOnly(Side.CLIENT)

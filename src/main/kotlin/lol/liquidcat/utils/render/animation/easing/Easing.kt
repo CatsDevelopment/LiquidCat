@@ -13,6 +13,9 @@ interface Easing {
     fun easeInOut(x: Double): Double
 }
 
+/**
+ * Animation directions
+ */
 enum class Direction {
     IN, OUT, INOUT
 }

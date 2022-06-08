@@ -8,7 +8,10 @@
 package lol.liquidcat.utils
 
 import java.math.RoundingMode
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.exp
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 const val DEGREES_TO_RADIANS = 0.017453292519943295
 

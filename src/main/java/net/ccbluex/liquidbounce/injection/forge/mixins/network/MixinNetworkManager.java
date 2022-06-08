@@ -5,15 +5,17 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.network;
 
-import io.netty.channel.ChannelHandlerContext;
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.event.PacketEvent;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import io.netty.channel.ChannelHandlerContext;
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.PacketEvent;
 
 @Mixin(NetworkManager.class)
 public class MixinNetworkManager {

@@ -5,11 +5,13 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.world;
 
-import lol.liquidcat.features.module.modules.render.TrueSight;
 import net.minecraft.client.multiplayer.WorldClient;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+
+import lol.liquidcat.features.module.modules.render.TrueSight;
 
 @Mixin(WorldClient.class)
 public class MixinWorldClient {

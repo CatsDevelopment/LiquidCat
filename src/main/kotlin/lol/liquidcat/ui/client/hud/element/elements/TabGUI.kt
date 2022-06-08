@@ -12,8 +12,8 @@ import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.ui.client.hud.element.Side
-import lol.liquidcat.utils.render.color.ColorUtils.rainbow
 import lol.liquidcat.utils.render.GLUtils
+import lol.liquidcat.utils.render.color.ColorUtils.rainbow
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.FontValue

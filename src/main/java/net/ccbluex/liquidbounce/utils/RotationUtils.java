@@ -5,6 +5,22 @@
  */
 package net.ccbluex.liquidbounce.utils;
 
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.Entity;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Random;
+
 import lol.liquidcat.event.EventTarget;
 import lol.liquidcat.event.Listenable;
 import lol.liquidcat.event.PacketEvent;
@@ -12,16 +28,6 @@ import lol.liquidcat.event.TickEvent;
 import lol.liquidcat.features.module.modules.combat.FastBow;
 import lol.liquidcat.utils.Rotation;
 import lol.liquidcat.utils.VecRotation;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.util.*;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public final class RotationUtils extends MinecraftInstance implements Listenable {

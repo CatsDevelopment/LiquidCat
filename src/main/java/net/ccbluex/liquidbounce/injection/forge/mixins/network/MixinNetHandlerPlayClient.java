@@ -5,11 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.network;
 
-import io.netty.buffer.Unpooled;
-import lol.liquidcat.LiquidCat;
-import lol.liquidcat.event.EntityMovementEvent;
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.features.misc.AntiForge;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDownloadTerrain;
@@ -26,6 +21,7 @@ import net.minecraft.network.play.server.S01PacketJoinGame;
 import net.minecraft.network.play.server.S14PacketEntity;
 import net.minecraft.network.play.server.S48PacketResourcePackSend;
 import net.minecraft.world.WorldSettings;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,6 +31,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import io.netty.buffer.Unpooled;
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EntityMovementEvent;
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.features.misc.AntiForge;
 
 @Mixin(NetHandlerPlayClient.class)
 public abstract class MixinNetHandlerPlayClient {

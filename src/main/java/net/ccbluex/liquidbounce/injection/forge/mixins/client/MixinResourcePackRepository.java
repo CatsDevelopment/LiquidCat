@@ -6,7 +6,9 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.client;
 
 import com.google.common.collect.Lists;
+
 import net.minecraft.client.resources.ResourcePackRepository;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.TrueFileFilter;

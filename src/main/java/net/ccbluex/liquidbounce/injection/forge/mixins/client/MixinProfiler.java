@@ -5,14 +5,16 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.client;
 
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.event.Render2DEvent;
-import lol.liquidcat.utils.ClassUtils;
 import net.minecraft.profiler.Profiler;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.Render2DEvent;
+import lol.liquidcat.utils.ClassUtils;
 
 @Mixin(Profiler.class)
 public class MixinProfiler {

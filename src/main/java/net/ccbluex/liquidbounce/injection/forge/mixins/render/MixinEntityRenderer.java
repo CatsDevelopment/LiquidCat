@@ -6,13 +6,7 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
 import com.google.common.base.Predicates;
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.event.Render3DEvent;
-import lol.liquidcat.features.module.modules.player.Reach;
-import lol.liquidcat.features.module.modules.render.CameraClip;
-import lol.liquidcat.features.module.modules.render.NoBob;
-import lol.liquidcat.features.module.modules.render.NoHurtCam;
-import lol.liquidcat.features.module.modules.render.Tracers;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -23,9 +17,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -35,6 +35,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
+
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.Render3DEvent;
+import lol.liquidcat.features.module.modules.player.Reach;
+import lol.liquidcat.features.module.modules.render.CameraClip;
+import lol.liquidcat.features.module.modules.render.NoBob;
+import lol.liquidcat.features.module.modules.render.NoHurtCam;
+import lol.liquidcat.features.module.modules.render.Tracers;
 
 @Mixin(EntityRenderer.class)
 @SideOnly(Side.CLIENT)

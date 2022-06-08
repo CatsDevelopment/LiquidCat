@@ -13,7 +13,7 @@ import lol.liquidcat.ui.client.hud.element.elements.Notification
 import lol.liquidcat.ui.client.hud.element.elements.NotificationType
 import lol.liquidcat.utils.render.animation.Animation
 import lol.liquidcat.utils.render.animation.easing.Direction
-import lol.liquidcat.utils.render.animation.easing.easings.*
+import lol.liquidcat.utils.render.animation.easing.easings.Quint
 import lol.liquidcat.value.Value
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.util.ResourceLocation

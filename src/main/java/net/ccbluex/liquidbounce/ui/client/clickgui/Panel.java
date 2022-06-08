@@ -5,8 +5,6 @@
  */
 package net.ccbluex.liquidbounce.ui.client.clickgui;
 
-import lol.liquidcat.LiquidCat;
-import lol.liquidcat.features.module.modules.render.ClickGUI;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.Element;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -17,6 +15,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.features.module.modules.render.ClickGUI;
 
 @SideOnly(Side.CLIENT)
 public abstract class Panel extends MinecraftInstance {

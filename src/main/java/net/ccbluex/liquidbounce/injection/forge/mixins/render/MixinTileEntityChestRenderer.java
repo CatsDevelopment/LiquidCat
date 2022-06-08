@@ -5,13 +5,15 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
-import lol.liquidcat.features.module.modules.render.Chams;
 import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
+
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import lol.liquidcat.features.module.modules.render.Chams;
 
 @Mixin(TileEntityChestRenderer.class)
 public class MixinTileEntityChestRenderer {

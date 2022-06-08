@@ -5,14 +5,16 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.block;
 
-import lol.liquidcat.features.module.modules.world.Liquids;
 import net.minecraft.block.BlockLiquid;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import lol.liquidcat.features.module.modules.world.Liquids;
 
 @SideOnly(Side.CLIENT)
 @Mixin(BlockLiquid.class)

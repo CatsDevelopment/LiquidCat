@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -22,9 +23,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
+import lol.liquidcat.LiquidCat;
 import lol.liquidcat.features.command.CommandManager;
 import lol.liquidcat.utils.render.GLUtils;
-import lol.liquidcat.utils.render.shader.shaders.BackgroundShader;
 
 @Mixin(GuiScreen.class)
 @SideOnly(Side.CLIENT)
@@ -60,12 +61,7 @@ public abstract class MixinGuiScreen {
         GlStateManager.disableLighting();
         GlStateManager.disableFog();
 
-        BackgroundShader.INSTANCE.startShader();
-
-        GLUtils.drawQuads(0f, 0f, width, height);
-
-        BackgroundShader.INSTANCE.stopShader();
-
+        GLUtils.drawImage(new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/images/menu_background.png"), 0, 0, width, height);
         callbackInfo.cancel();
     }
 

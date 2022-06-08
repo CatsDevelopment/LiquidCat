@@ -5,12 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.block;
 
-import lol.liquidcat.event.BlockBBEvent;
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.features.module.modules.exploit.GhostHand;
-import lol.liquidcat.features.module.modules.player.NoFall;
-import lol.liquidcat.features.module.modules.render.XRay;
-import lol.liquidcat.features.module.modules.world.NoSlowBreak;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockState;
@@ -25,6 +19,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -34,6 +29,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+
+import lol.liquidcat.event.BlockBBEvent;
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.features.module.modules.exploit.GhostHand;
+import lol.liquidcat.features.module.modules.player.NoFall;
+import lol.liquidcat.features.module.modules.render.XRay;
+import lol.liquidcat.features.module.modules.world.NoSlowBreak;
 
 @Mixin(Block.class)
 @SideOnly(Side.CLIENT)

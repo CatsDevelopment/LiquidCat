@@ -10,10 +10,7 @@ import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 import com.thealtening.AltService;
-import lol.liquidcat.LiquidCat;
-import lol.liquidcat.file.FileManager;
-import lol.liquidcat.ui.client.GuiPasswordField;
-import lol.liquidcat.utils.login.MinecraftAccount;
+
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.utils.TabUtils;
@@ -21,13 +18,19 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+
 import org.lwjgl.input.Keyboard;
 
-import java.awt.*;
+import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.net.Proxy;
+
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.file.FileManager;
+import lol.liquidcat.ui.client.GuiPasswordField;
+import lol.liquidcat.utils.login.MinecraftAccount;
 
 public class GuiAdd extends GuiScreen {
 

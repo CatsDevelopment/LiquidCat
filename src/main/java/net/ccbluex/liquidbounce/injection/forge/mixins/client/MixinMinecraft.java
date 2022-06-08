@@ -163,8 +163,8 @@ public abstract class MixinMinecraft {
 
         if (Util.getOSType() != Util.EnumOS.OSX) {
             try {
-                InputStream icon16 = LiquidCat.class.getResourceAsStream("/assets/minecraft/" + LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/app/app_16px_icon.png");
-                InputStream icon32 = LiquidCat.class.getResourceAsStream("/assets/minecraft/" + LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/app/app_32px_icon.png");
+                InputStream icon16 = LiquidCat.class.getResourceAsStream("/assets/minecraft/" + LiquidCat.CLIENT_NAME.toLowerCase() + "/images/favicon/icon_16px.png");
+                InputStream icon32 = LiquidCat.class.getResourceAsStream("/assets/minecraft/" + LiquidCat.CLIENT_NAME.toLowerCase() + "/images/favicon/icon_32px.png");
 
                 if (icon16 == null || icon32 == null) {
                     LiquidCat.INSTANCE.getLogger().error("Cannot find client window icons");

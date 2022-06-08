@@ -5,16 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.entity;
 
-import lol.liquidcat.event.*;
-import lol.liquidcat.features.module.modules.combat.KillAura;
-import lol.liquidcat.features.module.modules.exploit.AntiHunger;
-import lol.liquidcat.features.module.modules.exploit.PortalMenu;
-import lol.liquidcat.features.module.modules.fun.Derp;
-import lol.liquidcat.features.module.modules.movement.NoSlow;
-import lol.liquidcat.features.module.modules.movement.Sprint;
-import lol.liquidcat.features.module.modules.render.NoSwing;
-import lol.liquidcat.features.module.modules.world.Scaffold;
-import lol.liquidcat.utils.Rotation;
 import net.ccbluex.liquidbounce.utils.RotationUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
@@ -34,9 +24,15 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C0APacketAnimation;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovementInput;
+import net.minecraft.util.ReportedException;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -47,6 +43,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.EventState;
+import lol.liquidcat.event.MotionEvent;
+import lol.liquidcat.event.MoveEvent;
+import lol.liquidcat.event.PushOutEvent;
+import lol.liquidcat.event.SlowDownEvent;
+import lol.liquidcat.event.StepConfirmEvent;
+import lol.liquidcat.event.StepEvent;
+import lol.liquidcat.event.UpdateEvent;
+import lol.liquidcat.features.module.modules.combat.KillAura;
+import lol.liquidcat.features.module.modules.exploit.AntiHunger;
+import lol.liquidcat.features.module.modules.exploit.PortalMenu;
+import lol.liquidcat.features.module.modules.fun.Derp;
+import lol.liquidcat.features.module.modules.movement.NoSlow;
+import lol.liquidcat.features.module.modules.movement.Sprint;
+import lol.liquidcat.features.module.modules.render.NoSwing;
+import lol.liquidcat.features.module.modules.world.Scaffold;
+import lol.liquidcat.utils.Rotation;
 
 @Mixin(EntityPlayerSP.class)
 @SideOnly(Side.CLIENT)

@@ -12,8 +12,8 @@ import lol.liquidcat.event.UpdateEvent
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.features.module.modules.render.Breadcrumbs
-import lol.liquidcat.utils.render.color.ColorUtils.rainbow
 import lol.liquidcat.utils.render.GLUtils.glColor
+import lol.liquidcat.utils.render.color.ColorUtils.rainbow
 import lol.liquidcat.utils.timer.MSTimer
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.IntValue

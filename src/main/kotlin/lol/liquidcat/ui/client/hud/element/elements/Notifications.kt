@@ -13,7 +13,7 @@ import lol.liquidcat.ui.client.hud.element.Side
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.animation.Animation
 import lol.liquidcat.utils.render.animation.easing.Direction
-import lol.liquidcat.utils.render.animation.easing.easings.*
+import lol.liquidcat.utils.render.animation.easing.easings.Quart
 import lol.liquidcat.value.BoolValue
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.util.ResourceLocation
@@ -96,9 +96,9 @@ class Notification(private val upperMessage: String, val message: String, val ty
 
         GLUtils.drawImage(ResourceLocation(
             if (type == NotificationType.ENABLED)
-                "${LiquidCat.CLIENT_NAME.lowercase()}/icons/hud/check_icon.png"
+                "${LiquidCat.CLIENT_NAME.lowercase()}/images/hud/check_icon.png"
             else
-                "${LiquidCat.CLIENT_NAME.lowercase()}/icons/hud/close_icon.png"
+                "${LiquidCat.CLIENT_NAME.lowercase()}/images/hud/close_icon.png"
 
         ), -width.toInt() - 16, -26, 16, 16)
 

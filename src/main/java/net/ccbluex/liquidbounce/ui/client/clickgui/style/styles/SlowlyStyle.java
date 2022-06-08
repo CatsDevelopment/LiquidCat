@@ -5,10 +5,6 @@
  */
 package net.ccbluex.liquidbounce.ui.client.clickgui.style.styles;
 
-import lol.liquidcat.utils.MathUtils;
-import lol.liquidcat.utils.block.BlockExtensions;
-import lol.liquidcat.utils.render.GLUtils;
-import lol.liquidcat.value.*;
 import net.ccbluex.liquidbounce.ui.client.clickgui.Panel;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ModuleElement;
@@ -24,11 +20,23 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.lwjgl.input.Mouse;
 
-import java.awt.*;
+import java.awt.Color;
 import java.math.BigDecimal;
 import java.util.List;
+
+import lol.liquidcat.utils.MathUtils;
+import lol.liquidcat.utils.block.BlockExtensions;
+import lol.liquidcat.utils.render.GLUtils;
+import lol.liquidcat.value.BlockValue;
+import lol.liquidcat.value.BoolValue;
+import lol.liquidcat.value.FloatValue;
+import lol.liquidcat.value.FontValue;
+import lol.liquidcat.value.IntValue;
+import lol.liquidcat.value.ListValue;
+import lol.liquidcat.value.Value;
 
 @SideOnly(Side.CLIENT)
 public class SlowlyStyle extends Style {

@@ -5,15 +5,13 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
-import lol.liquidcat.features.command.CommandManager;
-import lol.liquidcat.features.friend.FriendManager;
-import lol.liquidcat.utils.render.GLUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -24,6 +22,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Comparator;
 import java.util.List;
+
+import lol.liquidcat.features.command.CommandManager;
+import lol.liquidcat.features.friend.FriendManager;
+import lol.liquidcat.utils.render.GLUtils;
 
 @Mixin(GuiChat.class)
 @SideOnly(Side.CLIENT)

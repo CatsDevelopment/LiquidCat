@@ -5,10 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.entity;
 
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.event.StrafeEvent;
-import lol.liquidcat.features.module.modules.combat.HitBox;
-import lol.liquidcat.features.module.modules.exploit.NoPitchLimit;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -21,6 +17,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,6 +28,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
 import java.util.UUID;
+
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.StrafeEvent;
+import lol.liquidcat.features.module.modules.combat.HitBox;
+import lol.liquidcat.features.module.modules.exploit.NoPitchLimit;
 
 @Mixin(Entity.class)
 @SideOnly(Side.CLIENT)

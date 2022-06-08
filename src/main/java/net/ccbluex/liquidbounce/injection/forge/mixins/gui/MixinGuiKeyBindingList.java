@@ -8,6 +8,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiKeyBindingList;
 import net.minecraft.client.gui.GuiSlot;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 

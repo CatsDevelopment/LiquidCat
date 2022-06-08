@@ -12,8 +12,8 @@ import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.utils.block.getBlock
 import lol.liquidcat.utils.block.getBlockName
-import lol.liquidcat.utils.render.color.ColorUtils.rainbow
 import lol.liquidcat.utils.render.GLUtils.drawBlockBox
+import lol.liquidcat.utils.render.color.ColorUtils.rainbow
 import lol.liquidcat.utils.timer.MSTimer
 import lol.liquidcat.value.BlockValue
 import lol.liquidcat.value.BoolValue

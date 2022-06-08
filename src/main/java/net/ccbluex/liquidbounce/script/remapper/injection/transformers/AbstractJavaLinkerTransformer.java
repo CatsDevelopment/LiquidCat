@@ -8,12 +8,16 @@ package net.ccbluex.liquidbounce.script.remapper.injection.transformers;
 import net.ccbluex.liquidbounce.script.remapper.injection.utils.ClassUtils;
 import net.ccbluex.liquidbounce.script.remapper.injection.utils.NodeUtils;
 import net.minecraft.launchwrapper.IClassTransformer;
+
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-import static org.objectweb.asm.Opcodes.*;
+import static org.objectweb.asm.Opcodes.ALOAD;
+import static org.objectweb.asm.Opcodes.ASTORE;
+import static org.objectweb.asm.Opcodes.GETFIELD;
+import static org.objectweb.asm.Opcodes.INVOKESTATIC;
 
 /**
  * Transform bytecode of classes

@@ -5,8 +5,6 @@
  */
 package net.ccbluex.liquidbounce.ui.client.altmanager.sub;
 
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.event.SessionEvent;
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.minecraft.client.gui.Gui;
@@ -14,9 +12,13 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.Session;
+
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
+
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.SessionEvent;
 
 public class GuiChangeName extends GuiScreen {
 

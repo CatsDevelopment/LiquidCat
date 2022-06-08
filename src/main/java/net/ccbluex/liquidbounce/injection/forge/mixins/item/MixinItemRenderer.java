@@ -5,14 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.item;
 
-import lol.liquidcat.features.module.modules.combat.KillAura;
-import lol.liquidcat.features.module.modules.render.AntiBlind;
-import lol.liquidcat.features.module.modules.render.ItemView;
-import lol.liquidcat.features.module.modules.render.SwingAnimation;
-import lol.liquidcat.utils.render.animation.easing.easings.Back;
-import lol.liquidcat.utils.render.animation.easing.easings.Expo;
-import lol.liquidcat.utils.render.animation.easing.easings.Sine;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -22,13 +14,13 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -36,6 +28,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import lol.liquidcat.features.module.modules.combat.KillAura;
+import lol.liquidcat.features.module.modules.render.AntiBlind;
+import lol.liquidcat.features.module.modules.render.ItemView;
+import lol.liquidcat.features.module.modules.render.SwingAnimation;
 
 @Mixin(ItemRenderer.class)
 @SideOnly(Side.CLIENT)

@@ -5,14 +5,24 @@
  */
 package net.ccbluex.liquidbounce.injection.transformers;
 
-import lol.liquidcat.features.misc.AntiForge;
 import net.ccbluex.liquidbounce.script.remapper.injection.utils.ClassUtils;
 import net.ccbluex.liquidbounce.script.remapper.injection.utils.NodeUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.launchwrapper.IClassTransformer;
-import org.objectweb.asm.tree.*;
 
-import static org.objectweb.asm.Opcodes.*;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.InsnNode;
+import org.objectweb.asm.tree.JumpInsnNode;
+import org.objectweb.asm.tree.LabelNode;
+import org.objectweb.asm.tree.MethodInsnNode;
+
+import lol.liquidcat.features.misc.AntiForge;
+
+import static org.objectweb.asm.Opcodes.ICONST_0;
+import static org.objectweb.asm.Opcodes.IFEQ;
+import static org.objectweb.asm.Opcodes.INVOKESTATIC;
+import static org.objectweb.asm.Opcodes.IRETURN;
+import static org.objectweb.asm.Opcodes.RETURN;
 
 /**
  * Transform bytecode of classes

@@ -5,12 +5,14 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
-import lol.liquidcat.features.module.modules.render.XRay;
 import net.minecraft.client.renderer.chunk.VisGraph;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import lol.liquidcat.features.module.modules.render.XRay;
 
 @Mixin(VisGraph.class)
 public class MixinVisGraph {

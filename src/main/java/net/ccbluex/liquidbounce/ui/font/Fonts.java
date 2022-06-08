@@ -5,19 +5,32 @@
  */
 package net.ccbluex.liquidbounce.ui.font;
 
-import com.google.gson.*;
-import lol.liquidcat.LiquidCat;
-import lol.liquidcat.file.FileManager;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.awt.*;
-import java.io.*;
+import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.file.FileManager;
 
 @SideOnly(Side.CLIENT)
 public class Fonts {

@@ -5,15 +5,6 @@
  */
 package net.ccbluex.liquidbounce.ui.client.clickgui;
 
-import lol.liquidcat.LiquidCat;
-import lol.liquidcat.features.module.Module;
-import lol.liquidcat.features.module.ModuleCategory;
-import lol.liquidcat.features.module.ModuleManager;
-import lol.liquidcat.features.module.modules.render.ClickGUI;
-import lol.liquidcat.file.FileManager;
-import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner;
-import lol.liquidcat.utils.entity.EntityUtils;
-import lol.liquidcat.utils.render.GLUtils;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.Element;
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ModuleElement;
@@ -25,16 +16,27 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.features.module.Module;
+import lol.liquidcat.features.module.ModuleCategory;
+import lol.liquidcat.features.module.ModuleManager;
+import lol.liquidcat.features.module.modules.render.ClickGUI;
+import lol.liquidcat.file.FileManager;
+import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner;
+import lol.liquidcat.utils.entity.EntityUtils;
+import lol.liquidcat.utils.render.GLUtils;
+
 public class ClickGui extends GuiScreen {
 
     public final List<Panel> panels = new ArrayList<>();
-    private final ResourceLocation hudIcon = new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/icons/hud/custom_hud_icon.png");
+    private final ResourceLocation hudIcon = new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/images/hud/custom_hud_icon.png");
     public Style style = new SlowlyStyle();
     private Panel clickedPanel;
     private int mouseX;

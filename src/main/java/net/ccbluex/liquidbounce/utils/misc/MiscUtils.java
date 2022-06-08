@@ -7,12 +7,15 @@ package net.ccbluex.liquidbounce.utils.misc;
 
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public final class MiscUtils extends MinecraftInstance {
 

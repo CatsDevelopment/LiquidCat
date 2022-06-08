@@ -9,12 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.thealtening.AltService;
-import lol.liquidcat.LiquidCat;
-import lol.liquidcat.file.FileManager;
-import lol.liquidcat.utils.io.HttpUtils;
-import lol.liquidcat.utils.login.LoginUtils;
-import lol.liquidcat.utils.login.MinecraftAccount;
-import lol.liquidcat.utils.login.UserUtils;
+
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiAdd;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiChangeName;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDirectLogin;
@@ -26,9 +21,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlot;
+
 import org.lwjgl.input.Keyboard;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,6 +34,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.file.FileManager;
+import lol.liquidcat.utils.io.HttpUtils;
+import lol.liquidcat.utils.login.LoginUtils;
+import lol.liquidcat.utils.login.MinecraftAccount;
+import lol.liquidcat.utils.login.UserUtils;
 
 public class GuiAltManager extends GuiScreen {
 

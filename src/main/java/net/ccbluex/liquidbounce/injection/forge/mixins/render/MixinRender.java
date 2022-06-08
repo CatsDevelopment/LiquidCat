@@ -5,15 +5,17 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.event.RenderEntityEvent;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.RenderEntityEvent;
 
 @Mixin(Render.class)
 public abstract class MixinRender {

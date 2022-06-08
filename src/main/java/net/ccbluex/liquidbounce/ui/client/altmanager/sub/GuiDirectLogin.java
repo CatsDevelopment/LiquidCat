@@ -5,10 +5,6 @@
  */
 package net.ccbluex.liquidbounce.ui.client.altmanager.sub;
 
-import lol.liquidcat.LiquidCat;
-import lol.liquidcat.ui.client.GuiPasswordField;
-import lol.liquidcat.utils.login.MinecraftAccount;
-import lol.liquidcat.utils.render.color.ColorUtils;
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
 import net.ccbluex.liquidbounce.utils.TabUtils;
@@ -16,12 +12,18 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+
 import org.lwjgl.input.Keyboard;
 
-import java.awt.*;
+import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.ui.client.GuiPasswordField;
+import lol.liquidcat.utils.login.MinecraftAccount;
+import lol.liquidcat.utils.render.color.ColorUtils;
 
 public class GuiDirectLogin extends GuiScreen {
 

@@ -5,9 +5,10 @@
  */
 package net.ccbluex.liquidbounce.ui.client.clickgui.elements;
 
-import lol.liquidcat.LiquidCat;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import lol.liquidcat.LiquidCat;
 
 @SideOnly(Side.CLIENT)
 public class ButtonElement extends Element {

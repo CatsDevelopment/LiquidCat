@@ -11,21 +11,14 @@ import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 import com.thealtening.AltService;
 import com.thealtening.api.TheAltening;
 import com.thealtening.api.data.AccountData;
-import lol.liquidcat.LiquidCat;
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.event.SessionEvent;
-import lol.liquidcat.features.misc.AntiForge;
-import lol.liquidcat.features.misc.AutoReconnect;
-import lol.liquidcat.file.FileManager;
-import lol.liquidcat.utils.ServerUtils;
-import lol.liquidcat.utils.login.LoginUtils;
-import lol.liquidcat.utils.login.MinecraftAccount;
+
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAltening;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiDisconnected;
 import net.minecraft.util.Session;
 import net.minecraftforge.fml.client.config.GuiSlider;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,6 +31,16 @@ import java.net.Proxy;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
+
+import lol.liquidcat.LiquidCat;
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.SessionEvent;
+import lol.liquidcat.features.misc.AntiForge;
+import lol.liquidcat.features.misc.AutoReconnect;
+import lol.liquidcat.file.FileManager;
+import lol.liquidcat.utils.ServerUtils;
+import lol.liquidcat.utils.login.LoginUtils;
+import lol.liquidcat.utils.login.MinecraftAccount;
 
 @Mixin(GuiDisconnected.class)
 public abstract class MixinGuiDisconnected extends MixinGuiScreen {

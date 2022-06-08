@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.injection.forge;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
