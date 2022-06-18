@@ -31,7 +31,7 @@ import kotlin.math.*
 /**
  * Checks if the entity is your friend
  */
-fun Entity.isFriend() = this is EntityPlayer && FriendManager.isFriend(name)
+fun EntityPlayer.isFriend() = FriendManager.isFriend(name)
 
 /**
  * Checks if the entity is an animal

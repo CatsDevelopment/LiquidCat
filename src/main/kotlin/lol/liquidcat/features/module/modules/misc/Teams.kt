@@ -10,33 +10,31 @@ import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.value.BoolValue
 import net.minecraft.entity.player.EntityPlayer
 
-object Teams : Module("Teams", "Prevents Killaura from attacking team mates.", ModuleCategory.MISC) {
+object Teams : Module("Teams", "Prevents Killaura from attacking teammates.", ModuleCategory.MISC) {
 
-    private val scoreboard by BoolValue("ScoreboardTeam", true)
+    private val scoreboard by BoolValue("Scoreboard", true)
     private val color by BoolValue("Color", true)
 
     /**
-     * Check if [entity] is in your own team using scoreboard, name color or team prefix
+     * Checks if [player] is your teammate
      */
-    fun isInYourTeam(entity: EntityPlayer): Boolean {
+    fun isYourTeammate(player: EntityPlayer): Boolean {
         if (!state) return false
 
         if (color) {
-            val eName = entity.displayName?.unformattedText
+            val eName = player.displayName?.unformattedText
             val pName = mc.thePlayer.displayName?.unformattedText
 
-            if (eName != null && pName != null && eName.startsWith(pName.substring(0..1))) {
+            if (eName != null && pName != null && eName.startsWith(pName.substring(0..1)))
                 return true
-            }
         }
 
         if (scoreboard) {
-            val eTeam = entity.team
+            val eTeam = player.team
             val pTeam = mc.thePlayer.team
 
-            if (eTeam != null && pTeam != null && pTeam.isSameTeam(eTeam)) {
+            if (eTeam != null && pTeam != null && eTeam == pTeam)
                 return true
-            }
         }
 
         return false

@@ -31,10 +31,16 @@ object EntityUtils {
             if (targetInvisible || !entity.isInvisible()) {
                 if (targetPlayer && entity is EntityPlayer) {
                     if (canAttackCheck) {
-                        if (AntiBot.isBot(entity)) return false
-                        if (entity.isFriend() && !NoFriends.state) return false
-                        if (entity.isSpectator) return false
-                        return !Teams.isInYourTeam(entity)
+                        if (AntiBot.isBot(entity))
+                            return false
+
+                        if (entity.isFriend() && !NoFriends.state)
+                            return false
+
+                        if (entity.isSpectator)
+                            return false
+
+                        return !Teams.isYourTeammate(entity)
                     }
                     return true
                 }

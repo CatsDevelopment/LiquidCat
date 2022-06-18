@@ -487,7 +487,7 @@ object KillAura : Module("KillAura", "Automatically attacks targets around you."
                 if (entity.isFriend() && !NoFriends.state)
                     return false
 
-                return !Teams.isInYourTeam(entity)
+                return !Teams.isYourTeammate(entity)
             }
 
             return EntityUtils.targetMobs && entity.isMob() || EntityUtils.targetAnimals &&
@@ -605,7 +605,7 @@ object KillAura : Module("KillAura", "Automatically attacks targets around you."
                         (isEnemy(it) || raycastIgnored || aac && mc.theWorld.getEntitiesWithinAABBExcludingEntity(it, it.entityBoundingBox).isNotEmpty())
             }
 
-            if (raycast && raycastedEntity is EntityLivingBase && (NoFriends.state || !raycastedEntity.isFriend()))
+            if (raycast && raycastedEntity is EntityLivingBase && (NoFriends.state || (raycastedEntity is EntityPlayer && !raycastedEntity.isFriend())))
                 currentTarget = raycastedEntity
 
             hitable = if(maxTurnSpeed > 0F) currentTarget == raycastedEntity else true
