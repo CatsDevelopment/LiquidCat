@@ -15,7 +15,7 @@ import lol.liquidcat.file.FileManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ModuleElement
 import java.io.*
 
-class ClickGuiConfig(file: File?) : FileConfig(file!!) {
+object ClickGuiConfig : FileConfig(File(FileManager.mainDir, "clickgui.json")) {
     /**
      * Load config from file
      */

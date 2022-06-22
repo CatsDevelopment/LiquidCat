@@ -8,6 +8,7 @@ package lol.liquidcat.features.command.commands
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.friend.FriendManager
 import lol.liquidcat.file.FileManager
+import lol.liquidcat.file.configs.FriendsConfig
 import net.ccbluex.liquidbounce.utils.misc.StringUtils
 
 object FriendCommand : Command("friend", arrayOf("friends")) {
@@ -16,8 +17,6 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
      */
     override fun execute(args: Array<String>) {
         if (args.size > 1) {
-            val friendsConfig = FileManager.friendsConfig
-
             when {
                 args[1].equals("add", ignoreCase = true) -> {
                     if (args.size > 2) {
@@ -30,7 +29,7 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
 
                         if (!FriendManager.isFriend(name)) {
                             FriendManager.addFriend(name, if (args.size > 3) StringUtils.toCompleteString(args, 3) else name)
-                            FileManager.saveConfig(friendsConfig)
+                            FileManager.saveConfig(FriendsConfig)
                             chat("§a§l$name§3 was added to your friend list.")
                             playEdit()
                         } else
@@ -48,7 +47,7 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
 
                         if (FriendManager.isFriend(name)) {
                             FriendManager.removeFriend(name)
-                            FileManager.saveConfig(friendsConfig)
+                            FileManager.saveConfig(FriendsConfig)
                             chat("§a§l$name§3 was removed from your friend list.")
                             playEdit()
                         } else
@@ -63,7 +62,7 @@ object FriendCommand : Command("friend", arrayOf("friends")) {
                 args[1].equals("clear", ignoreCase = true) -> {
                     val friends = FriendManager.friends.size
                     FriendManager.clearFriends()
-                    FileManager.saveConfig(friendsConfig)
+                    FileManager.saveConfig(FriendsConfig)
                     chat("Removed $friends friend(s).")
                     return
                 }

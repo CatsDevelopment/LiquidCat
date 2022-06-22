@@ -9,6 +9,7 @@ package lol.liquidcat.features.module
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.event.Listenable
 import lol.liquidcat.file.FileManager
+import lol.liquidcat.file.configs.ModulesConfig
 import lol.liquidcat.ui.client.hud.element.elements.Notification
 import lol.liquidcat.ui.client.hud.element.elements.NotificationType
 import lol.liquidcat.utils.render.animation.Animation
@@ -31,13 +32,13 @@ open class Module(
         set(value) {
             field = value
 
-            if (!LiquidCat.loading) FileManager.saveConfig(FileManager.modulesConfig)
+            if (!LiquidCat.loading) FileManager.saveConfig(ModulesConfig)
         }
     var hide = hide
         set(value) {
             field = value
 
-            if (!LiquidCat.loading) FileManager.saveConfig(FileManager.modulesConfig)
+            if (!LiquidCat.loading) FileManager.saveConfig(ModulesConfig)
         }
     var state = false
         set(value) {
@@ -66,7 +67,7 @@ open class Module(
                 field = false
             }
 
-            FileManager.saveConfig(FileManager.modulesConfig)
+            FileManager.saveConfig(ModulesConfig)
         }
     // HUD
     var slideAnim = Animation(200.0, Quint, Direction.OUT)

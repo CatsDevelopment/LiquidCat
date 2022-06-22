@@ -14,7 +14,7 @@ import lol.liquidcat.file.FileManager
 import net.minecraft.block.Block
 import java.io.*
 
-class XRayConfig(file: File?) : FileConfig(file!!) {
+object XRayConfig : FileConfig(File(FileManager.mainDir, "xray-blocks.json")) {
 
     override fun load() {
         val jsonArray = JsonParser().parse(BufferedReader(FileReader(file))).asJsonArray

@@ -9,6 +9,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.file.FileManager
+import lol.liquidcat.file.configs.*
 import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.font.Fonts
@@ -32,21 +33,21 @@ object ReloadCommand : Command("reload", arrayOf("configreload")) {
         chat("§c§lReloading fonts...")
         Fonts.loadFonts()
         chat("§c§lReloading modules...")
-        FileManager.loadConfig(FileManager.modulesConfig)
+        FileManager.loadConfig(ModulesConfig)
         LiquidCat.loading = false
         chat("§c§lReloading values...")
-        FileManager.loadConfig(FileManager.valuesConfig)
+        FileManager.loadConfig(ValuesConfig)
         chat("§c§lReloading accounts...")
-        FileManager.loadConfig(FileManager.accountsConfig)
+        FileManager.loadConfig(AccountsConfig)
         chat("§c§lReloading friends...")
-        FileManager.loadConfig(FileManager.friendsConfig)
+        FileManager.loadConfig(FriendsConfig)
         chat("§c§lReloading xray...")
-        FileManager.loadConfig(FileManager.xrayConfig)
+        FileManager.loadConfig(XRayConfig)
         chat("§c§lReloading HUD...")
-        FileManager.loadConfig(FileManager.hudConfig)
+        FileManager.loadConfig(HudConfig)
         chat("§c§lReloading ClickGUI...")
         LiquidCat.clickGui = ClickGui()
-        FileManager.loadConfig(FileManager.clickGuiConfig)
+        FileManager.loadConfig(ClickGuiConfig)
         chat("Reloaded.")
     }
 }

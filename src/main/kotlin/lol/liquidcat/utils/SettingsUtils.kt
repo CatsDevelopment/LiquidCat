@@ -11,6 +11,7 @@ import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.features.module.modules.misc.NameProtect
 import lol.liquidcat.features.module.modules.misc.Spammer
 import lol.liquidcat.file.FileManager
+import lol.liquidcat.file.configs.ValuesConfig
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.io.HttpUtils.get
 import lol.liquidcat.utils.render.color.ColorUtils.translateAlternateColorCodes
@@ -147,7 +148,7 @@ object SettingsUtils {
             }
         }
 
-        FileManager.saveConfig(FileManager.valuesConfig)
+        FileManager.saveConfig(ValuesConfig)
     }
 
     /**

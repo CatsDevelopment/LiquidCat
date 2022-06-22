@@ -29,6 +29,7 @@ import lol.liquidcat.features.module.ModuleCategory;
 import lol.liquidcat.features.module.ModuleManager;
 import lol.liquidcat.features.module.modules.render.ClickGUI;
 import lol.liquidcat.file.FileManager;
+import lol.liquidcat.file.configs.ClickGuiConfig;
 import lol.liquidcat.ui.client.hud.designer.GuiHudDesigner;
 import lol.liquidcat.utils.entity.EntityUtils;
 import lol.liquidcat.utils.render.GLUtils;
@@ -331,7 +332,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        FileManager.INSTANCE.saveConfig(FileManager.INSTANCE.getClickGuiConfig(), false);
+        FileManager.INSTANCE.saveConfig(ClickGuiConfig.INSTANCE, false);
     }
 
     @Override

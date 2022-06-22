@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import lol.liquidcat.features.misc.BungeeCordSpoof;
 import lol.liquidcat.file.FileManager;
+import lol.liquidcat.file.configs.ValuesConfig;
 import lol.liquidcat.ui.client.guis.GuiAntiForge;
 
 @Mixin(GuiMultiplayer.class)
@@ -38,7 +39,7 @@ public abstract class MixinGuiMultiplayer extends MixinGuiScreen {
             case 998:
                 BungeeCordSpoof.enabled = !BungeeCordSpoof.enabled;
                 bungeeCordSpoofButton.displayString = "BungeeCord Spoof: " + (BungeeCordSpoof.enabled ? "On" : "Off");
-                FileManager.INSTANCE.saveConfig(FileManager.INSTANCE.getValuesConfig(), false);
+                FileManager.INSTANCE.saveConfig(ValuesConfig.INSTANCE, false);
                 break;
         }
     }

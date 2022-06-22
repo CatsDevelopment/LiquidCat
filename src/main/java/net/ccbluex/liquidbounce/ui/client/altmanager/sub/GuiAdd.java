@@ -29,6 +29,7 @@ import java.net.Proxy;
 
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.file.FileManager;
+import lol.liquidcat.file.configs.AccountsConfig;
 import lol.liquidcat.ui.client.GuiPasswordField;
 import lol.liquidcat.utils.login.MinecraftAccount;
 
@@ -88,7 +89,7 @@ public class GuiAdd extends GuiScreen {
                 mc.displayGuiScreen(prevGui);
                 break;
             case 1:
-                if (FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.stream().anyMatch(account -> account.getName().equals(username.getText()))) {
+                if (AccountsConfig.altManagerMinecraftAccounts.stream().anyMatch(account -> account.getName().equals(username.getText()))) {
                     status = "§cThe account has already been added.";
                     break;
                 }
@@ -161,7 +162,7 @@ public class GuiAdd extends GuiScreen {
     }
 
     private void addAccount(final String name, final String password) {
-        if (FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.stream()
+        if (AccountsConfig.altManagerMinecraftAccounts.stream()
                 .anyMatch(account -> account.getName().equals(name))) {
             status = "§cThe account has already been added.";
             return;
@@ -202,8 +203,8 @@ public class GuiAdd extends GuiScreen {
             }
 
 
-            FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.add(account);
-            FileManager.INSTANCE.saveConfig(FileManager.INSTANCE.getAccountsConfig(), false);
+            AccountsConfig.altManagerMinecraftAccounts.add(account);
+            FileManager.INSTANCE.saveConfig(AccountsConfig.INSTANCE, false);
 
             status = "§aThe account has been added.";
             prevGui.status = status;

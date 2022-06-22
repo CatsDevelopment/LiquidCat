@@ -10,6 +10,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.file.FileManager
+import lol.liquidcat.file.configs.ValuesConfig
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.gui.FontRenderer
 import java.util.*
@@ -29,7 +30,7 @@ abstract class Value<T>(val name: String, protected var value: T) {
             onChange(oldValue, newValue)
             changeValue(newValue)
             onChanged(oldValue, newValue)
-            FileManager.saveConfig(FileManager.valuesConfig)
+            FileManager.saveConfig(ValuesConfig)
         } catch (e: Exception) {
             LiquidCat.logger.error("[ValueSystem ($name)]: ${e.javaClass.name} (${e.message}) [$oldValue >> $newValue]")
         }

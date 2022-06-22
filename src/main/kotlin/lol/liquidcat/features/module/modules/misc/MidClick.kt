@@ -11,6 +11,7 @@ import lol.liquidcat.features.friend.FriendManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.file.FileManager
+import lol.liquidcat.file.configs.FriendsConfig
 import lol.liquidcat.utils.msg
 import net.minecraft.entity.player.EntityPlayer
 import org.lwjgl.input.Mouse
@@ -28,15 +29,14 @@ object MidClick : Module("MidClick", "Allows you to add a player as a friend by 
 
             if (entity is EntityPlayer) {
                 val playerName = entity.gameProfile.name
-                val friendsConfig = FileManager.friendsConfig
 
                 if (FriendManager.isFriend(playerName)) {
                     FriendManager.removeFriend(playerName)
-                    FileManager.saveConfig(friendsConfig)
+                    FileManager.saveConfig(FriendsConfig)
                     msg("§a§l$playerName§c was removed from your friends.")
                 } else {
                     FriendManager.addFriend(playerName)
-                    FileManager.saveConfig(friendsConfig)
+                    FileManager.saveConfig(FriendsConfig)
                     msg("§a§l$playerName§c was added to your friends.")
                 }
             } else msg("§c§lError: §aYou need to select a player.")

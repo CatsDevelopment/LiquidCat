@@ -24,7 +24,7 @@ import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAlte
 import java.io.*
 import java.util.function.Consumer
 
-class ValuesConfig(file: File?) : FileConfig(file!!) {
+object ValuesConfig : FileConfig(File(FileManager.mainDir, "values.json")) {
 
     override fun load() {
         val jsonElement = JsonParser().parse(BufferedReader(FileReader(file)))

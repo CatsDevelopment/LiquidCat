@@ -10,6 +10,7 @@ import lol.liquidcat.features.command.CommandManager
 import lol.liquidcat.features.module.Module
 import lol.liquidcat.features.module.ModuleCategory
 import lol.liquidcat.file.FileManager
+import lol.liquidcat.file.configs.XRayConfig
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 
@@ -79,7 +80,7 @@ object XRay : Module("XRay", "Allows you to see ores through walls.", ModuleCate
                                 }
 
                                 xrayBlocks.add(block)
-                                FileManager.saveConfig(FileManager.xrayConfig)
+                                FileManager.saveConfig(XRayConfig)
                                 chat("§7Added block §8${block.localizedName}§7.")
                                 playEdit()
                             } catch (exception: NumberFormatException) {
@@ -115,7 +116,7 @@ object XRay : Module("XRay", "Allows you to see ores through walls.", ModuleCate
                                 }
 
                                 xrayBlocks.remove(block)
-                                FileManager.saveConfig(FileManager.xrayConfig)
+                                FileManager.saveConfig(XRayConfig)
                                 chat("§7Removed block §8${block.localizedName}§7.")
                                 playEdit()
                             } catch (exception: NumberFormatException) {

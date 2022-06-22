@@ -12,7 +12,7 @@ import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
 import java.io.*
 
-class FriendsConfig(file: File?) : FileConfig(file!!) {
+object FriendsConfig : FileConfig(File(FileManager.mainDir, "friends.json")) {
 
     /**
      * Load config from file

@@ -38,6 +38,8 @@ import lol.liquidcat.event.SessionEvent;
 import lol.liquidcat.features.misc.AntiForge;
 import lol.liquidcat.features.misc.AutoReconnect;
 import lol.liquidcat.file.FileManager;
+import lol.liquidcat.file.configs.AccountsConfig;
+import lol.liquidcat.file.configs.ValuesConfig;
 import lol.liquidcat.utils.ServerUtils;
 import lol.liquidcat.utils.login.LoginUtils;
 import lol.liquidcat.utils.login.MinecraftAccount;
@@ -97,7 +99,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
                     }
                 }
 
-                final List<MinecraftAccount> accounts = FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts;
+                final List<MinecraftAccount> accounts = AccountsConfig.altManagerMinecraftAccounts;
                 if (accounts.isEmpty()) break;
 
                 final MinecraftAccount minecraftAccount = accounts.get(new Random().nextInt(accounts.size()));
@@ -111,7 +113,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
             case 5:
                 AntiForge.enabled = !AntiForge.enabled;
                 forgeBypassButton.displayString = "Bypass AntiForge: " + (AntiForge.enabled ? "On" : "Off");
-                FileManager.INSTANCE.saveConfig(FileManager.INSTANCE.getValuesConfig(), false);
+                FileManager.INSTANCE.saveConfig(ValuesConfig.INSTANCE, false);
                 break;
         }
     }

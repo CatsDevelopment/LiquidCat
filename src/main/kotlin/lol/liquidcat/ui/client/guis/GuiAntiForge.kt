@@ -6,8 +6,8 @@
 package lol.liquidcat.ui.client.guis
 
 import lol.liquidcat.features.misc.AntiForge
-import lol.liquidcat.file.FileManager.saveConfig
-import lol.liquidcat.file.FileManager.valuesConfig
+import lol.liquidcat.file.FileManager
+import lol.liquidcat.file.configs.ValuesConfig
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiScreen
 import org.lwjgl.input.Keyboard
@@ -36,22 +36,22 @@ class GuiAntiForge(private val prevGui: GuiScreen) : GuiScreen() {
             1 -> {
                 AntiForge.enabled = !AntiForge.enabled
                 enabledButton.displayString = "Enabled (${if (AntiForge.enabled) "On" else "Off"})"
-                saveConfig(valuesConfig, false)
+                FileManager.saveConfig(ValuesConfig, false)
             }
             2 -> {
                 AntiForge.blockFML = !AntiForge.blockFML
                 fmlButton.displayString = "Block FML (${if (AntiForge.blockFML) "On" else "Off"})"
-                saveConfig(valuesConfig, false)
+                FileManager.saveConfig(ValuesConfig, false)
             }
             3 -> {
                 AntiForge.blockProxyPacket = !AntiForge.blockProxyPacket
                 proxyButton.displayString = "Block FML Proxy Packet (${if (AntiForge.blockProxyPacket) "On" else "Off"})"
-                saveConfig(valuesConfig, false)
+                FileManager.saveConfig(ValuesConfig, false)
             }
             4 -> {
                 AntiForge.blockPayloadPackets = !AntiForge.blockPayloadPackets
                 payloadButton.displayString = "Block Payload Packets (${if (AntiForge.blockPayloadPackets) "On" else "Off"})"
-                saveConfig(valuesConfig, false)
+                FileManager.saveConfig(ValuesConfig, false)
             }
         }
     }

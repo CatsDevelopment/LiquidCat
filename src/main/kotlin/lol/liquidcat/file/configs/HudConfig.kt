@@ -7,13 +7,14 @@ package lol.liquidcat.file.configs
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.file.FileConfig
+import lol.liquidcat.file.FileManager
 import lol.liquidcat.ui.client.hud.Config
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.FileWriter
 import java.io.PrintWriter
 
-class HudConfig(file: File?) : FileConfig(file!!) {
+object HudConfig : FileConfig(File(FileManager.mainDir, "hud.json")) {
     /**
      * Load config from file
      */

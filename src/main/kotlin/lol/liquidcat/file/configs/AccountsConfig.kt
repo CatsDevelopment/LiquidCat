@@ -11,7 +11,7 @@ import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.login.MinecraftAccount
 import java.io.*
 
-class AccountsConfig(file: File?) : FileConfig(file!!) {
+object AccountsConfig : FileConfig(File(FileManager.mainDir, "accounts.json")) {
 
     @JvmField
     val altManagerMinecraftAccounts: MutableList<MinecraftAccount> = ArrayList()

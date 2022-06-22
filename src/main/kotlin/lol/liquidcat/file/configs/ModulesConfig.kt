@@ -14,7 +14,7 @@ import lol.liquidcat.file.FileConfig
 import lol.liquidcat.file.FileManager
 import java.io.*
 
-class ModulesConfig(file: File?) : FileConfig(file!!) {
+object ModulesConfig : FileConfig(File(FileManager.mainDir, "modules.json")) {
 
     override fun load() {
         val jsonElement = JsonParser().parse(BufferedReader(FileReader(file)))

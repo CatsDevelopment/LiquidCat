@@ -7,6 +7,8 @@ package net.ccbluex.liquidbounce.ui.client
 
 import lol.liquidcat.LiquidCat
 import lol.liquidcat.file.FileManager
+import lol.liquidcat.file.configs.ClickGuiConfig
+import lol.liquidcat.file.configs.HudConfig
 import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.font.Fonts
@@ -62,7 +64,7 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                     ScriptManager.importScript(file)
 
                     LiquidCat.clickGui = ClickGui()
-                    FileManager.loadConfig(FileManager.clickGuiConfig)
+                    FileManager.loadConfig(ClickGuiConfig)
                     return
                 } else if (fileName.endsWith(".zip")) {
                     val zipFile = ZipFile(file)
@@ -93,8 +95,8 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                     scriptFiles.forEach { scriptFile -> ScriptManager.loadScript(scriptFile) }
 
                     LiquidCat.clickGui = ClickGui()
-                    FileManager.loadConfig(FileManager.clickGuiConfig)
-                    FileManager.loadConfig(FileManager.hudConfig)
+                    FileManager.loadConfig(ClickGuiConfig)
+                    FileManager.loadConfig(HudConfig)
                     return
                 }
 
@@ -111,8 +113,8 @@ class GuiScripts(private val prevGui: GuiScreen) : GuiScreen() {
                     ScriptManager.deleteScript(script)
 
                     LiquidCat.clickGui = ClickGui()
-                    FileManager.loadConfig(FileManager.clickGuiConfig)
-                    FileManager.loadConfig(FileManager.hudConfig)
+                    FileManager.loadConfig(ClickGuiConfig)
+                    FileManager.loadConfig(HudConfig)
                 }
             } catch (t: Throwable) {
                 LiquidCat.logger.error("Something went wrong while deleting a script.", t)

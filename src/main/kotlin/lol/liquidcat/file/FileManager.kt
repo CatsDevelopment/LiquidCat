@@ -34,51 +34,15 @@ object FileManager {
         if (!exists()) mkdir()
     }
 
-    /**
-     * Config file containing modules settings
-     */
-    val modulesConfig = ModulesConfig(File(mainDir, "modules.json"))
-
-    /**
-     * Config file containing settings of different values
-     */
-    val valuesConfig = ValuesConfig(File(mainDir, "values.json"))
-
-    /**
-     * Config file containing CilckGUI settings
-     */
-    val clickGuiConfig = ClickGuiConfig(File(mainDir, "clickgui.json"))
-
-    /**
-     * Config file containing saved accounts
-     */
-    val accountsConfig = AccountsConfig(File(mainDir, "accounts.json"))
-
-    /**
-     * Config file containing a list of friends
-     */
-    val friendsConfig = FriendsConfig(File(mainDir, "friends.json"))
-
-    /**
-     * Config file containing a list of blocks allowed for XRay module
-     */
-    val xrayConfig = XRayConfig(File(mainDir, "xray-blocks.json"))
-
-    /**
-     * Config file containing HUD settings
-     */
-    val hudConfig = HudConfig(File(mainDir, "hud.json"))
-    val shortcutsConfig = ShortcutsConfig(File(mainDir, "shortcuts.json"))
-
     val configs = arrayOf(
-        modulesConfig,
-        valuesConfig,
-        clickGuiConfig,
-        accountsConfig,
-        friendsConfig,
-        xrayConfig,
-        hudConfig,
-        shortcutsConfig
+        ModulesConfig,
+        ValuesConfig,
+        ClickGuiConfig,
+        AccountsConfig,
+        FriendsConfig,
+        XRayConfig,
+        HudConfig,
+        ShortcutsConfig
     )
 
     val PRETTY_GSON = GsonBuilder().setPrettyPrinting().create()
@@ -98,15 +62,16 @@ object FileManager {
      */
     fun loadConfig(config: FileConfig) {
         if (!config.exists()) {
-            LiquidCat.logger.info("[FileManager] Skipped loading config: " + config.file.name + ".")
+            LiquidCat.logger.info("[FileManager] Skipped loading config: ${config.file.name}.")
             saveConfig(config, true)
             return
         }
-        try {
+
+        runCatching {
             config.load()
-            LiquidCat.logger.info("[FileManager] Loaded config: " + config.file.name + ".")
-        } catch (t: Throwable) {
-            LiquidCat.logger.error("[FileManager] Failed to load config file: " + config.file.name + ".", t)
+            LiquidCat.logger.info("[FileManager] Loaded config: ${config.file.name}.")
+        }.onFailure {
+            LiquidCat.logger.error("[FileManager] Failed to load config file: ${config.file.name}.", it)
         }
     }
 
@@ -118,15 +83,12 @@ object FileManager {
     fun saveConfig(config: FileConfig, ignoreStarting: Boolean = false) {
         if (!ignoreStarting && LiquidCat.loading) return
 
-        try {
+        runCatching {
             if (!config.exists()) config.create()
             config.save()
-            LiquidCat.logger.info("[FileManager] Saved config: " + config.file.name + ".")
-        } catch (t: Throwable) {
-            LiquidCat.logger.error(
-                "[FileManager] Failed to save config file: " +
-                        config.file.name + ".", t
-            )
+            LiquidCat.logger.info("[FileManager] Saved config: ${config.file.name}.")
+        }.onFailure {
+            LiquidCat.logger.error("[FileManager] Failed to save config file: ${config.file.name}.", it)
         }
     }
 }

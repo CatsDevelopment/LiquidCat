@@ -37,6 +37,7 @@ import java.util.Random;
 
 import lol.liquidcat.LiquidCat;
 import lol.liquidcat.file.FileManager;
+import lol.liquidcat.file.configs.AccountsConfig;
 import lol.liquidcat.utils.io.HttpUtils;
 import lol.liquidcat.utils.login.LoginUtils;
 import lol.liquidcat.utils.login.MinecraftAccount;
@@ -95,7 +96,7 @@ public class GuiAltManager extends GuiScreen {
         if (result == LoginUtils.LoginResult.LOGGED) {
             String userName = Minecraft.getMinecraft().getSession().getUsername();
             minecraftAccount.setAccountName(userName);
-            FileManager.INSTANCE.saveConfig(FileManager.INSTANCE.getAccountsConfig(), false);
+            FileManager.INSTANCE.saveConfig(AccountsConfig.INSTANCE, false);
             return "§cYour name is now §f§l" + userName + "§c.";
         }
 
@@ -106,7 +107,7 @@ public class GuiAltManager extends GuiScreen {
             return "§cCannot contact authentication server.";
 
         if (result == LoginUtils.LoginResult.INVALID_ACCOUNT_DATA)
-            return "§cInvaild username or password.";
+            return "§cInvalid username or password.";
 
         if (result == LoginUtils.LoginResult.MIGRATED)
             return "§cAccount migrated.";
@@ -120,8 +121,8 @@ public class GuiAltManager extends GuiScreen {
 
         int index = -1;
 
-        for (int i = 0; i < FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.size(); i++) {
-            MinecraftAccount minecraftAccount = FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.get(i);
+        for (int i = 0; i < AccountsConfig.altManagerMinecraftAccounts.size(); i++) {
+            MinecraftAccount minecraftAccount = AccountsConfig.altManagerMinecraftAccounts.get(i);
 
             if (minecraftAccount != null && (
                     ((
@@ -164,9 +165,9 @@ public class GuiAltManager extends GuiScreen {
 
         altsList.drawScreen(mouseX, mouseY, partialTicks);
 
-        Fonts.nunitoBold40.drawCenteredString("AltManager", width / 2, 6, 0xffffff);
-        Fonts.nunito35.drawCenteredString(FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.size() + " Alts", width / 2, 18, 0xffffff);
-        Fonts.nunito35.drawCenteredString(status, width / 2, 32, 0xffffff);
+        Fonts.nunitoBold40.drawCenteredString("AltManager", width / 2f, 6, 0xffffff);
+        Fonts.nunito35.drawCenteredString(AccountsConfig.altManagerMinecraftAccounts.size() + " Alts", width / 2f, 18, 0xffffff);
+        Fonts.nunito35.drawCenteredString(status, width / 2f, 32, 0xffffff);
         Fonts.nunito35.drawStringWithShadow("§7User: §a" + mc.getSession().getUsername(), 6, 6, 0xffffff);
         Fonts.nunito35.drawStringWithShadow("§7Type: §a" + (altService.getCurrentService() == AltService.EnumAltService.THEALTENING ? "TheAltening" : UserUtils.isValidTokenOffline(mc.getSession().getToken()) ? "Premium" : "Cracked"), 6, 15, 0xffffff);
 
@@ -186,8 +187,8 @@ public class GuiAltManager extends GuiScreen {
                 break;
             case 2:
                 if (altsList.getSelectedSlot() != -1 && altsList.getSelectedSlot() < altsList.getSize()) {
-                    FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.remove(altsList.getSelectedSlot());
-                    FileManager.INSTANCE.saveConfig(FileManager.INSTANCE.getAccountsConfig(), false);
+                    AccountsConfig.altManagerMinecraftAccounts.remove(altsList.getSelectedSlot());
+                    FileManager.INSTANCE.saveConfig(AccountsConfig.INSTANCE, false);
                     status = "§aThe account has been removed.";
                 } else
                     status = "§cSelect an account.";
@@ -197,7 +198,7 @@ public class GuiAltManager extends GuiScreen {
                     loginButton.enabled = randomButton.enabled = false;
 
                     final Thread thread = new Thread(() -> {
-                        final MinecraftAccount minecraftAccount = FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.get(altsList.getSelectedSlot());
+                        final MinecraftAccount minecraftAccount = AccountsConfig.altManagerMinecraftAccounts.get(altsList.getSelectedSlot());
                         status = "§aLogging in...";
                         status = login(minecraftAccount);
 
@@ -208,12 +209,12 @@ public class GuiAltManager extends GuiScreen {
                     status = "§cSelect an account.";
                 break;
             case 4:
-                if (FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.size() <= 0) {
+                if (AccountsConfig.altManagerMinecraftAccounts.size() <= 0) {
                     status = "§cThe list is empty.";
                     return;
                 }
 
-                final int randomInteger = new Random().nextInt(FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.size());
+                final int randomInteger = new Random().nextInt(AccountsConfig.altManagerMinecraftAccounts.size());
 
                 if (randomInteger < altsList.getSize())
                     altsList.selectedSlot = randomInteger;
@@ -221,7 +222,7 @@ public class GuiAltManager extends GuiScreen {
                 loginButton.enabled = randomButton.enabled = false;
 
                 final Thread thread = new Thread(() -> {
-                    final MinecraftAccount minecraftAccount = FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.get(randomInteger);
+                    final MinecraftAccount minecraftAccount = AccountsConfig.altManagerMinecraftAccounts.get(randomInteger);
                     status = "§aLogging in...";
                     status = login(minecraftAccount);
 
@@ -247,7 +248,7 @@ public class GuiAltManager extends GuiScreen {
 
                     boolean alreadyAdded = false;
 
-                    for (final MinecraftAccount registeredMinecraftAccount : FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts) {
+                    for (final MinecraftAccount registeredMinecraftAccount : AccountsConfig.altManagerMinecraftAccounts) {
                         if (registeredMinecraftAccount.getName().equalsIgnoreCase(accountData[0])) {
                             alreadyAdded = true;
                             break;
@@ -256,20 +257,20 @@ public class GuiAltManager extends GuiScreen {
 
                     if (!alreadyAdded) {
                         if (accountData.length > 1)
-                            FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.add(new MinecraftAccount(accountData[0], accountData[1]));
+                            AccountsConfig.altManagerMinecraftAccounts.add(new MinecraftAccount(accountData[0], accountData[1]));
                         else
-                            FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.add(new MinecraftAccount(accountData[0]));
+                            AccountsConfig.altManagerMinecraftAccounts.add(new MinecraftAccount(accountData[0]));
                     }
                 }
 
                 fileReader.close();
                 bufferedReader.close();
-                FileManager.INSTANCE.saveConfig(FileManager.INSTANCE.getAccountsConfig(), false);
+                FileManager.INSTANCE.saveConfig(AccountsConfig.INSTANCE, false);
                 status = "§aThe accounts were imported successfully.";
                 break;
             case 8:
                 if (altsList.getSelectedSlot() != -1 && altsList.getSelectedSlot() < altsList.getSize()) {
-                    final MinecraftAccount minecraftAccount = FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.get(altsList.getSelectedSlot());
+                    final MinecraftAccount minecraftAccount = AccountsConfig.altManagerMinecraftAccounts.get(altsList.getSelectedSlot());
 
                     if (minecraftAccount == null)
                         break;
@@ -348,7 +349,7 @@ public class GuiAltManager extends GuiScreen {
         }
 
         int getSelectedSlot() {
-            if (selectedSlot > FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.size())
+            if (selectedSlot > AccountsConfig.altManagerMinecraftAccounts.size())
                 selectedSlot = -1;
             return selectedSlot;
         }
@@ -359,7 +360,7 @@ public class GuiAltManager extends GuiScreen {
 
         @Override
         protected int getSize() {
-            return FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.size();
+            return AccountsConfig.altManagerMinecraftAccounts.size();
         }
 
         @Override
@@ -371,7 +372,7 @@ public class GuiAltManager extends GuiScreen {
                     loginButton.enabled = randomButton.enabled = false;
 
                     new Thread(() -> {
-                        MinecraftAccount minecraftAccount = FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.get(altsList.getSelectedSlot());
+                        MinecraftAccount minecraftAccount = AccountsConfig.altManagerMinecraftAccounts.get(altsList.getSelectedSlot());
                         status = "§aLogging in...";
                         status = "§c" + login(minecraftAccount);
 
@@ -384,9 +385,9 @@ public class GuiAltManager extends GuiScreen {
 
         @Override
         protected void drawSlot(int id, int x, int y, int var4, int var5, int var6) {
-            final MinecraftAccount minecraftAccount = FileManager.INSTANCE.getAccountsConfig().altManagerMinecraftAccounts.get(id);
-            Fonts.nunitoBold40.drawCenteredString(minecraftAccount.getAccountName() == null ? minecraftAccount.getName() : minecraftAccount.getAccountName(), (width / 2), y + 2, Color.WHITE.getRGB(), true);
-            Fonts.nunitoBold40.drawCenteredString(minecraftAccount.isCracked() ? "Cracked" : (minecraftAccount.getAccountName() == null ? "Premium" : minecraftAccount.getName()), (width / 2), y + 15, minecraftAccount.isCracked() ? Color.GRAY.getRGB() : (minecraftAccount.getAccountName() == null ? Color.GREEN.getRGB() : Color.LIGHT_GRAY.getRGB()), true);
+            final MinecraftAccount minecraftAccount = AccountsConfig.altManagerMinecraftAccounts.get(id);
+            Fonts.nunitoBold40.drawCenteredString(minecraftAccount.getAccountName() == null ? minecraftAccount.getName() : minecraftAccount.getAccountName(), width / 2f, y + 2, Color.WHITE.getRGB(), true);
+            Fonts.nunitoBold40.drawCenteredString(minecraftAccount.isCracked() ? "Cracked" : (minecraftAccount.getAccountName() == null ? "Premium" : minecraftAccount.getName()), width / 2f, y + 15, minecraftAccount.isCracked() ? Color.GRAY.getRGB() : (minecraftAccount.getAccountName() == null ? Color.GREEN.getRGB() : Color.LIGHT_GRAY.getRGB()), true);
         }
 
         @Override

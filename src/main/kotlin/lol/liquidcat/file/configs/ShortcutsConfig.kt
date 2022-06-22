@@ -16,7 +16,7 @@ import lol.liquidcat.file.FileManager
 import java.io.File
 import java.io.IOException
 
-class ShortcutsConfig(file: File) : FileConfig(file) {
+object ShortcutsConfig : FileConfig(File(FileManager.mainDir, "shortcuts.json")) {
 
     /**
      * Load config from file
