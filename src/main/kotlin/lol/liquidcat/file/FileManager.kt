@@ -45,7 +45,7 @@ object FileManager {
         ShortcutsConfig
     )
 
-    val PRETTY_GSON = GsonBuilder().setPrettyPrinting().create()
+    val gson = GsonBuilder().setPrettyPrinting().create()!!
 
     /**
      * Load all configs in file manager

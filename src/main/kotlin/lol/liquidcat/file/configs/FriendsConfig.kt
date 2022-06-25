@@ -38,7 +38,7 @@ object FriendsConfig : FileConfig(File(FileManager.mainDir, "friends.json")) {
         FriendManager.friends.forEach { jsonObject.addProperty(it.name, it.alias) }
 
         val printWriter = PrintWriter(FileWriter(file))
-        printWriter.println(FileManager.PRETTY_GSON.toJson(jsonObject))
+        printWriter.println(FileManager.gson.toJson(jsonObject))
         printWriter.close()
     }
 }

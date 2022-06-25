@@ -58,15 +58,6 @@ object ValuesConfig : FileConfig(File(FileManager.mainDir, "values.json")) {
             } else if (key.equals("liquidchat", ignoreCase = true)) {
                 val jsonValue = value as JsonObject
                 if (jsonValue.has("token")) jwtToken = jsonValue["token"].asString
-            } else {
-                val module = ModuleManager.getModule(key)
-                if (module != null) {
-                    val jsonModule = value as JsonObject
-                    for (moduleValue in module.values) {
-                        val element = jsonModule[moduleValue.name]
-                        if (element != null) moduleValue.fromJson(element)
-                    }
-                }
             }
         }
     }
@@ -95,14 +86,8 @@ object ValuesConfig : FileConfig(File(FileManager.mainDir, "values.json")) {
         val liquidChatObject = JsonObject()
         liquidChatObject.addProperty("token", jwtToken)
         jsonObject.add("liquidchat", liquidChatObject)
-        ModuleManager.modules.stream().filter { module: Module -> !module.values.isEmpty() }
-            .forEach { module: Module ->
-                val jsonModule = JsonObject()
-                module.values.forEach(Consumer { value: Value<*> -> jsonModule.add(value.name, value.toJson()) })
-                jsonObject.add(module.name, jsonModule)
-            }
         val printWriter = PrintWriter(FileWriter(file))
-        printWriter.println(FileManager.PRETTY_GSON.toJson(jsonObject))
+        printWriter.println(FileManager.gson.toJson(jsonObject))
         printWriter.close()
     }
 }

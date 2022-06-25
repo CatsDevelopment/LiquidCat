@@ -50,7 +50,7 @@ object AccountsConfig : FileConfig(File(FileManager.mainDir, "accounts.json")) {
         val accountList: MutableList<String> = ArrayList()
         altManagerMinecraftAccounts.forEach { accountList.add(it.name + ":" + (it.password ?: "") + ":" + (it.accountName ?: "")) }
         val printWriter = PrintWriter(FileWriter(file))
-        printWriter.println(FileManager.PRETTY_GSON.toJson(accountList))
+        printWriter.println(FileManager.gson.toJson(accountList))
         printWriter.close()
     }
 }

@@ -91,7 +91,7 @@ object ShortcutsConfig : FileConfig(File(FileManager.mainDir, "shortcuts.json"))
             jsonArray.add(jsonCommand)
         }
 
-        file.writeText(FileManager.PRETTY_GSON.toJson(jsonArray))
+        file.writeText(FileManager.gson.toJson(jsonArray))
     }
 
 }

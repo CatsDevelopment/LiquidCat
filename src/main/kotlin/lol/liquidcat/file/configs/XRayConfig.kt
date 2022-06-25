@@ -35,9 +35,9 @@ object XRayConfig : FileConfig(File(FileManager.mainDir, "xray-blocks.json")) {
 
     override fun save() {
         val jsonArray = JsonArray()
-        for (block in XRay.xrayBlocks) jsonArray.add(FileManager.PRETTY_GSON.toJsonTree(Block.getIdFromBlock(block)))
+        for (block in XRay.xrayBlocks) jsonArray.add(FileManager.gson.toJsonTree(Block.getIdFromBlock(block)))
         val printWriter = PrintWriter(FileWriter(file))
-        printWriter.println(FileManager.PRETTY_GSON.toJson(jsonArray))
+        printWriter.println(FileManager.gson.toJson(jsonArray))
         printWriter.close()
     }
 }
