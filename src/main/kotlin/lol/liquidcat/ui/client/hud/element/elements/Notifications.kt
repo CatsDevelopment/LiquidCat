@@ -85,7 +85,7 @@ class Notification(private val upperMessage: String, val message: String, val ty
         GL11.glPushMatrix()
         GL11.glTranslated((-width.toFloat() - 22) * factor - (-width.toFloat() - 22), 0.0, 0.0)
 
-        GLUtils.drawRoundedRect((-width.toFloat() - 22), -35f, 0f, 0f, 4f,
+        GLUtils.drawRoundedRect((-width.toFloat() - 22), -35f, 0f, 0f, 0.3f,
             if (type == NotificationType.ENABLED)
                 Color(74, 160, 84, 100)
             else

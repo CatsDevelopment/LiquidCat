@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL20
 
 object BlurShader : Shader("blur.frag") {
 
-    private var blurFBO = Framebuffer(mc.displayWidth, mc.displayHeight, true)
+    private var blurFBO = Framebuffer(mc.displayWidth, mc.displayHeight, false)
 
     override fun setupUniforms() {
         setupUniform("radius")
@@ -37,7 +37,8 @@ object BlurShader : Shader("blur.frag") {
         // Not possible to use a dynamic FloatBuffer in GLSL uniforms so the size must already be preset
         val weights = BufferUtils.createFloatBuffer(128)
 
-        (0..radius).forEach { weights.put(gaussian(it, radius / 2f)) }
+        for (i in 0..radius)
+            weights.put(gaussian(i, radius / 2f))
 
         // Old texture
         val oldTexture = glGetInteger(GL_TEXTURE_BINDING_2D)
@@ -45,7 +46,7 @@ object BlurShader : Shader("blur.frag") {
 
         // Resize blur FBO
         if (blurFBO.framebufferWidth != mc.displayWidth || blurFBO.framebufferHeight != mc.displayHeight)
-            blurFBO = Framebuffer(mc.displayWidth, mc.displayHeight, true)
+            blurFBO = Framebuffer(mc.displayWidth, mc.displayHeight, false)
 
         blurFBO.framebufferClear()
 

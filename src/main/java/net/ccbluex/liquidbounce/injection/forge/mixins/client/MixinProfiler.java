@@ -22,7 +22,7 @@ public class MixinProfiler {
     @Inject(method = "startSection", at = @At("HEAD"))
     private void startSection(String name, CallbackInfo callbackInfo) {
         if (name.equals("bossHealth") && ClassUtils.hasClass("net.labymod.api.LabyModAPI")) {
-            EventManager.callEvent(new Render2DEvent(0F));
+     //       EventManager.callEvent(new Render2DEvent(0F));
         }
     }
 }

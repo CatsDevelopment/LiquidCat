@@ -38,7 +38,7 @@ class CGuiButton(val id: Int, val name: String, val x: Int, val y: Int, width: I
             drawRoundedRect(
                 xPosition.toFloat(), yPosition.toFloat(),
                 xPosition.toFloat() + width - xOffset, yPosition.toFloat() + height,
-                5f,
+                0.4f,
                 if (enabled)
                     color.darker(anim.value.toFloat())
                 else

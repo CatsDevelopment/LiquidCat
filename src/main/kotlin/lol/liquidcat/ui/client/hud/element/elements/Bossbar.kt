@@ -34,7 +34,7 @@ class Bossbar(x: Double = 0.0, y: Double = 0.0, side: Side = Side(Side.Horizonta
             val healthWidth = BossStatus.healthScale * width
 
             if (healthWidth > 0) {
-                GLUtils.drawRoundedRect(-hWidth, 12f, -hWidth + healthWidth, 17f, 1.2f, Color(red, green, blue))
+                GLUtils.drawRoundedRect(-hWidth, 12f, -hWidth + healthWidth, 17f, 1f, Color(red, green, blue))
 
                 Fonts.nunitoExBold40.drawCenteredString(
                     BossStatus.bossName,

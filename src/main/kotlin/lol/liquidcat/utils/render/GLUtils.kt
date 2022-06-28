@@ -128,6 +128,8 @@ object GLUtils {
      */
     @JvmStatic
     fun drawRoundedRect(x: Float, y: Float, x2: Float, y2: Float, radius: Float, color: Color) {
+        require(radius in 0f..1f) { "Rectangle radius should be between 0 and 1" }
+
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
@@ -162,6 +164,8 @@ object GLUtils {
     @Suppress("unused")
     // @TODO Use this in clickgui
     fun drawSeparateRoundedRect(x: Float, y: Float, x2: Float, y2: Float, tr: Float, br: Float, tl: Float, bl: Float, color: Color) {
+        require(tr in 0f..1f && br in 0f..1f && tl in 0f..1f && br in 0f..1f) { "Rectangle radii should be between 0 and 1" }
+
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 

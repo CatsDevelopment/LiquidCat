@@ -5,7 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
-import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
@@ -23,12 +22,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.Color;
 
-import lol.liquidcat.event.EventManager;
-import lol.liquidcat.event.Render2DEvent;
 import lol.liquidcat.features.module.modules.render.AntiBlind;
 import lol.liquidcat.features.module.modules.render.HUD;
 import lol.liquidcat.features.module.modules.render.NoScoreboard;
-import lol.liquidcat.utils.ClassUtils;
 import lol.liquidcat.utils.render.GLUtils;
 
 @Mixin(GuiIngame.class)
@@ -73,8 +69,6 @@ public abstract class MixinGuiInGame {
             GlStateManager.disableRescaleNormal();
             GlStateManager.disableBlend();
 
-            EventManager.callEvent(new Render2DEvent(partialTicks));
-            AWTFontRenderer.Companion.garbageCollectionTick();
             callbackInfo.cancel();
         }
     }
@@ -83,14 +77,6 @@ public abstract class MixinGuiInGame {
     private void renderBossHealth(CallbackInfo callbackInfo) {
         if (HUD.INSTANCE.getState()) {
             callbackInfo.cancel();
-        }
-    }
-
-    @Inject(method = "renderTooltip", at = @At("RETURN"))
-    private void renderTooltipPost(ScaledResolution sr, float partialTicks, CallbackInfo callbackInfo) {
-        if (!ClassUtils.hasClass("net.labymod.api.LabyModAPI")) {
-            EventManager.callEvent(new Render2DEvent(partialTicks));
-            AWTFontRenderer.Companion.garbageCollectionTick();
         }
     }
 

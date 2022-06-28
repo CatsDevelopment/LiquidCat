@@ -30,7 +30,7 @@
     "gui.MixinGuiNewChat",
     "gui.MixinGuiScreen",
     "gui.MixinGuiSlot",
-    "gui.MixinGuiSpectator",
+    "gui.MixinGuiIngameForge",
     "gui.MixinServerSelectionList",
     "item.MixinItemRenderer",
     "item.MixinItemStack",

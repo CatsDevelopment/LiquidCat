@@ -50,10 +50,10 @@ class Inventory : Element() {
 
         if (blur)
             GLUtils.blur(10) {
-                GLUtils.drawRoundedRect(0f, -15f, invWidth, invHeight, 10f, Color.WHITE)
+                GLUtils.drawRoundedRect(0f, -15f, invWidth, invHeight, 0.3f, Color.WHITE)
             }
 
-        GLUtils.drawRoundedRect(0f, -15f, invWidth, invHeight, 10f, Color(red, green, blue, alpha))
+        GLUtils.drawRoundedRect(0f, -15f, invWidth, invHeight, 0.3f, Color(red, green, blue, alpha))
         Fonts.nunitoBold40.drawString("Inventory", titleX, -10f, Color.WHITE.rgb)
 
         for (i in 9..35) {

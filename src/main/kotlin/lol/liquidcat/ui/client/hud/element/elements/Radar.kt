@@ -35,17 +35,17 @@ class Radar(x: Double = 4.0, y: Double = 32.0, scale: Float = 1F, side: Side = S
     override fun drawElement(): Border {
 
         GLUtils.blur(10) {
-            GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 10f, Color.WHITE)
+            GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 0.2f, Color.WHITE)
         }
 
         StencilUtils.initStencil(mc.framebuffer)
         StencilUtils.writeToStencil()
-        GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 10f, Color.WHITE)
+        GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 0.2f, Color.WHITE)
         StencilUtils.readFromStencil()
 
         GL11.glPushMatrix()
 
-        GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 10f, Color(red, green, blue, alpha))
+        GLUtils.drawRoundedRect(0f, 0f, 100f, 100f, 0.2f, Color(red, green, blue, alpha))
 
         GL11.glEnable(GL11.GL_BLEND)
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)

@@ -3,6 +3,7 @@
 uniform vec2 size;
 uniform vec4 color;
 uniform vec4 radius;
+uniform float smoothness;
 
 float sdRoundBox(in vec2 p, in vec2 b, in vec4 r)
 {
@@ -16,10 +17,11 @@ float sdRoundBox(in vec2 p, in vec2 b, in vec4 r)
 
 void main()
 {
-    vec2 halfSize = size * 0.5;
+    vec2 halfSize = size / 2;
+    float minSize = min(halfSize.x, halfSize.y);
 
-    float b = sdRoundBox((gl_TexCoord[0].xy * size) - halfSize, halfSize - 1.0, radius);
-    vec4 c = mix(color, vec4(color.rgb, 0.0), smoothstep(0.0, 1.0, b));
+    float b = sdRoundBox((gl_TexCoord[0].xy * size) - halfSize, halfSize - smoothness, minSize * radius);
+    vec4 c = mix(color, vec4(color.rgb, 0.0), smoothstep(0.0, smoothness, b));
 
     gl_FragColor = c;
 }
