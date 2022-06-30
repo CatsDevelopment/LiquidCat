@@ -12,7 +12,7 @@ import lol.liquidcat.ui.client.hud.element.ElementInfo
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.TextValue
-import net.ccbluex.liquidbounce.utils.misc.MiscUtils
+import lol.liquidcat.utils.MiscUtils
 import net.minecraft.client.renderer.texture.DynamicTexture
 import net.minecraft.util.ResourceLocation
 import org.apache.commons.lang3.RandomStringUtils

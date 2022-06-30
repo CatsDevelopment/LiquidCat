@@ -7,7 +7,7 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.utils.sendPacket
-import net.ccbluex.liquidbounce.utils.misc.StringUtils
+import lol.liquidcat.utils.StringUtils
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound

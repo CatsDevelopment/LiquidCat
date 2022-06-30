@@ -16,7 +16,6 @@ import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.io.HttpUtils.get
 import lol.liquidcat.utils.render.color.ColorUtils.translateAlternateColorCodes
 import lol.liquidcat.value.*
-import net.ccbluex.liquidbounce.utils.misc.StringUtils
 import org.lwjgl.input.Keyboard
 
 object SettingsUtils {

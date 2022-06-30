@@ -9,7 +9,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.utils.SettingsUtils
-import net.ccbluex.liquidbounce.utils.misc.StringUtils
+import lol.liquidcat.utils.StringUtils
 import java.io.File
 import java.io.IOException
 

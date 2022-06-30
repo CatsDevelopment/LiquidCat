@@ -9,7 +9,7 @@ import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.friend.FriendManager
 import lol.liquidcat.file.FileManager
 import lol.liquidcat.file.configs.FriendsConfig
-import net.ccbluex.liquidbounce.utils.misc.StringUtils
+import lol.liquidcat.utils.StringUtils
 
 object FriendCommand : Command("friend", arrayOf("friends")) {
     /**

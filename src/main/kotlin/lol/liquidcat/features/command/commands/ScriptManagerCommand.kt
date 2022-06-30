@@ -15,7 +15,7 @@ import lol.liquidcat.file.configs.ModulesConfig
 import lol.liquidcat.file.configs.ValuesConfig
 import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
-import net.ccbluex.liquidbounce.utils.misc.MiscUtils
+import lol.liquidcat.utils.MiscUtils
 import org.apache.commons.io.IOUtils
 import java.awt.Desktop
 import java.io.File

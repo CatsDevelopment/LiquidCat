@@ -16,7 +16,7 @@ import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiDirectLogin;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.GuiSessionLogin;
 import net.ccbluex.liquidbounce.ui.client.altmanager.sub.altgenerator.GuiTheAltening;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.utils.misc.MiscUtils;
+import lol.liquidcat.utils.MiscUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

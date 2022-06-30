@@ -6,7 +6,7 @@
 package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.features.command.Command
-import net.ccbluex.liquidbounce.utils.misc.StringUtils
+import lol.liquidcat.utils.StringUtils
 
 object SayCommand : Command("say", emptyArray()) {
     /**

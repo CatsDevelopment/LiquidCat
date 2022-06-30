@@ -7,7 +7,7 @@ package lol.liquidcat.features.command.commands
 
 import lol.liquidcat.features.command.Command
 import lol.liquidcat.features.command.CommandManager
-import net.ccbluex.liquidbounce.utils.misc.StringUtils
+import lol.liquidcat.utils.StringUtils
 
 object ShortcutCommand: Command("shortcut", arrayOf()) {
     /**
