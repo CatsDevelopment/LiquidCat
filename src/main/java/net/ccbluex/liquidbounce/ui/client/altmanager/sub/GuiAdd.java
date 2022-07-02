@@ -204,7 +204,7 @@ public class GuiAdd extends GuiScreen {
 
 
             AccountsConfig.altManagerMinecraftAccounts.add(account);
-            FileManager.INSTANCE.saveConfig(AccountsConfig.INSTANCE, false);
+            FileManager.saveConfig(AccountsConfig.INSTANCE);
 
             status = "§aThe account has been added.";
             prevGui.status = status;

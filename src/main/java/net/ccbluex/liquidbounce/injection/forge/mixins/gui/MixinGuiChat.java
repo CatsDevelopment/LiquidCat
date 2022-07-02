@@ -25,29 +25,27 @@ import java.util.List;
 
 import lol.liquidcat.features.command.CommandManager;
 import lol.liquidcat.features.friend.FriendManager;
-import lol.liquidcat.utils.render.GLUtils;
+import lol.liquidcat.utils.render.animation.Animation;
+import lol.liquidcat.utils.render.animation.easing.Direction;
+import lol.liquidcat.utils.render.animation.easing.easings.Quart;
 
 @Mixin(GuiChat.class)
 @SideOnly(Side.CLIENT)
 public abstract class MixinGuiChat extends MixinGuiScreen {
+
     @Shadow
     protected GuiTextField inputField;
 
     @Shadow
     private List<String> foundPlayerNames;
+
     @Shadow
     private boolean waitingOnAutocomplete;
-    private float yPosOfInputField;
-    private float fade = 0;
 
     @Shadow
     public abstract void onAutocompleteResponse(String[] p_onAutocompleteResponse_1_);
 
-    @Inject(method = "initGui", at = @At("RETURN"))
-    private void init(CallbackInfo callbackInfo) {
-        inputField.yPosition = height + 1;
-        yPosOfInputField = inputField.yPosition;
-    }
+    private final Animation anim = new Animation(100, Quart.INSTANCE, Direction.OUT);
 
     @Inject(method = "keyTyped", at = @At("RETURN"))
     private void updateLength(CallbackInfo callbackInfo) {
@@ -55,19 +53,6 @@ public abstract class MixinGuiChat extends MixinGuiScreen {
             inputField.setMaxStringLength(10000);
         else
             inputField.setMaxStringLength(100);
-    }
-
-    @Inject(method = "updateScreen", at = @At("HEAD"))
-    private void updateScreen(CallbackInfo callbackInfo) {
-        final int delta = GLUtils.deltaTime;
-
-        if (fade < 14) fade += 0.4F * delta;
-        if (fade > 14) fade = 14;
-
-        if (yPosOfInputField > height - 12) yPosOfInputField -= 0.4F * delta;
-        if (yPosOfInputField < height - 12) yPosOfInputField = height - 12;
-
-        inputField.yPosition = (int) yPosOfInputField;
     }
 
     @Inject(method = "autocompletePlayerNames", at = @At("HEAD"))
@@ -103,11 +88,13 @@ public abstract class MixinGuiChat extends MixinGuiScreen {
      */
     @Overwrite
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        Gui.drawRect(2, this.height - (int) fade, this.width - 2, this.height, Integer.MIN_VALUE);
+        anim.update(false);
+
+        Gui.drawRect(2, this.height - 14, (int) (anim.getValue() * width - 2), this.height - 2, Integer.MIN_VALUE);
+
         this.inputField.drawTextBox();
 
-        IChatComponent ichatcomponent =
-                this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
+        IChatComponent ichatcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 
         if (ichatcomponent != null)
             this.handleComponentHover(ichatcomponent, mouseX, mouseY);

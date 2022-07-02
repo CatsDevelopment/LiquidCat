@@ -159,11 +159,11 @@ object ModuleManager : Listenable {
             Teams
         ).apply {
 
-            // Registers each module
-            forEach { registerModule(it) }
-
             // Sorts modules alphabetically
             sortBy { it.name }
+
+            // Registers each module
+            forEach { registerModule(it) }
         }
 
         LiquidCat.logger.info("[ModuleManager] Loaded ${modules.size} modules.")

@@ -96,7 +96,7 @@ public class GuiAltManager extends GuiScreen {
         if (result == LoginUtils.LoginResult.LOGGED) {
             String userName = Minecraft.getMinecraft().getSession().getUsername();
             minecraftAccount.setAccountName(userName);
-            FileManager.INSTANCE.saveConfig(AccountsConfig.INSTANCE, false);
+            FileManager.saveConfig(AccountsConfig.INSTANCE);
             return "§cYour name is now §f§l" + userName + "§c.";
         }
 
@@ -188,7 +188,7 @@ public class GuiAltManager extends GuiScreen {
             case 2:
                 if (altsList.getSelectedSlot() != -1 && altsList.getSelectedSlot() < altsList.getSize()) {
                     AccountsConfig.altManagerMinecraftAccounts.remove(altsList.getSelectedSlot());
-                    FileManager.INSTANCE.saveConfig(AccountsConfig.INSTANCE, false);
+                    FileManager.saveConfig(AccountsConfig.INSTANCE);
                     status = "§aThe account has been removed.";
                 } else
                     status = "§cSelect an account.";
@@ -265,7 +265,7 @@ public class GuiAltManager extends GuiScreen {
 
                 fileReader.close();
                 bufferedReader.close();
-                FileManager.INSTANCE.saveConfig(AccountsConfig.INSTANCE, false);
+                FileManager.saveConfig(AccountsConfig.INSTANCE);
                 status = "§aThe accounts were imported successfully.";
                 break;
             case 8:

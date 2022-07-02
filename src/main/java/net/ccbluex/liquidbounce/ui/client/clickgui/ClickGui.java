@@ -332,7 +332,7 @@ public class ClickGui extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        FileManager.INSTANCE.saveConfig(ClickGuiConfig.INSTANCE, false);
+        FileManager.saveConfig(ClickGuiConfig.INSTANCE);
     }
 
     @Override

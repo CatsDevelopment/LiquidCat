@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11
 import kotlin.math.max
 import kotlin.math.min
 
-open class HUD {
+class HUD {
 
     val elements = mutableListOf<Element>()
     val notifications = mutableListOf<Notification>()

@@ -20,7 +20,7 @@ abstract class FileConfig(val file: File) {
     abstract fun save()
 
     /**
-     * Create config
+     * Create config file
      */
     fun create() = file.createNewFile()
 

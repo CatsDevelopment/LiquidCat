@@ -39,7 +39,7 @@ public abstract class MixinGuiMultiplayer extends MixinGuiScreen {
             case 998:
                 BungeeCordSpoof.enabled = !BungeeCordSpoof.enabled;
                 bungeeCordSpoofButton.displayString = "BungeeCord Spoof: " + (BungeeCordSpoof.enabled ? "On" : "Off");
-                FileManager.INSTANCE.saveConfig(ValuesConfig.INSTANCE, false);
+                FileManager.saveConfig(ValuesConfig.INSTANCE);
                 break;
         }
     }

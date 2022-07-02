@@ -31,13 +31,13 @@ open class Module(
         set(value) {
             field = value
 
-            if (!LiquidCat.loading) FileManager.saveConfig(ModulesConfig)
+            FileManager.saveConfig(ModulesConfig)
         }
     var hide = hide
         set(value) {
             field = value
 
-            if (!LiquidCat.loading) FileManager.saveConfig(ModulesConfig)
+            FileManager.saveConfig(ModulesConfig)
         }
     var state = false
         set(value) {

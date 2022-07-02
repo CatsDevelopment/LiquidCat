@@ -80,6 +80,8 @@ object FileManager {
      *
      * @param ignoreStarting check starting
      */
+    @JvmOverloads
+    @JvmStatic
     fun saveConfig(config: FileConfig, ignoreStarting: Boolean = false) {
         if (!ignoreStarting && LiquidCat.loading) return
 

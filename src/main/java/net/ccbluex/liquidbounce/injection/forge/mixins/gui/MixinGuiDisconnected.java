@@ -113,7 +113,7 @@ public abstract class MixinGuiDisconnected extends MixinGuiScreen {
             case 5:
                 AntiForge.enabled = !AntiForge.enabled;
                 forgeBypassButton.displayString = "Bypass AntiForge: " + (AntiForge.enabled ? "On" : "Off");
-                FileManager.INSTANCE.saveConfig(ValuesConfig.INSTANCE, false);
+                FileManager.saveConfig(ValuesConfig.INSTANCE);
                 break;
         }
     }
