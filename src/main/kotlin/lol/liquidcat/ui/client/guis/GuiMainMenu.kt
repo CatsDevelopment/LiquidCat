@@ -10,9 +10,11 @@ import lol.liquidcat.ui.client.CGuiButton
 import lol.liquidcat.utils.render.GLUtils
 import net.ccbluex.liquidbounce.ui.client.GuiModsMenu
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
+import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.client.gui.*
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
+import java.awt.Color
 
 class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
 
@@ -36,6 +38,9 @@ class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
         GlStateManager.enableTexture2D()
         GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.lowercase() + "/images/menu_client_logo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
         GlStateManager.disableTexture2D()
+
+        Fonts.nunito35.drawString("${LiquidCat.CLIENT_NAME} ${LiquidCat.CLIENT_VERSION}", 10f, height - Fonts.nunito40.FONT_HEIGHT * 2 - 5f, Color.WHITE.rgb)
+        Fonts.nunito35.drawString("Made by ${LiquidCat.CLIENT_CREATOR}", 10f, height - Fonts.nunito40.FONT_HEIGHT - 5f, Color.WHITE.rgb)
 
         super.drawScreen(mouseX, mouseY, partialTicks)
     }

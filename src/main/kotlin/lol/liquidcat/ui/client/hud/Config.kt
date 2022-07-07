@@ -13,7 +13,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.ui.client.hud.HUD.Companion.createDefault
 import lol.liquidcat.ui.client.hud.HUD.Companion.elements
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Align
 import lol.liquidcat.value.FontValue
 
 class Config {
@@ -31,8 +31,8 @@ class Config {
             elementObject.addProperty("X", element.x)
             elementObject.addProperty("Y", element.y)
             elementObject.addProperty("Scale", element.scale)
-            elementObject.addProperty("HorizontalFacing", element.side.horizontal.sideName)
-            elementObject.addProperty("VerticalFacing", element.side.vertical.sideName)
+            elementObject.addProperty("HorizontalFacing", element.align.horizontal.title)
+            elementObject.addProperty("VerticalFacing", element.align.vertical.title)
 
             for (value in element.values)
                 elementObject.add(value.name, value.toJson())
@@ -66,9 +66,9 @@ class Config {
                             element.x = jsonObject["X"].asInt.toDouble()
                             element.y = jsonObject["Y"].asInt.toDouble()
                             element.scale = jsonObject["Scale"].asFloat
-                            element.side = Side(
-                                    Side.Horizontal.byName(jsonObject["HorizontalFacing"].asString)!!,
-                                    Side.Vertical.byName(jsonObject["VerticalFacing"].asString)!!
+                            element.align = Align(
+                                    Align.Horizontal.byName(jsonObject["HorizontalFacing"].asString)!!,
+                                    Align.Vertical.byName(jsonObject["VerticalFacing"].asString)!!
                             )
 
                             for (value in element.values) {

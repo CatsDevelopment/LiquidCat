@@ -8,7 +8,7 @@ package lol.liquidcat.ui.client.hud.element.elements
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Align
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.FloatValue
@@ -17,8 +17,8 @@ import org.lwjgl.opengl.GL11
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-@ElementInfo(name = "SpeedGraph", single = true)
-class SpeedGraph(x: Double = 90.0, y: Double = 112.0, scale: Float = 1F, side: Side = Side(Side.Horizontal.MIDDLE, Side.Vertical.DOWN)) : Element(x, y, scale, side) {
+@ElementInfo("SpeedGraph", true)
+class SpeedGraph : Element(90.0, 112.0, align = Align(Align.Horizontal.MIDDLE, Align.Vertical.DOWN)) {
 
     private val multiplier by FloatValue("Multiplier", 20f, 10f..50f)
     private val height by IntValue("Height", 60, 30..150)

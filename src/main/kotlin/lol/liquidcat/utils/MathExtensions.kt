@@ -8,10 +8,7 @@
 package lol.liquidcat.utils
 
 import java.math.RoundingMode
-import kotlin.math.PI
-import kotlin.math.exp
-import kotlin.math.pow
-import kotlin.math.sqrt
+import kotlin.math.*
 
 const val DEGREES_TO_RADIANS = 0.017453292519943295
 
@@ -21,7 +18,8 @@ const val RADIANS_TO_DEGREES = 57.29577951308232
  * Rounds double with [x] number of decimals
  */
 fun Double.round(x: Int): Double {
-    require(x >= 0)
+    require(x >= 0) { "The value of decimal places must be absolute" }
+
     return this.toBigDecimal().setScale(x, RoundingMode.HALF_UP).toDouble()
 }
 
@@ -41,7 +39,7 @@ fun Double.toDegrees() = this * RADIANS_TO_DEGREES
  * [Assignment information](https://en.wikipedia.org/wiki/Gaussian_blur)
  */
 fun gaussian(x: Int, sigma: Float): Float {
-    val s = sigma.pow(2) * 2
+    val s = sigma * sigma * 2
 
     return (1f / (sqrt(PI.toFloat() * s))) * exp(-(x * x) / s)
 }

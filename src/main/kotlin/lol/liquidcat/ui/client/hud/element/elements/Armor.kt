@@ -8,7 +8,7 @@ package lol.liquidcat.ui.client.hud.element.elements
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Align
 import lol.liquidcat.utils.mc
 import lol.liquidcat.value.ListValue
 import net.minecraft.block.material.Material
@@ -20,10 +20,8 @@ import org.lwjgl.opengl.GL11
  *
  * Shows a horizontal display of current armor
  */
-@ElementInfo(name = "Armor")
-class Armor(x: Double = -8.0, y: Double = 57.0, scale: Float = 1F,
-            side: Side = Side(Side.Horizontal.MIDDLE, Side.Vertical.DOWN)
-) : Element(x, y, scale, side) {
+@ElementInfo("Armor")
+class Armor : Element(-8.0, 57.0, align = Align(Align.Horizontal.MIDDLE, Align.Vertical.DOWN)) {
 
     private val mode by ListValue("Alignment", arrayOf("Horizontal", "Vertical"), "Horizontal")
 

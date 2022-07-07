@@ -9,7 +9,7 @@ import lol.liquidcat.LiquidCat
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Align
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.animation.Animation
 import lol.liquidcat.utils.render.animation.easing.Direction
@@ -24,8 +24,8 @@ import kotlin.math.max
 /**
  * CustomHUD Notification element
  */
-@ElementInfo(name = "Notifications", single = true)
-class Notifications(x: Double = 0.0, y: Double = 30.0, scale: Float = 1F, side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.DOWN)) : Element(x, y, scale, side) {
+@ElementInfo("Notifications", true)
+class Notifications : Element(0.0, 30.0, align = Align(Align.Horizontal.RIGHT, Align.Vertical.DOWN)) {
 
     private val blur by BoolValue("Blur", true)
     
@@ -34,7 +34,7 @@ class Notifications(x: Double = 0.0, y: Double = 30.0, scale: Float = 1F, side: 
      */
     override fun drawElement(): Border {
 
-        LiquidCat.hud.notifications.removeIf { it.endAnim.value == 1.0 }
+        LiquidCat.hud.notifications.removeAll { it.endAnim.value == 1.0 }
         
         if (blur) {
             GLUtils.blur(10) {

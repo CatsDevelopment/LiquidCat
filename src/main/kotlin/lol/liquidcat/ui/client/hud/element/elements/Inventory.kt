@@ -19,7 +19,7 @@ import net.minecraft.client.renderer.RenderHelper
 import net.minecraft.item.ItemStack
 import java.awt.Color
 
-@ElementInfo(name = "Inventory", single = true)
+@ElementInfo("Inventory", true)
 class Inventory : Element() {
 
     private val title by ListValue("Title", arrayOf("Right", "Center", "Left"), "Right")

@@ -8,7 +8,7 @@ package lol.liquidcat.ui.client.hud.element.elements
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Align
 import lol.liquidcat.utils.mc
 import lol.liquidcat.value.BoolValue
 import lol.liquidcat.value.FontValue
@@ -23,10 +23,8 @@ import net.minecraft.util.StringUtils
  *
  * Shows a list of active potion effects
  */
-@ElementInfo(name = "Effects")
-class Effects(x: Double = 2.0, y: Double = 10.0, scale: Float = 1F,
-              side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.DOWN)
-) : Element(x, y, scale, side) {
+@ElementInfo("Effects")
+class Effects : Element(2.0, 10.0, align = Align(Align.Horizontal.RIGHT, Align.Vertical.DOWN)) {
 
     private val amplifier by BoolValue("Amplifier", false)
 

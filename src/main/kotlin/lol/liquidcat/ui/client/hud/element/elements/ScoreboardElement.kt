@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.modules.render.NoScoreboard
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Align
 import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.color.ColorUtils
@@ -33,10 +33,8 @@ import java.awt.Color
  *
  * Allows to move and customize minecraft scoreboard
  */
-@ElementInfo(name = "Scoreboard", force = true)
-class ScoreboardElement(x: Double = 5.0, y: Double = 0.0, scale: Float = 1F,
-                        side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.MIDDLE)
-) : Element(x, y, scale, side) {
+@ElementInfo("Scoreboard", true)
+class ScoreboardElement : Element(5.0, 0.0, align = Align(Align.Horizontal.RIGHT, Align.Vertical.MIDDLE)) {
 
     private val textRed by IntValue("Text-R", 255, 0..255)
     private val textGreen by IntValue("Text-G", 255, 0..255)

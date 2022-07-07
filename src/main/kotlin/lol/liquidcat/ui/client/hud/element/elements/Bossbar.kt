@@ -8,7 +8,7 @@ package lol.liquidcat.ui.client.hud.element.elements
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Align
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.FloatValue
 import lol.liquidcat.value.IntValue
@@ -16,8 +16,8 @@ import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.minecraft.entity.boss.BossStatus
 import java.awt.Color
 
-@ElementInfo(name = "Bossbar", force = true, single = true)
-class Bossbar(x: Double = 0.0, y: Double = 0.0, side: Side = Side(Side.Horizontal.MIDDLE, Side.Vertical.UP)) : Element(x, y, side = side) {
+@ElementInfo("Bossbar", true, true)
+class Bossbar : Element(0.0, 0.0, align = Align(Align.Horizontal.MIDDLE, Align.Vertical.UP)) {
 
     private var red by IntValue("Red", 80, 0..255)
     private var green by IntValue("Green", 120, 0..255)

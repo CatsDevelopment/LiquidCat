@@ -70,8 +70,7 @@ class HUD {
                 if (designer)
                     element.border?.draw()
             } catch (ex: Exception) {
-                LiquidCat.logger
-                        .error("Something went wrong while drawing ${element.name} element in HUD.", ex)
+                LiquidCat.logger.error("Something went wrong while drawing ${element.name} element in HUD.", ex)
             }
 
             GL11.glPopMatrix()
@@ -119,6 +118,7 @@ class HUD {
         val scaledResolution = ScaledResolution(mc)
 
         for (element in elements) {
+
             val scaledX = mouseX / element.scale
             val scaledY = mouseY / element.scale
             val prevMouseX = element.prevMouseX
@@ -147,6 +147,7 @@ class HUD {
 
                 if ((element.renderX + minX + moveX >= 0.0 || moveX > 0) && (element.renderX + maxX + moveX <= width || moveX < 0))
                     element.renderX = moveX.toDouble()
+
                 if ((element.renderY + minY + moveY >= 0.0 || moveY > 0) && (element.renderY + maxY + moveY <= height || moveY < 0))
                     element.renderY = moveY.toDouble()
             }
@@ -187,10 +188,5 @@ class HUD {
     /**
      * Add [notification]
      */
-    fun addNotification(notification: Notification) = elements.any { it is Notifications } && notifications.add(notification)
-
-    /**
-     * Remove [notification]
-     */
-    fun removeNotification(notification: Notification) = notifications.remove(notification)
+    fun addNotification(notification: Notification) = notifications.add(notification)
 }

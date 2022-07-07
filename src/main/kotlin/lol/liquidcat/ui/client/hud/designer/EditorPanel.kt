@@ -11,7 +11,7 @@ import lol.liquidcat.ui.client.hud.HUD.Companion.createDefault
 import lol.liquidcat.ui.client.hud.HUD.Companion.elements
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Align
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.*
 import net.ccbluex.liquidbounce.ui.font.Fonts
@@ -227,21 +227,21 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
 
         // Horizontal
         Fonts.nunito35.drawString("H:", x + 2, y + height, Color.WHITE.rgb)
-        Fonts.nunito35.drawString(element.side.horizontal.sideName,
+        Fonts.nunito35.drawString(element.align.horizontal.title,
                 x + 12, y + height, Color.GRAY.rgb)
 
         if (Mouse.isButtonDown(0) && !mouseDown && mouseX >= x && mouseX <= x + width && mouseY >= y + height
                 && mouseY <= y + height + 10) {
-            val values = Side.Horizontal.values()
-            val currIndex = values.indexOf(element.side.horizontal)
+            val values = Align.Horizontal.values()
+            val currIndex = values.indexOf(element.align.horizontal)
 
             val x = element.renderX
 
-            element.side.horizontal = values[if (currIndex + 1 >= values.size) 0 else currIndex + 1]
-            element.x = when (element.side.horizontal) {
-                Side.Horizontal.LEFT -> x
-                Side.Horizontal.MIDDLE -> (ScaledResolution(mc).scaledWidth / 2) - x
-                Side.Horizontal.RIGHT -> ScaledResolution(mc).scaledWidth - x
+            element.align.horizontal = values[if (currIndex + 1 >= values.size) 0 else currIndex + 1]
+            element.x = when (element.align.horizontal) {
+                Align.Horizontal.LEFT -> x
+                Align.Horizontal.MIDDLE -> (ScaledResolution(mc).scaledWidth / 2) - x
+                Align.Horizontal.RIGHT -> ScaledResolution(mc).scaledWidth - x
             }
         }
 
@@ -250,20 +250,20 @@ class EditorPanel(private val hudDesigner: GuiHudDesigner, var x: Int, var y: In
 
         // Vertical
         Fonts.nunito35.drawString("V:", x + 2, y + height, Color.WHITE.rgb)
-        Fonts.nunito35.drawString(element.side.vertical.sideName,
+        Fonts.nunito35.drawString(element.align.vertical.title,
                 x + 12, y + height, Color.GRAY.rgb)
 
         if (Mouse.isButtonDown(0) && !mouseDown && mouseX >= x && mouseX <= x + width && mouseY >= y + height && mouseY <= y + height + 10) {
-            val values = Side.Vertical.values()
-            val currIndex = values.indexOf(element.side.vertical)
+            val values = Align.Vertical.values()
+            val currIndex = values.indexOf(element.align.vertical)
 
             val y = element.renderY
 
-            element.side.vertical = values[if (currIndex + 1 >= values.size) 0 else currIndex + 1]
-            element.y = when (element.side.vertical) {
-                Side.Vertical.UP -> y
-                Side.Vertical.MIDDLE -> (ScaledResolution(mc).scaledHeight / 2) - y
-                Side.Vertical.DOWN -> ScaledResolution(mc).scaledHeight - y
+            element.align.vertical = values[if (currIndex + 1 >= values.size) 0 else currIndex + 1]
+            element.y = when (element.align.vertical) {
+                Align.Vertical.UP -> y
+                Align.Vertical.MIDDLE -> (ScaledResolution(mc).scaledHeight / 2) - y
+                Align.Vertical.DOWN -> ScaledResolution(mc).scaledHeight - y
             }
 
         }

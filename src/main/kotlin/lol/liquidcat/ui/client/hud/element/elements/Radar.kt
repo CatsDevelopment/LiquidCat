@@ -8,7 +8,7 @@ package lol.liquidcat.ui.client.hud.element.elements
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Align
 import lol.liquidcat.utils.entity.EntityUtils
 import lol.liquidcat.utils.entity.renderPos
 import lol.liquidcat.utils.mc
@@ -24,8 +24,8 @@ import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.sin
 
-@ElementInfo(name = "Radar", single = true)
-class Radar(x: Double = 4.0, y: Double = 32.0, scale: Float = 1F, side: Side = Side(Side.Horizontal.LEFT, Side.Vertical.UP)) : Element(x, y, scale, side) {
+@ElementInfo("Radar", true)
+class Radar : Element(4.0, 32.0, align = Align(Align.Horizontal.LEFT, Align.Vertical.UP)) {
 
     private val red by IntValue("Red", 40, 0..255)
     private val green by IntValue("Green", 100, 0..255)

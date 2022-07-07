@@ -10,9 +10,9 @@ import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
-import lol.liquidcat.ui.client.hud.element.Side.Horizontal
-import lol.liquidcat.ui.client.hud.element.Side.Vertical
+import lol.liquidcat.ui.client.hud.element.Align
+import lol.liquidcat.ui.client.hud.element.Align.Horizontal
+import lol.liquidcat.ui.client.hud.element.Align.Vertical
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.color.ColorUtils
 import lol.liquidcat.value.*
@@ -25,10 +25,8 @@ import java.awt.Color
  *
  * Shows a list of enabled modules
  */
-@ElementInfo(name = "Arraylist", single = true)
-class Arraylist(x: Double = 5.0, y: Double = 5.0, scale: Float = 1f,
-                side: Side = Side(Horizontal.RIGHT, Vertical.UP)
-) : Element(x, y, scale, side) {
+@ElementInfo("Arraylist", true)
+class Arraylist : Element(5.0, 5.0, align = Align(Horizontal.RIGHT, Vertical.UP)) {
 
     private val textColorMode by ListValue("Text-Color", arrayOf("Static", "Fade", "Rainbow"), "Fade")
 

@@ -28,7 +28,7 @@ import javax.imageio.ImageIO
  *
  * Draw custom image
  */
-@ElementInfo(name = "Image")
+@ElementInfo("Image")
 class Image : Element() {
 
     companion object {
@@ -124,5 +124,4 @@ class Image : Element() {
 
         return this
     }
-
 }

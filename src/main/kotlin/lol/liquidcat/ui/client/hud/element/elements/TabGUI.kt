@@ -11,7 +11,7 @@ import lol.liquidcat.features.module.ModuleManager
 import lol.liquidcat.ui.client.hud.element.Border
 import lol.liquidcat.ui.client.hud.element.Element
 import lol.liquidcat.ui.client.hud.element.ElementInfo
-import lol.liquidcat.ui.client.hud.element.Side
+import lol.liquidcat.ui.client.hud.element.Align
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.utils.render.color.ColorUtils.rainbow
 import lol.liquidcat.value.BoolValue
@@ -25,8 +25,8 @@ import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.input.Keyboard
 import java.awt.Color
 
-@ElementInfo(name = "TabGUI")
-class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
+@ElementInfo("TabGUI")
+class TabGUI : Element(5.0, 25.0) {
 
     private val rectRed by IntValue("Rectangle Red", 0, 0..255)
     private val rectGreen by IntValue("Rectangle Green", 148, 0..255)
@@ -117,7 +117,7 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
             else
                 tab.tabName
 
-            val textX = if (side.horizontal == Side.Horizontal.RIGHT)
+            val textX = if (align.horizontal == Align.Horizontal.RIGHT)
                 width - font.getStringWidth(tabName) - tab.textFade - 3
             else
                 tab.textFade + 5
@@ -128,7 +128,7 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
             font.drawString(tabName, textX, textY, textColor, shadow)
 
             if (arrows) {
-                if (side.horizontal == Side.Horizontal.RIGHT)
+                if (align.horizontal == Align.Horizontal.RIGHT)
                     font.drawString(if (!categoryMenu && selectedCategory == index) ">" else "<", 3F, y + 2F,
                             0xffffff, shadow)
                 else
@@ -137,7 +137,7 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
             }
 
             if (index == selectedCategory && !categoryMenu) {
-                val tabX = if (side.horizontal == Side.Horizontal.RIGHT)
+                val tabX = if (align.horizontal == Align.Horizontal.RIGHT)
                     1F - tab.menuWidth
                 else
                     width + 5
@@ -165,8 +165,8 @@ class TabGUI(x: Double = 5.0, y: Double = 25.0) : Element(x = x, y = y) {
         when (keyCode) {
             Keyboard.KEY_UP -> parseAction(Action.UP)
             Keyboard.KEY_DOWN -> parseAction(Action.DOWN)
-            Keyboard.KEY_RIGHT -> parseAction(if (side.horizontal == Side.Horizontal.RIGHT) Action.LEFT else Action.RIGHT)
-            Keyboard.KEY_LEFT -> parseAction(if (side.horizontal == Side.Horizontal.RIGHT) Action.RIGHT else Action.LEFT)
+            Keyboard.KEY_RIGHT -> parseAction(if (align.horizontal == Align.Horizontal.RIGHT) Action.LEFT else Action.RIGHT)
+            Keyboard.KEY_LEFT -> parseAction(if (align.horizontal == Align.Horizontal.RIGHT) Action.RIGHT else Action.LEFT)
             Keyboard.KEY_RETURN -> parseAction(Action.TOGGLE)
         }
     }

@@ -33,8 +33,8 @@ import kotlin.math.sqrt
  *
  * Allows to draw custom text
  */
-@ElementInfo(name = "Text")
-class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1F) : Element(x, y, scale) {
+@ElementInfo("Text")
+class Text(x: Double = 10.0, y: Double = 10.0, scale: Float = 1f) : Element(x, y, scale) {
 
     companion object {
 

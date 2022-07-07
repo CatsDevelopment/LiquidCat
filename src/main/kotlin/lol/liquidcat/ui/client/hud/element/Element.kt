@@ -5,49 +5,33 @@
  */
 package lol.liquidcat.ui.client.hud.element
 
-import lol.liquidcat.utils.mc
 import lol.liquidcat.utils.render.GLUtils
 import lol.liquidcat.value.Value
-import net.minecraft.client.gui.ScaledResolution
 import kotlin.math.max
 import kotlin.math.min
 
-abstract class Element(var x: Double = 2.0, var y: Double = 2.0, var scale: Float = 1f, var side: Side = Side()) {
+abstract class Element(var x: Double = 2.0, var y: Double = 2.0, var scale: Float = 1f, var align: Align = Align()) {
 
     val info = javaClass.getAnnotation(ElementInfo::class.java)
             ?: throw IllegalArgumentException("Passed element with missing element info")
 
-    val name: String
+    val name
         get() = info.name
 
-    var renderX: Double
-        get() {
-            val sr = ScaledResolution(mc)
+    var renderX
+        get() = align.alignX(x)
 
-            return when (side.horizontal) {
-                Side.Horizontal.LEFT -> x
-                Side.Horizontal.MIDDLE -> (sr.scaledWidth / 2) - x
-                Side.Horizontal.RIGHT -> sr.scaledWidth - x
-            }
-        }
-        set(value) = when (side.horizontal) {
-            Side.Horizontal.LEFT -> x += value
-            Side.Horizontal.MIDDLE, Side.Horizontal.RIGHT -> x -= value
+        set(value) = when (align.horizontal) {
+            Align.Horizontal.LEFT -> x += value
+            Align.Horizontal.MIDDLE, Align.Horizontal.RIGHT -> x -= value
         }
 
-    var renderY: Double
-        get() {
-            val sr = ScaledResolution(mc)
+    var renderY
+        get() = align.alignY(y)
 
-            return when (side.vertical) {
-                Side.Vertical.UP -> y
-                Side.Vertical.MIDDLE -> (sr.scaledHeight / 2) - y
-                Side.Vertical.DOWN -> sr.scaledHeight - y
-            }
-        }
-        set(value) = when (side.vertical) {
-            Side.Vertical.UP -> y += value
-            Side.Vertical.MIDDLE, Side.Vertical.DOWN -> y -= value
+        set(value) = when (align.vertical) {
+            Align.Vertical.UP -> y += value
+            Align.Vertical.MIDDLE, Align.Vertical.DOWN -> y -= value
         }
 
     var border: Border? = null
