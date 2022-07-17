@@ -60,77 +60,80 @@ class Arraylist : Element(5.0, 5.0, align = Align(Horizontal.RIGHT, Vertical.UP)
     private var modules = emptyList<Module>()
 
     override fun drawElement(): Border {
-
-        if (blur) {
-            GLUtils.blur(10) {
-
-                GL11.glPushMatrix()
-
-                modules.forEachIndexed { index, module ->
-
-                    val text = getModuleText(module)
-                    val width = font.getStringWidth(text)
+        if (modules.isNotEmpty()) {
+            if (blur) {
+                GLUtils.blur(10) {
 
                     GL11.glPushMatrix()
 
-                    GL11.glTranslatef(
-                        -width + ((1f - module.slideAnim.value.toFloat()) * width),
-                        (font.FONT_HEIGHT + 4f) * index,
-                        0f
-                    )
+                    modules.forEachIndexed { index, module ->
 
-                    GLUtils.drawRect(-2f, -2f, width + 2f, font.FONT_HEIGHT + 2f, -1)
+                        val text = getModuleText(module)
+                        val width = font.getStringWidth(text)
+
+                        GL11.glPushMatrix()
+
+                        GL11.glTranslatef(
+                            -width + ((1f - module.slideAnim.value.toFloat()) * width),
+                            (font.FONT_HEIGHT + 4f) * index,
+                            0f
+                        )
+
+                        GLUtils.drawRect(-2f, -2f, width + 2f, font.FONT_HEIGHT + 2f, -1)
+
+                        GL11.glPopMatrix()
+                    }
 
                     GL11.glPopMatrix()
                 }
-
-                GL11.glPopMatrix()
             }
-        }
-
-        GL11.glPushMatrix()
-
-        modules.forEachIndexed { index, module ->
-
-            module.slideAnim.update()
-
-            val text = getModuleText(module)
-            val width = font.getStringWidth(text)
 
             GL11.glPushMatrix()
 
-            GL11.glTranslatef(
-                -width + ((1f - module.slideAnim.value.toFloat()) * width),
-                (font.FONT_HEIGHT + 4f) * index,
-                0f
-            )
+            modules.forEachIndexed { index, module ->
 
-            GLUtils.drawRect(-2f, -2f, width + 2f, font.FONT_HEIGHT + 2f, Color(bgRed, bgGreen, bgBlue, bgAlpha).rgb)
+                module.slideAnim.update()
 
-            font.drawString(text, 0f, font.FONT_HEIGHT / 2 - 4f, when (textColorMode) {
+                val text = getModuleText(module)
+                val width = font.getStringWidth(text)
 
-                "Fade" -> ColorUtils.fade(
-                    Color(textRed, textGreen, textBlue),
-                    Color(textRed2, textGreen2, textBlue2),
-                    0.001 * fadeSpeed.toDouble(),
-                    index * fadeOffset.toDouble()
-                ).rgb
+                GL11.glPushMatrix()
 
-                "Rainbow" -> ColorUtils.rainbow(
-                    speed = 0.0005 * rainbowSpeed.toDouble(),
-                    offset = index * 0.95
-                ).rgb
+                GL11.glTranslatef(
+                    -width + ((1f - module.slideAnim.value.toFloat()) * width),
+                    (font.FONT_HEIGHT + 4f) * index,
+                    0f
+                )
 
-                else -> Color(textRed, textGreen, textBlue).rgb
-            }, shadow)
+                GLUtils.drawRect(-2f, -2f, width + 2f, font.FONT_HEIGHT + 2f, Color(bgRed, bgGreen, bgBlue, bgAlpha).rgb)
+
+                font.drawString(text, 0f, font.FONT_HEIGHT / 2 - 4f, when (textColorMode) {
+
+                    "Fade" -> ColorUtils.fade(
+                        Color(textRed, textGreen, textBlue),
+                        Color(textRed2, textGreen2, textBlue2),
+                        0.001 * fadeSpeed.toDouble(),
+                        index * fadeOffset.toDouble()
+                    ).rgb
+
+                    "Rainbow" -> ColorUtils.rainbow(
+                        speed = 0.0005 * rainbowSpeed.toDouble(),
+                        offset = index * 0.95
+                    ).rgb
+
+                    else -> Color(textRed, textGreen, textBlue).rgb
+                }, shadow)
+
+                GL11.glPopMatrix()
+            }
 
             GL11.glPopMatrix()
+
+            return Border(-font.getStringWidth(getModuleText(modules.first())).toFloat() - 2f, -2f, 2f, modules.size * (font.FONT_HEIGHT + 4f) - 2f)
         }
 
-        GL11.glPopMatrix()
-
         // Draw border
-        return Border(-font.getStringWidth(getModuleText(modules.first())).toFloat() - 2f, -2f, 2f, modules.size * (font.FONT_HEIGHT + 4f) - 2f)
+        return Border(-40 - 2f, -2f, 2f, (font.FONT_HEIGHT + 8f) - 2f)
     }
 
     private fun getModuleText(module: Module): String {

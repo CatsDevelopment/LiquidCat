@@ -61,7 +61,7 @@ public abstract class MixinGuiScreen {
         GlStateManager.disableLighting();
         GlStateManager.disableFog();
 
-        GLUtils.drawImage(new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/images/menu_background.png"), 0, 0, width, height);
+        GLUtils.drawImage(new ResourceLocation(LiquidCat.CLIENT_NAME.toLowerCase() + "/images/menu/background.png"), 0, 0, width, height);
         callbackInfo.cancel();
     }
 

@@ -36,7 +36,7 @@ class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
         drawBackground(0)
 
         GlStateManager.enableTexture2D()
-        GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.lowercase() + "/images/menu_client_logo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
+        GLUtils.drawImage(ResourceLocation(LiquidCat.CLIENT_NAME.lowercase() + "/images/menu/logo.png"), width / 2 - 200, height / 2 - 150, 400, 300)
         GlStateManager.disableTexture2D()
 
         Fonts.nunito35.drawString("${LiquidCat.CLIENT_NAME} ${LiquidCat.CLIENT_VERSION}", 10f, height - Fonts.nunito40.FONT_HEIGHT * 2 - 5f, Color.WHITE.rgb)

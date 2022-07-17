@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
+import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
@@ -22,6 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.Color;
 
+import lol.liquidcat.event.EventManager;
+import lol.liquidcat.event.Render2DEvent;
 import lol.liquidcat.features.module.modules.render.AntiBlind;
 import lol.liquidcat.features.module.modules.render.HUD;
 import lol.liquidcat.features.module.modules.render.NoScoreboard;
@@ -71,6 +74,9 @@ public abstract class MixinGuiInGame {
 
             callbackInfo.cancel();
         }
+
+        EventManager.callEvent(new Render2DEvent(partialTicks));
+        AWTFontRenderer.Companion.garbageCollectionTick();
     }
 
     @Inject(method = "renderBossHealth", at = @At("HEAD"), cancellable = true)
